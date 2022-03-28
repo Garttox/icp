@@ -1,0 +1,1 @@
+README.txt je txt protože to tak je v zadání
