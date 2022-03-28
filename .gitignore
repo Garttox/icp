@@ -1,0 +1,4 @@
+#ignore visual studio files
+src/icp/.vs/
+#ignore build files
+src/icp/out/
