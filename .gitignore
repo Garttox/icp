@@ -1,5 +1,6 @@
-#ignore visual studio files
-src/icp/.vs/
 #ignore build files
-src/icp/out/
-src/build-icp-Desktop_Qt_5_9_0_MSVC2017_64bit-Debug
+src/out/
+src/debug
+src/release
+src/Makefile*
+build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug/

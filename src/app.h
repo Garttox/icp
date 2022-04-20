@@ -3,19 +3,23 @@
 
 #include <QMainWindow>
 
-QT_BEGIN_NAMESPACE
-namespace Ui { class App; }
-QT_END_NAMESPACE
+namespace Ui {
+class App;
+}
 
 class App : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    App(QWidget *parent = nullptr);
+    explicit App(QWidget *parent = 0);
     ~App();
+
+private slots:
+    void on_actionLoad_triggered();
 
 private:
     Ui::App *ui;
 };
+
 #endif // APP_H

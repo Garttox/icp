@@ -1,0 +1,121 @@
+{
+    "classes": [
+      {
+        "name": "ClassA",
+        "type": "CLASS",
+        "posX": 89,
+        "posY": 433,
+        "width": 505,
+        "height": 177,
+        "fields": [
+          {
+            "name": "field1",
+            "type": "String",
+            "access": "-"
+          },
+          {
+            "name": "field2",
+            "type": "Int64",
+            "access": "#"
+          }
+        ],
+        "methods": [
+          {
+            "parameters": [],
+            "name": "method1",
+            "type": "Void",
+            "access": "+"
+          },
+          {
+            "parameters": [
+              {
+                "name": "param1",
+                "type": "Int"
+              },
+              {
+                "name": "param2",
+                "type": "Double"
+              }
+            ],
+            "name": "method2",
+            "type": "String",
+            "access": "#"
+          }
+        ]
+      },
+      {
+        "name": "ClassB",
+        "type": "CLASS",
+        "posX": 200,
+        "posY": 177,
+        "width": 281,
+        "height": 90,
+        "fields": [
+          {
+            "name": "field1Package",
+            "type": "Int",
+            "access": "~"
+          }
+        ],
+        "methods": []
+      },
+      {
+        "name": "InterfaceA",
+        "type": "INTERFACE",
+        "posX": 716,
+        "posY": 463,
+        "width": 249,
+        "height": 119,
+        "fields": [
+          {
+            "name": "field1",
+            "type": "Int",
+            "access": "+"
+          }
+        ],
+        "methods": [
+          {
+            "parameters": [],
+            "name": "method",
+            "type": "Void",
+            "access": "+"
+          }
+        ]
+      }
+    ],
+    "relations": [
+      {
+        "source": "ClassA",
+        "destination": "ClassB",
+        "type": "ASSOCIATION"
+      },
+      {
+        "source": "InterfaceA",
+        "destination": "ClassA",
+        "type": "GENERALISATION"
+      }
+    ],
+    "instances": [
+      {
+        "name": "InstanceA",
+        "className": "ClassA",
+        "posX": 10
+      },
+      {
+        "name": "InstanceB",
+        "className": "ClassB",
+        "posX": 230
+      }
+    ],
+    "calls": [
+      {
+        "source": "InstanceB",
+        "destination": "InstanceA",
+        "method": "method1",
+        "returns": true,
+        "sync": true,
+        "length": 100,
+        "text": "My call"
+      }
+    ]
+  }
