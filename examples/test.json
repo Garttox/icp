@@ -5,8 +5,6 @@
         "type": "CLASS",
         "posX": 89,
         "posY": 433,
-        "width": 505,
-        "height": 177,
         "fields": [
           {
             "name": "field1",
@@ -48,8 +46,6 @@
         "type": "CLASS",
         "posX": 200,
         "posY": 177,
-        "width": 281,
-        "height": 90,
         "fields": [
           {
             "name": "field1Package",
@@ -64,8 +60,6 @@
         "type": "INTERFACE",
         "posX": 716,
         "posY": 463,
-        "width": 249,
-        "height": 119,
         "fields": [
           {
             "name": "field1",
