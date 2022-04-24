@@ -2,24 +2,37 @@
 #define APP_H
 
 #include <QMainWindow>
+#include <QGraphicsView>
 
-namespace Ui {
-class App;
-}
+class UMLData;
 
 class App : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit App(QWidget *parent = 0);
-    ~App();
+    App(QWidget *parent = 0);
 
 private slots:
-    void on_actionLoad_triggered();
+    void loadFile();
+    void saveFile();
+    void addClass();
 
 private:
-    Ui::App *ui;
+    QGraphicsScene *scene;
+    QGraphicsView *view;
+    QMenu *mainMenu;
+    QToolBar *toolBar;
+
+    QAction *fileLoad;
+    QAction *fileSave;
+    QAction *addClassAction;
+
+    UMLData *umlData;
+
+    void createActions();
+    void createMainMenu();
+    void createToolBar();
 };
 
 #endif // APP_H

@@ -13,10 +13,30 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        app.cpp
+        app.cpp \
+        model/umlaccesstype.cpp \
+        model/umlclassdata.cpp \
+        model/umldata.cpp \
+        model/umlfielddata.cpp \
+        model/umlidentifier.cpp \
+        model/umlmethoddata.cpp \
+        model/umlmethodparameterdata.cpp \
+        model/umlrelationdata.cpp \
+        model/umlrelationtype.cpp \
+        ui/classes/umlclass.cpp
 
-HEADERS  += app.h
+HEADERS  += app.h \
+    model/umlaccesstype.h \
+    model/umlclassdata.h \
+    model/umldata.h \
+    model/umlfielddata.h \
+    model/umlidentifier.h \
+    model/umlmethoddata.h \
+    model/umlmethodparameterdata.h \
+    model/umlrelationdata.h \
+    model/umlrelationtype.h \
+    ui/classes/umlclass.h
 
-FORMS    += app.ui
+FORMS    +=
 
 CONFIG += c++17
