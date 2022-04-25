@@ -14,6 +14,7 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         app.cpp \
+        model/dataprovider.cpp \
         model/umlaccesstype.cpp \
         model/umlclassdata.cpp \
         model/umldata.cpp \
@@ -23,9 +24,10 @@ SOURCES += main.cpp\
         model/umlmethodparameterdata.cpp \
         model/umlrelationdata.cpp \
         model/umlrelationtype.cpp \
-        ui/classes/umlclass.cpp
+        view/classes/umlclass.cpp
 
 HEADERS  += app.h \
+    model/dataprovider.h \
     model/umlaccesstype.h \
     model/umlclassdata.h \
     model/umldata.h \
@@ -35,7 +37,7 @@ HEADERS  += app.h \
     model/umlmethodparameterdata.h \
     model/umlrelationdata.h \
     model/umlrelationtype.h \
-    ui/classes/umlclass.h
+    view/classes/umlclass.h
 
 FORMS    +=
 

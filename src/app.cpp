@@ -19,9 +19,10 @@
 #include "model\umlmethodparameterdata.h"
 #include "model\umlrelationtype.h"
 #include "model\umlrelationdata.h"
+#include "model\dataprovider.h"
 
 App::App(QWidget *parent) :
-    QMainWindow(parent), umlData(new UMLData())
+    QMainWindow(parent), dataProvider(DataProvider::getInstance())
 {
     view = new QGraphicsView(this);
     scene = new QGraphicsScene(view);
@@ -38,9 +39,10 @@ App::App(QWidget *parent) :
     createMainMenu();
     createToolBar();
 
-    //umlData = new UMLData();
-
     setWindowTitle(tr("UMLiBubli"));
+
+    UMLData* umlData = new UMLData();
+    dataProvider.setUMLData(umlData);
 }
 
 void App::createActions()
@@ -75,7 +77,7 @@ void App::createToolBar()
 
 void App::loadFile()
 {
-    umlData->clearData();
+    UMLData *umlData = dataProvider.getUMLData();
 
     QString fileName = QFileDialog::getOpenFileName(this, "Open a file");
     qInfo() << fileName;

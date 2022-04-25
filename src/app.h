@@ -5,6 +5,7 @@
 #include <QGraphicsView>
 
 class UMLData;
+class DataProvider;
 
 class App : public QMainWindow
 {
@@ -28,7 +29,7 @@ private:
     QAction *fileSave;
     QAction *addClassAction;
 
-    UMLData *umlData;
+    DataProvider& dataProvider;
 
     void createActions();
     void createMainMenu();
