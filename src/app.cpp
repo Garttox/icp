@@ -91,7 +91,7 @@ void App::createToolBar()
 void App::loadFile()
 {
     UMLData *umlData = DataProvider::getInstance().getUMLData();
-
+    umlData->clearData();
     QString fileName = QFileDialog::getOpenFileName(this, "Open a file");
     qInfo() << fileName;
     QJsonDocument doc;
@@ -156,8 +156,6 @@ void App::loadFile()
         umlData->addClass(classData);
         UMLClass *cls = new UMLClass(classData);
         cls->setPos(QPoint(classData->getPosX(), classData->getPosY()));
-        scene->addItem(cls);
-        scene->clearSelection();
     }
 
 

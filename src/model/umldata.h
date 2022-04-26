@@ -23,6 +23,7 @@ public slots:
     void relationModelChanged();
 signals:
     void classModelAdded(UMLClassData *classData);
+    void umlModelCleared();
 private:
     QSet<UMLClassData *> *classes;
     QSet<UMLRelationData *> *relations;

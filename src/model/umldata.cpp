@@ -31,6 +31,7 @@ void UMLData::addRelation(UMLRelationData *relation)
 
 void UMLData::clearData()
 {
+    emit umlModelCleared();
     classes->clear();
     relations->clear();
 }

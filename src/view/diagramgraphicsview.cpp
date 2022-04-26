@@ -16,12 +16,18 @@ ClassDiagramGraphicsView::ClassDiagramGraphicsView(QWidget* parent)
     setTransformationAnchor(QGraphicsView::NoAnchor);
     UMLData* umlData = DataProvider::getInstance().getUMLData();
     connect(umlData, SIGNAL(classModelAdded(UMLClassData*)), this, SLOT(classModelAdded(UMLClassData*)));
+    connect(umlData, SIGNAL(umlModelCleared()), this, SLOT(umlModelCleared()));
 }
 
 void ClassDiagramGraphicsView::classModelAdded(UMLClassData *classData)
 {
     UMLClass *umlClass = new UMLClass(classData);
     scene()->addItem(umlClass);
+}
+
+void ClassDiagramGraphicsView::umlModelCleared()
+{
+    scene()->clear();
 }
 
 void ClassDiagramGraphicsView::mousePressEvent(QMouseEvent* event)
