@@ -6,19 +6,20 @@ UMLAccessType::UMLAccessType(AccessType type)
 
 UMLAccessType::UMLAccessType(QString strType)
 {
-    if (strType == "PUBLIC")
+    const QString strTypeNormalized = strType.toUpper();
+    if (strTypeNormalized == "PUBLIC")
         type = PUBLIC;
-    else if (strType == "PRIVATE")
+    else if (strTypeNormalized == "PRIVATE")
         type = PRIVATE;
-    else if (strType == "PROTECTED")
+    else if (strTypeNormalized == "PROTECTED")
         type = PROTECTED;
-    else if (strType == "PACKAGE")
+    else if (strTypeNormalized == "PACKAGE")
         type = PACKAGE;
     else
         type = PUBLIC;
 }
 
-QString UMLAccessType::toString()
+QString UMLAccessType::toString() const
 {
     switch(type)
     {
@@ -33,6 +34,29 @@ QString UMLAccessType::toString()
         default:
             return "";
     }
+}
+
+QString UMLAccessType::toDisplayString() const
+{
+    switch(type)
+    {
+        case PUBLIC:
+            return QString("Public");
+        case PRIVATE:
+            return QString("Private");
+        case PROTECTED:
+            return QString("Protected");
+        case PACKAGE:
+            return QString("Package");
+        default:
+            return "";
+    }
+}
+
+QStringList UMLAccessType::asStringList()
+{
+    QStringList list = { "Public", "Private", "Protected", "Package" };
+    return list;
 }
 
 bool UMLAccessType::operator==(const AccessType rhs)

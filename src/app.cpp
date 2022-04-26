@@ -14,6 +14,15 @@
 #include "view\diagramgraphicsview.h"
 #include "view\classes\umlclass.h"
 #include "view\classes\newclassdialog.h"
+#include "model\umldata.h"
+#include "model\umlclassdata.h"
+#include "model\umlfielddata.h"
+#include "model\umlmethoddata.h"
+#include "model\umlaccesstype.h"
+#include "model\umlmethodparameterdata.h"
+#include "model\umlrelationtype.h"
+#include "model\umlrelationdata.h"
+#include "model\dataprovider.h"
 #include "ui_newclassdialog.h"
 
 App::App(QWidget *parent) :

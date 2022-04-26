@@ -14,12 +14,12 @@ UMLClassType::UMLClassType(QString strClassType)
         type = CLASS;
 }
 
-bool UMLClassType::operator==(const ClassType rhs)
+bool UMLClassType::operator==(const ClassType rhs) const
 {
     return type == rhs;
 }
 
-bool UMLClassType::operator==(const UMLClassType& rhs)
+bool UMLClassType::operator==(const UMLClassType& rhs) const
 {
     return type == rhs.type;
 }

@@ -1,7 +1,7 @@
 #include "umlclassdata.h"
 
 UMLClassData::UMLClassData(QString name, UMLClassType type, int posX, int posY) :
-    name(name), type(type), posX(posX), posY(posY), fields(new QSet<UMLFieldData*>()), methods(new QSet<UMLMethodData*>())
+    name(name), type(type), posX(posX), posY(posY), fields(new QList<UMLFieldData*>()), methods(new QList<UMLMethodData*>())
 {
 }
 
@@ -15,46 +15,71 @@ UMLClassData::~UMLClassData()
     delete fields;
 }
 
+void UMLClassData::setName(QString name)
+{
+    this->name = name;
+}
+
 void UMLClassData::addMethod(UMLMethodData *method)
 {
-    methods->insert(method);
+    methods->append(method);
     connect(method, &UMLMethodData::modelChanged, this, &UMLClassData::methodModelChanged);
 }
 
 void UMLClassData::addField(UMLFieldData *field)
 {
-    fields->insert(field);
+    fields->append(field);
     connect(field, &UMLFieldData::modelChanged, this, &UMLClassData::fieldModelChanged);
 }
 
-QString UMLClassData::getName()
+void UMLClassData::removeFieldAt(int index)
+{
+    fields->removeAt(index);
+}
+
+void UMLClassData::removeMethodAt(int index)
+{
+    methods->removeAt(index);
+}
+
+QString UMLClassData::getName() const
 {
     return name;
 }
 
-QString UMLClassData::getDisplayName()
+QString UMLClassData::getDisplayName() const
 {
     if (type == UMLClassType::INTERFACE)
         return QString("%1 <<%2>>").arg(name, "Interface");
     return name;
 }
 
-QSet<UMLMethodData *> *UMLClassData::getMethods()
+QList<UMLMethodData *> *UMLClassData::getMethods() const
 {
     return methods;
 }
 
-QSet<UMLFieldData *> *UMLClassData::getFields()
+QList<UMLFieldData *> *UMLClassData::getFields() const
 {
     return fields;
 }
 
-int UMLClassData::getPosX()
+UMLFieldData *UMLClassData::getFieldAt(int index) const
+{
+    return fields->at(index);
+}
+
+UMLMethodData *UMLClassData::getMethodAt(int index) const
+{
+    return methods->at(index);
+}
+
+int UMLClassData::getPosX() const
 {
     return posX;
 }
 
-int UMLClassData::getPosY()
+int UMLClassData::getPosY() const
 {
     return posY;
 }

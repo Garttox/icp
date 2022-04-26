@@ -2,7 +2,7 @@
 #define UMLCLASSDATA_H
 
 #include <QString>
-#include <QSet>
+#include <QList>
 #include <QObject>
 
 #include "umlfielddata.h"
@@ -15,14 +15,20 @@ class UMLClassData : public QObject
 public:
     UMLClassData(QString name, UMLClassType type, int posX, int posY);
     ~UMLClassData();
+    void setName(QString name);
     void addField(UMLFieldData *field);
     void addMethod(UMLMethodData *method);
-    QString getName();
-    QString getDisplayName();
-    QSet<UMLMethodData *> *getMethods();
-    QSet<UMLFieldData *> *getFields();
-    int getPosX();
-    int getPosY();
+    void removeFieldAt(int index);
+    void removeMethodAt(int index);
+    QString getName() const;
+    QString getDisplayName() const;
+    UMLFieldData *getFieldAt(int index) const;
+    UMLMethodData *getMethodAt(int index) const;
+    QList<UMLMethodData *> *getMethods() const;
+    QList<UMLFieldData *> *getFields() const;
+    int getPosX() const;
+    int getPosY() const;
+    
 public slots:
     void fieldModelChanged();
     void methodModelChanged();
@@ -33,8 +39,8 @@ private:
     UMLClassType type;
     int posX;
     int posY;
-    QSet<UMLFieldData *> *fields;
-    QSet<UMLMethodData *> *methods;
+    QList<UMLFieldData *> *fields;
+    QList<UMLMethodData *> *methods;
 };
 
 #endif // UMLCLASSDATA_H
