@@ -7,8 +7,10 @@
 #include "model/umldata.h"
 #include "model/umlclassdata.h"
 #include "view/classes/editfielddialog.h"
+#include "view/classes/editmethoddialog.h"
 #include "ui_newclassdialog.h"
 #include "ui_editfielddialog.h"
+#include "ui_editmethoddialog.h"
 
 NewClassDialog::NewClassDialog(QWidget *parent) :
     QDialog(parent),
@@ -89,7 +91,16 @@ void NewClassDialog::on_addMethodButton_clicked()
 
 void NewClassDialog::on_editMethodButton_clicked()
 {
-    // TODO
+    QModelIndexList selectedItems = ui->methodsList->selectionModel()->selectedIndexes();
+    foreach (auto selectedItem, selectedItems)
+    {
+        int selectedRow = selectedItem.row();
+        UMLMethodData *umlMethodData = umlClassData->getMethodAt(selectedRow);
+        EditMethodDialog *editFieldDialog = new EditMethodDialog(umlMethodData);
+        editFieldDialog->exec();
+        ui->methodsList->takeItem(selectedRow);
+        ui->methodsList->insertItem(selectedRow, umlMethodData->toString());
+    }
 }
 
 void NewClassDialog::on_removeMethodButton_clicked()

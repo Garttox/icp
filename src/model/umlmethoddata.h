@@ -15,6 +15,8 @@ public:
     ~UMLMethodData();
     void addParameter(UMLMethodParameterData *parameter);
     QString toString();
+    QVector<UMLMethodParameterData *> getParameters() const;
+    void clearParameters();
 public slots:
     void parameterModelChanged();
 signals:

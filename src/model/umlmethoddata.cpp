@@ -26,6 +26,16 @@ QString UMLMethodData::toString()
     return str;
 }
 
+QVector<UMLMethodParameterData *> UMLMethodData::getParameters() const
+{
+    return this->parameters;
+}
+
+void UMLMethodData::clearParameters()
+{
+    parameters.clear();
+}
+
 // Slots
 
 void UMLMethodData::parameterModelChanged()
