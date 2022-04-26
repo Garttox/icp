@@ -21,6 +21,7 @@ private:
     QColor myTextColor;
     QColor myBackgroundColor;
     QColor myOutlineColor;
+    const qreal MIN_WIDTH = 60;
 
     QRectF outlineRect() const;
     qreal maxTextWidth() const;

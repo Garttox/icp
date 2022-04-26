@@ -29,6 +29,11 @@ void UMLClassData::addField(UMLFieldData *field)
 
 QString UMLClassData::getName()
 {
+    return name;
+}
+
+QString UMLClassData::getDisplayName()
+{
     if (type == UMLClassType::INTERFACE)
         return QString("%1 <<%2>>").arg(name, "Interface");
     return name;

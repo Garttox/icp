@@ -7,12 +7,7 @@
 
 #include "umlfielddata.h"
 #include "umlmethoddata.h"
-
-enum class UMLClassType
-{
-    CLASS,
-    INTERFACE
-};
+#include "umlclasstype.h"
 
 class UMLClassData : public QObject
 {
@@ -23,6 +18,7 @@ public:
     void addField(UMLFieldData *field);
     void addMethod(UMLMethodData *method);
     QString getName();
+    QString getDisplayName();
     QSet<UMLMethodData *> *getMethods();
     QSet<UMLFieldData *> *getFields();
     int getPosX();

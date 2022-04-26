@@ -1,6 +1,6 @@
 #include "umlrelationtype.h"
 
-UMLRelationType::UMLRelationType(UMLRelationTypeEnum type)
+UMLRelationType::UMLRelationType(RelationType type)
     : type(type)
 {}
 
@@ -16,4 +16,14 @@ UMLRelationType::UMLRelationType(QString strType)
         type = GENERALISATION;
     else
         type = ASSOCIATION;
+}
+
+bool UMLRelationType::operator==(const RelationType rhs)
+{
+    return type == rhs;
+}
+
+bool UMLRelationType::operator==(const UMLRelationType& rhs)
+{
+    return type == rhs.type;
 }

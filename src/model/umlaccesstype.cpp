@@ -24,18 +24,23 @@ QString UMLAccessType::toString()
     {
         case PUBLIC:
             return "+";
-            break;
         case PRIVATE:
             return "-";
-            break;
         case PROTECTED:
             return "#";
-            break;
         case PACKAGE:
             return "~";
-            break;
         default:
             return "";
-            break;
     }
+}
+
+bool UMLAccessType::operator==(const AccessType rhs)
+{
+    return type == rhs;
+}
+
+bool UMLAccessType::operator==(const UMLAccessType& rhs)
+{
+    return type == rhs.type;
 }

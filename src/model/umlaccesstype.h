@@ -16,6 +16,9 @@ public:
     UMLAccessType(AccessType type);
     UMLAccessType(QString type);
     QString toString();
+
+    bool operator==(const AccessType rhs);
+    bool operator==(const UMLAccessType& rhs);
 private:
     AccessType type;
 };

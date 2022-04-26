@@ -1,5 +1,6 @@
 #include <QtGui>
 #include <QStyleOptionGraphicsItem>
+#include <algorithm>
 
 #include "umlclass.h"
 
@@ -11,6 +12,8 @@ UMLClass::UMLClass(UMLClassData *umlClassData) : umlClassData(umlClassData)
 
     setFlags(ItemIsMovable | ItemIsSelectable);
     setFlag(ItemSendsGeometryChanges);
+
+    setPos(umlClassData->getPosX(), umlClassData->getPosY());
 }
 
 void UMLClass::paint(QPainter *painter,
@@ -82,30 +85,27 @@ qreal UMLClass::maxTextWidth() const
     QFontMetricsF metrics{qApp->font()};
     QSet<UMLFieldData *> *fields = umlClassData->getFields();
     QSet<UMLMethodData *> *methods = umlClassData->getMethods();
-    qreal maxWidth = metrics.width(umlClassData->getName());
+    qreal maxWidth = std::max(metrics.width(umlClassData->getName()), MIN_WIDTH);
 
     foreach(auto *method, *methods){
         qreal rowWidth = metrics.width(method->toString());
-        if (rowWidth >  maxWidth)
-            maxWidth = rowWidth;
+        maxWidth = std::max(rowWidth, maxWidth);
     }
 
     foreach(auto *field, *fields){
         qreal rowWidth = metrics.width(field->toString());
-        if (rowWidth >  maxWidth)
-            maxWidth = rowWidth;
+        maxWidth = std::max(rowWidth, maxWidth);
     }
     return maxWidth;
 }
 
 QRectF UMLClass::outlineRect() const
 {
-    const int Padding = 8;
+    const int padding = 12;
     QFontMetricsF metrics{qApp->font()};
     QSet<UMLFieldData *> *fields = umlClassData->getFields();
     QSet<UMLMethodData *> *methods = umlClassData->getMethods();
     QRectF rect = QRectF(0, 0, maxTextWidth(), (metrics.height())*(fields->size() + methods->size() + 1) + 10);
-    rect.adjust(-Padding, -Padding, +Padding, +Padding);
-    rect.translate(-rect.center());
+    rect.adjust(-padding, -padding, +padding, +padding);
     return rect;
 }

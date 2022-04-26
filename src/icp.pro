@@ -17,6 +17,7 @@ SOURCES += main.cpp\
         model/dataprovider.cpp \
         model/umlaccesstype.cpp \
         model/umlclassdata.cpp \
+        model/umlclasstype.cpp \
         model/umldata.cpp \
         model/umlfielddata.cpp \
         model/umlidentifier.cpp \
@@ -32,6 +33,7 @@ HEADERS  += app.h \
     model/dataprovider.h \
     model/umlaccesstype.h \
     model/umlclassdata.h \
+    model/umlclasstype.h \
     model/umldata.h \
     model/umlfielddata.h \
     model/umlidentifier.h \

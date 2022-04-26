@@ -6,17 +6,19 @@
 class UMLRelationType
 {
 public:
-    enum UMLRelationTypeEnum {
+    enum RelationType {
         ASSOCIATION,
         AGREGATION,
         COMPOSITION,
         GENERALISATION
     };
-    UMLRelationType(UMLRelationTypeEnum type);
+    UMLRelationType(RelationType type);
     UMLRelationType(QString strType);
-    static UMLRelationTypeEnum toType(QString strType);
+
+    bool operator==(const RelationType rhs);
+    bool operator==(const UMLRelationType& rhs);
 private:
-    UMLRelationTypeEnum type;
+    RelationType type;
 };
 
 #endif // UMLRELATIONTYPE_H
