@@ -127,69 +127,7 @@ void App::loadFile()
         messageBox.setFixedSize(500,200);
         return;
     }
-    // read classes
-    /*foreach (auto clsEl, json["classes"].toArray())
-    {
-        qInfo() << clsEl.toObject()["name"].toString();
 
-        QString name = clsEl.toObject()["name"].toString();
-        UMLClassType type = clsEl.toObject()["type"].toString() == "CLASS" ? UMLClassType::CLASS : UMLClassType::INTERFACE;
-        int posX = clsEl.toObject()["posX"].toInt();
-        int posY = clsEl.toObject()["posY"].toInt();
-        UMLClassData *classData = new UMLClassData(name, type, posX, posY);
-
-        // read fields
-        foreach (auto fieldEl, clsEl.toObject()["fields"].toArray())
-        {
-            qInfo() << "    Field:" << fieldEl.toObject()["name"].toString();
-
-            QString name = fieldEl.toObject()["name"].toString();
-            QString type = fieldEl.toObject()["type"].toString();
-            UMLAccessType access = UMLAccessType(fieldEl.toObject()["type"].toString());
-            UMLFieldData *field = new UMLFieldData(name, type, access);
-            classData->addField(field);
-        }
-
-        // read methods
-        foreach (auto methodEl, clsEl.toObject()["methods"].toArray())
-        {
-            qInfo() << "    Method:" << methodEl.toObject()["name"].toString();
-
-            QString name = methodEl.toObject()["name"].toString();
-            QString type = methodEl.toObject()["type"].toString();
-            UMLAccessType access = UMLAccessType(methodEl.toObject()["type"].toString());
-            UMLMethodData *method = new UMLMethodData(name, type, access);
-            // read method parameters
-            foreach (auto parameterEl, methodEl.toObject()["parameters"].toArray())
-            {
-                qInfo() << "        " << parameterEl.toObject()["name"].toString();
-
-                QString name = parameterEl.toObject()["name"].toString();
-                QString type = parameterEl.toObject()["type"].toString();
-                UMLMethodParameterData *parameter = new UMLMethodParameterData(name, type);
-                method->addParameter(parameter);
-            }
-
-            classData->addMethod(method);
-        }
-        umlData->addClass(classData);
-        UMLClass *cls = new UMLClass(classData);
-        cls->setPos(QPoint(classData->getPosX(), classData->getPosY()));
-    }
-
-
-    // read relations
-    foreach (auto relationEl, json["relations"].toArray())
-    {
-        qInfo() << relationEl.toObject()["source"].toString() << " to " << relationEl.toObject()["destination"].toString();
-
-        UMLClassData *source = umlData->findClassByName(relationEl.toObject()["source"].toString());
-        UMLClassData *destination = umlData->findClassByName(relationEl.toObject()["destination"].toString());
-        UMLRelationType *type = new UMLRelationType(relationEl.toObject()["type"].toString());
-        UMLRelationData *relation = new UMLRelationData(source, destination, type);
-
-        umlData->addRelation(relation);
-    }*/
 }
 void App::saveFile()
 {
@@ -198,12 +136,6 @@ void App::saveFile()
 
 void App::addClass()
 {
-
-    /*UMLClass *cls = new UMLClass();
-    cls->setPos(QPoint(10, 10));
-    scene->addItem(cls);
-    scene->clearSelection();*/
-
     NewClassDialog *newClassDialog = new NewClassDialog();
     newClassDialog->show();
 }
