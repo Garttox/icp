@@ -13,6 +13,7 @@ class UMLData : public QObject
 public:
     UMLData();
     ~UMLData();
+    void loadData(QJsonObject json);
     void addClass(UMLClassData *classData);
     void addRelation(UMLRelationData *relation);
     void clearData();

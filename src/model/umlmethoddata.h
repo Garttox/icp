@@ -13,6 +13,7 @@ class UMLMethodData : public QObject, public UMLIdentifier
 public:
     UMLMethodData(QString name, QString type, UMLAccessType access);
     ~UMLMethodData();
+    void loadData(QJsonObject jsonMethodData);
     void addParameter(UMLMethodParameterData *parameter);
     QString toString();
 public slots:

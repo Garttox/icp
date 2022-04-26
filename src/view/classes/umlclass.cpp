@@ -52,9 +52,10 @@ void UMLClass::paint(QPainter *painter,
     point.setX(point.x() + offsetX);
     point.setY(point.y() + metrics.height());
 
-    // methods
-    foreach(auto *method, *methods){
-        painter->drawText(point, method->toString());
+
+    // fields
+    foreach(auto *field, *fields){
+        painter->drawText(point, field->toString());
         point.setY(point.y() + metrics.height());
     }
     // separator
@@ -63,9 +64,9 @@ void UMLClass::paint(QPainter *painter,
     painter->drawLine(point, QPointF(point.x() + rect.width(), point.y()));
     point.setX(point.x() + offsetX);
     point.setY(point.y() + metrics.height());
-    // fields
-    foreach(auto *field, *fields){
-        painter->drawText(point, field->toString());
+    // methods
+    foreach(auto *method, *methods){
+        painter->drawText(point, method->toString());
         point.setY(point.y() + metrics.height());
     }
 }

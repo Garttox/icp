@@ -1,3 +1,6 @@
+#include <QJsonObject>
+#include <QJsonArray>
+
 #include "umlmethoddata.h"
 
 UMLMethodData::UMLMethodData(QString name, QString type, UMLAccessType access) :
@@ -8,6 +11,17 @@ UMLMethodData::~UMLMethodData()
 {
     foreach(UMLMethodParameterData *parameter, parameters)
         delete parameter;
+}
+
+void UMLMethodData::loadData(QJsonObject jsonMethodData)
+{
+    foreach (auto parameterEl, jsonMethodData["parameters"].toArray())
+    {
+        QString name = parameterEl.toObject()["name"].toString();
+        QString type = parameterEl.toObject()["type"].toString();
+        UMLMethodParameterData *parameter = new UMLMethodParameterData(name, type);
+        addParameter(parameter);
+    }
 }
 
 void UMLMethodData::addParameter(UMLMethodParameterData *parameter)

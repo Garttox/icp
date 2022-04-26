@@ -92,8 +92,10 @@ void App::loadFile()
 {
     UMLData *umlData = DataProvider::getInstance().getUMLData();
     umlData->clearData();
-    QString fileName = QFileDialog::getOpenFileName(this, "Open a file");
+    QString fileName = QFileDialog::getOpenFileName(this, "Open a file", "/");
     qInfo() << fileName;
+    if (fileName.length() == 0)
+        return; //user closed dialog
     QJsonDocument doc;
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -107,9 +109,9 @@ void App::loadFile()
     QByteArray byteFile = file.readAll();
     doc = QJsonDocument::fromJson(byteFile);
     QJsonObject json = doc.object();
-
+    umlData->loadData(json);
     // read classes
-    foreach (auto clsEl, json["classes"].toArray())
+    /*foreach (auto clsEl, json["classes"].toArray())
     {
         qInfo() << clsEl.toObject()["name"].toString();
 
@@ -170,7 +172,7 @@ void App::loadFile()
         UMLRelationData *relation = new UMLRelationData(source, destination, type);
 
         umlData->addRelation(relation);
-    }
+    }*/
 }
 void App::saveFile()
 {

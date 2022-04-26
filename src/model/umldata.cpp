@@ -1,3 +1,6 @@
+#include <QJsonObject>
+#include <QJsonArray>
+
 #include "umldata.h"
 
 UMLData::UMLData() :
@@ -13,6 +16,32 @@ UMLData::~UMLData()
         delete relation;
     delete relations;
     delete classes;
+}
+
+void UMLData::loadData(QJsonObject json)
+{
+    // read classes
+    foreach (auto clsEl, json["classes"].toArray())
+    {
+        QString name = clsEl.toObject()["name"].toString();
+        UMLClassType type = UMLClassType(clsEl.toObject()["type"].toString());
+        int posX = clsEl.toObject()["posX"].toInt();
+        int posY = clsEl.toObject()["posY"].toInt();
+        UMLClassData *classData = new UMLClassData(name, type, posX, posY);
+        classData->loadData(clsEl.toObject());
+        addClass(classData);
+    }
+
+    // read relations
+    foreach (auto relationEl, json["relations"].toArray())
+    {
+        UMLClassData *source = findClassByName(relationEl.toObject()["source"].toString());
+        UMLClassData *destination = findClassByName(relationEl.toObject()["destination"].toString());
+        UMLRelationType *type = new UMLRelationType(relationEl.toObject()["type"].toString());
+        UMLRelationData *relation = new UMLRelationData(source, destination, type);
+
+        addRelation(relation);
+    }
 }
 
 void UMLData::addClass(UMLClassData *classData)

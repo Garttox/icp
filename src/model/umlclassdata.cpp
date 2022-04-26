@@ -1,3 +1,6 @@
+#include <QJsonObject>
+#include <QJsonArray>
+
 #include "umlclassdata.h"
 
 UMLClassData::UMLClassData(QString name, UMLClassType type, int posX, int posY) :
@@ -13,6 +16,30 @@ UMLClassData::~UMLClassData()
         delete method;
     delete methods;
     delete fields;
+}
+
+void UMLClassData::loadData(QJsonObject jsonClassData)
+{
+    // read fields
+    foreach (auto fieldEl, jsonClassData["fields"].toArray())
+    {
+        QString name = fieldEl.toObject()["name"].toString();
+        QString type = fieldEl.toObject()["type"].toString();
+        UMLAccessType access = UMLAccessType(fieldEl.toObject()["type"].toString());
+        UMLFieldData *field = new UMLFieldData(name, type, access);
+        addField(field);
+    }
+
+    // read methods
+    foreach (auto methodEl, jsonClassData["methods"].toArray())
+    {
+        QString name = methodEl.toObject()["name"].toString();
+        QString type = methodEl.toObject()["type"].toString();
+        UMLAccessType access = UMLAccessType(methodEl.toObject()["type"].toString());
+        UMLMethodData *method = new UMLMethodData(name, type, access);
+        method->loadData(methodEl.toObject());
+        addMethod(method);
+    }
 }
 
 void UMLClassData::setName(QString name)
