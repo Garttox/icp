@@ -18,12 +18,11 @@ void UMLMethodData::addParameter(UMLMethodParameterData *parameter)
 
 QString UMLMethodData::toString()
 {
-    QString str = QString("%1 %2(").arg(access.toString(), name);
+    QStringList paramList;
     foreach(UMLMethodParameterData *parameter, parameters)
-        str.append(parameter->toString());
-    str.append("): ");
-    str.append(type);
-    return str;
+        paramList.append(parameter->toString());
+
+    return QString("%1 %2(%3): %4").arg(access.toString(), name, paramList.join(", "), type);
 }
 
 // Slots
