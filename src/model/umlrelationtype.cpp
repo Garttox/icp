@@ -4,16 +4,16 @@ UMLRelationType::UMLRelationType(UMLRelationTypeEnum type)
     : type(type)
 {}
 
-UMLRelationTypeEnum UMLRelationType::toType(QString strType)
+UMLRelationType::UMLRelationType(QString strType)
 {
     if (strType == "ASSOCIATION")
-        return ASSOCIATION;
+        type = ASSOCIATION;
     else if (strType == "AGREGATION")
-        return AGREGATION;
+        type = AGREGATION;
     else if (strType == "COMPOSITION")
-        return COMPOSITION;
+        type = COMPOSITION;
     else if (strType == "GENERALISATION")
-        return GENERALISATION;
+        type = GENERALISATION;
     else
-        return ASSOCIATION;
+        type = ASSOCIATION;
 }

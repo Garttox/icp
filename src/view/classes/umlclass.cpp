@@ -15,7 +15,6 @@ UMLClass::UMLClass(UMLClassData *umlClassData) : umlClassData(umlClassData)
 
     setFlags(ItemIsMovable | ItemIsSelectable);
     setFlag(ItemSendsGeometryChanges);
-    myText = "asdfasdfasdf";
 }
 
 void UMLClass::paint(QPainter *painter,
@@ -34,11 +33,8 @@ void UMLClass::paint(QPainter *painter,
     painter->setBrush(myBackgroundColor);
     QRectF rect = outlineRect();
     painter->drawRect(rect);
-
     painter->setPen(myTextColor);
-    QString a = myText;
-    a.append("\n");
-    a.append(myText);
+
     //painter->drawText(rect, Qt::AlignCenter, a);
     QFontMetricsF metrics{qApp->font()};
     //painter->drawText(rect, Qt::AlignCenter, umlClassData->getName());

@@ -3,4 +3,5 @@ src/out/
 src/debug
 src/release
 src/Makefile*
+src/icp.pro.user*
 build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug/

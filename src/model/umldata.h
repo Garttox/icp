@@ -2,12 +2,14 @@
 #define UMLDATA_H
 
 #include <QSet>
+#include <QObject>
 
 class UMLClassData;
 class UMLRelationData;
 
-class UMLData
+class UMLData : public QObject
 {
+    Q_OBJECT
 public:
     UMLData();
     ~UMLData();
@@ -16,6 +18,9 @@ public:
     void clearData();
     UMLClassData* findClassByName(QString clsName);
     QSet<UMLClassData *> *getClasses();
+public slots:
+    void classModelChanged();
+    void relationModelChanged();
 private:
     QSet<UMLClassData *> *classes;
     QSet<UMLRelationData *> *relations;

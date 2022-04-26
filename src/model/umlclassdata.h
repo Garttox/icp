@@ -3,18 +3,20 @@
 
 #include <QString>
 #include <QSet>
+#include <QObject>
 
 class UMLFieldData;
 class UMLMethodData;
 
-enum UMLClassType
+enum class UMLClassType
 {
     CLASS,
     INTERFACE
 };
 
-class UMLClassData
+class UMLClassData : public QObject
 {
+    Q_OBJECT
 public:
     UMLClassData(QString name, UMLClassType type, int posX, int posY);
     ~UMLClassData();
@@ -25,6 +27,11 @@ public:
     QSet<UMLFieldData *> *getFields();
     int getPosX();
     int getPosY();
+public slots:
+    void fieldModelChanged();
+    void methodModelChanged();
+signals:
+    void modelChanged();
 private:
     QString name;
     UMLClassType type;

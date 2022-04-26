@@ -16,7 +16,6 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     QRectF boundingRect() const;
 private:
-    QString myText;
     QColor myTextColor;
     QColor myBackgroundColor;
     QColor myOutlineColor;

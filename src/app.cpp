@@ -113,7 +113,7 @@ void App::loadFile()
         qInfo() << clsEl.toObject()["name"].toString();
 
         QString name = clsEl.toObject()["name"].toString();
-        UMLClassType type = clsEl.toObject()["type"].toString() == "CLASS" ? CLASS : INTERFACE;
+        UMLClassType type = clsEl.toObject()["type"].toString() == "CLASS" ? UMLClassType::CLASS : UMLClassType::INTERFACE;
         int posX = clsEl.toObject()["posX"].toInt();
         int posY = clsEl.toObject()["posY"].toInt();
         UMLClassData *classData = new UMLClassData(name, type, posX, posY);
@@ -167,7 +167,7 @@ void App::loadFile()
 
         UMLClassData *source = umlData->findClassByName(relationEl.toObject()["source"].toString());
         UMLClassData *destination = umlData->findClassByName(relationEl.toObject()["destination"].toString());
-        UMLRelationType *type = new UMLRelationType(UMLRelationType::toType(relationEl.toObject()["type"].toString()));
+        UMLRelationType *type = new UMLRelationType(relationEl.toObject()["type"].toString());
         UMLRelationData *relation = new UMLRelationData(source, destination, type);
 
         umlData->addRelation(relation);

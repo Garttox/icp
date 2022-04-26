@@ -16,6 +16,7 @@ UMLMethodData::~UMLMethodData()
 void UMLMethodData::addParameter(UMLMethodParameterData *parameter)
 {
     parameters.append(parameter);
+    connect(parameter, &UMLMethodParameterData::modelChanged, this, &UMLMethodData::parameterModelChanged);
 }
 
 QString UMLMethodData::toString()
@@ -26,4 +27,11 @@ QString UMLMethodData::toString()
     str.append("): ");
     str.append(type);
     return str;
+}
+
+// Slots
+
+void UMLMethodData::parameterModelChanged()
+{
+
 }

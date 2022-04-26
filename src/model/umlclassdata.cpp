@@ -20,16 +20,18 @@ UMLClassData::~UMLClassData()
 void UMLClassData::addMethod(UMLMethodData *method)
 {
     methods->insert(method);
+    connect(method, &UMLMethodData::modelChanged, this, &UMLClassData::methodModelChanged);
 }
 
 void UMLClassData::addField(UMLFieldData *field)
 {
     fields->insert(field);
+    connect(field, &UMLFieldData::modelChanged, this, &UMLClassData::fieldModelChanged);
 }
 
 QString UMLClassData::getName()
 {
-    if (type == INTERFACE)
+    if (type == UMLClassType::INTERFACE)
         return QString("%1 <<%2>>").arg(name, "Interface");
     return name;
 }
@@ -52,4 +54,16 @@ int UMLClassData::getPosX()
 int UMLClassData::getPosY()
 {
     return posY;
+}
+
+// Slots
+
+void UMLClassData::fieldModelChanged()
+{
+
+}
+
+void UMLClassData::methodModelChanged()
+{
+
 }

@@ -20,6 +20,7 @@ UMLData::~UMLData()
 void UMLData::addClass(UMLClassData *cls)
 {
     classes->insert(cls);
+    connect(cls, &UMLClassData::modelChanged, this, &UMLData::classModelChanged);
 }
 
 void UMLData::addRelation(UMLRelationData *relation)
@@ -46,4 +47,15 @@ UMLClassData* UMLData::findClassByName(QString clsName)
 QSet<UMLClassData *>* UMLData::getClasses()
 {
     return classes;
+}
+
+// slots
+void UMLData::classModelChanged()
+{
+
+}
+
+void UMLData::relationModelChanged()
+{
+
 }
