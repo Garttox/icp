@@ -24,7 +24,8 @@ SOURCES += main.cpp\
         model/umlmethodparameterdata.cpp \
         model/umlrelationdata.cpp \
         model/umlrelationtype.cpp \
-        view/classes/umlclass.cpp
+        view/classes/umlclass.cpp \
+        view/diagramgraphicsview.cpp
 
 HEADERS  += app.h \
     model/dataprovider.h \
@@ -37,7 +38,8 @@ HEADERS  += app.h \
     model/umlmethodparameterdata.h \
     model/umlrelationdata.h \
     model/umlrelationtype.h \
-    view/classes/umlclass.h
+    view/classes/umlclass.h \
+    view/diagramgraphicsview.h
 
 FORMS    +=
 

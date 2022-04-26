@@ -13,7 +13,7 @@ class UMLData : public QObject
 public:
     UMLData();
     ~UMLData();
-    void addClass(UMLClassData *cls);
+    void addClass(UMLClassData *classData);
     void addRelation(UMLRelationData *relation);
     void clearData();
     UMLClassData* findClassByName(QString clsName);
@@ -21,6 +21,8 @@ public:
 public slots:
     void classModelChanged();
     void relationModelChanged();
+signals:
+    void classModelAdded(UMLClassData *classData);
 private:
     QSet<UMLClassData *> *classes;
     QSet<UMLRelationData *> *relations;
