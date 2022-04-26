@@ -10,6 +10,9 @@ class UMLIdentifier
 public:
     UMLIdentifier(QString name, QString type, UMLAccessType *access);
     ~UMLIdentifier();
+    QString getName();
+    QString getType();
+    UMLAccessType *getAccess();
 protected:
     QString name;
     QString type;

@@ -15,6 +15,8 @@ UMLClass::UMLClass(UMLClassData *umlClassData) : umlClassData(umlClassData)
 
     setFlags(ItemIsMovable | ItemIsSelectable);
     setFlag(ItemSendsGeometryChanges);
+
+    setPos(umlClassData->getPosX(), umlClassData->getPosY());
 }
 
 void UMLClass::paint(QPainter *painter,
@@ -38,8 +40,8 @@ void UMLClass::paint(QPainter *painter,
     //painter->drawText(rect, Qt::AlignCenter, a);
     QFontMetricsF metrics{qApp->font()};
     //painter->drawText(rect, Qt::AlignCenter, umlClassData->getName());
-    QSet<UMLFieldData *> *fields = umlClassData->getFields();
-    QSet<UMLMethodData *> *methods = umlClassData->getMethods();
+    QList<UMLFieldData *> *fields = umlClassData->getFields();
+    QList<UMLMethodData *> *methods = umlClassData->getMethods();
     QPointF point = rect.topLeft();
     qreal offsetX = 3.0;
     point.setY(point.y() + metrics.height());
@@ -84,8 +86,8 @@ void UMLClass::modelChanged()
 qreal UMLClass::maxTextWidth() const
 {
     QFontMetricsF metrics{qApp->font()};
-    QSet<UMLFieldData *> *fields = umlClassData->getFields();
-    QSet<UMLMethodData *> *methods = umlClassData->getMethods();
+    QList<UMLFieldData *> *fields = umlClassData->getFields();
+    QList<UMLMethodData *> *methods = umlClassData->getMethods();
     qreal maxWidth = metrics.width(umlClassData->getName());
 
     foreach(auto *method, *methods){
@@ -106,8 +108,8 @@ QRectF UMLClass::outlineRect() const
 {
     const int Padding = 8;
     QFontMetricsF metrics{qApp->font()};
-    QSet<UMLFieldData *> *fields = umlClassData->getFields();
-    QSet<UMLMethodData *> *methods = umlClassData->getMethods();
+    QList<UMLFieldData *> *fields = umlClassData->getFields();
+    QList<UMLMethodData *> *methods = umlClassData->getMethods();
     QRectF rect = QRectF(0, 0, maxTextWidth(), (metrics.height())*(fields->size() + methods->size() + 1) + 10);
     rect.adjust(-Padding, -Padding, +Padding, +Padding);
     rect.translate(-rect.center());

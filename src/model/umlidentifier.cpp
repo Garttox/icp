@@ -12,3 +12,18 @@ UMLIdentifier::~UMLIdentifier()
 {
     delete access;
 }
+
+QString UMLIdentifier::getName()
+{
+    return name;
+}
+
+QString UMLIdentifier::getType()
+{
+    return type;
+}
+
+UMLAccessType *UMLIdentifier::getAccess()
+{
+    return access;
+}
