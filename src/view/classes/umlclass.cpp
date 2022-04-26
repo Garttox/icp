@@ -76,6 +76,11 @@ QRectF UMLClass::boundingRect() const
     return outlineRect();
 }
 
+void UMLClass::modelChanged()
+{
+
+}
+
 qreal UMLClass::maxTextWidth() const
 {
     QFontMetricsF metrics{qApp->font()};

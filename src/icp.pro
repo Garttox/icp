@@ -25,7 +25,8 @@ SOURCES += main.cpp\
         model/umlrelationdata.cpp \
         model/umlrelationtype.cpp \
         view/classes/newclassdialog.cpp \
-        view/classes/umlclass.cpp
+        view/classes/umlclass.cpp \
+        view/diagramgraphicsview.cpp
 
 HEADERS  += app.h \
     model/dataprovider.h \
@@ -39,7 +40,8 @@ HEADERS  += app.h \
     model/umlrelationdata.h \
     model/umlrelationtype.h \
     view/classes/newclassdialog.h \
-    view/classes/umlclass.h
+    view/classes/umlclass.h \
+    view/diagramgraphicsview.h
 
 FORMS    += \
     view/classes/newclassdialog.ui

@@ -11,6 +11,7 @@
 #include <QMessageBox>
 
 #include "app.h"
+#include "view\diagramgraphicsview.h"
 #include "view\classes\umlclass.h"
 #include "model\umldata.h"
 #include "model\umlclassdata.h"
@@ -29,10 +30,10 @@ App::App(QWidget *parent) :
 {
     tabWidget = new QTabWidget(this);
 
-    view = new QGraphicsView(this);
+    view = new ClassDiagramGraphicsView(this);
     scene = new QGraphicsScene(view);
-    scene->setSceneRect(0, 0, 600, 500);
-    view->setMinimumSize(400, 400);
+    scene->setSceneRect(0, 0, 1000, 1000);
+    view->setMinimumSize(600, 600);
     view->setScene(scene);
     view->setDragMode(QGraphicsView::RubberBandDrag);
     view->setRenderHints(QPainter::Antialiasing

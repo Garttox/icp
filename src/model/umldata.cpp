@@ -17,10 +17,11 @@ UMLData::~UMLData()
     delete classes;
 }
 
-void UMLData::addClass(UMLClassData *cls)
+void UMLData::addClass(UMLClassData *classData)
 {
-    classes->insert(cls);
-    connect(cls, &UMLClassData::modelChanged, this, &UMLData::classModelChanged);
+    classes->insert(classData);
+    connect(classData, &UMLClassData::modelChanged, this, &UMLData::classModelChanged);
+    emit classModelAdded(classData);
 }
 
 void UMLData::addRelation(UMLRelationData *relation)
@@ -52,10 +53,8 @@ QSet<UMLClassData *>* UMLData::getClasses()
 // slots
 void UMLData::classModelChanged()
 {
-
 }
 
 void UMLData::relationModelChanged()
 {
-
 }

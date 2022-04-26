@@ -15,6 +15,8 @@ public:
     UMLClass(UMLClassData *umlClassData);
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     QRectF boundingRect() const;
+public slots:
+    void modelChanged();
 private:
     QColor myTextColor;
     QColor myBackgroundColor;
