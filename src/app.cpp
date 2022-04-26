@@ -22,12 +22,16 @@
 #include "model\umlrelationtype.h"
 #include "model\umlrelationdata.h"
 #include "model\dataprovider.h"
+#include "view\classes\newclassdialog.h"
+#include "ui_newclassdialog.h"
 
 App::App(QWidget *parent) :
     QMainWindow(parent)
 {
-    tabWidget = new QTabWidget(this);
+    UMLData* umlData = new UMLData();
+    DataProvider::getInstance().setUMLData(umlData);
 
+    tabWidget = new QTabWidget(this);
     view = new ClassDiagramGraphicsView(this);
     scene = new QGraphicsScene(view);
     scene->setSceneRect(0, 0, 1000, 1000);
@@ -52,10 +56,6 @@ App::App(QWidget *parent) :
     createToolBar();
 
     setWindowTitle(tr("UMLiBubli"));
-
-
-    UMLData* umlData = new UMLData();
-    DataProvider::getInstance().setUMLData(umlData);
 }
 
 void App::createActions()
@@ -186,4 +186,7 @@ void App::addClass()
     cls->setPos(QPoint(10, 10));
     scene->addItem(cls);
     scene->clearSelection();*/
+
+    NewClassDialog *newClassDialog = new NewClassDialog();
+    newClassDialog->show();
 }
