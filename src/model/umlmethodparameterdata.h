@@ -7,6 +7,7 @@ class UMLMethodParameterData
 {
 public:
     UMLMethodParameterData(QString name, QString type);
+    QString toString();
 private:
     QString name;
     QString type;

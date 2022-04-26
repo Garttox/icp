@@ -12,6 +12,7 @@ public:
     UMLMethodData(QString name, QString type, UMLAccessType *access);
     ~UMLMethodData();
     void addParameter(UMLMethodParameterData *parameter);
+    QString toString();
 private:
     QVector<UMLMethodParameterData *> parameters;
 };

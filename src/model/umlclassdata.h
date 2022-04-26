@@ -21,13 +21,17 @@ public:
     void addField(UMLFieldData *field);
     void addMethod(UMLMethodData *method);
     QString getName();
+    QSet<UMLMethodData *> *getMethods();
+    QSet<UMLFieldData *> *getFields();
+    int getPosX();
+    int getPosY();
 private:
     QString name;
     UMLClassType type;
     int posX;
     int posY;
-    QSet<UMLFieldData *> fields;
-    QSet<UMLMethodData *> methods;
+    QSet<UMLFieldData *> *fields;
+    QSet<UMLMethodData *> *methods;
 };
 
 #endif // UMLCLASSDATA_H

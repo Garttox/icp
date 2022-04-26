@@ -3,9 +3,9 @@
 
 #include <QMainWindow>
 #include <QGraphicsView>
+#include "model\dataprovider.h"
 
 class UMLData;
-class DataProvider;
 
 class App : public QMainWindow
 {
@@ -13,7 +13,6 @@ class App : public QMainWindow
 
 public:
     App(QWidget *parent = 0);
-
 private slots:
     void loadFile();
     void saveFile();
@@ -24,12 +23,11 @@ private:
     QGraphicsView *view;
     QMenu *mainMenu;
     QToolBar *toolBar;
+    QTabWidget *tabWidget;
 
     QAction *fileLoad;
     QAction *fileSave;
     QAction *addClassAction;
-
-    DataProvider& dataProvider;
 
     void createActions();
     void createMainMenu();

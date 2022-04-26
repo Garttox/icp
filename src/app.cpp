@@ -8,9 +8,10 @@
 #include <QMenu>
 #include <QMenuBar>
 #include <QToolBar>
+#include <QMessageBox>
 
 #include "app.h"
-#include "ui\classes\umlclass.h"
+#include "view\classes\umlclass.h"
 #include "model\umldata.h"
 #include "model\umlclassdata.h"
 #include "model\umlfielddata.h"
@@ -22,8 +23,10 @@
 #include "model\dataprovider.h"
 
 App::App(QWidget *parent) :
-    QMainWindow(parent), dataProvider(DataProvider::getInstance())
+    QMainWindow(parent)
 {
+    tabWidget = new QTabWidget(this);
+
     view = new QGraphicsView(this);
     scene = new QGraphicsScene(view);
     scene->setSceneRect(0, 0, 600, 500);
@@ -33,7 +36,15 @@ App::App(QWidget *parent) :
     view->setRenderHints(QPainter::Antialiasing
                          | QPainter::TextAntialiasing);
     view->setContextMenuPolicy(Qt::ActionsContextMenu);
-    setCentralWidget(view);
+    //setCentralWidget(view);
+
+    /*QToolBar *toolbar=new QToolBar("toolbar",view);
+
+    toolbar->addAction("action1");
+    toolbar->addAction("action2");
+    toolbar->setBackgroundRole(QPalette::Base); */
+    tabWidget->addTab(view, QString("Class Diagram"));
+    setCentralWidget(tabWidget);
 
     createActions();
     createMainMenu();
@@ -41,8 +52,9 @@ App::App(QWidget *parent) :
 
     setWindowTitle(tr("UMLiBubli"));
 
+
     UMLData* umlData = new UMLData();
-    dataProvider.setUMLData(umlData);
+    DataProvider::getInstance().setUMLData(umlData);
 }
 
 void App::createActions()
@@ -77,7 +89,7 @@ void App::createToolBar()
 
 void App::loadFile()
 {
-    UMLData *umlData = dataProvider.getUMLData();
+    UMLData *umlData = DataProvider::getInstance().getUMLData();
 
     QString fileName = QFileDialog::getOpenFileName(this, "Open a file");
     qInfo() << fileName;
@@ -86,6 +98,10 @@ void App::loadFile()
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         qWarning() << "failed to read the file";
+        QMessageBox messageBox;
+        messageBox.critical(0,"Error","Error occured while reading the file");
+        messageBox.setFixedSize(500,200);
+        return;
     }
     QByteArray byteFile = file.readAll();
     doc = QJsonDocument::fromJson(byteFile);
@@ -100,7 +116,7 @@ void App::loadFile()
         UMLClassType type = clsEl.toObject()["type"].toString() == "CLASS" ? CLASS : INTERFACE;
         int posX = clsEl.toObject()["posX"].toInt();
         int posY = clsEl.toObject()["posY"].toInt();
-        UMLClassData *cls = new UMLClassData(name, type, posX, posY);
+        UMLClassData *classData = new UMLClassData(name, type, posX, posY);
 
         // read fields
         foreach (auto fieldEl, clsEl.toObject()["fields"].toArray())
@@ -111,7 +127,7 @@ void App::loadFile()
             QString type = fieldEl.toObject()["type"].toString();
             UMLAccessType *access = new UMLAccessType(UMLAccessType::toType(fieldEl.toObject()["type"].toString()));
             UMLFieldData *field = new UMLFieldData(name, type, access);
-            cls->addField(field);
+            classData->addField(field);
         }
 
         // read methods
@@ -134,11 +150,15 @@ void App::loadFile()
                 method->addParameter(parameter);
             }
 
-            cls->addMethod(method);
+            classData->addMethod(method);
         }
-
-        umlData->addClass(cls);
+        umlData->addClass(classData);
+        UMLClass *cls = new UMLClass(classData);
+        cls->setPos(QPoint(classData->getPosX(), classData->getPosY()));
+        scene->addItem(cls);
+        scene->clearSelection();
     }
+
 
     // read relations
     foreach (auto relationEl, json["relations"].toArray())
@@ -160,8 +180,9 @@ void App::saveFile()
 
 void App::addClass()
 {
-    UMLClass *cls = new UMLClass;
+
+    /*UMLClass *cls = new UMLClass();
     cls->setPos(QPoint(10, 10));
     scene->addItem(cls);
-    scene->clearSelection();
+    scene->clearSelection();*/
 }

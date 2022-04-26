@@ -7,6 +7,7 @@ class UMLFieldData : public UMLIdentifier
 {
 public:
     UMLFieldData(QString name, QString type, UMLAccessType *access);
+    QString toString();
 };
 
 #endif // UMLFIELDDATA_H

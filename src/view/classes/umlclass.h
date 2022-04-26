@@ -6,10 +6,13 @@
 #include <QGraphicsItem>
 #include <QSet>
 
+class UMLData;
+class UMLClassData;
+
 class UMLClass : public QGraphicsItem
 {
 public:
-    UMLClass();
+    UMLClass(UMLClassData *umlClassData);
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     QRectF boundingRect() const;
 private:
@@ -19,6 +22,9 @@ private:
     QColor myOutlineColor;
 
     QRectF outlineRect() const;
+    qreal maxTextWidth() const;
+
+    UMLClassData *umlClassData;
 };
 
 #endif // UMLCLASS_H

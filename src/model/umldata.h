@@ -9,15 +9,16 @@ class UMLRelationData;
 class UMLData
 {
 public:
-    UMLData() = default;
+    UMLData();
     ~UMLData();
     void addClass(UMLClassData *cls);
     void addRelation(UMLRelationData *relation);
     void clearData();
     UMLClassData* findClassByName(QString clsName);
+    QSet<UMLClassData *> *getClasses();
 private:
-    QSet<UMLClassData *> classes;
-    QSet<UMLRelationData *> relations;
+    QSet<UMLClassData *> *classes;
+    QSet<UMLRelationData *> *relations;
 };
 
 #endif // UMLDATA_H
