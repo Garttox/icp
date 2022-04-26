@@ -46,7 +46,7 @@ void NewClassDialog::on_nameLineEdit_textEdited(const QString &text)
 
 void NewClassDialog::on_addFieldButton_clicked()
 {
-    UMLAccessType *umlAccessType = new UMLAccessType(UMLAccessType::PUBLIC);
+    UMLAccessType umlAccessType(UMLAccessType::PUBLIC);
     UMLFieldData *umlFieldData = new UMLFieldData(QString("New field"), QString("void"), umlAccessType);
     umlClassData->addField(umlFieldData);
     ui->fieldsList->addItem(umlFieldData->toString());
@@ -81,7 +81,7 @@ void NewClassDialog::on_removeFieldButton_clicked()
 
 void NewClassDialog::on_addMethodButton_clicked()
 {
-    UMLAccessType *umlAccessType = new UMLAccessType(UMLAccessType::PUBLIC);
+    UMLAccessType umlAccessType(UMLAccessType::PUBLIC);
     UMLMethodData *umlMethodData = new UMLMethodData(QString("New method"), QString("void"), umlAccessType);
     umlClassData->addMethod(umlMethodData);
     ui->methodsList->addItem(umlMethodData->toString());

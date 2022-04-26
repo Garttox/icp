@@ -20,10 +20,10 @@ public:
     void addMethod(UMLMethodData *method);
     void removeFieldAt(int index);
     void removeMethodAt(int index);
+    QString getName() const;
+    QString getDisplayName() const;
     UMLFieldData *getFieldAt(int index) const;
     UMLMethodData *getMethodAt(int index) const;
-    QString getName() const;
-    QString getDisplayName(); const
     QList<UMLMethodData *> *getMethods() const;
     QList<UMLFieldData *> *getFields() const;
     int getPosX() const;

@@ -11,7 +11,7 @@ EditFieldDialog::EditFieldDialog(UMLFieldData *umlFieldData, QWidget *parent) :
     ui->nameLineEdit->setText(umlFieldData->getName());
     ui->typeLineEdit->setText(umlFieldData->getType());
     ui->accessComboBox->addItems(UMLAccessType::asStringList());
-    ui->accessComboBox->setCurrentText(umlFieldData->getAccess()->toDisplayString());
+    ui->accessComboBox->setCurrentText(umlFieldData->getAccess().toDisplayString());
 }
 
 EditFieldDialog::~EditFieldDialog()
@@ -23,6 +23,6 @@ void EditFieldDialog::on_buttonBox_accepted()
 {
     umlFieldData->setName(ui->nameLineEdit->text());
     umlFieldData->setType(ui->typeLineEdit->text());
-    umlFieldData->setAccess(new UMLAccessType(ui->accessComboBox->currentText()));
+    umlFieldData->setAccess(UMLAccessType(ui->accessComboBox->currentText()));
 }
 

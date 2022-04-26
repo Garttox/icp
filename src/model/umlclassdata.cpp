@@ -47,7 +47,7 @@ QString UMLClassData::getName() const
     return name;
 }
 
-QString UMLClassData::getDisplayName()
+QString UMLClassData::getDisplayName() const
 {
     if (type == UMLClassType::INTERFACE)
         return QString("%1 <<%2>>").arg(name, "Interface");

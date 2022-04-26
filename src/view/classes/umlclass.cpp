@@ -83,8 +83,8 @@ void UMLClass::modelChanged()
 qreal UMLClass::maxTextWidth() const
 {
     QFontMetricsF metrics{qApp->font()};
-    QSet<UMLFieldData *> *fields = umlClassData->getFields();
-    QSet<UMLMethodData *> *methods = umlClassData->getMethods();
+    QList<UMLFieldData *> *fields = umlClassData->getFields();
+    QList<UMLMethodData *> *methods = umlClassData->getMethods();
     qreal maxWidth = std::max(metrics.width(umlClassData->getName()), MIN_WIDTH);
 
     foreach(auto *method, *methods){

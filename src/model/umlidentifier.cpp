@@ -6,7 +6,6 @@ UMLIdentifier::UMLIdentifier(QString name, QString type, UMLAccessType access)
 
 UMLIdentifier::~UMLIdentifier()
 {
-    delete access;
 }
 
 QString UMLIdentifier::getName() const
