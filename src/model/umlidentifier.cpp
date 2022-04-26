@@ -1,5 +1,4 @@
 #include "umlidentifier.h"
-#include "umlaccesstype.h"
 
 UMLIdentifier::UMLIdentifier(QString name, QString type, UMLAccessType *access)
 {

@@ -1,6 +1,4 @@
 #include "umlclassdata.h"
-#include "umlfielddata.h"
-#include "umlmethoddata.h"
 
 UMLClassData::UMLClassData(QString name, UMLClassType type, int posX, int posY) :
     name(name), type(type), posX(posX), posY(posY), fields(new QSet<UMLFieldData*>()), methods(new QSet<UMLMethodData*>())

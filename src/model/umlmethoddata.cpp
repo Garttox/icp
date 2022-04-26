@@ -1,6 +1,4 @@
 #include "umlmethoddata.h"
-#include "umlmethodparameterdata.h"
-#include "umlaccesstype.h"
 
 UMLMethodData::UMLMethodData(QString name, QString type, UMLAccessType *access) :
     UMLIdentifier(name, type, access)

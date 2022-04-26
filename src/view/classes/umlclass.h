@@ -6,8 +6,8 @@
 #include <QGraphicsItem>
 #include <QSet>
 
-class UMLData;
-class UMLClassData;
+#include "model\umldata.h"
+#include "model\umlclassdata.h"
 
 class UMLClass : public QGraphicsItem
 {

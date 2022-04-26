@@ -1,6 +1,4 @@
 #include "umldata.h"
-#include "umlclassdata.h"
-#include "umlrelationdata.h"
 
 UMLData::UMLData() :
     classes(new QSet<UMLClassData *>()), relations(new QSet<UMLRelationData *>)

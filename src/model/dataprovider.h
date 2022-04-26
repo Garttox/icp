@@ -1,7 +1,7 @@
 #ifndef DATAPROVIDER_H
 #define DATAPROVIDER_H
 
-class UMLData;
+#include "umldata.h"
 
 class DataProvider
 {

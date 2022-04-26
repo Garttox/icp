@@ -5,7 +5,7 @@
 #include <QObject>
 
 #include "umlidentifier.h"
-class UMLMethodParameterData;
+#include "umlmethodparameterdata.h"
 
 class UMLMethodData : public QObject, public UMLIdentifier
 {

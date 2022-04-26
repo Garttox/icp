@@ -1,8 +1,8 @@
 #ifndef UMLRELATIONDATA_H
 #define UMLRELATIONDATA_H
 
-class UMLClassData;
-class UMLRelationType;
+#include "umlclassdata.h"
+#include "umlrelationtype.h"
 
 class UMLRelationData
 {

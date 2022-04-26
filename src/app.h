@@ -4,8 +4,7 @@
 #include <QMainWindow>
 #include <QGraphicsView>
 #include "model\dataprovider.h"
-
-class UMLData;
+#include "model\umldata.h"
 
 class App : public QMainWindow
 {

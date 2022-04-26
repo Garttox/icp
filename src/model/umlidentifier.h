@@ -3,7 +3,7 @@
 
 #include <QString>
 
-class UMLAccessType;
+#include "umlaccesstype.h"
 
 class UMLIdentifier
 {

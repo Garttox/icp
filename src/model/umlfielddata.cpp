@@ -1,5 +1,4 @@
 #include "umlfielddata.h"
-#include "umlaccesstype.h"
 
 UMLFieldData::UMLFieldData(QString name, QString type, UMLAccessType *access) :
     UMLIdentifier(name, type, access)

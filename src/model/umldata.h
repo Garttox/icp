@@ -4,8 +4,8 @@
 #include <QSet>
 #include <QObject>
 
-class UMLClassData;
-class UMLRelationData;
+#include "umlclassdata.h"
+#include "umlrelationdata.h"
 
 class UMLData : public QObject
 {

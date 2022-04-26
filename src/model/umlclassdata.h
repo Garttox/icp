@@ -5,8 +5,8 @@
 #include <QSet>
 #include <QObject>
 
-class UMLFieldData;
-class UMLMethodData;
+#include "umlfielddata.h"
+#include "umlmethoddata.h"
 
 enum class UMLClassType
 {

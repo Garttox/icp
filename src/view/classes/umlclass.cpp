@@ -2,10 +2,6 @@
 #include <QStyleOptionGraphicsItem>
 
 #include "umlclass.h"
-#include "model\dataprovider.h"
-#include "model\umlclassdata.h"
-#include "model\umlfielddata.h"
-#include "model\umlmethoddata.h"
 
 UMLClass::UMLClass(UMLClassData *umlClassData) : umlClassData(umlClassData)
 {
