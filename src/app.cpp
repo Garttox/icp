@@ -102,14 +102,31 @@ void App::loadFile()
     {
         qWarning() << "failed to read the file";
         QMessageBox messageBox;
-        messageBox.critical(0,"Error","Error occured while reading the file");
+        messageBox.critical(0,"Reading error","Error occured while reading the file");
         messageBox.setFixedSize(500,200);
         return;
     }
     QByteArray byteFile = file.readAll();
     doc = QJsonDocument::fromJson(byteFile);
     QJsonObject json = doc.object();
-    umlData->loadData(json);
+    // validate if file is in json format
+    if (doc.isNull())
+    {
+        QMessageBox messageBox;
+        messageBox.critical(0,"Loading error","Given file data are not in supported format.");
+        messageBox.setFixedSize(500,200);
+        return;
+    }
+
+    bool loadedSuccesfully = umlData->loadData(json);
+
+    if (!loadedSuccesfully)
+    {
+        QMessageBox messageBox;
+        messageBox.critical(0,"Loading error","Given file data are probably corrupted.");
+        messageBox.setFixedSize(500,200);
+        return;
+    }
     // read classes
     /*foreach (auto clsEl, json["classes"].toArray())
     {

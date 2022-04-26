@@ -18,14 +18,19 @@ UMLClassData::~UMLClassData()
     delete fields;
 }
 
-void UMLClassData::loadData(QJsonObject jsonClassData)
+bool UMLClassData::loadData(QJsonObject jsonClassData)
 {
     // read fields
     foreach (auto fieldEl, jsonClassData["fields"].toArray())
     {
+        if (fieldEl.toObject()["name"].isNull() || fieldEl.toObject()["type"].isNull() ||
+                fieldEl.toObject()["access"].isNull())
+        {
+            return false;
+        }
         QString name = fieldEl.toObject()["name"].toString();
         QString type = fieldEl.toObject()["type"].toString();
-        UMLAccessType access = UMLAccessType(fieldEl.toObject()["type"].toString());
+        UMLAccessType access = UMLAccessType(fieldEl.toObject()["access"].toString());
         UMLFieldData *field = new UMLFieldData(name, type, access);
         addField(field);
     }
@@ -33,13 +38,22 @@ void UMLClassData::loadData(QJsonObject jsonClassData)
     // read methods
     foreach (auto methodEl, jsonClassData["methods"].toArray())
     {
+        if (methodEl.toObject()["name"].isNull() || methodEl.toObject()["type"].isNull() ||
+                methodEl.toObject()["access"].isNull())
+        {
+            return false;
+        }
         QString name = methodEl.toObject()["name"].toString();
         QString type = methodEl.toObject()["type"].toString();
-        UMLAccessType access = UMLAccessType(methodEl.toObject()["type"].toString());
+        UMLAccessType access = UMLAccessType(methodEl.toObject()["access"].toString());
         UMLMethodData *method = new UMLMethodData(name, type, access);
-        method->loadData(methodEl.toObject());
+        bool loadedSuccesfully = method->loadData(methodEl.toObject());
+        if (!loadedSuccesfully)
+            return false;
         addMethod(method);
     }
+
+    return true;
 }
 
 void UMLClassData::setName(QString name)

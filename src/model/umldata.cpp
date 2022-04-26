@@ -18,23 +18,37 @@ UMLData::~UMLData()
     delete classes;
 }
 
-void UMLData::loadData(QJsonObject json)
+bool UMLData::loadData(QJsonObject json)
 {
     // read classes
     foreach (auto clsEl, json["classes"].toArray())
     {
+        if (clsEl.toObject()["name"].isNull() || clsEl.toObject()["type"].isNull() ||
+                clsEl.toObject()["posX"].isNull() || clsEl.toObject()["posY"].isNull())
+        {
+            return false;
+        }
+
         QString name = clsEl.toObject()["name"].toString();
         UMLClassType type = UMLClassType(clsEl.toObject()["type"].toString());
         int posX = clsEl.toObject()["posX"].toInt();
         int posY = clsEl.toObject()["posY"].toInt();
         UMLClassData *classData = new UMLClassData(name, type, posX, posY);
-        classData->loadData(clsEl.toObject());
+        bool loadedSuccesfully = classData->loadData(clsEl.toObject());
+        if (!loadedSuccesfully)
+            return false;
         addClass(classData);
     }
 
     // read relations
     foreach (auto relationEl, json["relations"].toArray())
     {
+        if (relationEl.toObject()["source"].isNull() || relationEl.toObject()["destination"].isNull() ||
+                relationEl.toObject()["type"].isNull())
+        {
+            return false;
+        }
+
         UMLClassData *source = findClassByName(relationEl.toObject()["source"].toString());
         UMLClassData *destination = findClassByName(relationEl.toObject()["destination"].toString());
         UMLRelationType *type = new UMLRelationType(relationEl.toObject()["type"].toString());
@@ -42,6 +56,7 @@ void UMLData::loadData(QJsonObject json)
 
         addRelation(relation);
     }
+    return true;
 }
 
 void UMLData::addClass(UMLClassData *classData)

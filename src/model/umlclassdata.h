@@ -15,7 +15,7 @@ class UMLClassData : public QObject
 public:
     UMLClassData(QString name, UMLClassType type, int posX, int posY);
     ~UMLClassData();
-    void loadData(QJsonObject jsonClassData);
+    bool loadData(QJsonObject jsonClassData);
     void setName(QString name);
     void addField(UMLFieldData *field);
     void addMethod(UMLMethodData *method);
