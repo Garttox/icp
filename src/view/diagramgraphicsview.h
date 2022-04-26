@@ -10,6 +10,8 @@
 
 class ClassDiagramGraphicsView : public QGraphicsView
 {
+    Q_OBJECT
+
 public:
     ClassDiagramGraphicsView(QWidget* parent);
 private slots:

@@ -2,7 +2,11 @@
 
 #include "diagramgraphicsview.h"
 #include "model\dataprovider.h"
+#include "model\umlclassdata.h"
+#include "model\umldata.h"
+
 #include "view\classes\umlclass.h"
+
 
 ClassDiagramGraphicsView::ClassDiagramGraphicsView(QWidget* parent)
     : QGraphicsView(parent)
@@ -11,7 +15,7 @@ ClassDiagramGraphicsView::ClassDiagramGraphicsView(QWidget* parent)
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setTransformationAnchor(QGraphicsView::NoAnchor);
     UMLData* umlData = DataProvider::getInstance().getUMLData();
-    connect(umlData, SIGNAL(classModelAdded(UMLClassData*classData)), this, SLOT(classModelAdded(UMLClassData*classData)));
+    connect(umlData, SIGNAL(classModelAdded(UMLClassData*)), this, SLOT(classModelAdded(UMLClassData*)));
 }
 
 void ClassDiagramGraphicsView::classModelAdded(UMLClassData *classData)

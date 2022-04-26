@@ -28,8 +28,10 @@
 App::App(QWidget *parent) :
     QMainWindow(parent)
 {
-    tabWidget = new QTabWidget(this);
+    UMLData* umlData = new UMLData();
+    DataProvider::getInstance().setUMLData(umlData);
 
+    tabWidget = new QTabWidget(this);
     view = new ClassDiagramGraphicsView(this);
     scene = new QGraphicsScene(view);
     scene->setSceneRect(0, 0, 1000, 1000);
@@ -54,10 +56,6 @@ App::App(QWidget *parent) :
     createToolBar();
 
     setWindowTitle(tr("UMLiBubli"));
-
-
-    UMLData* umlData = new UMLData();
-    DataProvider::getInstance().setUMLData(umlData);
 }
 
 void App::createActions()
