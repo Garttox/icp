@@ -101,4 +101,3 @@ void NewClassDialog::on_removeMethodButton_clicked()
     }
     qDeleteAll(ui->methodsList->selectedItems());
 }
-

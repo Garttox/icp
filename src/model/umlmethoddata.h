@@ -5,13 +5,13 @@
 #include <QObject>
 
 #include "umlidentifier.h"
-class UMLMethodParameterData;
+#include "umlmethodparameterdata.h"
 
 class UMLMethodData : public QObject, public UMLIdentifier
 {
     Q_OBJECT
 public:
-    UMLMethodData(QString name, QString type, UMLAccessType *access);
+    UMLMethodData(QString name, QString type, UMLAccessType access);
     ~UMLMethodData();
     void addParameter(UMLMethodParameterData *parameter);
     QString toString();

@@ -5,14 +5,9 @@
 #include <QList>
 #include <QObject>
 
-class UMLFieldData;
-class UMLMethodData;
-
-enum class UMLClassType
-{
-    CLASS,
-    INTERFACE
-};
+#include "umlfielddata.h"
+#include "umlmethoddata.h"
+#include "umlclasstype.h"
 
 class UMLClassData : public QObject
 {
@@ -28,10 +23,12 @@ public:
     UMLFieldData *getFieldAt(int index) const;
     UMLMethodData *getMethodAt(int index) const;
     QString getName() const;
+    QString getDisplayName(); const
     QList<UMLMethodData *> *getMethods() const;
     QList<UMLFieldData *> *getFields() const;
     int getPosX() const;
     int getPosY() const;
+    
 public slots:
     void fieldModelChanged();
     void methodModelChanged();

@@ -58,3 +58,13 @@ QStringList UMLAccessType::asStringList()
     QStringList list = { "Public", "Private", "Protected", "Package" };
     return list;
 }
+
+bool UMLAccessType::operator==(const AccessType rhs)
+{
+    return type == rhs;
+}
+
+bool UMLAccessType::operator==(const UMLAccessType& rhs)
+{
+    return type == rhs.type;
+}

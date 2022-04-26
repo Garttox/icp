@@ -13,6 +13,7 @@
 #include "app.h"
 #include "view\diagramgraphicsview.h"
 #include "view\classes\umlclass.h"
+#include "view\classes\newclassdialog.h"
 #include "model\umldata.h"
 #include "model\umlclassdata.h"
 #include "model\umlfielddata.h"
@@ -22,7 +23,6 @@
 #include "model\umlrelationtype.h"
 #include "model\umlrelationdata.h"
 #include "model\dataprovider.h"
-#include "view\classes\newclassdialog.h"
 #include "ui_newclassdialog.h"
 
 App::App(QWidget *parent) :
@@ -91,7 +91,7 @@ void App::createToolBar()
 void App::loadFile()
 {
     UMLData *umlData = DataProvider::getInstance().getUMLData();
-
+    umlData->clearData();
     QString fileName = QFileDialog::getOpenFileName(this, "Open a file");
     qInfo() << fileName;
     QJsonDocument doc;
@@ -126,7 +126,7 @@ void App::loadFile()
 
             QString name = fieldEl.toObject()["name"].toString();
             QString type = fieldEl.toObject()["type"].toString();
-            UMLAccessType *access = new UMLAccessType(fieldEl.toObject()["type"].toString());
+            UMLAccessType access = UMLAccessType(fieldEl.toObject()["type"].toString());
             UMLFieldData *field = new UMLFieldData(name, type, access);
             classData->addField(field);
         }
@@ -138,7 +138,7 @@ void App::loadFile()
 
             QString name = methodEl.toObject()["name"].toString();
             QString type = methodEl.toObject()["type"].toString();
-            UMLAccessType *access = new UMLAccessType(methodEl.toObject()["type"].toString());
+            UMLAccessType access = UMLAccessType(methodEl.toObject()["type"].toString());
             UMLMethodData *method = new UMLMethodData(name, type, access);
             // read method parameters
             foreach (auto parameterEl, methodEl.toObject()["parameters"].toArray())
@@ -156,8 +156,6 @@ void App::loadFile()
         umlData->addClass(classData);
         UMLClass *cls = new UMLClass(classData);
         cls->setPos(QPoint(classData->getPosX(), classData->getPosY()));
-        scene->addItem(cls);
-        scene->clearSelection();
     }
 
 

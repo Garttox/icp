@@ -3,23 +3,23 @@
 
 #include <QString>
 
-class UMLAccessType;
+#include "umlaccesstype.h"
 
 class UMLIdentifier
 {
 public:
-    UMLIdentifier(QString name, QString type, UMLAccessType *access);
+    UMLIdentifier(QString name, QString type, UMLAccessType access);
     ~UMLIdentifier();
     QString getName() const;
     QString getType() const;
-    UMLAccessType *getAccess() const;
+    UMLAccessType getAccess() const;
     void setName(QString name);
     void setType(QString type);
-    void setAccess(UMLAccessType *access);
+    void setAccess(UMLAccessType access);
 protected:
     QString name;
     QString type;
-    UMLAccessType *access;
+    UMLAccessType access;
 };
 
 #endif // UMLIDENTIFIER_H

@@ -4,8 +4,8 @@
 #include <QSet>
 #include <QObject>
 
-class UMLClassData;
-class UMLRelationData;
+#include "umlclassdata.h"
+#include "umlrelationdata.h"
 
 class UMLData : public QObject
 {
@@ -23,6 +23,7 @@ public slots:
     void relationModelChanged();
 signals:
     void classModelAdded(UMLClassData *classData);
+    void umlModelCleared();
 private:
     QSet<UMLClassData *> *classes;
     QSet<UMLRelationData *> *relations;

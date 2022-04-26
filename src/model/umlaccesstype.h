@@ -18,8 +18,11 @@ public:
     UMLAccessType(QString type);
     QString toString() const;
     QString toDisplayString() const;
+    bool operator==(const AccessType rhs);
+    bool operator==(const UMLAccessType& rhs);
 
     static QStringList asStringList();
+
 private:
     AccessType type;
 };

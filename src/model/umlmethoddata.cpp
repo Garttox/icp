@@ -1,11 +1,8 @@
 #include "umlmethoddata.h"
-#include "umlmethodparameterdata.h"
-#include "umlaccesstype.h"
 
-UMLMethodData::UMLMethodData(QString name, QString type, UMLAccessType *access) :
+UMLMethodData::UMLMethodData(QString name, QString type, UMLAccessType access) :
     UMLIdentifier(name, type, access)
-{
-}
+{}
 
 UMLMethodData::~UMLMethodData()
 {
@@ -21,7 +18,7 @@ void UMLMethodData::addParameter(UMLMethodParameterData *parameter)
 
 QString UMLMethodData::toString()
 {
-    QString str = QString("%1 %2(").arg(access->toString(), name);
+    QString str = QString("%1 %2(").arg(access.toString(), name);
     foreach(UMLMethodParameterData *parameter, parameters)
         str.append(parameter->toString());
     str.append("): ");

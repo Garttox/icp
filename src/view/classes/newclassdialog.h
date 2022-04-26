@@ -32,6 +32,7 @@ private:
     UMLClassData *umlClassData;
     const int DEFAULT_CLASS_POS_X = 20;
     const int DEFAULT_CLASS_POS_Y = 20;
+
 };
 
 #endif // NEWCLASSDIALOG_H

@@ -1,6 +1,4 @@
 #include "umlclassdata.h"
-#include "umlfielddata.h"
-#include "umlmethoddata.h"
 
 UMLClassData::UMLClassData(QString name, UMLClassType type, int posX, int posY) :
     name(name), type(type), posX(posX), posY(posY), fields(new QList<UMLFieldData*>()), methods(new QList<UMLMethodData*>())
@@ -45,6 +43,11 @@ void UMLClassData::removeMethodAt(int index)
 }
 
 QString UMLClassData::getName() const
+{
+    return name;
+}
+
+QString UMLClassData::getDisplayName()
 {
     if (type == UMLClassType::INTERFACE)
         return QString("%1 <<%2>>").arg(name, "Interface");

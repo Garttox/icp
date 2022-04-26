@@ -16,6 +16,7 @@ public:
     ClassDiagramGraphicsView(QWidget* parent);
 private slots:
     void classModelAdded(UMLClassData *classData);
+    void umlModelCleared();
 private:
     int originX;
     int originY;

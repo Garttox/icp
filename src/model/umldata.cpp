@@ -1,6 +1,4 @@
 #include "umldata.h"
-#include "umlclassdata.h"
-#include "umlrelationdata.h"
 
 UMLData::UMLData() :
     classes(new QSet<UMLClassData *>()), relations(new QSet<UMLRelationData *>)
@@ -31,6 +29,7 @@ void UMLData::addRelation(UMLRelationData *relation)
 
 void UMLData::clearData()
 {
+    emit umlModelCleared();
     classes->clear();
     relations->clear();
 }
