@@ -8,12 +8,11 @@
 class UMLIdentifier
 {
 public:
-    UMLIdentifier(QString name, QString type, UMLAccessType *access);
-    ~UMLIdentifier();
+    UMLIdentifier(QString name, QString type, UMLAccessType access);
 protected:
     QString name;
     QString type;
-    UMLAccessType *access;
+    UMLAccessType access;
 };
 
 #endif // UMLIDENTIFIER_H
