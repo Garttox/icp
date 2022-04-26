@@ -21,6 +21,8 @@
 #include "model\umlrelationtype.h"
 #include "model\umlrelationdata.h"
 #include "model\dataprovider.h"
+#include "view\classes\newclassdialog.h"
+#include "ui_newclassdialog.h"
 
 App::App(QWidget *parent) :
     QMainWindow(parent)
@@ -185,4 +187,7 @@ void App::addClass()
     cls->setPos(QPoint(10, 10));
     scene->addItem(cls);
     scene->clearSelection();*/
+
+    NewClassDialog *newClassDialog = new NewClassDialog();
+    newClassDialog->show();
 }

@@ -24,6 +24,7 @@ SOURCES += main.cpp\
         model/umlmethodparameterdata.cpp \
         model/umlrelationdata.cpp \
         model/umlrelationtype.cpp \
+        view/classes/newclassdialog.cpp \
         view/classes/umlclass.cpp
 
 HEADERS  += app.h \
@@ -37,8 +38,10 @@ HEADERS  += app.h \
     model/umlmethodparameterdata.h \
     model/umlrelationdata.h \
     model/umlrelationtype.h \
+    view/classes/newclassdialog.h \
     view/classes/umlclass.h
 
-FORMS    +=
+FORMS    += \
+    view/classes/newclassdialog.ui
 
 CONFIG += c++17
