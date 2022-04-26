@@ -6,10 +6,10 @@
 
 UMLClass::UMLClass(UMLClassData *umlClassData) : umlClassData(umlClassData)
 {
-    myTextColor = Qt::darkGreen;
-    myOutlineColor = Qt::darkBlue;
-    myBackgroundColor = Qt::white;
-
+    textColor = Qt::black;
+    outlineColor = Qt::darkBlue;
+    selectedOutlineColor = QColor(21, 193, 232);
+    backgroundColor = Qt::white;
     setFlags(ItemIsMovable | ItemIsSelectable);
     setFlag(ItemSendsGeometryChanges);
 
@@ -23,18 +23,17 @@ void UMLClass::paint(QPainter *painter,
     QPen pen;
     if (option->state & QStyle::State_Selected) {
         //pen.setStyle(Qt::DotLine);
-        pen = QPen(QColor("red"));
+        pen = QPen(selectedOutlineColor);
         pen.setWidth(2);
     } else {
-        pen = QPen(myOutlineColor);
+        pen = QPen(outlineColor);
     }
     painter->setPen(pen);
-    painter->setBrush(myBackgroundColor);
+    painter->setBrush(backgroundColor);
     QRectF rect = outlineRect();
     painter->drawRect(rect);
-    painter->setPen(myTextColor);
+    painter->setPen(textColor);
 
-    //painter->drawText(rect, Qt::AlignCenter, a);
     QFontMetricsF metrics{qApp->font()};
     //painter->drawText(rect, Qt::AlignCenter, umlClassData->getName());
     QList<UMLFieldData *> *fields = umlClassData->getFields();
@@ -45,7 +44,12 @@ void UMLClass::paint(QPainter *painter,
     point.setX(point.x() + offsetX);
 
     // class name
-    painter->drawText(point, umlClassData->getName());
+    QFont font = painter->font();
+    font.setBold(true);
+    painter->setFont(font);
+    painter->drawText(point, umlClassData->getDisplayName());
+    font.setBold(false);
+    painter->setFont(font);
     point.setY(point.y() + metrics.height()/2);
     point.setX(point.x() - offsetX);
     painter->drawLine(point, QPointF(point.x() + rect.width(), point.y()));
@@ -86,7 +90,7 @@ qreal UMLClass::maxTextWidth() const
     QFontMetricsF metrics{qApp->font()};
     QList<UMLFieldData *> *fields = umlClassData->getFields();
     QList<UMLMethodData *> *methods = umlClassData->getMethods();
-    qreal maxWidth = std::max(metrics.width(umlClassData->getName()), MIN_WIDTH);
+    qreal maxWidth = std::max(metrics.width(umlClassData->getDisplayName()), MIN_WIDTH);
 
     foreach(auto *method, *methods){
         qreal rowWidth = metrics.width(method->toString());
@@ -106,7 +110,7 @@ QRectF UMLClass::outlineRect() const
     QFontMetricsF metrics{qApp->font()};
     QList<UMLFieldData *> *fields = umlClassData->getFields();
     QList<UMLMethodData *> *methods = umlClassData->getMethods();
-    QRectF rect = QRectF(0, 0, maxTextWidth(), (metrics.height())*(fields->size() + methods->size() + 1) + 10);
+    QRectF rect = QRectF(0, 0, maxTextWidth() + padding, (metrics.height())*(fields->size() + methods->size() + 1) + padding);
     rect.adjust(-padding, -padding, +padding, +padding);
     return rect;
 }

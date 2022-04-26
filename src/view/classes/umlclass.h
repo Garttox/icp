@@ -18,9 +18,11 @@ public:
 public slots:
     void modelChanged();
 private:
-    QColor myTextColor;
-    QColor myBackgroundColor;
-    QColor myOutlineColor;
+    QColor textColor;
+    QColor backgroundColor;
+    QColor outlineColor;
+    QColor selectedOutlineColor;
+
     const qreal MIN_WIDTH = 60;
 
     QRectF outlineRect() const;
