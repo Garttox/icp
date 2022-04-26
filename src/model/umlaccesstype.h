@@ -2,20 +2,22 @@
 #define UMLACCESSTYPE_H
 
 #include <QString>
-enum UMLAccessTypeEnum {
-    PUBLIC,
-    PRIVATE,
-    PROTECTED,
-    PACKAGE
-};
+
 class UMLAccessType
 {
 public:
-    UMLAccessType(UMLAccessTypeEnum type);
+    enum AccessType
+    {
+        PUBLIC,
+        PRIVATE,
+        PROTECTED,
+        PACKAGE
+    };
+    UMLAccessType(AccessType type);
+    UMLAccessType(QString type);
     QString toString();
-    static UMLAccessTypeEnum toType(QString strType);
 private:
-    UMLAccessTypeEnum type;
+    AccessType type;
 };
 
 #endif // UMLACCESSTYPE_H

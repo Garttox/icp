@@ -125,7 +125,7 @@ void App::loadFile()
 
             QString name = fieldEl.toObject()["name"].toString();
             QString type = fieldEl.toObject()["type"].toString();
-            UMLAccessType *access = new UMLAccessType(UMLAccessType::toType(fieldEl.toObject()["type"].toString()));
+            UMLAccessType *access = new UMLAccessType(fieldEl.toObject()["type"].toString());
             UMLFieldData *field = new UMLFieldData(name, type, access);
             classData->addField(field);
         }
@@ -137,7 +137,7 @@ void App::loadFile()
 
             QString name = methodEl.toObject()["name"].toString();
             QString type = methodEl.toObject()["type"].toString();
-            UMLAccessType *access = new UMLAccessType(UMLAccessType::toType(methodEl.toObject()["type"].toString()));
+            UMLAccessType *access = new UMLAccessType(methodEl.toObject()["type"].toString());
             UMLMethodData *method = new UMLMethodData(name, type, access);
             // read method parameters
             foreach (auto parameterEl, methodEl.toObject()["parameters"].toArray())

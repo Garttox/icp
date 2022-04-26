@@ -1,8 +1,21 @@
 #include "umlaccesstype.h"
 
-UMLAccessType::UMLAccessType(UMLAccessTypeEnum type)
+UMLAccessType::UMLAccessType(AccessType type)
+    : type(type)
+{}
+
+UMLAccessType::UMLAccessType(QString strType)
 {
-    this->type = type;
+    if (strType == "PUBLIC")
+        type = PUBLIC;
+    else if (strType == "PRIVATE")
+        type = PRIVATE;
+    else if (strType == "PROTECTED")
+        type = PROTECTED;
+    else if (strType == "PACKAGE")
+        type = PACKAGE;
+    else
+        type = PUBLIC;
 }
 
 QString UMLAccessType::toString()
@@ -25,18 +38,4 @@ QString UMLAccessType::toString()
             return "";
             break;
     }
-}
-
-UMLAccessTypeEnum UMLAccessType::toType(QString strType)
-{
-    if (strType == "PUBLIC")
-        return PUBLIC;
-    else if (strType == "PRIVATE")
-        return PRIVATE;
-    else if (strType == "PROTECTED")
-        return PROTECTED;
-    else if (strType == "PACKAGE")
-        return PACKAGE;
-    else
-        return PUBLIC;
 }
