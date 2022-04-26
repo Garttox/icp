@@ -16,6 +16,9 @@ public:
     explicit EditFieldDialog(UMLFieldData *umlFieldData, QWidget *parent = nullptr);
     ~EditFieldDialog();
 
+private slots:
+    void on_buttonBox_accepted();
+
 private:
     Ui::EditFieldDialog *ui;
     UMLFieldData *umlFieldData;

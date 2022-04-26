@@ -13,17 +13,32 @@ UMLIdentifier::~UMLIdentifier()
     delete access;
 }
 
-QString UMLIdentifier::getName()
+QString UMLIdentifier::getName() const
 {
     return name;
 }
 
-QString UMLIdentifier::getType()
+QString UMLIdentifier::getType() const
 {
     return type;
 }
 
-UMLAccessType *UMLIdentifier::getAccess()
+UMLAccessType *UMLIdentifier::getAccess() const
 {
     return access;
+}
+
+void UMLIdentifier::setName(QString name)
+{
+    this->name = name;
+}
+
+void UMLIdentifier::setType(QString type)
+{
+    this->type = type;
+}
+
+void UMLIdentifier::setAccess(UMLAccessType *access)
+{
+    this->access = access;
 }

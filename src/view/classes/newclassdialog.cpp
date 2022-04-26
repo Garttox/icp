@@ -29,7 +29,6 @@ void NewClassDialog::on_buttonBox_accepted()
     UMLData *umlData = DataProvider::getInstance().getUMLData();
     QString className = ui->nameLineEdit->text();
     umlClassData->setName(className);
-    // TODO
     umlData->addClass(umlClassData);
 }
 
@@ -55,11 +54,16 @@ void NewClassDialog::on_addFieldButton_clicked()
 
 void NewClassDialog::on_editFieldButton_clicked()
 {
-    // TODO
-    EditFieldDialog *editFieldDialog = new EditFieldDialog(umlClassData->getFieldAt(0));
-    editFieldDialog->show();
-    // NewClassDialog *newClassDialog = new NewClassDialog();
-    // newClassDialog->show();
+    QModelIndexList selectedItems = ui->fieldsList->selectionModel()->selectedIndexes();
+    foreach (auto selectedItem, selectedItems)
+    {
+        int selectedRow = selectedItem.row();
+        UMLFieldData *umlFieldData = umlClassData->getFieldAt(selectedRow);
+        EditFieldDialog *editFieldDialog = new EditFieldDialog(umlFieldData);
+        editFieldDialog->exec();
+        ui->fieldsList->takeItem(selectedRow);
+        ui->fieldsList->insertItem(selectedRow, umlFieldData->toString());
+    }
 }
 
 void NewClassDialog::on_removeFieldButton_clicked()
