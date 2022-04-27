@@ -38,16 +38,16 @@ App::App(QWidget *parent) :
     view->setMinimumSize(600, 600);
     view->setScene(scene);
     view->setDragMode(QGraphicsView::RubberBandDrag);
-    view->setRenderHints(QPainter::Antialiasing
-                         | QPainter::TextAntialiasing);
+    view->setRenderHints(QPainter::TextAntialiasing);
     view->setContextMenuPolicy(Qt::ActionsContextMenu);
-    //setCentralWidget(view);
+    // setCentralWidget(view);
 
-    /*QToolBar *toolbar=new QToolBar("toolbar",view);
-
+    /*
+    QToolBar *toolbar=new QToolBar("toolbar",view);
     toolbar->addAction("action1");
     toolbar->addAction("action2");
-    toolbar->setBackgroundRole(QPalette::Base); */
+    toolbar->setBackgroundRole(QPalette::Base);
+    */
     tabWidget->addTab(view, QString("Class Diagram"));
     setCentralWidget(tabWidget);
 

@@ -95,11 +95,6 @@ bool UMLClassData::loadData(QJsonObject jsonClassData)
     return true;
 }
 
-void UMLClassData::setName(QString name)
-{
-    this->name = name;
-}
-
 void UMLClassData::addMethod(UMLMethodData *method)
 {
     methods.append(method);

@@ -34,6 +34,11 @@ void NewClassDialog::on_buttonBox_accepted()
     umlData->addClass(umlClassData);
 }
 
+void NewClassDialog::on_buttonBox_rejected()
+{
+    delete umlClassData;
+}
+
 void NewClassDialog::on_nameLineEdit_textEdited(const QString &text)
 {
     ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(!text.isEmpty());
