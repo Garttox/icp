@@ -7,13 +7,13 @@ UMLAccessType::UMLAccessType(AccessType type)
 UMLAccessType::UMLAccessType(QString strType)
 {
     const QString strTypeNormalized = strType.toUpper();
-    if (strTypeNormalized == "PUBLIC")
+    if (strTypeNormalized == "PUBLIC" || strTypeNormalized == "+")
         type = PUBLIC;
-    else if (strTypeNormalized == "PRIVATE")
+    else if (strTypeNormalized == "PRIVATE" || strTypeNormalized == "-")
         type = PRIVATE;
-    else if (strTypeNormalized == "PROTECTED")
+    else if (strTypeNormalized == "PROTECTED" || strTypeNormalized == "#")
         type = PROTECTED;
-    else if (strTypeNormalized == "PACKAGE")
+    else if (strTypeNormalized == "PACKAGE"  || strTypeNormalized == "~")
         type = PACKAGE;
     else
         type = PUBLIC;

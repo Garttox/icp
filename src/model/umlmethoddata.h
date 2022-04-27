@@ -14,6 +14,7 @@ public:
     UMLMethodData(QString name, QString type, UMLAccessType access);
     UMLMethodData(const UMLMethodData &original);
     ~UMLMethodData();
+    bool loadData(QJsonObject jsonMethodData);
     void addParameter(UMLMethodParameterData *parameter);
     QString toString();
     QList<UMLMethodParameterData *> getParameters() const;

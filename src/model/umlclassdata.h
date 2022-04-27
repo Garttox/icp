@@ -17,6 +17,7 @@ public:
     UMLClassData(const UMLClassData &original);
     ~UMLClassData();
     void setData(const UMLClassData &data);
+    bool loadData(QJsonObject jsonClassData);
     void setName(QString name);
     void addField(UMLFieldData *field);
     void addMethod(UMLMethodData *method);

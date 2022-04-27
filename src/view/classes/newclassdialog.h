@@ -18,6 +18,7 @@ public:
 
 private slots:
     void on_buttonBox_accepted();
+    void on_buttonBox_rejected();
     void on_addFieldButton_clicked();
     void on_nameLineEdit_textEdited(const QString &arg1);
     void on_removeFieldButton_clicked();
@@ -29,9 +30,9 @@ private slots:
 private:
     Ui::NewClassDialog *ui;
     UMLClassData *umlClassData;
+    
     static const int DEFAULT_CLASS_POS_X = 20;
     static const int DEFAULT_CLASS_POS_Y = 20;
-
 };
 
 #endif // NEWCLASSDIALOG_H

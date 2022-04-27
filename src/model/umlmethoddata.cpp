@@ -1,3 +1,6 @@
+#include <QJsonObject>
+#include <QJsonArray>
+
 #include "umlmethoddata.h"
 
 UMLMethodData::UMLMethodData(QString name, QString type, UMLAccessType access) :
@@ -23,6 +26,20 @@ UMLMethodData::~UMLMethodData()
     }
 }
 
+bool UMLMethodData::loadData(QJsonObject jsonMethodData)
+{
+    foreach (auto parameterEl, jsonMethodData["parameters"].toArray())
+    {
+        if (parameterEl.toObject()["name"].isNull() || parameterEl.toObject()["type"].isNull())
+            return false;
+        QString name = parameterEl.toObject()["name"].toString();
+        QString type = parameterEl.toObject()["type"].toString();
+        UMLMethodParameterData *parameter = new UMLMethodParameterData(name, type);
+        addParameter(parameter);
+    }
+    return true;
+}
+
 void UMLMethodData::addParameter(UMLMethodParameterData *parameter)
 {
     parameters.append(parameter);
@@ -31,12 +48,11 @@ void UMLMethodData::addParameter(UMLMethodParameterData *parameter)
 
 QString UMLMethodData::toString()
 {
-    QString str = QString("%1 %2(").arg(access.toString(), name);
+    QStringList paramList;
     foreach(UMLMethodParameterData *parameter, parameters)
-        str.append(parameter->toString());
-    str.append("): ");
-    str.append(type);
-    return str;
+        paramList.append(parameter->toString());
+
+    return QString("%1 %2(%3): %4").arg(access.toString(), name, paramList.join(", "), type);
 }
 
 QList<UMLMethodParameterData *> UMLMethodData::getParameters() const
