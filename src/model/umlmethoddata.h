@@ -12,16 +12,19 @@ class UMLMethodData : public QObject, public UMLIdentifier
     Q_OBJECT
 public:
     UMLMethodData(QString name, QString type, UMLAccessType access);
+    UMLMethodData(const UMLMethodData &original);
     ~UMLMethodData();
     bool loadData(QJsonObject jsonMethodData);
     void addParameter(UMLMethodParameterData *parameter);
     QString toString();
+    QList<UMLMethodParameterData *> getParameters() const;
+    void clearParameters();
 public slots:
     void parameterModelChanged();
 signals:
     void modelChanged();
 private:
-    QVector<UMLMethodParameterData *> parameters;
+    QList<UMLMethodParameterData *> parameters;
 };
 
 #endif // UMLMETHODDATA_H

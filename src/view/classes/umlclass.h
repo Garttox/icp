@@ -8,6 +8,7 @@
 
 #include "model\umldata.h"
 #include "model\umlclassdata.h"
+#include "qevent.h"
 
 class UMLClass : public QGraphicsItem
 {
@@ -17,6 +18,10 @@ public:
     QRectF boundingRect() const;
 public slots:
     void modelChanged();
+
+protected:
+    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
+
 private:
     QColor textColor;
     QColor backgroundColor;

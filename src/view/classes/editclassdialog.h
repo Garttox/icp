@@ -1,24 +1,23 @@
-#ifndef NEWCLASSDIALOG_H
-#define NEWCLASSDIALOG_H
+#ifndef EDITCLASSDIALOG_H
+#define EDITCLASSDIALOG_H
 
 #include <QDialog>
 #include "model\umlclassdata.h"
 
 namespace Ui {
-class NewClassDialog;
+class EditClassDialog;
 }
 
-class NewClassDialog : public QDialog
+class EditClassDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit NewClassDialog(QWidget *parent = nullptr);
-    ~NewClassDialog();
+    explicit EditClassDialog(UMLClassData *umlClassData, QWidget *parent = nullptr);
+    ~EditClassDialog();
 
 private slots:
     void on_buttonBox_accepted();
-    void on_buttonBox_rejected();
     void on_addFieldButton_clicked();
     void on_nameLineEdit_textEdited(const QString &arg1);
     void on_removeFieldButton_clicked();
@@ -27,12 +26,12 @@ private slots:
     void on_editMethodButton_clicked();
     void on_removeMethodButton_clicked();
 
+    void on_buttonBox_rejected();
+
 private:
-    Ui::NewClassDialog *ui;
+    Ui::EditClassDialog *ui;
     UMLClassData *umlClassData;
-    
-    static const int DEFAULT_CLASS_POS_X = 20;
-    static const int DEFAULT_CLASS_POS_Y = 20;
+    UMLClassData *umlClassDataCopy;
 };
 
-#endif // NEWCLASSDIALOG_H
+#endif // EDITCLASSDIALOG_H

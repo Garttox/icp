@@ -9,7 +9,9 @@ class UMLMethodParameterData : public QObject
     Q_OBJECT
 public:
     UMLMethodParameterData(QString name, QString type);
-    QString toString();
+    QString toString() const;
+    QString getName() const;
+    QString getType() const;
 signals:
     void modelChanged();
 private:

@@ -6,7 +6,18 @@ UMLMethodParameterData::UMLMethodParameterData(QString name, QString type)
     this->type = type;
 }
 
-QString UMLMethodParameterData::toString()
+QString UMLMethodParameterData::toString() const
 {
     return QString("%1: %2").arg(name, type);
 }
+
+QString UMLMethodParameterData::getName() const
+{
+    return this->name;
+}
+
+QString UMLMethodParameterData::getType() const
+{
+    return this->type;
+}
+
