@@ -1,5 +1,4 @@
-#include <QDebug>
-#include "newclassdialog.h"
+#include "editclassdialog.h"
 #include "model/umlmethoddata.h"
 #include "model/umlfielddata.h"
 #include "model/umlaccesstype.h"
@@ -8,54 +7,74 @@
 #include "model/umlclassdata.h"
 #include "view/classes/editfielddialog.h"
 #include "view/classes/editmethoddialog.h"
-#include "ui_newclassdialog.h"
+#include "ui_editclassdialog.h"
 #include "ui_editfielddialog.h"
 #include "ui_editmethoddialog.h"
 
-NewClassDialog::NewClassDialog(QWidget *parent) :
+EditClassDialog::EditClassDialog(UMLClassData *umlClassData, QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::NewClassDialog),
-    umlClassData(new UMLClassData(QString(), UMLClassType::CLASS, DEFAULT_CLASS_POS_X, DEFAULT_CLASS_POS_Y))
+    ui(new Ui::EditClassDialog),
+    umlClassData(umlClassData),
+    umlClassDataCopy(new UMLClassData(*umlClassData))
 {
     ui->setupUi(this);
-    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+    ui->nameLineEdit->setText(umlClassDataCopy->getName());
+
+    foreach (UMLFieldData *field, umlClassDataCopy->getFields()) {
+         ui->fieldsList->addItem(field->toString());
+    }
+
+    foreach (UMLMethodData *method, umlClassDataCopy->getMethods()) {
+         ui->methodsList->addItem(method->toString());
+    }
 }
 
-NewClassDialog::~NewClassDialog()
+EditClassDialog::~EditClassDialog()
 {
     delete ui;
 }
 
-void NewClassDialog::on_buttonBox_accepted()
+void EditClassDialog::on_buttonBox_accepted()
 {
+    // TODO
+    /*
     UMLData *umlData = DataProvider::getInstance().getUMLData();
     QString className = ui->nameLineEdit->text();
     umlClassData->setName(className);
     umlData->addClass(umlClassData);
+    */
+    umlClassDataCopy->setName(ui->nameLineEdit->text());
+    umlClassData->setData(*umlClassDataCopy);
+
 }
 
-void NewClassDialog::on_nameLineEdit_textEdited(const QString &text)
+void EditClassDialog::on_buttonBox_rejected()
+{
+    delete umlClassDataCopy;
+}
+
+void EditClassDialog::on_nameLineEdit_textEdited(const QString &text)
 {
     ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(!text.isEmpty());
 }
 
 // Fields control buttons
 
-void NewClassDialog::on_addFieldButton_clicked()
+void EditClassDialog::on_addFieldButton_clicked()
 {
     UMLAccessType umlAccessType(UMLAccessType::PUBLIC);
     UMLFieldData *umlFieldData = new UMLFieldData(QString("New field"), QString("void"), umlAccessType);
-    umlClassData->addField(umlFieldData);
+    umlClassDataCopy->addField(umlFieldData);
     ui->fieldsList->addItem(umlFieldData->toString());
 }
 
-void NewClassDialog::on_editFieldButton_clicked()
+void EditClassDialog::on_editFieldButton_clicked()
 {
     QModelIndexList selectedItems = ui->fieldsList->selectionModel()->selectedIndexes();
     foreach (auto selectedItem, selectedItems)
     {
         int selectedRow = selectedItem.row();
-        UMLFieldData *umlFieldData = umlClassData->getFieldAt(selectedRow);
+        UMLFieldData *umlFieldData = umlClassDataCopy->getFieldAt(selectedRow);
         EditFieldDialog *editFieldDialog = new EditFieldDialog(umlFieldData);
         editFieldDialog->exec();
         ui->fieldsList->takeItem(selectedRow);
@@ -63,12 +82,12 @@ void NewClassDialog::on_editFieldButton_clicked()
     }
 }
 
-void NewClassDialog::on_removeFieldButton_clicked()
+void EditClassDialog::on_removeFieldButton_clicked()
 {
     QModelIndexList selectedIndexes = ui->fieldsList->selectionModel()->selectedIndexes();
     foreach (auto selectedIndex, selectedIndexes)
     {
-        umlClassData->removeFieldAt(selectedIndex.row());
+        umlClassDataCopy->removeFieldAt(selectedIndex.row());
     }
     qDeleteAll(ui->fieldsList->selectedItems());
 }
@@ -76,21 +95,21 @@ void NewClassDialog::on_removeFieldButton_clicked()
 
 // Methods control buttons
 
-void NewClassDialog::on_addMethodButton_clicked()
+void EditClassDialog::on_addMethodButton_clicked()
 {
     UMLAccessType umlAccessType(UMLAccessType::PUBLIC);
     UMLMethodData *umlMethodData = new UMLMethodData(QString("New method"), QString("void"), umlAccessType);
-    umlClassData->addMethod(umlMethodData);
+    umlClassDataCopy->addMethod(umlMethodData);
     ui->methodsList->addItem(umlMethodData->toString());
 }
 
-void NewClassDialog::on_editMethodButton_clicked()
+void EditClassDialog::on_editMethodButton_clicked()
 {
     QModelIndexList selectedItems = ui->methodsList->selectionModel()->selectedIndexes();
     foreach (auto selectedItem, selectedItems)
     {
         int selectedRow = selectedItem.row();
-        UMLMethodData *umlMethodData = umlClassData->getMethodAt(selectedRow);
+        UMLMethodData *umlMethodData = umlClassDataCopy->getMethodAt(selectedRow);
         EditMethodDialog *editFieldDialog = new EditMethodDialog(umlMethodData);
         editFieldDialog->exec();
         ui->methodsList->takeItem(selectedRow);
@@ -98,12 +117,12 @@ void NewClassDialog::on_editMethodButton_clicked()
     }
 }
 
-void NewClassDialog::on_removeMethodButton_clicked()
+void EditClassDialog::on_removeMethodButton_clicked()
 {
     QModelIndexList selectedIndexes = ui->methodsList->selectionModel()->selectedIndexes();
     foreach (auto selectedIndex, selectedIndexes)
     {
-        umlClassData->removeMethodAt(selectedIndex.row());
+        umlClassDataCopy->removeMethodAt(selectedIndex.row());
     }
     qDeleteAll(ui->methodsList->selectedItems());
 }

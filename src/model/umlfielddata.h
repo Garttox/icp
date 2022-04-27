@@ -10,6 +10,7 @@ class UMLFieldData : public QObject, public UMLIdentifier
     Q_OBJECT
 public:
     UMLFieldData(QString name, QString type, UMLAccessType access);
+    UMLFieldData(const UMLFieldData& original);
     ~UMLFieldData() {};
     QString toString();
 signals:

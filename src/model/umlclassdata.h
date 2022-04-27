@@ -14,7 +14,9 @@ class UMLClassData : public QObject
     Q_OBJECT
 public:
     UMLClassData(QString name, UMLClassType type, int posX, int posY);
+    UMLClassData(const UMLClassData &original);
     ~UMLClassData();
+    void setData(const UMLClassData &data);
     void setName(QString name);
     void addField(UMLFieldData *field);
     void addMethod(UMLMethodData *method);
@@ -24,8 +26,8 @@ public:
     QString getDisplayName() const;
     UMLFieldData *getFieldAt(int index) const;
     UMLMethodData *getMethodAt(int index) const;
-    QList<UMLMethodData *> *getMethods() const;
-    QList<UMLFieldData *> *getFields() const;
+    QList<UMLMethodData *> getMethods() const;
+    QList<UMLFieldData *> getFields() const;
     int getPosX() const;
     int getPosY() const;
     
@@ -39,8 +41,8 @@ private:
     UMLClassType type;
     int posX;
     int posY;
-    QList<UMLFieldData *> *fields;
-    QList<UMLMethodData *> *methods;
+    QList<UMLFieldData *> fields;
+    QList<UMLMethodData *> methods;
 };
 
 #endif // UMLCLASSDATA_H
