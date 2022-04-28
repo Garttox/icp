@@ -1,4 +1,5 @@
 #include "umlrelationanchor.h"
+#include "umlclassnotifier.h"
 #include "umlclass.h"
 #include <QPen>
 #include <QDebug>
@@ -7,6 +8,7 @@
 #include <QGraphicsSceneMouseEvent>
 
 UMLRelationAnchor::UMLRelationAnchor(qreal relX, qreal relY, UMLClass* parent):
+    QObject(),
     QGraphicsEllipseItem(parent),
     relX(relX), relY(relY)
 {
@@ -37,24 +39,27 @@ void UMLRelationAnchor::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     if (event->button() == Qt::MouseButton::LeftButton)
     {
-         dragLine.setVisible(false);
-         QGraphicsItem *droppedAt = scene()->itemAt(event->scenePos(), QTransform());
-         if (UMLRelationAnchor* anchor = dynamic_cast<UMLRelationAnchor*>(droppedAt))
-         {
-            qDebug() << anchor;
-         }
-         update();
+        // hide drag line first, so we can get item below
+        dragLine.setVisible(false);
+
+        // notify about anchor drag released
+        QGraphicsItem *droppedAt = scene()->itemAt(event->scenePos(), QTransform());
+        UMLRelationAnchor* anchor = dynamic_cast<UMLRelationAnchor*>(droppedAt);
+
+        // anchor is nullptr if dynamic cast fails
+        emit UMLClassNotifier::getInstance()->anchorDragReleased(this, anchor);
+
+        update();
     }
 }
 
 void UMLRelationAnchor::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-    // Draw drag line
     QPointF start = getRelativeRect().center();
     QPointF end = event->pos();
     dragLine.setLine(start.x(), start.y(), end.x(), end.y());
-    emit anchorDragged(this, end);
     update();
+    emit UMLClassNotifier::getInstance()->anchorDragged(this, event->scenePos());
 }
 
 QRectF UMLRelationAnchor::getRelativeRect() const

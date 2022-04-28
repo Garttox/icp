@@ -10,6 +10,7 @@ void DataProvider::setUMLData(UMLData *umlData)
 {
     this->umlData = umlData;
 }
+
 UMLData* DataProvider::getUMLData()
 {
     return this->umlData;

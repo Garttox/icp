@@ -6,16 +6,23 @@
 #include "editclassdialog.h"
 #include "ui_editclassdialog.h"
 #include "umlrelationanchor.h"
+#include "umlclassnotifier.h"
 
-UMLClass::UMLClass(UMLClassData *umlClassData) : umlClassData(umlClassData)
+UMLClass::UMLClass(UMLClassData *umlClassData) :
+    QObject(),
+    umlClassData(umlClassData)
 {
     textColor = Qt::black;
-    outlineColor = Qt::darkBlue;
-    selectedOutlineColor = QColor(21, 193, 232);
+    outlineColor = QColor(0, 140, 190);
+    selectedOutlineColor = QColor(25, 195, 235);
     backgroundColor = Qt::white;
     setFlags(ItemIsMovable | ItemIsSelectable | ItemSendsGeometryChanges);
     setPos(umlClassData->getPosX(), umlClassData->getPosY());
     addRelationAnchors();
+
+    // connect signals
+    connect(UMLClassNotifier::getInstance(), SIGNAL(anchorDragged(UMLRelationAnchor*, QPointF)), this, SLOT(onAnchorDragged(UMLRelationAnchor*, QPointF)));
+    connect(UMLClassNotifier::getInstance(), SIGNAL(anchorDragReleased(UMLRelationAnchor*, UMLRelationAnchor*)), this, SLOT(onAnchorDragReleased(UMLRelationAnchor*, UMLRelationAnchor*)) );
 }
 
 UMLClass::~UMLClass()
@@ -82,15 +89,25 @@ void UMLClass::freeClassData()
     DataProvider::getInstance().getUMLData()->removeClass(umlClassData);
 }
 
-void UMLClass::registerAnchorDragged(UMLRelationAnchor *anchor, QPointF endpoint)
+void UMLClass::onAnchorDragged(UMLRelationAnchor *anchor, QPointF endpoint)
 {
-    qreal a = pos().x() - endpoint.x();
-    qreal b = pos().x() - endpoint.x();
-    qreal dist = std::sqrt(std::pow(a, 2) + std::pow(b, 2));
-    if (dist < 20)
+    if (!anchors.contains(anchor))
     {
-        qDebug("HAHAA");
-        // TODO
+        QRectF bounds = sceneBoundingRect();
+        QRectF adjusted = bounds.adjusted(-ANCHOR_DRAG_OFFSET, -ANCHOR_DRAG_OFFSET, ANCHOR_DRAG_OFFSET, ANCHOR_DRAG_OFFSET);
+        setAnchorsVisible(adjusted.contains(endpoint));
+    }
+}
+
+void UMLClass::onAnchorDragReleased(UMLRelationAnchor *source, UMLRelationAnchor *destination)
+{
+    if (!anchors.contains(source))
+    {
+        setAnchorsVisible(false);
+        if (destination != nullptr && anchors.contains(destination))
+        {
+            qDebug("CONNECTED");
+        }
     }
 }
 
@@ -112,6 +129,7 @@ void UMLClass::resetAnchorsPositions()
     foreach (UMLRelationAnchor *anchor, anchors)
     {
         anchor->setPositionRelativeToParent();
+        // emit anchor->anchorDragged(nullptr, QPointF());
     }
 }
 

@@ -7,8 +7,9 @@
 
 class UMLClass;
 
-class UMLRelationAnchor : public QGraphicsEllipseItem
+class UMLRelationAnchor : public QObject, public QGraphicsEllipseItem
 {
+    Q_OBJECT
 public:
     UMLRelationAnchor(qreal relX, qreal relY, UMLClass* parent);
     void setPositionRelativeToParent();

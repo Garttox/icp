@@ -31,6 +31,7 @@ SOURCES += main.cpp\
         view/classes/editmethoddialog.cpp \
         view/classes/newclassdialog.cpp \
         view/classes/umlclass.cpp \
+        view/classes/umlclassnotifier.cpp \
         view/classes/umlrelation.cpp \
         view/classes/umlrelationanchor.cpp
 
@@ -52,6 +53,7 @@ HEADERS  += app.h \
     view/classes/editmethoddialog.h \
     view/classes/newclassdialog.h \
     view/classes/umlclass.h \
+    view/classes/umlclassnotifier.h \
     view/classes/umlrelation.h \
     view/classes/umlrelationanchor.h
 
