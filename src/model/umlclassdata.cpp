@@ -26,25 +26,26 @@ UMLClassData::UMLClassData(const UMLClassData &original) :
 
 UMLClassData::~UMLClassData()
 {
-    foreach (UMLFieldData *field, fields)
-        delete field;
-    foreach (UMLMethodData *method, methods)
-        delete method;
+    qDeleteAll(fields.begin(), fields.end());
+    qDeleteAll(methods.begin(), methods.end());
 }
 
 void UMLClassData::setData(const UMLClassData &data)
 {
+    // delete current data
+    qDeleteAll(fields.begin(), fields.end());
+    qDeleteAll(methods.begin(), methods.end());
+    fields.clear();
+    methods.clear();
+
+    // set new data
     this->name = data.name;
     this->type = data.type;
-
-    this->fields.clear();
     foreach(UMLFieldData *field, data.fields)
     {
         UMLFieldData *copy = new UMLFieldData(*field);
         this->fields.append(copy);
     }
-
-    this->methods.clear();
     foreach(UMLMethodData *method, data.methods)
     {
         UMLMethodData *copy = new UMLMethodData(*method);

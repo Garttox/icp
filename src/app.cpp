@@ -11,7 +11,7 @@
 #include <QMessageBox>
 
 #include "app.h"
-#include "view\diagramgraphicsview.h"
+#include "view\classdiagramgraphicsview.h"
 #include "view\classes\umlclass.h"
 #include "view\classes\newclassdialog.h"
 #include "model\umldata.h"
@@ -38,7 +38,7 @@ App::App(QWidget *parent) :
     view->setMinimumSize(600, 600);
     view->setScene(scene);
     view->setDragMode(QGraphicsView::RubberBandDrag);
-    view->setRenderHints(QPainter::TextAntialiasing);
+    view->setRenderHints(QPainter::TextAntialiasing | QPainter::Antialiasing);
     view->setContextMenuPolicy(Qt::ActionsContextMenu);
     // setCentralWidget(view);
 
@@ -71,6 +71,10 @@ void App::createActions()
     addClassAction = new QAction(tr("Add &class"), this);
     addClassAction->setShortcut(tr("Ctrl+N"));
     connect(addClassAction, SIGNAL(triggered()), this, SLOT(addClass()));
+
+    removeClassAction = new QAction(tr("Remove class"), this);
+    removeClassAction->setShortcut(Qt::Key_Delete);
+    connect(removeClassAction, SIGNAL(triggered()), this, SLOT(removeClass()));
 }
 
 void App::createMainMenu()
@@ -84,6 +88,7 @@ void App::createToolBar()
 {
     toolBar = addToolBar(tr("Tools"));
     toolBar->addAction(addClassAction);
+    toolBar->addAction(removeClassAction);
 }
 
 //SLOTS
@@ -92,7 +97,7 @@ void App::loadFile()
 {
     UMLData *umlData = DataProvider::getInstance().getUMLData();
     umlData->clearData();
-    QString fileName = QFileDialog::getOpenFileName(this, "Open a file", "/");
+    QString fileName = QFileDialog::getOpenFileName(this, "Open a file", "../examples");
     qInfo() << fileName;
     if (fileName.length() == 0)
         return; //user closed dialog
@@ -129,6 +134,7 @@ void App::loadFile()
     }
 
 }
+
 void App::saveFile()
 {
     //TODO: saving to file
@@ -138,4 +144,15 @@ void App::addClass()
 {
     NewClassDialog *newClassDialog = new NewClassDialog();
     newClassDialog->show();
+}
+
+void App::removeClass()
+{
+   QList<QGraphicsItem *> selected = scene->selectedItems();
+   foreach(QGraphicsItem *item, selected)
+   {
+       scene->removeItem(item);
+       static_cast<UMLClass *>(item)->freeClassData();
+       delete item;
+   }
 }

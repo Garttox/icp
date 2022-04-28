@@ -16,6 +16,7 @@ private slots:
     void loadFile();
     void saveFile();
     void addClass();
+    void removeClass();
 
 private:
     QGraphicsScene *scene;
@@ -27,6 +28,7 @@ private:
     QAction *fileLoad;
     QAction *fileSave;
     QAction *addClassAction;
+    QAction *removeClassAction;
 
     void createActions();
     void createMainMenu();

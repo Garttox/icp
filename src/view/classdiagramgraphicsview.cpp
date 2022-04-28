@@ -1,6 +1,6 @@
 #include <QDebug>
 
-#include "diagramgraphicsview.h"
+#include "classdiagramgraphicsview.h"
 #include "model\dataprovider.h"
 #include "model\umlclassdata.h"
 #include "model\umldata.h"

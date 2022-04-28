@@ -27,12 +27,16 @@ private slots:
     void on_editMethodButton_clicked();
     void on_removeMethodButton_clicked();
 
+    void on_fieldsList_itemSelectionChanged();
+
+    void on_methodsList_itemSelectionChanged();
+
 private:
     Ui::NewClassDialog *ui;
     UMLClassData *umlClassData;
     
-    static const int DEFAULT_CLASS_POS_X = 20;
-    static const int DEFAULT_CLASS_POS_Y = 20;
+    static const int DEFAULT_CLASS_POS_X = 100;
+    static const int DEFAULT_CLASS_POS_Y = 100;
 };
 
 #endif // NEWCLASSDIALOG_H

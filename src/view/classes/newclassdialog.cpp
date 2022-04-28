@@ -112,3 +112,18 @@ void NewClassDialog::on_removeMethodButton_clicked()
     }
     qDeleteAll(ui->methodsList->selectedItems());
 }
+
+void NewClassDialog::on_fieldsList_itemSelectionChanged()
+{
+    bool hasSelectedItems = !ui->fieldsList->selectedItems().empty();
+    ui->editFieldButton->setEnabled(hasSelectedItems);
+    ui->removeFieldButton->setEnabled(hasSelectedItems);
+}
+
+void NewClassDialog::on_methodsList_itemSelectionChanged()
+{
+    bool hasSelectedItems = !ui->methodsList->selectedItems().empty();
+    ui->editMethodButton->setEnabled(hasSelectedItems);
+    ui->removeMethodButton->setEnabled(hasSelectedItems);
+}
+

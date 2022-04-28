@@ -53,6 +53,9 @@
     </item>
     <item row="8" column="3">
      <widget class="QPushButton" name="removeMethodButton">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="text">
        <string>Remove</string>
       </property>
@@ -101,12 +104,15 @@
     <item row="2" column="1" colspan="3">
      <widget class="QListWidget" name="fieldsList">
       <property name="selectionMode">
-       <enum>QAbstractItemView::SingleSelection</enum>
+       <enum>QAbstractItemView::ExtendedSelection</enum>
       </property>
      </widget>
     </item>
     <item row="3" column="3">
      <widget class="QPushButton" name="removeFieldButton">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="text">
        <string>Remove</string>
       </property>
@@ -127,6 +133,9 @@
     </item>
     <item row="8" column="2">
      <widget class="QPushButton" name="editMethodButton">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="text">
        <string>Edit</string>
       </property>
@@ -147,6 +156,9 @@
     </item>
     <item row="3" column="2">
      <widget class="QPushButton" name="editFieldButton">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="text">
        <string>Edit</string>
       </property>
@@ -165,7 +177,7 @@
     <item row="6" column="1" colspan="3">
      <widget class="QListWidget" name="methodsList">
       <property name="selectionMode">
-       <enum>QAbstractItemView::SingleSelection</enum>
+       <enum>QAbstractItemView::ExtendedSelection</enum>
       </property>
      </widget>
     </item>

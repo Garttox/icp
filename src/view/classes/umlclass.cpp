@@ -1,11 +1,11 @@
 #include <QtGui>
 #include <QStyleOptionGraphicsItem>
 #include <algorithm>
-
+#include "model/dataprovider.h"
 #include "umlclass.h"
-
 #include "editclassdialog.h"
 #include "ui_editclassdialog.h"
+#include "umlrelationanchor.h"
 
 UMLClass::UMLClass(UMLClassData *umlClassData) : umlClassData(umlClassData)
 {
@@ -13,26 +13,19 @@ UMLClass::UMLClass(UMLClassData *umlClassData) : umlClassData(umlClassData)
     outlineColor = Qt::darkBlue;
     selectedOutlineColor = QColor(21, 193, 232);
     backgroundColor = Qt::white;
-    setFlags(ItemIsMovable | ItemIsSelectable);
-    setFlag(ItemSendsGeometryChanges);
-
+    setFlags(ItemIsMovable | ItemIsSelectable | ItemSendsGeometryChanges);
     setPos(umlClassData->getPosX(), umlClassData->getPosY());
+    addRelationAnchors();
 }
 
-void UMLClass::paint(QPainter *painter,
-                 const QStyleOptionGraphicsItem *option,
-                 QWidget * /* widget */)
+UMLClass::~UMLClass()
 {
-    QPen pen;
-    if (option->state & QStyle::State_Selected)
-    {
-        //pen.setStyle(Qt::DotLine);
-        pen = QPen(selectedOutlineColor);
-    }
-    else
-    {
-        pen = QPen(outlineColor);
-    }
+    qDeleteAll(anchors.begin(), anchors.end());
+}
+
+void UMLClass::paint(QPainter *painter, const QStyleOptionGraphicsItem * /*option*/, QWidget * /*widget*/)
+{
+    QPen pen = QPen(isSelected() ? selectedOutlineColor : outlineColor);
     pen.setWidth(2);
     painter->setPen(pen);
     painter->setBrush(backgroundColor);
@@ -45,7 +38,7 @@ void UMLClass::paint(QPainter *painter,
     QList<UMLFieldData *> fields = umlClassData->getFields();
     QList<UMLMethodData *> methods = umlClassData->getMethods();
     QPointF point = rect.topLeft();
-    qreal offsetX = 3.0;
+    qreal offsetX = 6.0;
     point.setY(point.y() + metrics.height());
     point.setX(point.x() + offsetX);
 
@@ -56,7 +49,7 @@ void UMLClass::paint(QPainter *painter,
     painter->drawText(point, umlClassData->getDisplayName());
     font.setBold(false);
     painter->setFont(font);
-    point.setY(point.y() + metrics.height()/2);
+    point.setY(point.y() + metrics.height() / 2);
     point.setX(point.x() - offsetX);
     painter->drawLine(point, QPointF(point.x() + rect.width(), point.y()));
     point.setX(point.x() + offsetX);
@@ -84,20 +77,59 @@ void UMLClass::paint(QPainter *painter,
     }
 }
 
+void UMLClass::freeClassData()
+{
+    DataProvider::getInstance().getUMLData()->removeClass(umlClassData);
+}
+
+void UMLClass::registerAnchorDragged(UMLRelationAnchor *anchor, QPointF endpoint)
+{
+    qreal a = pos().x() - endpoint.x();
+    qreal b = pos().x() - endpoint.x();
+    qreal dist = std::sqrt(std::pow(a, 2) + std::pow(b, 2));
+    if (dist < 20)
+    {
+        qDebug("HAHAA");
+        // TODO
+    }
+}
+
 QRectF UMLClass::boundingRect() const
 {
     return outlineRect();
 }
 
-void UMLClass::modelChanged()
+QList<UMLRelationAnchor *> UMLClass::getAnchors() const
 {
+    return anchors;
+}
 
+void UMLClass::modelChanged()
+{}
+
+void UMLClass::resetAnchorsPositions()
+{
+    foreach (UMLRelationAnchor *anchor, anchors)
+    {
+        anchor->setPositionRelativeToParent();
+    }
 }
 
 void UMLClass::mouseDoubleClickEvent(QGraphicsSceneMouseEvent */*event*/)
 {
     EditClassDialog *editClassDialog = new EditClassDialog(umlClassData);
-    editClassDialog->show();
+    editClassDialog->exec();
+    resetAnchorsPositions();
+}
+
+QVariant UMLClass::itemChange(GraphicsItemChange change, const QVariant &value)
+{
+    if (change == QGraphicsItem::ItemSelectedHasChanged)
+    {
+        setZValue(isSelected() ? 1 : 0);
+        setAnchorsVisible(isSelected());
+    }
+    return QGraphicsItem::itemChange(change, value);
 }
 
 qreal UMLClass::maxTextWidth() const
@@ -121,13 +153,34 @@ qreal UMLClass::maxTextWidth() const
     return maxWidth;
 }
 
+void UMLClass::addRelationAnchors()
+{
+    for (int i = -1; i <= 1; i++)
+    {
+        qreal rel = 0.6 * i;
+        anchors.append(new UMLRelationAnchor(rel, +1, this));
+        anchors.append(new UMLRelationAnchor(rel, -1, this));
+        anchors.append(new UMLRelationAnchor(+1, rel, this));
+        anchors.append(new UMLRelationAnchor(-1, rel, this));
+    }
+}
+
 QRectF UMLClass::outlineRect() const
 {
     const int padding = 12;
-    QFontMetricsF metrics{qApp->font()};
+    QFontMetricsF metrics{ qApp->font() };
     QList<UMLFieldData *> fields = umlClassData->getFields();
     QList<UMLMethodData *> methods = umlClassData->getMethods();
-    QRectF rect = QRectF(0, 0, maxTextWidth() + padding, (metrics.height())*(fields.size() + methods.size()) + padding);
+    QRectF rect = QRectF(0, 0, maxTextWidth() + padding, metrics.height() * (fields.size() + methods.size()) + padding);
     rect.adjust(-padding, -padding, +padding, +padding);
+    rect.translate(-rect.center());
     return rect;
+}
+
+void UMLClass::setAnchorsVisible(bool enabled)
+{
+    foreach (UMLRelationAnchor *anchor, anchors)
+    {
+        anchor->setVisible(enabled);
+    }
 }

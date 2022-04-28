@@ -1,5 +1,5 @@
-#ifndef DIAGRAMGRAPHICSVIEW_H
-#define DIAGRAMGRAPHICSVIEW_H
+#ifndef CLASSDIAGRAMGRAPHICSVIEW_H
+#define CLASSDIAGRAMGRAPHICSVIEW_H
 
 #include <QGraphicsView>
 #include <QMouseEvent>
@@ -25,4 +25,4 @@ private:
     void mouseMoveEvent(QMouseEvent *event);
 };
 
-#endif // DIAGRAMGRAPHICSVIEW_H
+#endif // CLASSDIAGRAMGRAPHICSVIEW_H

@@ -15,8 +15,12 @@ public:
     ~UMLData();
     bool loadData(QJsonObject json);
     void addClass(UMLClassData *classData);
+    void removeClass(UMLClassData *classData);
+
     void addRelation(UMLRelationData *relation);
+
     void clearData();
+
     UMLClassData* findClassByName(QString clsName);
     QSet<UMLClassData *> *getClasses();
 public slots:
