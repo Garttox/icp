@@ -5,22 +5,22 @@
 #include <QColor>
 #include <QGraphicsItem>
 #include <QSet>
+#include <QEvent>
 
 #include "model\umldata.h"
 #include "model\umlclassdata.h"
 #include "umlrelationanchor.h"
-#include "qevent.h"
+#include "umlrelation.h"
 
 class UMLClass : public QObject, public QGraphicsItem
 {
     Q_OBJECT
 public:
     UMLClass(UMLClassData *umlClassData);
-    ~UMLClass();
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
-    void freeClassData();
     QRectF boundingRect() const override;
     QList<UMLRelationAnchor *> getAnchors() const;
+    void remove();
 
 private slots:
     void modelChanged();

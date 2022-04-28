@@ -18,6 +18,8 @@ private:
 signals:
     void anchorDragged(UMLRelationAnchor *anchor, QPointF endpoint);
     void anchorDragReleased(UMLRelationAnchor *source, UMLRelationAnchor* destination);
+    void anchorRemoved(UMLRelationAnchor *anchor);
+    void classRemoved(UMLClass *umlClass);
 
 };
 

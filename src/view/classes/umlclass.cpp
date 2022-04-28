@@ -1,5 +1,6 @@
 #include <QtGui>
 #include <QStyleOptionGraphicsItem>
+#include <QGraphicsScene>
 #include <algorithm>
 #include "model/dataprovider.h"
 #include "umlclass.h"
@@ -13,7 +14,7 @@ UMLClass::UMLClass(UMLClassData *umlClassData) :
     umlClassData(umlClassData)
 {
     textColor = Qt::black;
-    outlineColor = QColor(0, 140, 190);
+    outlineColor = QColor(0, 130, 180);
     selectedOutlineColor = QColor(25, 195, 235);
     backgroundColor = Qt::white;
     setFlags(ItemIsMovable | ItemIsSelectable | ItemSendsGeometryChanges);
@@ -21,13 +22,10 @@ UMLClass::UMLClass(UMLClassData *umlClassData) :
     addRelationAnchors();
 
     // connect signals
-    connect(UMLClassNotifier::getInstance(), SIGNAL(anchorDragged(UMLRelationAnchor*, QPointF)), this, SLOT(onAnchorDragged(UMLRelationAnchor*, QPointF)));
-    connect(UMLClassNotifier::getInstance(), SIGNAL(anchorDragReleased(UMLRelationAnchor*, UMLRelationAnchor*)), this, SLOT(onAnchorDragReleased(UMLRelationAnchor*, UMLRelationAnchor*)) );
-}
-
-UMLClass::~UMLClass()
-{
-    qDeleteAll(anchors.begin(), anchors.end());
+    connect(UMLClassNotifier::getInstance(), SIGNAL(anchorDragged(UMLRelationAnchor*,QPointF)),
+            this, SLOT(onAnchorDragged(UMLRelationAnchor*,QPointF)));
+    connect(UMLClassNotifier::getInstance(), SIGNAL(anchorDragReleased(UMLRelationAnchor*,UMLRelationAnchor*)),
+            this, SLOT(onAnchorDragReleased(UMLRelationAnchor*,UMLRelationAnchor*)));
 }
 
 void UMLClass::paint(QPainter *painter, const QStyleOptionGraphicsItem * /*option*/, QWidget * /*widget*/)
@@ -84,11 +82,6 @@ void UMLClass::paint(QPainter *painter, const QStyleOptionGraphicsItem * /*optio
     }
 }
 
-void UMLClass::freeClassData()
-{
-    DataProvider::getInstance().getUMLData()->removeClass(umlClassData);
-}
-
 void UMLClass::onAnchorDragged(UMLRelationAnchor *anchor, QPointF endpoint)
 {
     if (!anchors.contains(anchor))
@@ -101,13 +94,13 @@ void UMLClass::onAnchorDragged(UMLRelationAnchor *anchor, QPointF endpoint)
 
 void UMLClass::onAnchorDragReleased(UMLRelationAnchor *source, UMLRelationAnchor *destination)
 {
-    if (!anchors.contains(source))
+    if (destination != nullptr && anchors.contains(source))
+    {
+        scene()->addItem(new UMLRelation(this, source, destination));
+    }
+    else
     {
         setAnchorsVisible(false);
-        if (destination != nullptr && anchors.contains(destination))
-        {
-            qDebug("CONNECTED");
-        }
     }
 }
 
@@ -121,6 +114,14 @@ QList<UMLRelationAnchor *> UMLClass::getAnchors() const
     return anchors;
 }
 
+void UMLClass::remove()
+{
+    emit UMLClassNotifier::getInstance()->classRemoved(this);
+    scene()->removeItem(this);
+    anchors.clear();
+    delete this;
+}
+
 void UMLClass::modelChanged()
 {}
 
@@ -129,7 +130,6 @@ void UMLClass::resetAnchorsPositions()
     foreach (UMLRelationAnchor *anchor, anchors)
     {
         anchor->setPositionRelativeToParent();
-        // emit anchor->anchorDragged(nullptr, QPointF());
     }
 }
 
@@ -176,10 +176,10 @@ void UMLClass::addRelationAnchors()
     for (int i = -1; i <= 1; i++)
     {
         qreal rel = 0.6 * i;
-        anchors.append(new UMLRelationAnchor(rel, +1, this));
-        anchors.append(new UMLRelationAnchor(rel, -1, this));
-        anchors.append(new UMLRelationAnchor(+1, rel, this));
-        anchors.append(new UMLRelationAnchor(-1, rel, this));
+        anchors.append(new UMLRelationAnchor(this, rel, +1));
+        anchors.append(new UMLRelationAnchor(this, rel, -1));
+        anchors.append(new UMLRelationAnchor(this, +1, rel));
+        anchors.append(new UMLRelationAnchor(this, -1, rel));
     }
 }
 

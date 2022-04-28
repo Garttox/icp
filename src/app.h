@@ -12,11 +12,6 @@ class App : public QMainWindow
 
 public:
     App(QWidget *parent = 0);
-private slots:
-    void loadFile();
-    void saveFile();
-    void addClass();
-    void removeClass();
 
 private:
     QGraphicsScene *scene;
@@ -28,11 +23,25 @@ private:
     QAction *fileLoad;
     QAction *fileSave;
     QAction *addClassAction;
-    QAction *removeClassAction;
+    QAction *removeSelectedAction;
 
     void createActions();
     void createMainMenu();
     void createToolBar();
+    void removeSelectedRelations();
+    void removeSelectedClasses();
+
+    template <class T>
+    QList<T> getSelectedOfGivenType();
+
+    static constexpr qreal SCENE_SIZE = 3000;
+
+private slots:
+    void loadFile();
+    void saveFile();
+    void addClass();
+    void removeSelected();
+
 };
 
 #endif // APP_H

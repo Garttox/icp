@@ -1,28 +1,46 @@
-#include "umlrelationanchor.h"
-#include "umlclassnotifier.h"
-#include "umlclass.h"
 #include <QPen>
-#include <QDebug>
 #include <QPainter>
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
+#include "umlrelationanchor.h"
+#include "umlclassnotifier.h"
+#include "umlclass.h"
 
-UMLRelationAnchor::UMLRelationAnchor(qreal relX, qreal relY, UMLClass* parent):
+
+UMLRelationAnchor::UMLRelationAnchor(UMLClass* parent, qreal relX, qreal relY):
     QObject(),
     QGraphicsEllipseItem(parent),
     relX(relX), relY(relY)
 {
     setColorPen();
-
     setPositionRelativeToParent();
     setVisible(false);
-
     setDragLineProperties();
+    connect(UMLClassNotifier::getInstance(), SIGNAL(classRemoved(UMLClass*)), this, SLOT(onClassRemoved(UMLClass*)));
 }
 
 void UMLRelationAnchor::setPositionRelativeToParent()
 {
     setRect(getRelativeRect());
+}
+
+QRectF UMLRelationAnchor::getSceneRect() const
+{
+    return sceneBoundingRect();
+}
+
+QRectF UMLRelationAnchor::getRelativeRect() const
+{
+    QRectF bounds = static_cast<UMLClass*>(parentItem())->boundingRect();
+    qreal x = relX * 0.5 * bounds.width();
+    qreal y = relY * 0.5 * bounds.height();
+    return QRectF(x - (SIZE / 2), y - (SIZE / 2), SIZE, SIZE);
+}
+
+void UMLRelationAnchor::remove()
+{
+    emit UMLClassNotifier::getInstance()->anchorRemoved(this);
+    delete this;
 }
 
 void UMLRelationAnchor::mousePressEvent(QGraphicsSceneMouseEvent *event)
@@ -62,12 +80,12 @@ void UMLRelationAnchor::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     emit UMLClassNotifier::getInstance()->anchorDragged(this, event->scenePos());
 }
 
-QRectF UMLRelationAnchor::getRelativeRect() const
+void UMLRelationAnchor::onClassRemoved(UMLClass *umlClass)
 {
-    QRectF bounds = static_cast<UMLClass*>(parentItem())->boundingRect();
-    qreal x = relX * 0.5 * bounds.width();
-    qreal y = relY * 0.5 * bounds.height();
-    return QRectF(x - (SIZE / 2), y - (SIZE / 2), SIZE, SIZE);
+    if (parentItem() == umlClass)
+    {
+        remove();
+    }
 }
 
 void UMLRelationAnchor::setColorPen()
