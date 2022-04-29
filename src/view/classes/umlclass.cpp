@@ -148,6 +148,12 @@ QVariant UMLClass::itemChange(GraphicsItemChange change, const QVariant &value)
     return QGraphicsItem::itemChange(change, value);
 }
 
+void UMLClass::mouseDoubleClickEvent(QGraphicsSceneMouseEvent */*event*/)
+{
+    EditClassDialog *editClassDialog = new EditClassDialog(umlClassData);
+    editClassDialog->show();
+}
+
 qreal UMLClass::maxTextWidth() const
 {
     QFontMetricsF metrics{qApp->font()};

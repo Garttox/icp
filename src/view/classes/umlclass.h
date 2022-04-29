@@ -12,6 +12,7 @@
 #include "umlrelationanchor.h"
 #include "umlrelation.h"
 
+
 class UMLClass : public QObject, public QGraphicsItem
 {
     Q_OBJECT
@@ -28,8 +29,7 @@ private slots:
     void onAnchorDragReleased(UMLRelationAnchor *source, UMLRelationAnchor *destination);
 
 protected:
-    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
-    QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
+    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
 
 private:
     QRectF outlineRect() const;
