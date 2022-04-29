@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Edit Class</string>
+   <string>[TITLE]</string>
   </property>
   <property name="modal">
    <bool>true</bool>
@@ -71,7 +71,7 @@
     <item row="0" column="0">
      <widget class="QLabel" name="label">
       <property name="text">
-       <string>Class Name:</string>
+       <string>Name:</string>
       </property>
       <property name="margin">
        <number>2</number>
@@ -181,7 +181,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QLabel" name="label_2">
+  <widget class="QLabel" name="header">
    <property name="geometry">
     <rect>
      <x>30</x>
@@ -195,7 +195,7 @@
 font-size: 18px;</string>
    </property>
    <property name="text">
-    <string>Edit Class</string>
+    <string>[HEADER]</string>
    </property>
    <property name="textFormat">
     <enum>Qt::MarkdownText</enum>

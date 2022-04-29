@@ -123,6 +123,11 @@ QString UMLClassData::getName() const
     return name;
 }
 
+UMLClassType UMLClassData::getType() const
+{
+    return type;
+}
+
 QString UMLClassData::getDisplayName() const
 {
     if (type == UMLClassType::INTERFACE)

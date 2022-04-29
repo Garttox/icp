@@ -23,6 +23,7 @@ private:
     QAction *fileLoad;
     QAction *fileSave;
     QAction *addClassAction;
+    QAction *addInterfaceAction;
     QAction *removeSelectedAction;
 
     void createActions();
@@ -40,6 +41,7 @@ private slots:
     void loadFile();
     void saveFile();
     void addClass();
+    void addInterface();
     void removeSelected();
 
 };

@@ -33,6 +33,8 @@ private slots:
     void on_methodsList_itemSelectionChanged();
 
 private:
+    QString getHeaderString() const;
+
     Ui::EditClassDialog *ui;
     UMLClassData *umlClassData;
     UMLClassData *umlClassDataCopy;

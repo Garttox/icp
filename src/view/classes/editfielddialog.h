@@ -13,7 +13,7 @@ class EditFieldDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit EditFieldDialog(UMLFieldData *umlFieldData, QWidget *parent = nullptr);
+    explicit EditFieldDialog(UMLClassType classType, UMLFieldData *umlFieldData, QWidget *parent = nullptr);
     ~EditFieldDialog();
 
 private slots:

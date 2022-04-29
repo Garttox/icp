@@ -75,6 +75,10 @@ void App::createActions()
     addClassAction->setShortcut(tr("Ctrl+N"));
     connect(addClassAction, SIGNAL(triggered()), this, SLOT(addClass()));
 
+    addInterfaceAction = new QAction(tr("Add interface"), this);
+    // addInterfaceAction->setShortcut(tr("Ctrl+N"));
+    connect(addInterfaceAction, SIGNAL(triggered()), this, SLOT(addInterface()));
+
     removeSelectedAction = new QAction(tr("Remove"), this);
     removeSelectedAction->setShortcut(Qt::Key_Delete);
     connect(removeSelectedAction, SIGNAL(triggered()), this, SLOT(removeSelected()));
@@ -91,6 +95,7 @@ void App::createToolBar()
 {
     toolBar = addToolBar(tr("Tools"));
     toolBar->addAction(addClassAction);
+    toolBar->addAction(addInterfaceAction);
     toolBar->addAction(removeSelectedAction);
 }
 
@@ -179,7 +184,13 @@ void App::saveFile()
 
 void App::addClass()
 {
-    NewClassDialog *newClassDialog = new NewClassDialog();
+    NewClassDialog *newClassDialog = new NewClassDialog(UMLClassType::CLASS);
+    newClassDialog->show();
+}
+
+void App::addInterface()
+{
+    NewClassDialog *newClassDialog = new NewClassDialog(UMLClassType::INTERFACE);
     newClassDialog->show();
 }
 

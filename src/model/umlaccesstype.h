@@ -1,6 +1,7 @@
 #ifndef UMLACCESSTYPE_H
 #define UMLACCESSTYPE_H
 
+#include "model/umlclasstype.h"
 #include <QString>
 #include <QStringList>
 
@@ -21,7 +22,7 @@ public:
     bool operator==(const AccessType rhs);
     bool operator==(const UMLAccessType& rhs);
 
-    static QStringList asStringList();
+    static QStringList asStringListFor(UMLClassType classType);
 
 private:
     AccessType type;

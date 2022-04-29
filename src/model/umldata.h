@@ -18,6 +18,7 @@ public:
     void removeClass(UMLClassData *classData);
 
     void addRelation(UMLRelationData *relation);
+    void removeRelation(UMLRelationData *relation);
 
     void clearData();
 

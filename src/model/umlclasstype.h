@@ -16,6 +16,7 @@ public:
     UMLClassType(QString strClassType);
     bool operator==(const ClassType rhs) const;
     bool operator==(const UMLClassType& rhs) const;
+    QString toDisplayString() const;
 private:
     ClassType type;
 };

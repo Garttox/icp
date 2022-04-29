@@ -53,15 +53,16 @@ QString UMLAccessType::toDisplayString() const
     }
 }
 
-QStringList UMLAccessType::asStringList()
-{
-    QStringList list = { "Public", "Private", "Protected", "Package" };
-    return list;
-}
-
 bool UMLAccessType::operator==(const AccessType rhs)
 {
     return type == rhs;
+}
+
+QStringList UMLAccessType::asStringListFor(UMLClassType classType)
+{
+    QStringList classTypes = { "Public", "Private", "Protected", "Package" };
+    QStringList interfaceTypes = { "Public" };
+    return classType == UMLClassType::CLASS ? classTypes : interfaceTypes;
 }
 
 bool UMLAccessType::operator==(const UMLAccessType& rhs)

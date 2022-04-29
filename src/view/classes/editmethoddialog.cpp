@@ -1,7 +1,7 @@
 #include "editmethoddialog.h"
 #include "ui_editmethoddialog.h"
 
-EditMethodDialog::EditMethodDialog(UMLMethodData *umlMethodData, QWidget *parent) :
+EditMethodDialog::EditMethodDialog(UMLClassType classType, UMLMethodData *umlMethodData, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::EditMethodDialog),
     umlMethodData(umlMethodData)
@@ -9,7 +9,7 @@ EditMethodDialog::EditMethodDialog(UMLMethodData *umlMethodData, QWidget *parent
     ui->setupUi(this);
     ui->nameLineEdit->setText(umlMethodData->getName());
     ui->typeLineEdit->setText(umlMethodData->getType());
-    ui->accessComboBox->addItems(UMLAccessType::asStringList());
+    ui->accessComboBox->addItems(UMLAccessType::asStringListFor(classType));
     ui->accessComboBox->setCurrentText(umlMethodData->getAccess().toDisplayString());
     ui->parametersTable->clearContents();
     setDataToParameterTable(umlMethodData);

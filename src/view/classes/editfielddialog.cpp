@@ -2,7 +2,7 @@
 #include "ui_editfielddialog.h"
 #include "model\umlaccesstype.h"
 
-EditFieldDialog::EditFieldDialog(UMLFieldData *umlFieldData, QWidget *parent) :
+EditFieldDialog::EditFieldDialog(UMLClassType classType, UMLFieldData *umlFieldData, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::EditFieldDialog),
     umlFieldData(umlFieldData)
@@ -10,7 +10,7 @@ EditFieldDialog::EditFieldDialog(UMLFieldData *umlFieldData, QWidget *parent) :
     ui->setupUi(this);
     ui->nameLineEdit->setText(umlFieldData->getName());
     ui->typeLineEdit->setText(umlFieldData->getType());
-    ui->accessComboBox->addItems(UMLAccessType::asStringList());
+    ui->accessComboBox->addItems(UMLAccessType::asStringListFor(classType));
     ui->accessComboBox->setCurrentText(umlFieldData->getAccess().toDisplayString());
 }
 

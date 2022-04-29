@@ -96,12 +96,9 @@ void UMLClass::onAnchorDragReleased(UMLRelationAnchor *source, UMLRelationAnchor
 {
     if (destination != nullptr && anchors.contains(source))
     {
-        scene()->addItem(new UMLRelation(this, source, destination));
+        scene()->addItem(new UMLRelation(nullptr, source, destination));
     }
-    else
-    {
-        setAnchorsVisible(false);
-    }
+    setAnchorsVisible(isSelected());
 }
 
 QRectF UMLClass::boundingRect() const
@@ -119,6 +116,7 @@ void UMLClass::remove()
     emit UMLClassNotifier::getInstance()->classRemoved(this);
     scene()->removeItem(this);
     anchors.clear();
+    DataProvider::getInstance().getUMLData()->removeClass(umlClassData);
     delete this;
 }
 

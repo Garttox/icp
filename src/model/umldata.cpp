@@ -82,6 +82,14 @@ void UMLData::addRelation(UMLRelationData *relation)
     relations->insert(relation);
 }
 
+void UMLData::removeRelation(UMLRelationData *relation)
+{
+    if (relations->remove(relation))
+    {
+        delete relation;
+    }
+}
+
 void UMLData::clearData()
 {
     emit umlModelCleared();

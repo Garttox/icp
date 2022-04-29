@@ -1,16 +1,19 @@
 #include <QGraphicsScene>
+#include "model/dataprovider.h"
 #include "umlrelation.h"
 #include "umlclass.h"
 #include "umlclassnotifier.h"
 
-
-UMLRelation::UMLRelation(UMLClass* sourceClass, UMLRelationAnchor* sourceAnchor, UMLRelationAnchor* destinationAnchor) :
+UMLRelation::UMLRelation(UMLRelationData* relation, UMLRelationAnchor* sourceAnchor, UMLRelationAnchor* destinationAnchor) :
     QObject(), QGraphicsLineItem(),
-    sourceClass(sourceClass), sourceAnchor(sourceAnchor), destinationAnchor(destinationAnchor)
+    relation(relation),
+    sourceAnchor(sourceAnchor),
+    destinationAnchor(destinationAnchor)
 {
     setColorPen();
     setCorrectPosition();
     setFlag(ItemIsSelectable);
+    setZValue(-1);
     connect(UMLClassNotifier::getInstance(), SIGNAL(anchorRemoved(UMLRelationAnchor*)),
             this, SLOT(onAnchorRemoved(UMLRelationAnchor*)));
 }
@@ -24,6 +27,7 @@ void UMLRelation::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
 void UMLRelation::remove()
 {
     scene()->removeItem(this);
+    // DataProvider::getInstance().getUMLData()->removeRelation();
     delete this;
 }
 
