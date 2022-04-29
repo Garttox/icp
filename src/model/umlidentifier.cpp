@@ -23,6 +23,11 @@ UMLAccessType UMLIdentifier::getAccess() const
     return access;
 }
 
+QString UMLIdentifier::toString() const
+{
+    return QString();
+}
+
 void UMLIdentifier::setName(QString name)
 {
     this->name = name;

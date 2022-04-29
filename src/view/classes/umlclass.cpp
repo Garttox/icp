@@ -28,6 +28,8 @@ UMLClass::UMLClass(UMLClassData *umlClassData) :
             this, SLOT(onAnchorDragReleased(UMLRelationAnchor*,UMLRelationAnchor*)));
     connect(DataProvider::getInstance().getUMLData(), SIGNAL(relationModelAdded(UMLRelationData*)),
             this, SLOT(onRelationModelAdded(UMLRelationData*)));
+    connect(DataProvider::getInstance().getUMLData(), SIGNAL(relationModelRemoved(UMLRelationData*)),
+            this, SLOT(onRelationModelRemoved(UMLRelationData*)));
 }
 
 QRectF UMLClass::boundingRect() const
@@ -68,14 +70,38 @@ void UMLClass::remove()
 
 void UMLClass::onRelationModelAdded(UMLRelationData *relationData)
 {
-    UMLClassData *sourceClassData = relationData->getSource();
-    if (relationData->getType() == UMLRelationType::GENERALISATION && sourceClassData == umlClassData)
+    UMLClassData *source = relationData->getSource();
+    UMLClassData *destination = relationData->getDestination();
+    if (relationData->getType() == UMLRelationType::GENERALISATION && source == umlClassData)
     {
-        qDebug("GENERALIZATION ADDED");
-        // implementuje source něco z destination?
-        // pokud ano, přidej do QList realizated
-        // pokud je item v realizated, zobraz to jinou barvou ve vykreslování
+        foreach (UMLIdentifier *identifier, umlClassData->getIdentifiers())
+        {
+            QString signature = identifier->toString();
+            if (destination->haveIdentifierWithSignature(signature))
+            {
+                realizedIdentifiers.append(signature);
+            }
+        }
     }
+    update();
+}
+
+void UMLClass::onRelationModelRemoved(UMLRelationData *relationData)
+{
+    UMLClassData *source = relationData->getSource();
+    UMLClassData *destination = relationData->getDestination();
+    if (relationData->getType() == UMLRelationType::GENERALISATION && source == umlClassData)
+    {
+        foreach (UMLIdentifier *identifier, umlClassData->getIdentifiers())
+        {
+            QString signature = identifier->toString();
+            if (destination->haveIdentifierWithSignature(signature))
+            {
+                realizedIdentifiers.removeOne(signature);
+            }
+        }
+    }
+    update();
 }
 
 void UMLClass::onAnchorDragged(UMLRelationAnchor *anchor, QPointF endpoint)
@@ -151,7 +177,10 @@ void UMLClass::paint(QPainter *painter, const QStyleOptionGraphicsItem * /*optio
     // fields
     foreach(auto *field, fields)
     {
-        painter->drawText(point, field->toString());
+        QString string = field->toString();
+        QColor color = realizedIdentifiers.contains(string) ? HIGHLIGHT_COLOR : Qt::black;
+        painter->setPen(color);
+        painter->drawText(point, string);
         point.setY(point.y() + metrics.height());
     }
 
@@ -165,7 +194,10 @@ void UMLClass::paint(QPainter *painter, const QStyleOptionGraphicsItem * /*optio
     // methods
     foreach(auto *method, methods)
     {
-        painter->drawText(point, method->toString());
+        QString string = method->toString();
+        QColor color = realizedIdentifiers.contains(string) ? HIGHLIGHT_COLOR : Qt::black;
+        painter->setPen(color);
+        painter->drawText(point, string);
         point.setY(point.y() + metrics.height());
     }
 }

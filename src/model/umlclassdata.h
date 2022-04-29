@@ -23,6 +23,7 @@ public:
     void addMethod(UMLMethodData *method);
     void removeFieldAt(int index);
     void removeMethodAt(int index);
+    bool haveIdentifierWithSignature(QString signature) const;
     QString getName() const;
     UMLClassType getType() const;
     QString getDisplayName() const;
@@ -30,9 +31,11 @@ public:
     UMLMethodData *getMethodAt(int index) const;
     QList<UMLMethodData *> getMethods() const;
     QList<UMLFieldData *> getFields() const;
+    QList<UMLIdentifier *> getIdentifiers() const;
     int getPosX() const;
     int getPosY() const;
     
+
 public slots:
     void fieldModelChanged();
     void methodModelChanged();

@@ -12,7 +12,7 @@ public:
     UMLFieldData(QString name, QString type, UMLAccessType access);
     UMLFieldData(const UMLFieldData& original);
     ~UMLFieldData() {};
-    QString toString();
+    QString toString() const override;
 signals:
     void modelChanged();
 };

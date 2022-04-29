@@ -89,6 +89,7 @@ void UMLData::removeRelation(UMLRelationData *relation)
 {
     if (relations->remove(relation))
     {
+        emit relationModelRemoved(relation);
         delete relation;
     }
 }

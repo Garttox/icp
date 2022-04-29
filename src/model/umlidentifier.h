@@ -13,6 +13,7 @@ public:
     QString getName() const;
     QString getType() const;
     UMLAccessType getAccess() const;
+    virtual QString toString() const;
     void setName(QString name);
     void setType(QString type);
     void setAccess(UMLAccessType access);

@@ -31,6 +31,7 @@ public slots:
 signals:
     void classModelAdded(UMLClassData *classData);
     void relationModelAdded(UMLRelationData *relationData);
+    void relationModelRemoved(UMLRelationData *relationData);
     void umlModelCleared();
 
 private:

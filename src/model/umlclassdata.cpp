@@ -118,6 +118,18 @@ void UMLClassData::removeMethodAt(int index)
     delete methods.takeAt(index);
 }
 
+bool UMLClassData::haveIdentifierWithSignature(QString signature) const
+{
+    foreach (UMLIdentifier *identifier, getIdentifiers())
+    {
+        if (identifier->toString() == signature)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 QString UMLClassData::getName() const
 {
     return name;
@@ -131,7 +143,7 @@ UMLClassType UMLClassData::getType() const
 QString UMLClassData::getDisplayName() const
 {
     if (type == UMLClassType::INTERFACE)
-        return QString("%1 <<%2>>").arg(name, "Interface");
+        return QString("%1 <<%2>>").arg(name, "interface");
     return name;
 }
 
@@ -143,6 +155,20 @@ QList<UMLMethodData *> UMLClassData::getMethods() const
 QList<UMLFieldData *> UMLClassData::getFields() const
 {
     return fields;
+}
+
+QList<UMLIdentifier *> UMLClassData::getIdentifiers() const
+{
+    QList<UMLIdentifier *> identifiers;
+    foreach (UMLFieldData *field, fields)
+    {
+        identifiers.append(field);
+    }
+    foreach (UMLMethodData *method, methods)
+    {
+        identifiers.append(method);
+    }
+    return identifiers;
 }
 
 UMLFieldData* UMLClassData::getFieldAt(int index) const

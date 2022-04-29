@@ -46,11 +46,13 @@ void UMLMethodData::addParameter(UMLMethodParameterData *parameter)
     connect(parameter, &UMLMethodParameterData::modelChanged, this, &UMLMethodData::parameterModelChanged);
 }
 
-QString UMLMethodData::toString()
+QString UMLMethodData::toString() const
 {
     QStringList paramList;
     foreach(UMLMethodParameterData *parameter, parameters)
+    {
         paramList.append(parameter->toString());
+    }
 
     return QString("%1 %2(%3): %4").arg(access.toString(), name, paramList.join(", "), type);
 }

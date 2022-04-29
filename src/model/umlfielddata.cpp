@@ -9,7 +9,7 @@ UMLFieldData::UMLFieldData(const UMLFieldData &original) :
     UMLIdentifier(original.name, original.type, original.access)
 {}
 
-QString UMLFieldData::toString()
+QString UMLFieldData::toString() const
 {
     return QString("%1 %2: %3").arg(access.toString(), name, type);
 }
