@@ -1,4 +1,5 @@
 #include <QPen>
+#include <QDebug>
 #include <QPainter>
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
@@ -7,10 +8,10 @@
 #include "umlclass.h"
 
 
-UMLRelationAnchor::UMLRelationAnchor(UMLClass* parent, const int id, qreal relX, qreal relY):
+UMLRelationAnchor::UMLRelationAnchor(UMLClass* parent, qreal relX, qreal relY):
     QObject(),
     QGraphicsEllipseItem(parent),
-    id(id), relX(relX), relY(relY)
+    relX(relX), relY(relY)
 {
     setColorPen();
     setPositionRelativeToParent();
@@ -35,11 +36,6 @@ QRectF UMLRelationAnchor::getRelativeRect() const
     qreal x = relX * 0.5 * bounds.width();
     qreal y = relY * 0.5 * bounds.height();
     return QRectF(x - (SIZE / 2), y - (SIZE / 2), SIZE, SIZE);
-}
-
-int UMLRelationAnchor::getId() const
-{
-    return id;
 }
 
 void UMLRelationAnchor::remove()

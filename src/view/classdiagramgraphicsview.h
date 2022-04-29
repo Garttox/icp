@@ -4,8 +4,9 @@
 #include <QGraphicsView>
 #include <QMouseEvent>
 #include <QWidget>
-#include "model\umlclassdata.h"
-#include "model\umldata.h"
+#include "classes/umlclass.h"
+#include "model/umlclassdata.h"
+#include "model/umldata.h"
 
 class ClassDiagramGraphicsView : public QGraphicsView
 {
@@ -16,15 +17,19 @@ public:
 
 private slots:
     void classModelAdded(UMLClassData *classData);
+    void relationModelAdded(UMLRelationData *relationData);
     void umlModelCleared();
 
 private:
-    int originX;
-    int originY;
-
+    UMLClass *getUMLClass(UMLClassData *umlClassData);
     void drawBackgroundTiles();
+    void addUMLClass(UMLClassData *classData);
+    void addUMLRelation(UMLRelationData *relationData);
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
+
+    int originX;
+    int originY;
 
     static constexpr qreal TILE_SIZE = 60;
     static constexpr QColor TILE_COLOR = QColor(220, 220, 220);

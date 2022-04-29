@@ -3,8 +3,8 @@
       {
         "name": "ClassA",
         "type": "CLASS",
-        "posX": 89,
-        "posY": 433,
+        "posX": 310,
+        "posY": 400,
         "fields": [
           {
             "name": "field1",
@@ -44,8 +44,8 @@
       {
         "name": "ClassB",
         "type": "CLASS",
-        "posX": 200,
-        "posY": 177,
+        "posX": 650,
+        "posY": 410,
         "fields": [
           {
             "name": "field1Package",
@@ -58,8 +58,8 @@
       {
         "name": "InterfaceA",
         "type": "INTERFACE",
-        "posX": 716,
-        "posY": 463,
+        "posX": 140,
+        "posY": 230,
         "fields": [
           {
             "name": "field1",
@@ -82,8 +82,8 @@
         "source": "ClassA",
         "destination": "ClassB",
         "type": "ASSOCIATION",
-        "sourceAnchorId": 2,
-        "destinationAnchorId": 6
+        "sourceAnchorId": 6,
+        "destinationAnchorId": 3
       },
       {
         "source": "InterfaceA",

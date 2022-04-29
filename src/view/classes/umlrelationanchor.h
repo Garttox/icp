@@ -10,11 +10,10 @@ class UMLRelationAnchor : public QObject, public QGraphicsEllipseItem
 {
     Q_OBJECT
 public:
-    UMLRelationAnchor(UMLClass* parent, const int id, qreal relX, qreal relY);
+    UMLRelationAnchor(UMLClass* parent, qreal relX, qreal relY);
     void setPositionRelativeToParent();
     QRectF getSceneRect() const;
     QRectF getRelativeRect() const;
-    int getId() const;
     void remove();
 
 signals:
@@ -34,7 +33,6 @@ private:
 
     QGraphicsLineItem dragLine;
     QPen dragLinePen;
-    const int id;
     const qreal relX;
     const qreal relY;
 

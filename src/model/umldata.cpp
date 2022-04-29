@@ -46,17 +46,19 @@ bool UMLData::loadData(QJsonObject json)
     // read relations
     foreach (auto relationEl, json["relations"].toArray())
     {
-        if (relationEl.toObject()["source"].isNull() || relationEl.toObject()["destination"].isNull() ||
-                relationEl.toObject()["type"].isNull())
+        QJsonObject object = relationEl.toObject();
+        if (object["source"].isNull() || object["destination"].isNull() || object["type"].isNull()
+                || object["sourceAnchorId"].isNull() || object["destinationAnchorId"].isNull())
         {
             return false;
         }
 
-        UMLClassData *source = findClassByName(relationEl.toObject()["source"].toString());
-        UMLClassData *destination = findClassByName(relationEl.toObject()["destination"].toString());
-        UMLRelationType *type = new UMLRelationType(relationEl.toObject()["type"].toString());
-        UMLRelationData *relation = new UMLRelationData(source, destination, type);
-
+        UMLClassData *source = findClassByName(object["source"].toString());
+        UMLClassData *destination = findClassByName(object["destination"].toString());
+        UMLRelationType type(object["type"].toString());
+        int sourceAnchorId = object["sourceAnchorId"].toInt();
+        int destinationAnchorId = object["destinationAnchorId"].toInt();
+        UMLRelationData *relation = new UMLRelationData(source, destination, type, sourceAnchorId, destinationAnchorId);
         addRelation(relation);
     }
     return true;
@@ -80,6 +82,7 @@ void UMLData::removeClass(UMLClassData *classData)
 void UMLData::addRelation(UMLRelationData *relation)
 {
     relations->insert(relation);
+    emit relationModelAdded(relation);
 }
 
 void UMLData::removeRelation(UMLRelationData *relation)

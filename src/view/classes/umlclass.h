@@ -6,7 +6,7 @@
 #include <QGraphicsItem>
 #include <QSet>
 #include <QEvent>
-
+#include <QVariant>
 #include "model\umldata.h"
 #include "model\umlclassdata.h"
 #include "umlrelationanchor.h"
@@ -20,7 +20,8 @@ public:
     UMLClass(UMLClassData *umlClassData);
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
     QRectF boundingRect() const override;
-    QList<UMLRelationAnchor *> getAnchors() const;
+    bool correspondsTo(UMLClassData *umlClassData);
+    UMLRelationAnchor *getAnchorById(int id) const;
     void remove();
 
 private slots:
@@ -29,7 +30,8 @@ private slots:
     void onAnchorDragReleased(UMLRelationAnchor *source, UMLRelationAnchor *destination);
 
 protected:
-    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
+    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
+    QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
 
 private:
     QRectF outlineRect() const;

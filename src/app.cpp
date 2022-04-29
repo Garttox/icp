@@ -59,7 +59,7 @@ App::App(QWidget *parent) :
     setWindowTitle(tr("UMLiBubli"));
 }
 
-// private
+//  - - - - - private  - - - - -
 
 void App::createActions()
 {
@@ -132,16 +132,18 @@ QList<T> App::getSelectedOfGivenType()
 }
 
 
-// private slots
+// - - - - - private slots - - - - -
 
 void App::loadFile()
 {
     UMLData *umlData = DataProvider::getInstance().getUMLData();
-    umlData->clearData();
     QString fileName = QFileDialog::getOpenFileName(this, "Open a file", "../examples");
     qInfo() << fileName;
     if (fileName.length() == 0)
-        return; //user closed dialog
+    {
+        return; // user closed dialog
+    }
+    umlData->clearData();
     QJsonDocument doc;
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -149,7 +151,7 @@ void App::loadFile()
         qWarning() << "failed to read the file";
         QMessageBox messageBox;
         messageBox.critical(0,"Reading error","Error occured while reading the file");
-        messageBox.setFixedSize(500,200);
+        messageBox.setFixedSize(500, 200);
         return;
     }
     QByteArray byteFile = file.readAll();
@@ -161,7 +163,7 @@ void App::loadFile()
     {
         QMessageBox messageBox;
         messageBox.critical(0,"Loading error","Given file data are not in supported format.");
-        messageBox.setFixedSize(500,200);
+        messageBox.setFixedSize(500, 200);
         return;
     }
 
@@ -171,7 +173,7 @@ void App::loadFile()
     {
         QMessageBox messageBox;
         messageBox.critical(0,"Loading error","Given file data are probably corrupted.");
-        messageBox.setFixedSize(500,200);
+        messageBox.setFixedSize(500, 200);
         return;
     }
 

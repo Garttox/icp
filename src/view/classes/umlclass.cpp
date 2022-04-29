@@ -106,9 +106,14 @@ QRectF UMLClass::boundingRect() const
     return outlineRect();
 }
 
-QList<UMLRelationAnchor *> UMLClass::getAnchors() const
+bool UMLClass::correspondsTo(UMLClassData *umlClassData)
 {
-    return anchors;
+    return this->umlClassData == umlClassData;
+}
+
+UMLRelationAnchor *UMLClass::getAnchorById(int id) const
+{
+    return (id > 0 && id < anchors.count()) ? anchors.at(id) : nullptr;
 }
 
 void UMLClass::remove()
@@ -146,12 +151,6 @@ QVariant UMLClass::itemChange(GraphicsItemChange change, const QVariant &value)
         setAnchorsVisible(isSelected());
     }
     return QGraphicsItem::itemChange(change, value);
-}
-
-void UMLClass::mouseDoubleClickEvent(QGraphicsSceneMouseEvent */*event*/)
-{
-    EditClassDialog *editClassDialog = new EditClassDialog(umlClassData);
-    editClassDialog->show();
 }
 
 qreal UMLClass::maxTextWidth() const
