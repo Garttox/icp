@@ -9,9 +9,10 @@
 #include <QMenuBar>
 #include <QToolBar>
 #include <QMessageBox>
+#include <QSizePolicy>
 
 #include "app.h"
-#include "view\diagramgraphicsview.h"
+#include "view\classdiagramgraphicsview.h"
 #include "view\classes\umlclass.h"
 #include "view\classes\newclassdialog.h"
 #include "model\umldata.h"
@@ -34,11 +35,11 @@ App::App(QWidget *parent) :
     tabWidget = new QTabWidget(this);
     view = new ClassDiagramGraphicsView(this);
     scene = new QGraphicsScene(view);
-    scene->setSceneRect(0, 0, 1000, 1000);
+    scene->setSceneRect(0, 0, SCENE_SIZE, SCENE_SIZE);
     view->setMinimumSize(600, 600);
     view->setScene(scene);
     view->setDragMode(QGraphicsView::RubberBandDrag);
-    view->setRenderHints(QPainter::TextAntialiasing);
+    view->setRenderHints(QPainter::TextAntialiasing | QPainter::Antialiasing);
     view->setContextMenuPolicy(Qt::ActionsContextMenu);
     // setCentralWidget(view);
 
@@ -58,6 +59,8 @@ App::App(QWidget *parent) :
     setWindowTitle(tr("UMLiBubli"));
 }
 
+// private
+
 void App::createActions()
 {
     fileLoad = new QAction(tr("&Load"), this);
@@ -71,6 +74,14 @@ void App::createActions()
     addClassAction = new QAction(tr("Add &class"), this);
     addClassAction->setShortcut(tr("Ctrl+N"));
     connect(addClassAction, SIGNAL(triggered()), this, SLOT(addClass()));
+
+    addInterfaceAction = new QAction(tr("Add interface"), this);
+    // addInterfaceAction->setShortcut(tr("Ctrl+N"));
+    connect(addInterfaceAction, SIGNAL(triggered()), this, SLOT(addInterface()));
+
+    removeSelectedAction = new QAction(tr("Remove"), this);
+    removeSelectedAction->setShortcut(Qt::Key_Delete);
+    connect(removeSelectedAction, SIGNAL(triggered()), this, SLOT(removeSelected()));
 }
 
 void App::createMainMenu()
@@ -84,15 +95,50 @@ void App::createToolBar()
 {
     toolBar = addToolBar(tr("Tools"));
     toolBar->addAction(addClassAction);
+    toolBar->addAction(addInterfaceAction);
+    toolBar->addAction(removeSelectedAction);
 }
 
-//SLOTS
+void App::removeSelectedRelations()
+{
+    QList<UMLRelation *> selected = getSelectedOfGivenType<UMLRelation*>();
+    foreach(UMLRelation *item, selected)
+    {
+        item->remove();
+    }
+}
+
+void App::removeSelectedClasses()
+{
+    QList<UMLClass *> selected = getSelectedOfGivenType<UMLClass*>();
+    foreach(UMLClass *item, selected)
+    {
+        item->remove();
+    }
+}
+
+template<class T>
+QList<T> App::getSelectedOfGivenType()
+{
+    QList<T> filtered;
+    foreach(QGraphicsItem *item, scene->selectedItems())
+    {
+        if (T casted = dynamic_cast<T>(item))
+        {
+            filtered.append(casted);
+        }
+    }
+    return filtered;
+}
+
+
+// private slots
 
 void App::loadFile()
 {
     UMLData *umlData = DataProvider::getInstance().getUMLData();
     umlData->clearData();
-    QString fileName = QFileDialog::getOpenFileName(this, "Open a file", "/");
+    QString fileName = QFileDialog::getOpenFileName(this, "Open a file", "../examples");
     qInfo() << fileName;
     if (fileName.length() == 0)
         return; //user closed dialog
@@ -109,6 +155,7 @@ void App::loadFile()
     QByteArray byteFile = file.readAll();
     doc = QJsonDocument::fromJson(byteFile);
     QJsonObject json = doc.object();
+
     // validate if file is in json format
     if (doc.isNull())
     {
@@ -129,13 +176,26 @@ void App::loadFile()
     }
 
 }
+
 void App::saveFile()
 {
-    //TODO: saving to file
+    // TODO: saving to file
 }
 
 void App::addClass()
 {
-    NewClassDialog *newClassDialog = new NewClassDialog();
+    NewClassDialog *newClassDialog = new NewClassDialog(UMLClassType::CLASS);
     newClassDialog->show();
+}
+
+void App::addInterface()
+{
+    NewClassDialog *newClassDialog = new NewClassDialog(UMLClassType::INTERFACE);
+    newClassDialog->show();
+}
+
+void App::removeSelected()
+{
+    removeSelectedRelations();
+    removeSelectedClasses();
 }

@@ -36,7 +36,10 @@ bool UMLData::loadData(QJsonObject json)
         UMLClassData *classData = new UMLClassData(name, type, posX, posY);
         bool loadedSuccesfully = classData->loadData(clsEl.toObject());
         if (!loadedSuccesfully)
+        {
+            delete classData;
             return false;
+        }
         addClass(classData);
     }
 
@@ -66,9 +69,25 @@ void UMLData::addClass(UMLClassData *classData)
     emit classModelAdded(classData);
 }
 
+void UMLData::removeClass(UMLClassData *classData)
+{
+    if (classes->remove(classData))
+    {
+        delete classData;
+    }
+}
+
 void UMLData::addRelation(UMLRelationData *relation)
 {
     relations->insert(relation);
+}
+
+void UMLData::removeRelation(UMLRelationData *relation)
+{
+    if (relations->remove(relation))
+    {
+        delete relation;
+    }
 }
 
 void UMLData::clearData()

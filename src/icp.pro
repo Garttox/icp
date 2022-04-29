@@ -25,12 +25,15 @@ SOURCES += main.cpp\
         model/umlmethodparameterdata.cpp \
         model/umlrelationdata.cpp \
         model/umlrelationtype.cpp \
+        view/classdiagramgraphicsview.cpp \
         view/classes/editclassdialog.cpp \
         view/classes/editfielddialog.cpp \
         view/classes/editmethoddialog.cpp \
         view/classes/newclassdialog.cpp \
         view/classes/umlclass.cpp \
-        view/diagramgraphicsview.cpp
+        view/classes/umlclassnotifier.cpp \
+        view/classes/umlrelation.cpp \
+        view/classes/umlrelationanchor.cpp
 
 HEADERS  += app.h \
     model/dataprovider.h \
@@ -44,12 +47,15 @@ HEADERS  += app.h \
     model/umlmethodparameterdata.h \
     model/umlrelationdata.h \
     model/umlrelationtype.h \
+    view/classdiagramgraphicsview.h \
     view/classes/editclassdialog.h \
     view/classes/editfielddialog.h \
     view/classes/editmethoddialog.h \
     view/classes/newclassdialog.h \
     view/classes/umlclass.h \
-    view/diagramgraphicsview.h
+    view/classes/umlclassnotifier.h \
+    view/classes/umlrelation.h \
+    view/classes/umlrelationanchor.h
 
 FORMS    += \
     view/classes/editclassdialog.ui \

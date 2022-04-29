@@ -24,6 +24,7 @@ public:
     void removeFieldAt(int index);
     void removeMethodAt(int index);
     QString getName() const;
+    UMLClassType getType() const;
     QString getDisplayName() const;
     UMLFieldData *getFieldAt(int index) const;
     UMLMethodData *getMethodAt(int index) const;

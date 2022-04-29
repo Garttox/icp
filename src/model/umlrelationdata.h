@@ -7,11 +7,14 @@
 class UMLRelationData
 {
 public:
-    UMLRelationData(UMLClassData *source, UMLClassData *destination, UMLRelationType *type);
+    UMLRelationData(UMLClassData *src, UMLClassData *dest, UMLRelationType *type, int srcAnchorId, int destAnchorId);
 private:
     UMLClassData *source;
     UMLClassData *destination;
     UMLRelationType *type;
+
+    const int sourceAnchorId;
+    const int destinationAnchorId;
 };
 
 #endif // UMLRELATIONDATA_H

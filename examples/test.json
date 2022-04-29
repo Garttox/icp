@@ -81,12 +81,16 @@
       {
         "source": "ClassA",
         "destination": "ClassB",
-        "type": "ASSOCIATION"
+        "type": "ASSOCIATION",
+        "sourceAnchorId": 2,
+        "destinationAnchorId": 6
       },
       {
         "source": "InterfaceA",
         "destination": "ClassA",
-        "type": "GENERALISATION"
+        "type": "GENERALISATION",
+        "sourceAnchorId": 4,
+        "destinationAnchorId": 3
       }
     ],
     "instances": [

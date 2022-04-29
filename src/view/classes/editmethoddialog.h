@@ -13,7 +13,7 @@ class EditMethodDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit EditMethodDialog(UMLMethodData *umlMethodData, QWidget *parent = nullptr);
+    explicit EditMethodDialog(UMLClassType classType, UMLMethodData *umlMethodData, QWidget *parent = nullptr);
     ~EditMethodDialog();
 
 private slots:

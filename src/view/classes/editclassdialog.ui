@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Edit Class</string>
+   <string>[TITLE]</string>
   </property>
   <property name="modal">
    <bool>true</bool>
@@ -34,6 +34,9 @@
     </property>
     <item row="8" column="2">
      <widget class="QPushButton" name="editMethodButton">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="text">
        <string>Edit</string>
       </property>
@@ -68,7 +71,7 @@
     <item row="0" column="0">
      <widget class="QLabel" name="label">
       <property name="text">
-       <string>Class Name:</string>
+       <string>Name:</string>
       </property>
       <property name="margin">
        <number>2</number>
@@ -91,6 +94,9 @@
     </item>
     <item row="3" column="3">
      <widget class="QPushButton" name="removeFieldButton">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="text">
        <string>Remove</string>
       </property>
@@ -98,6 +104,9 @@
     </item>
     <item row="8" column="3">
      <widget class="QPushButton" name="removeMethodButton">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="text">
        <string>Remove</string>
       </property>
@@ -106,7 +115,7 @@
     <item row="6" column="1" colspan="3">
      <widget class="QListWidget" name="methodsList">
       <property name="selectionMode">
-       <enum>QAbstractItemView::SingleSelection</enum>
+       <enum>QAbstractItemView::ExtendedSelection</enum>
       </property>
      </widget>
     </item>
@@ -125,6 +134,9 @@
     </item>
     <item row="3" column="2">
      <widget class="QPushButton" name="editFieldButton">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="text">
        <string>Edit</string>
       </property>
@@ -153,7 +165,7 @@
     <item row="2" column="1" colspan="3">
      <widget class="QListWidget" name="fieldsList">
       <property name="selectionMode">
-       <enum>QAbstractItemView::SingleSelection</enum>
+       <enum>QAbstractItemView::ExtendedSelection</enum>
       </property>
      </widget>
     </item>
@@ -169,7 +181,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QLabel" name="label_2">
+  <widget class="QLabel" name="header">
    <property name="geometry">
     <rect>
      <x>30</x>
@@ -183,7 +195,7 @@
 font-size: 18px;</string>
    </property>
    <property name="text">
-    <string>Edit Class</string>
+    <string>[HEADER]</string>
    </property>
    <property name="textFormat">
     <enum>Qt::MarkdownText</enum>

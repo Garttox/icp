@@ -28,7 +28,13 @@ private slots:
 
     void on_buttonBox_rejected();
 
+    void on_fieldsList_itemSelectionChanged();
+
+    void on_methodsList_itemSelectionChanged();
+
 private:
+    QString getHeaderString() const;
+
     Ui::EditClassDialog *ui;
     UMLClassData *umlClassData;
     UMLClassData *umlClassDataCopy;
