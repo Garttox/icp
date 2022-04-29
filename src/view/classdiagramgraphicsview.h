@@ -32,7 +32,7 @@ private:
     int originY;
 
     static constexpr qreal TILE_SIZE = 60;
-    static constexpr QColor TILE_COLOR = QColor(220, 220, 220);
+    static constexpr QColor TILE_COLOR = QColor(225, 225, 225);
 };
 
 #endif // CLASSDIAGRAMGRAPHICSVIEW_H

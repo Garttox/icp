@@ -14,6 +14,8 @@ public:
     void setPositionRelativeToParent();
     QRectF getSceneRect() const;
     QRectF getRelativeRect() const;
+    UMLClass* getParentUMLClass() const;
+    int getId();
     void remove();
 
 signals:

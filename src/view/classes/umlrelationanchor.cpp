@@ -38,6 +38,16 @@ QRectF UMLRelationAnchor::getRelativeRect() const
     return QRectF(x - (SIZE / 2), y - (SIZE / 2), SIZE, SIZE);
 }
 
+UMLClass *UMLRelationAnchor::getParentUMLClass() const
+{
+    return static_cast<UMLClass*>(parentItem());
+}
+
+int UMLRelationAnchor::getId()
+{
+    return getParentUMLClass()->getAnchorId(this);
+}
+
 void UMLRelationAnchor::remove()
 {
     emit UMLClassNotifier::getInstance()->anchorRemoved(this);

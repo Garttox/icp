@@ -3,8 +3,8 @@
       {
         "name": "ClassA",
         "type": "CLASS",
-        "posX": 310,
-        "posY": 400,
+        "posX": 350,
+        "posY": 390,
         "fields": [
           {
             "name": "field1",
@@ -21,7 +21,7 @@
           {
             "parameters": [],
             "name": "method1",
-            "type": "Void",
+            "type": "Int",
             "access": "+"
           },
           {
@@ -56,22 +56,37 @@
         "methods": []
       },
       {
-        "name": "InterfaceA",
-        "type": "INTERFACE",
-        "posX": 140,
-        "posY": 230,
+        "name": "ClassC",
+        "type": "CLASS",
+        "posX": 310,
+        "posY": 150,
         "fields": [
           {
             "name": "field1",
-            "type": "Int",
+            "type": "Int64",
             "access": "+"
           }
+        ],
+        "methods": []
+      },
+      {
+        "name": "InterfaceA",
+        "type": "INTERFACE",
+        "posX": 120,
+        "posY": 240,
+        "fields": [
         ],
         "methods": [
           {
             "parameters": [],
-            "name": "method",
-            "type": "Void",
+            "name": "method1",
+            "type": "Int",
+            "access": "+"
+          },
+          {
+            "parameters": [],
+            "name": "method2",
+            "type": "String",
             "access": "+"
           }
         ]
@@ -81,16 +96,23 @@
       {
         "source": "ClassA",
         "destination": "ClassB",
-        "type": "ASSOCIATION",
+        "type": "COMPOSITION",
         "sourceAnchorId": 6,
         "destinationAnchorId": 3
       },
       {
-        "source": "InterfaceA",
-        "destination": "ClassA",
+        "source": "ClassA",
+        "destination": "InterfaceA",
         "type": "GENERALISATION",
-        "sourceAnchorId": 4,
-        "destinationAnchorId": 3
+        "sourceAnchorId": 3,
+        "destinationAnchorId": 4
+      },
+      {
+        "source": "ClassC",
+        "destination": "ClassA",
+        "type": "AGREGATION",
+        "sourceAnchorId": 0,
+        "destinationAnchorId": 1
       }
     ],
     "instances": [

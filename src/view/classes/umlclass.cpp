@@ -26,6 +26,94 @@ UMLClass::UMLClass(UMLClassData *umlClassData) :
             this, SLOT(onAnchorDragged(UMLRelationAnchor*,QPointF)));
     connect(UMLClassNotifier::getInstance(), SIGNAL(anchorDragReleased(UMLRelationAnchor*,UMLRelationAnchor*)),
             this, SLOT(onAnchorDragReleased(UMLRelationAnchor*,UMLRelationAnchor*)));
+    connect(DataProvider::getInstance().getUMLData(), SIGNAL(relationModelAdded(UMLRelationData*)),
+            this, SLOT(onRelationModelAdded(UMLRelationData*)));
+}
+
+QRectF UMLClass::boundingRect() const
+{
+    return outlineRect();
+}
+
+bool UMLClass::correspondsTo(UMLClassData *umlClassData)
+{
+    return this->umlClassData == umlClassData;
+}
+
+UMLRelationAnchor *UMLClass::getAnchorById(int id) const
+{
+    return (id >= 0 && id < anchors.count()) ? anchors.at(id) : nullptr;
+}
+
+UMLClassData *UMLClass::getUMLClassData() const
+{
+    return umlClassData;
+}
+
+int UMLClass::getAnchorId(UMLRelationAnchor *anchor)
+{
+    return anchors.indexOf(anchor);
+}
+
+void UMLClass::remove()
+{
+    emit UMLClassNotifier::getInstance()->classRemoved(this);
+    scene()->removeItem(this);
+    anchors.clear();
+    DataProvider::getInstance().getUMLData()->removeClass(umlClassData);
+    delete this;
+}
+
+// - - - - - private slots  - - - - -
+
+void UMLClass::onRelationModelAdded(UMLRelationData *relationData)
+{
+    UMLClassData *sourceClassData = relationData->getSource();
+    if (relationData->getType() == UMLRelationType::GENERALISATION && sourceClassData == umlClassData)
+    {
+        qDebug("GENERALIZATION ADDED");
+        // implementuje source něco z destination?
+        // pokud ano, přidej do QList realizated
+        // pokud je item v realizated, zobraz to jinou barvou ve vykreslování
+    }
+}
+
+void UMLClass::onAnchorDragged(UMLRelationAnchor *anchor, QPointF endpoint)
+{
+    if (!anchors.contains(anchor))
+    {
+        QRectF bounds = sceneBoundingRect();
+        QRectF adjusted = bounds.adjusted(-ANCHOR_DRAG_OFFSET, -ANCHOR_DRAG_OFFSET, ANCHOR_DRAG_OFFSET, ANCHOR_DRAG_OFFSET);
+        setAnchorsVisible(adjusted.contains(endpoint));
+    }
+}
+
+void UMLClass::onAnchorDragReleased(UMLRelationAnchor *source, UMLRelationAnchor *destination)
+{
+    if (destination != nullptr && anchors.contains(source))
+    {
+        addRelationDataToModel(source, destination);
+    }
+    setAnchorsVisible(isSelected());
+}
+
+// - - - - - protected  - - - - -
+
+void UMLClass::mouseDoubleClickEvent(QGraphicsSceneMouseEvent */*event*/)
+{
+    EditClassDialog *editClassDialog = new EditClassDialog(umlClassData);
+    editClassDialog->exec();
+    resetAnchorsPositions();
+}
+
+QVariant UMLClass::itemChange(GraphicsItemChange change, const QVariant &value)
+{
+    if (change == QGraphicsItem::ItemSelectedHasChanged)
+    {
+        setZValue(isSelected() ? 1 : 0);
+        setAnchorsVisible(isSelected());
+    }
+    return QGraphicsItem::itemChange(change, value);
 }
 
 void UMLClass::paint(QPainter *painter, const QStyleOptionGraphicsItem * /*option*/, QWidget * /*widget*/)
@@ -82,76 +170,20 @@ void UMLClass::paint(QPainter *painter, const QStyleOptionGraphicsItem * /*optio
     }
 }
 
-void UMLClass::onAnchorDragged(UMLRelationAnchor *anchor, QPointF endpoint)
+// - - - - - private - - - - -
+
+QRectF UMLClass::outlineRect() const
 {
-    if (!anchors.contains(anchor))
-    {
-        QRectF bounds = sceneBoundingRect();
-        QRectF adjusted = bounds.adjusted(-ANCHOR_DRAG_OFFSET, -ANCHOR_DRAG_OFFSET, ANCHOR_DRAG_OFFSET, ANCHOR_DRAG_OFFSET);
-        setAnchorsVisible(adjusted.contains(endpoint));
-    }
+    const int padding = 12;
+    QFontMetricsF metrics{ qApp->font() };
+    QList<UMLFieldData *> fields = umlClassData->getFields();
+    QList<UMLMethodData *> methods = umlClassData->getMethods();
+    QRectF rect = QRectF(0, 0, maxTextWidth() + padding, metrics.height() * (fields.size() + methods.size()) + padding);
+    rect.adjust(-padding, -padding, +padding, +padding);
+    rect.translate(-rect.center());
+    return rect;
 }
 
-void UMLClass::onAnchorDragReleased(UMLRelationAnchor *source, UMLRelationAnchor *destination)
-{
-    if (destination != nullptr && anchors.contains(source))
-    {
-        scene()->addItem(new UMLRelation(nullptr, source, destination));
-    }
-    setAnchorsVisible(isSelected());
-}
-
-QRectF UMLClass::boundingRect() const
-{
-    return outlineRect();
-}
-
-bool UMLClass::correspondsTo(UMLClassData *umlClassData)
-{
-    return this->umlClassData == umlClassData;
-}
-
-UMLRelationAnchor *UMLClass::getAnchorById(int id) const
-{
-    return (id > 0 && id < anchors.count()) ? anchors.at(id) : nullptr;
-}
-
-void UMLClass::remove()
-{
-    emit UMLClassNotifier::getInstance()->classRemoved(this);
-    scene()->removeItem(this);
-    anchors.clear();
-    DataProvider::getInstance().getUMLData()->removeClass(umlClassData);
-    delete this;
-}
-
-void UMLClass::modelChanged()
-{}
-
-void UMLClass::resetAnchorsPositions()
-{
-    foreach (UMLRelationAnchor *anchor, anchors)
-    {
-        anchor->setPositionRelativeToParent();
-    }
-}
-
-void UMLClass::mouseDoubleClickEvent(QGraphicsSceneMouseEvent */*event*/)
-{
-    EditClassDialog *editClassDialog = new EditClassDialog(umlClassData);
-    editClassDialog->exec();
-    resetAnchorsPositions();
-}
-
-QVariant UMLClass::itemChange(GraphicsItemChange change, const QVariant &value)
-{
-    if (change == QGraphicsItem::ItemSelectedHasChanged)
-    {
-        setZValue(isSelected() ? 1 : 0);
-        setAnchorsVisible(isSelected());
-    }
-    return QGraphicsItem::itemChange(change, value);
-}
 
 qreal UMLClass::maxTextWidth() const
 {
@@ -186,16 +218,12 @@ void UMLClass::addRelationAnchors()
     }
 }
 
-QRectF UMLClass::outlineRect() const
+void UMLClass::resetAnchorsPositions()
 {
-    const int padding = 12;
-    QFontMetricsF metrics{ qApp->font() };
-    QList<UMLFieldData *> fields = umlClassData->getFields();
-    QList<UMLMethodData *> methods = umlClassData->getMethods();
-    QRectF rect = QRectF(0, 0, maxTextWidth() + padding, metrics.height() * (fields.size() + methods.size()) + padding);
-    rect.adjust(-padding, -padding, +padding, +padding);
-    rect.translate(-rect.center());
-    return rect;
+    foreach (UMLRelationAnchor *anchor, anchors)
+    {
+        anchor->setPositionRelativeToParent();
+    }
 }
 
 void UMLClass::setAnchorsVisible(bool enabled)
@@ -205,3 +233,15 @@ void UMLClass::setAnchorsVisible(bool enabled)
         anchor->setVisible(enabled);
     }
 }
+
+void UMLClass::addRelationDataToModel(UMLRelationAnchor *source, UMLRelationAnchor *destination)
+{
+    int srcAnchorId = source->getId();
+    int destAnchorId = destination->getId();
+    UMLClassData *srcClassData = source->getParentUMLClass()->getUMLClassData();
+    UMLClassData *destClassData = destination->getParentUMLClass()->getUMLClassData();
+    UMLRelationType type = UMLRelationType::ASSOCIATION;
+    UMLRelationData *relationData = new UMLRelationData(srcClassData, destClassData, type, srcAnchorId, destAnchorId);
+    DataProvider::getInstance().getUMLData()->addRelation(relationData);
+}
+
