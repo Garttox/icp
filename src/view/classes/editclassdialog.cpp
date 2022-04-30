@@ -103,5 +103,5 @@ void EditClassDialog::on_methodsList_itemSelectionChanged()
 
 QString EditClassDialog::getHeaderString() const
 {
-    return "Edit " + umlClassData->getType().toDisplayString();
+    return "Edit " + umlClassData->getType().toString();
 }

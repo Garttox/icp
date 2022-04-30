@@ -4,14 +4,9 @@ UMLClassType::UMLClassType(ClassType classType)
     : type(classType)
 {}
 
-UMLClassType::UMLClassType(QString strClassType)
+UMLClassType::UMLClassType(QString string)
 {
-    if (strClassType == "CLASS")
-        type = CLASS;
-    else if (strClassType == "INTERFACE")
-        type = INTERFACE;
-    else
-        type = CLASS;
+    type = (string == "Class") ? CLASS : INTERFACE;
 }
 
 bool UMLClassType::operator==(const ClassType rhs) const
@@ -19,7 +14,7 @@ bool UMLClassType::operator==(const ClassType rhs) const
     return type == rhs;
 }
 
-QString UMLClassType::toDisplayString() const
+QString UMLClassType::toString() const
 {
     return type == CLASS ? QString("Class") : QString("Interface");
 }

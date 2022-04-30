@@ -4,39 +4,21 @@ UMLAccessType::UMLAccessType(AccessType type)
     : type(type)
 {}
 
-UMLAccessType::UMLAccessType(QString strType)
+UMLAccessType::UMLAccessType(QString string)
 {
-    const QString strTypeNormalized = strType.toUpper();
-    if (strTypeNormalized == "PUBLIC" || strTypeNormalized == "+")
+    if (string == "Public" || string == "+")
         type = PUBLIC;
-    else if (strTypeNormalized == "PRIVATE" || strTypeNormalized == "-")
+    else if (string == "Private" || string == "-")
         type = PRIVATE;
-    else if (strTypeNormalized == "PROTECTED" || strTypeNormalized == "#")
+    else if (string == "Protected" || string == "#")
         type = PROTECTED;
-    else if (strTypeNormalized == "PACKAGE"  || strTypeNormalized == "~")
+    else if (string == "Package"  || string == "~")
         type = PACKAGE;
     else
         type = PUBLIC;
 }
 
 QString UMLAccessType::toString() const
-{
-    switch(type)
-    {
-        case PUBLIC:
-            return "+";
-        case PRIVATE:
-            return "-";
-        case PROTECTED:
-            return "#";
-        case PACKAGE:
-            return "~";
-        default:
-            return "";
-    }
-}
-
-QString UMLAccessType::toDisplayString() const
 {
     switch(type)
     {
@@ -48,6 +30,23 @@ QString UMLAccessType::toDisplayString() const
             return QString("Protected");
         case PACKAGE:
             return QString("Package");
+        default:
+            return "";
+    }
+}
+
+QString UMLAccessType::toAnnotationString() const
+{
+    switch(type)
+    {
+        case PUBLIC:
+            return "+";
+        case PRIVATE:
+            return "-";
+        case PROTECTED:
+            return "#";
+        case PACKAGE:
+            return "~";
         default:
             return "";
     }

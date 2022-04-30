@@ -11,7 +11,7 @@ EditFieldDialog::EditFieldDialog(UMLClassType classType, UMLFieldData *umlFieldD
     ui->nameLineEdit->setText(umlFieldData->getName());
     ui->typeLineEdit->setText(umlFieldData->getType());
     ui->accessComboBox->addItems(UMLAccessType::asStringListFor(classType));
-    ui->accessComboBox->setCurrentText(umlFieldData->getAccess().toDisplayString());
+    ui->accessComboBox->setCurrentText(umlFieldData->getAccess().toString());
 }
 
 EditFieldDialog::~EditFieldDialog()

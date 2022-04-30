@@ -98,5 +98,5 @@ void NewClassDialog::on_methodsList_itemSelectionChanged()
 
 QString NewClassDialog::getHeaderString() const
 {
-    return "Create " + umlClassData->getType().toDisplayString();
+    return "Create " + umlClassData->getType().toString();
 }

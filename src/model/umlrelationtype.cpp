@@ -4,16 +4,15 @@ UMLRelationType::UMLRelationType(RelationType type)
     : type(type)
 {}
 
-UMLRelationType::UMLRelationType(QString strType)
+UMLRelationType::UMLRelationType(QString string)
 {
-    QString normalized = strType.toUpper();
-    if (normalized == "ASSOCIATION")
+    if (string == "Association")
         type = ASSOCIATION;
-    else if (normalized == "AGREGATION")
+    else if (string == "Agregation")
         type = AGREGATION;
-    else if (normalized == "COMPOSITION")
+    else if (string == "Composition")
         type = COMPOSITION;
-    else if (normalized == "GENERALISATION")
+    else if (string == "Generalisation")
         type = GENERALISATION;
     else
         type = ASSOCIATION;

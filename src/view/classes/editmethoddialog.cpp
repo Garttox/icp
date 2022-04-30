@@ -10,7 +10,7 @@ EditMethodDialog::EditMethodDialog(UMLClassType classType, UMLMethodData *umlMet
     ui->nameLineEdit->setText(umlMethodData->getName());
     ui->typeLineEdit->setText(umlMethodData->getType());
     ui->accessComboBox->addItems(UMLAccessType::asStringListFor(classType));
-    ui->accessComboBox->setCurrentText(umlMethodData->getAccess().toDisplayString());
+    ui->accessComboBox->setCurrentText(umlMethodData->getAccess().toString());
     ui->parametersTable->clearContents();
     setDataToParameterTable(umlMethodData);
 }

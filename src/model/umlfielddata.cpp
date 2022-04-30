@@ -10,5 +10,5 @@ UMLFieldData::UMLFieldData(const UMLFieldData &original) :
 
 QString UMLFieldData::toString() const
 {
-    return QString("%1 %2: %3").arg(access.toString(), name, type);
+    return QString("%1 %2: %3").arg(access.toAnnotationString(), name, type);
 }

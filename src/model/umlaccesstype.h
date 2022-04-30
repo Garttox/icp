@@ -17,8 +17,9 @@ public:
     };
     UMLAccessType(AccessType type);
     UMLAccessType(QString type);
+
     QString toString() const;
-    QString toDisplayString() const;
+    QString toAnnotationString() const;
     bool operator==(const AccessType rhs);
     bool operator==(const UMLAccessType& rhs);
 

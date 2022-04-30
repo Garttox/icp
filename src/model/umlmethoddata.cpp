@@ -52,7 +52,7 @@ QString UMLMethodData::toString() const
         paramList.append(parameter->toString());
     }
 
-    return QString("%1 %2(%3): %4").arg(access.toString(), name, paramList.join(", "), type);
+    return QString("%1 %2(%3): %4").arg(access.toAnnotationString(), name, paramList.join(", "), type);
 }
 
 QList<UMLMethodParameterData *> UMLMethodData::getParameters() const
