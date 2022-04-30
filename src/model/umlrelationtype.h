@@ -2,6 +2,7 @@
 #define UMLRELATIONTYPE_H
 
 #include <QString>
+#include <QStringList>
 
 class UMLRelationType
 {
@@ -17,6 +18,9 @@ public:
 
     bool operator==(const RelationType rhs);
     bool operator==(const UMLRelationType& rhs);
+
+    QString toString() const;
+    static QStringList asStringList();
 private:
     RelationType type;
 };

@@ -6,13 +6,14 @@ UMLRelationType::UMLRelationType(RelationType type)
 
 UMLRelationType::UMLRelationType(QString strType)
 {
-    if (strType == "ASSOCIATION")
+    QString normalized = strType.toUpper();
+    if (normalized == "ASSOCIATION")
         type = ASSOCIATION;
-    else if (strType == "AGREGATION")
+    else if (normalized == "AGREGATION")
         type = AGREGATION;
-    else if (strType == "COMPOSITION")
+    else if (normalized == "COMPOSITION")
         type = COMPOSITION;
-    else if (strType == "GENERALISATION")
+    else if (normalized == "GENERALISATION")
         type = GENERALISATION;
     else
         type = ASSOCIATION;
@@ -21,6 +22,27 @@ UMLRelationType::UMLRelationType(QString strType)
 bool UMLRelationType::operator==(const RelationType rhs)
 {
     return type == rhs;
+}
+
+QString UMLRelationType::toString() const
+{
+    switch (type)
+    {
+        case ASSOCIATION:
+            return QString("Association");
+        case AGREGATION:
+            return QString("Agregation");
+        case COMPOSITION:
+            return QString("Composition");
+        case GENERALISATION:
+            return QString("Generalisation");
+    }
+}
+
+QStringList UMLRelationType::asStringList()
+{
+    QStringList list = { "Association", "Agregation", "Composition", "Generalisation" };
+    return list;
 }
 
 bool UMLRelationType::operator==(const UMLRelationType& rhs)

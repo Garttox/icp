@@ -30,6 +30,7 @@ SOURCES += main.cpp\
         view/classes/editclassdialog.cpp \
         view/classes/editfielddialog.cpp \
         view/classes/editmethoddialog.cpp \
+        view/classes/editrelationdialog.cpp \
         view/classes/newclassdialog.cpp \
         view/classes/umlclass.cpp \
         view/classes/umlclassnotifier.cpp \
@@ -54,6 +55,7 @@ HEADERS  += app.h \
     view/classes/editclassdialog.h \
     view/classes/editfielddialog.h \
     view/classes/editmethoddialog.h \
+    view/classes/editrelationdialog.h \
     view/classes/newclassdialog.h \
     view/classes/umlclass.h \
     view/classes/umlclassnotifier.h \
@@ -65,6 +67,9 @@ FORMS    += \
     view/classes/editclassdialog.ui \
     view/classes/editfielddialog.ui \
     view/classes/editmethoddialog.ui \
+    view/classes/editrelationdialog.ui \
     view/classes/newclassdialog.ui
 
 CONFIG += c++17
+
+DISTFILES +=

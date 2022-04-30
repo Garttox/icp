@@ -13,6 +13,7 @@ public:
     UMLRelationType getType() const;
     int getSourceAnchorId() const;
     int getDestinationAnchorId() const;
+    void setType(UMLRelationType type);
 
 private:
     UMLClassData *source;

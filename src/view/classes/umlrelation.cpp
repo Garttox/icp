@@ -5,6 +5,8 @@
 #include "umlrelation.h"
 #include "umlclass.h"
 #include "umlclassnotifier.h"
+#include "view/classes/editrelationdialog.h"
+#include "ui_editrelationdialog.h"
 
 UMLRelation::UMLRelation(UMLRelationData* relation, UMLRelationAnchor* sourceAnchor, UMLRelationAnchor* destinationAnchor) :
     QObject(), QGraphicsLineItem(),
@@ -56,7 +58,8 @@ void UMLRelation::remove()
 
 void UMLRelation::mouseDoubleClickEvent(QGraphicsSceneMouseEvent * /*event*/)
 {
-    // TODO: Edit relation
+    EditRelationDialog dialog(umlRelationData);
+    dialog.exec();
 }
 
 void UMLRelation::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)

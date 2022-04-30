@@ -28,3 +28,8 @@ int UMLRelationData::getDestinationAnchorId() const
 {
     return destinationAnchorId;
 }
+
+void UMLRelationData::setType(UMLRelationType type)
+{
+    this->type = type;
+}
