@@ -7,24 +7,11 @@
 #include <QAction>
 #include <QMenu>
 #include <QMenuBar>
-#include <QToolBar>
 #include <QMessageBox>
-#include <QSizePolicy>
 
 #include "app.h"
-#include "view\classdiagramgraphicsview.h"
-#include "view\classes\umlclass.h"
-#include "view\classes\newclassdialog.h"
 #include "model\umldata.h"
-#include "model\umlclassdata.h"
-#include "model\umlfielddata.h"
-#include "model\umlmethoddata.h"
-#include "model\umlaccesstype.h"
-#include "model\umlmethodparameterdata.h"
-#include "model\umlrelationtype.h"
-#include "model\umlrelationdata.h"
 #include "model\dataprovider.h"
-#include "ui_newclassdialog.h"
 
 App::App(QWidget *parent) :
     QMainWindow(parent)
@@ -32,8 +19,9 @@ App::App(QWidget *parent) :
     UMLData* umlData = new UMLData();
     DataProvider::getInstance().setUMLData(umlData);
 
+    setWindowTitle(tr("UML App"));
     tabWidget = new QTabWidget(this);
-    view = new ClassDiagramGraphicsView(this);
+    view = new ClassDiagramView(this);
     scene = new QGraphicsScene(view);
     scene->setSceneRect(0, 0, SCENE_SIZE, SCENE_SIZE);
     view->setMinimumSize(600, 600);
@@ -41,22 +29,16 @@ App::App(QWidget *parent) :
     view->setDragMode(QGraphicsView::RubberBandDrag);
     view->setRenderHints(QPainter::TextAntialiasing | QPainter::Antialiasing);
     view->setContextMenuPolicy(Qt::ActionsContextMenu);
+
+    classToolBar = new ClassToolBar(view, scene);
     // setCentralWidget(view);
 
-    /*
-    QToolBar *toolbar=new QToolBar("toolbar",view);
-    toolbar->addAction("action1");
-    toolbar->addAction("action2");
-    toolbar->setBackgroundRole(QPalette::Base);
-    */
     tabWidget->addTab(view, QString("Class Diagram"));
+    tabWidget->addTab(new QWidget(), QString("Sequence 1"));
     setCentralWidget(tabWidget);
 
     createActions();
     createMainMenu();
-    createToolBar();
-
-    setWindowTitle(tr("UMLiBubli"));
 }
 
 //  - - - - - private  - - - - -
@@ -68,20 +50,8 @@ void App::createActions()
     connect(fileLoad, SIGNAL(triggered()), this, SLOT(loadFile()));
 
     fileSave = new QAction(tr("&Save"), this);
-    fileSave->setShortcut(tr("Ctrl+S"));
+    fileSave->setShortcut(QString("Ctrl+S"));
     connect(fileSave, SIGNAL(triggered()), this, SLOT(saveFile()));
-
-    addClassAction = new QAction(tr("Add &class"), this);
-    addClassAction->setShortcut(tr("Ctrl+N"));
-    connect(addClassAction, SIGNAL(triggered()), this, SLOT(addClass()));
-
-    addInterfaceAction = new QAction(tr("Add interface"), this);
-    // addInterfaceAction->setShortcut(tr("Ctrl+N"));
-    connect(addInterfaceAction, SIGNAL(triggered()), this, SLOT(addInterface()));
-
-    removeSelectedAction = new QAction(tr("Remove"), this);
-    removeSelectedAction->setShortcut(Qt::Key_Delete);
-    connect(removeSelectedAction, SIGNAL(triggered()), this, SLOT(removeSelected()));
 }
 
 void App::createMainMenu()
@@ -90,47 +60,6 @@ void App::createMainMenu()
     mainMenu->addAction(fileLoad);
     mainMenu->addAction(fileSave);
 }
-
-void App::createToolBar()
-{
-    toolBar = addToolBar(tr("Tools"));
-    toolBar->addAction(addClassAction);
-    toolBar->addAction(addInterfaceAction);
-    toolBar->addAction(removeSelectedAction);
-}
-
-void App::removeSelectedRelations()
-{
-    QList<UMLRelation *> selected = getSelectedOfGivenType<UMLRelation*>();
-    foreach(UMLRelation *item, selected)
-    {
-        item->remove();
-    }
-}
-
-void App::removeSelectedClasses()
-{
-    QList<UMLClass *> selected = getSelectedOfGivenType<UMLClass*>();
-    foreach(UMLClass *item, selected)
-    {
-        item->remove();
-    }
-}
-
-template<class T>
-QList<T> App::getSelectedOfGivenType()
-{
-    QList<T> filtered;
-    foreach(QGraphicsItem *item, scene->selectedItems())
-    {
-        if (T casted = dynamic_cast<T>(item))
-        {
-            filtered.append(casted);
-        }
-    }
-    return filtered;
-}
-
 
 // - - - - - private slots - - - - -
 
@@ -182,22 +111,4 @@ void App::loadFile()
 void App::saveFile()
 {
     // TODO: saving to file
-}
-
-void App::addClass()
-{
-    NewClassDialog *newClassDialog = new NewClassDialog(UMLClassType::CLASS);
-    newClassDialog->show();
-}
-
-void App::addInterface()
-{
-    NewClassDialog *newClassDialog = new NewClassDialog(UMLClassType::INTERFACE);
-    newClassDialog->show();
-}
-
-void App::removeSelected()
-{
-    removeSelectedRelations();
-    removeSelectedClasses();
 }

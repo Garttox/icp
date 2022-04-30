@@ -2,13 +2,14 @@
 #define EDITCLASSDIALOG_H
 
 #include <QDialog>
+#include "classdialog.h"
 #include "model\umlclassdata.h"
 
 namespace Ui {
 class EditClassDialog;
 }
 
-class EditClassDialog : public QDialog
+class EditClassDialog : public QDialog, public ClassDialog
 {
     Q_OBJECT
 
@@ -25,11 +26,8 @@ private slots:
     void on_addMethodButton_clicked();
     void on_editMethodButton_clicked();
     void on_removeMethodButton_clicked();
-
     void on_buttonBox_rejected();
-
     void on_fieldsList_itemSelectionChanged();
-
     void on_methodsList_itemSelectionChanged();
 
 private:

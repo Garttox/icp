@@ -3,8 +3,8 @@
 
 #include <QMainWindow>
 #include <QGraphicsView>
-#include "model\dataprovider.h"
-#include "model\umldata.h"
+#include "view/classdiagramview.h"
+#include "view/classtoolbar.h"
 
 class App : public QMainWindow
 {
@@ -15,34 +15,22 @@ public:
 
 private:
     QGraphicsScene *scene;
-    QGraphicsView *view;
+    ClassDiagramView *view;
     QMenu *mainMenu;
-    QToolBar *toolBar;
     QTabWidget *tabWidget;
+    ClassToolBar *classToolBar;
 
     QAction *fileLoad;
     QAction *fileSave;
-    QAction *addClassAction;
-    QAction *addInterfaceAction;
-    QAction *removeSelectedAction;
 
     void createActions();
     void createMainMenu();
-    void createToolBar();
-    void removeSelectedRelations();
-    void removeSelectedClasses();
 
-    template <class T>
-    QList<T> getSelectedOfGivenType();
-
-    static constexpr qreal SCENE_SIZE = 3000;
+    static constexpr qreal SCENE_SIZE = 2400;
 
 private slots:
     void loadFile();
     void saveFile();
-    void addClass();
-    void addInterface();
-    void removeSelected();
 
 };
 

@@ -1,13 +1,12 @@
 #include <QDebug>
 
-#include "classdiagramgraphicsview.h"
+#include "classdiagramview.h"
 #include "model\dataprovider.h"
 #include "model\umlclassdata.h"
 #include "model\umldata.h"
 #include "view\classes\umlclass.h"
 
-
-ClassDiagramGraphicsView::ClassDiagramGraphicsView(QWidget* parent)
+ClassDiagramView::ClassDiagramView(QWidget* parent)
     : QGraphicsView(parent)
 {
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -20,22 +19,22 @@ ClassDiagramGraphicsView::ClassDiagramGraphicsView(QWidget* parent)
     drawBackgroundTiles();
 }
 
-void ClassDiagramGraphicsView::classModelAdded(UMLClassData *classData)
+void ClassDiagramView::classModelAdded(UMLClassData *classData)
 {
     addUMLClass(classData);
 }
 
-void ClassDiagramGraphicsView::relationModelAdded(UMLRelationData *relationData)
+void ClassDiagramView::relationModelAdded(UMLRelationData *relationData)
 {
     addUMLRelation(relationData);
 }
 
-void ClassDiagramGraphicsView::umlModelCleared()
+void ClassDiagramView::umlModelCleared()
 {
     scene()->clear();
 }
 
-UMLClass *ClassDiagramGraphicsView::getUMLClass(UMLClassData *umlClassData)
+UMLClass *ClassDiagramView::getUMLClass(UMLClassData *umlClassData)
 {
     QList<QGraphicsItem *> graphicsItems = items();
     foreach (QGraphicsItem *graphicsItem, graphicsItems)
@@ -49,7 +48,7 @@ UMLClass *ClassDiagramGraphicsView::getUMLClass(UMLClassData *umlClassData)
     return nullptr;
 }
 
-void ClassDiagramGraphicsView::drawBackgroundTiles()
+void ClassDiagramView::drawBackgroundTiles()
 {
     QPixmap pixmap(TILE_SIZE, TILE_SIZE);
     QPainter painter(&pixmap);
@@ -68,13 +67,13 @@ void ClassDiagramGraphicsView::drawBackgroundTiles()
     setBackgroundBrush(pixmap);
 }
 
-void ClassDiagramGraphicsView::addUMLClass(UMLClassData *classData)
+void ClassDiagramView::addUMLClass(UMLClassData *classData)
 {
     UMLClass *umlClass = new UMLClass(classData);
     scene()->addItem(umlClass);
 }
 
-void ClassDiagramGraphicsView::addUMLRelation(UMLRelationData *relationData)
+void ClassDiagramView::addUMLRelation(UMLRelationData *relationData)
 {
     UMLClass *source = getUMLClass(relationData->getSource());
     UMLClass *destination = getUMLClass(relationData->getDestination());
@@ -98,7 +97,7 @@ void ClassDiagramGraphicsView::addUMLRelation(UMLRelationData *relationData)
     }
 }
 
-void ClassDiagramGraphicsView::mousePressEvent(QMouseEvent* event)
+void ClassDiagramView::mousePressEvent(QMouseEvent* event)
 {
     if (event->button() == Qt::MiddleButton)
     {
@@ -109,7 +108,7 @@ void ClassDiagramGraphicsView::mousePressEvent(QMouseEvent* event)
     }
 }
 
-void ClassDiagramGraphicsView::mouseMoveEvent(QMouseEvent* event)
+void ClassDiagramView::mouseMoveEvent(QMouseEvent* event)
 {
     if (event->buttons() == Qt::MidButton)
     {

@@ -1,5 +1,5 @@
-#ifndef CLASSDIAGRAMGRAPHICSVIEW_H
-#define CLASSDIAGRAMGRAPHICSVIEW_H
+#ifndef CLASSDIAGRAMVIEW_H
+#define CLASSDIAGRAMVIEW_H
 
 #include <QGraphicsView>
 #include <QMouseEvent>
@@ -8,12 +8,12 @@
 #include "model/umlclassdata.h"
 #include "model/umldata.h"
 
-class ClassDiagramGraphicsView : public QGraphicsView
+class ClassDiagramView : public QGraphicsView
 {
     Q_OBJECT
 
 public:
-    ClassDiagramGraphicsView(QWidget* parent);
+    ClassDiagramView(QWidget* parent);
 
 private slots:
     void classModelAdded(UMLClassData *classData);
@@ -35,4 +35,4 @@ private:
     static constexpr QColor TILE_COLOR = QColor(225, 225, 225);
 };
 
-#endif // CLASSDIAGRAMGRAPHICSVIEW_H
+#endif // CLASSDIAGRAMVIEW_H
