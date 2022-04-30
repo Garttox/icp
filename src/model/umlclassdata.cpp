@@ -59,6 +59,16 @@ void UMLClassData::setName(QString name)
     emit modelChanged(this);
 }
 
+void UMLClassData::setPosX(int x)
+{
+    this->posX = x;
+}
+
+void UMLClassData::setPosY(int y)
+{
+    this->posY = y;
+}
+
 bool UMLClassData::loadData(QJsonObject jsonClassData)
 {
     // read fields
@@ -95,6 +105,31 @@ bool UMLClassData::loadData(QJsonObject jsonClassData)
     }
 
     return true;
+}
+
+QJsonObject UMLClassData::getSaveData()
+{
+    QJsonObject object;
+    QJsonArray fieldsData;
+    QJsonArray methodsData;
+
+    foreach (auto field, fields)
+    {
+        fieldsData.append(field->getSaveData());
+    }
+    foreach (auto method, methods)
+    {
+        methodsData.append(method->getSaveData());
+    }
+
+    object.insert("name", name);
+    object.insert("type", type.toString());
+    object.insert("posX", posX);
+    object.insert("posY", posY);
+    object.insert("fields", fieldsData);
+    object.insert("methods", methodsData);
+
+    return object;
 }
 
 void UMLClassData::addMethod(UMLMethodData *method)

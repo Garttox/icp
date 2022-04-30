@@ -2,7 +2,7 @@
 #define UMLFIELDDATA_H
 
 #include <QObject>
-
+#include <QJsonObject>
 #include "umlidentifier.h"
 
 class UMLFieldData : public UMLIdentifier
@@ -13,6 +13,7 @@ public:
     UMLFieldData(const UMLFieldData& original);
     ~UMLFieldData() {};
     QString toString() const override;
+    QJsonObject getSaveData();
 signals:
     void modelChanged();
 };

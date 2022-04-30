@@ -1,141 +1,140 @@
 {
-    "classes": [
-      {
-        "name": "ClassA",
-        "type": "Class",
-        "posX": 350,
-        "posY": 390,
-        "fields": [
-          {
-            "name": "field1",
-            "type": "String",
-            "access": "Private"
-          },
-          {
-            "name": "field2",
-            "type": "Int64",
-            "access": "Protected"
-          }
-        ],
-        "methods": [
-          {
-            "parameters": [],
-            "name": "method1",
-            "type": "Int",
-            "access": "Public"
-          },
-          {
-            "parameters": [
-              {
-                "name": "param1",
-                "type": "Int"
-              },
-              {
-                "name": "param2",
-                "type": "Double"
-              }
-            ],
-            "name": "method2",
-            "type": "String",
-            "access": "Protected"
-          }
-        ]
-      },
-      {
-        "name": "ClassB",
-        "type": "Class",
-        "posX": 650,
-        "posY": 410,
-        "fields": [
-          {
-            "name": "field1Package",
-            "type": "Int",
-            "access": "Package"
-          }
-        ],
-        "methods": []
-      },
-      {
-        "name": "ClassC",
-        "type": "Class",
-        "posX": 310,
-        "posY": 150,
-        "fields": [
-          {
-            "name": "field1",
-            "type": "Int64",
-            "access": "Public"
-          }
-        ],
-        "methods": []
-      },
-      {
-        "name": "InterfaceA",
-        "type": "Interface",
-        "posX": 120,
-        "posY": 240,
-        "fields": [
-        ],
-        "methods": [
-          {
-            "parameters": [],
-            "name": "method1",
-            "type": "Int",
-            "access": "Public"
-          },
-          {
-            "parameters": [],
-            "name": "method2",
-            "type": "String",
-            "access": "Public"
-          }
-        ]
-      }
-    ],
-    "relations": [
-      {
-        "source": "ClassA",
-        "destination": "ClassB",
-        "type": "Composition",
-        "sourceAnchorId": 6,
-        "destinationAnchorId": 3
-      },
-      {
-        "source": "ClassA",
-        "destination": "InterfaceA",
-        "type": "Generalisation",
-        "sourceAnchorId": 3,
-        "destinationAnchorId": 4
-      },
-      {
-        "source": "ClassC",
-        "destination": "ClassA",
-        "type": "Agregation",
-        "sourceAnchorId": 0,
-        "destinationAnchorId": 1
-      }
-    ],
-    "instances": [
-      {
-        "name": "InstanceA",
-        "className": "ClassA",
-        "posX": 10
-      },
-      {
-        "name": "InstanceB",
-        "className": "ClassB",
-        "posX": 230
-      }
-    ],
-    "calls": [
-      {
-        "source": "InstanceB",
-        "destination": "InstanceA",
-        "method": "method1",
-        "returns": true,
-        "sync": true,
-        "length": 100,
-        "text": "My call"
-      }
-    ]
-  }
+  "classes": [
+    {
+      "name": "ClassA",
+      "type": "Class",
+      "posX": 350,
+      "posY": 390,
+      "fields": [
+        {
+          "name": "field1",
+          "type": "String",
+          "access": "Private"
+        },
+        {
+          "name": "field2",
+          "type": "Int64",
+          "access": "Protected"
+        }
+      ],
+      "methods": [
+        {
+          "parameters": [],
+          "name": "method1",
+          "type": "Int",
+          "access": "Public"
+        },
+        {
+          "parameters": [
+            {
+              "name": "param1",
+              "type": "Int"
+            },
+            {
+              "name": "param2",
+              "type": "Double"
+            }
+          ],
+          "name": "method2",
+          "type": "String",
+          "access": "Protected"
+        }
+      ]
+    },
+    {
+      "name": "ClassB",
+      "type": "Class",
+      "posX": 650,
+      "posY": 410,
+      "fields": [
+        {
+          "name": "field1Package",
+          "type": "Int",
+          "access": "Package"
+        }
+      ],
+      "methods": []
+    },
+    {
+      "name": "ClassC",
+      "type": "Class",
+      "posX": 310,
+      "posY": 150,
+      "fields": [
+        {
+          "name": "field1",
+          "type": "Int64",
+          "access": "Public"
+        }
+      ],
+      "methods": []
+    },
+    {
+      "name": "InterfaceA",
+      "type": "Interface",
+      "posX": 120,
+      "posY": 240,
+      "fields": [],
+      "methods": [
+        {
+          "parameters": [],
+          "name": "method1",
+          "type": "Int",
+          "access": "Public"
+        },
+        {
+          "parameters": [],
+          "name": "method2",
+          "type": "String",
+          "access": "Public"
+        }
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "source": "ClassA",
+      "destination": "ClassB",
+      "type": "Composition",
+      "sourceAnchorId": 6,
+      "destinationAnchorId": 3
+    },
+    {
+      "source": "ClassA",
+      "destination": "InterfaceA",
+      "type": "Generalisation",
+      "sourceAnchorId": 3,
+      "destinationAnchorId": 4
+    },
+    {
+      "source": "ClassC",
+      "destination": "ClassA",
+      "type": "Agregation",
+      "sourceAnchorId": 0,
+      "destinationAnchorId": 1
+    }
+  ],
+  "instances": [
+    {
+      "name": "InstanceA",
+      "className": "ClassA",
+      "posX": 10
+    },
+    {
+      "name": "InstanceB",
+      "className": "ClassB",
+      "posX": 230
+    }
+  ],
+  "calls": [
+    {
+      "source": "InstanceB",
+      "destination": "InstanceA",
+      "method": "method1",
+      "returns": true,
+      "sync": true,
+      "length": 100,
+      "text": "My call"
+    }
+  ]
+}

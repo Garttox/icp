@@ -29,6 +29,17 @@ int UMLRelationData::getDestinationAnchorId() const
     return destinationAnchorId;
 }
 
+QJsonObject UMLRelationData::getSaveData()
+{
+    QJsonObject object;
+    object.insert("type", type.toString());
+    object.insert("source", source->getName());
+    object.insert("destination", destination->getName());
+    object.insert("sourceAnchorId", sourceAnchorId);
+    object.insert("destinationAnchorId", destinationAnchorId);
+    return object;
+}
+
 void UMLRelationData::setType(UMLRelationType type)
 {
     this->type = type;

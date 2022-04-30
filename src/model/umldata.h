@@ -14,6 +14,7 @@ public:
     UMLData();
     ~UMLData();
     bool loadData(QJsonObject json);
+    QJsonObject getSaveData();
     void addClass(UMLClassData *classData);
     void removeClass(UMLClassData *classData);
 

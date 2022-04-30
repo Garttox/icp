@@ -12,3 +12,12 @@ QString UMLFieldData::toString() const
 {
     return QString("%1 %2: %3").arg(access.toAnnotationString(), name, type);
 }
+
+QJsonObject UMLFieldData::getSaveData()
+{
+    QJsonObject object;
+    object.insert("name", name);
+    object.insert("type", type);
+    object.insert("access", access.toString());
+    return object;
+}

@@ -132,10 +132,18 @@ void UMLClass::mouseDoubleClickEvent(QGraphicsSceneMouseEvent */*event*/)
 
 QVariant UMLClass::itemChange(GraphicsItemChange change, const QVariant &value)
 {
-    if (change == QGraphicsItem::ItemSelectedHasChanged)
+    switch (change)
     {
-        setZValue(isSelected() ? 1 : 0);
-        setAnchorsVisible(isSelected());
+        case QGraphicsItem::ItemSelectedHasChanged:
+            setZValue(isSelected() ? 1 : 0);
+            setAnchorsVisible(isSelected());
+            break;
+        case QGraphicsItem::ItemPositionHasChanged:
+            umlClassData->setPosX(this->pos().x());
+            umlClassData->setPosY(this->pos().y());
+            break;
+        default:
+            break;  // Keeps Qt Creator without warnings
     }
     return QGraphicsItem::itemChange(change, value);
 }

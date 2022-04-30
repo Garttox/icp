@@ -70,7 +70,7 @@ void App::loadFile()
     qInfo() << fileName;
     if (fileName.length() == 0)
     {
-        return; // user closed dialog
+        return; // User closed the dialog
     }
     umlData->clearData();
     QJsonDocument doc;
@@ -79,7 +79,7 @@ void App::loadFile()
     {
         qWarning() << "failed to read the file";
         QMessageBox messageBox;
-        messageBox.critical(0,"Reading error","Error occured while reading the file");
+        messageBox.critical(nullptr, "Reading error", "Error occured while reading the file");
         messageBox.setFixedSize(500, 200);
         return;
     }
@@ -91,7 +91,7 @@ void App::loadFile()
     if (doc.isNull())
     {
         QMessageBox messageBox;
-        messageBox.critical(0,"Loading error","Given file data are not in supported format.");
+        messageBox.critical(nullptr, "Loading error", "Given file data are not in supported format.");
         messageBox.setFixedSize(500, 200);
         return;
     }
@@ -101,7 +101,7 @@ void App::loadFile()
     if (!loadedSuccesfully)
     {
         QMessageBox messageBox;
-        messageBox.critical(0,"Loading error","Given file data are probably corrupted.");
+        messageBox.critical(nullptr, "Loading error", "Given file data are probably corrupted.");
         messageBox.setFixedSize(500, 200);
         return;
     }
@@ -110,5 +110,24 @@ void App::loadFile()
 
 void App::saveFile()
 {
-    // TODO: saving to file
+    QString fileName = QFileDialog::getSaveFileName(this, "Save file", "../examples");
+    if (fileName.length() == 0)
+    {
+        return; // User closed the dialog
+    }
+
+    QFile file(fileName);
+    if (!file.open(QFile::WriteOnly))
+    {
+        QMessageBox messageBox;
+        messageBox.critical(nullptr, "Save error", "Error occured while saving the file.");
+        messageBox.setFixedSize(500, 200);
+        return;
+    }
+
+    QJsonDocument document;
+    QJsonObject root = DataProvider::getInstance().getUMLData()->getSaveData();
+    document.setObject(root);
+    file.write(document.toJson());
+    file.close();
 }

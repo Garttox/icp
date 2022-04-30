@@ -37,6 +37,24 @@ bool UMLMethodData::loadData(QJsonObject jsonMethodData)
     return true;
 }
 
+QJsonObject UMLMethodData::getSaveData()
+{
+    QJsonObject object;
+    QJsonArray parametersData;
+
+    foreach (auto parameter, parameters)
+    {
+        parametersData.append(parameter->getSaveData());
+    }
+
+    object.insert("name", name);
+    object.insert("type", type);
+    object.insert("access", access.toString());
+    object.insert("parameters", parametersData);
+
+    return object;
+}
+
 void UMLMethodData::addParameter(UMLMethodParameterData *parameter)
 {
     parameters.append(parameter);

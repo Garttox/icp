@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QObject>
+#include <QJsonObject>
 
 class UMLMethodParameterData : public QObject
 {
@@ -12,6 +13,7 @@ public:
     QString toString() const;
     QString getName() const;
     QString getType() const;
+    QJsonObject getSaveData();
 signals:
     void modelChanged();
 private:

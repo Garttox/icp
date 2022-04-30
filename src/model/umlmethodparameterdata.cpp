@@ -21,3 +21,11 @@ QString UMLMethodParameterData::getType() const
     return this->type;
 }
 
+QJsonObject UMLMethodParameterData::getSaveData()
+{
+    QJsonObject object;
+    object.insert("name", name);
+    object.insert("type", type);
+    return object;
+}
+

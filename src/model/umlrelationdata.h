@@ -1,6 +1,7 @@
 #ifndef UMLRELATIONDATA_H
 #define UMLRELATIONDATA_H
 
+#include <QJsonObject>
 #include "umlclassdata.h"
 #include "umlrelationtype.h"
 
@@ -15,6 +16,7 @@ public:
     int getSourceAnchorId() const;
     int getDestinationAnchorId() const;
     void setType(UMLRelationType type);
+    QJsonObject getSaveData();
 
 signals:
     void modelChanged(UMLRelationData *umlRelationData);

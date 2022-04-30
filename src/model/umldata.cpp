@@ -64,6 +64,26 @@ bool UMLData::loadData(QJsonObject json)
     return true;
 }
 
+QJsonObject UMLData::getSaveData()
+{
+    QJsonObject object;
+    QJsonArray classesData;
+    QJsonArray relationsData;
+
+    foreach (auto cls, *classes)
+    {
+        classesData.append(cls->getSaveData());
+    }
+    foreach (auto relation, *relations)
+    {
+        relationsData.append(relation->getSaveData());
+    }
+
+    object.insert("classes", classesData);
+    object.insert("relations", relationsData);
+    return object;
+}
+
 void UMLData::addClass(UMLClassData *classData)
 {
     classes->insert(classData);
