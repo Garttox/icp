@@ -17,11 +17,6 @@ ClassDiagramView::ClassDiagramView(QWidget* parent)
     connect(umlData, SIGNAL(relationModelAdded(UMLRelationData*)), this, SLOT(relationModelAdded(UMLRelationData*)));
     connect(umlData, SIGNAL(umlModelCleared()), this, SLOT(umlModelCleared()));
     drawBackgroundTiles();
-    /*
-    QTransform transform;
-    transform.scale(0.5, 0.5);
-    setTransform(transform);
-    */
 }
 
 void ClassDiagramView::classModelAdded(UMLClassData *classData)
@@ -70,6 +65,19 @@ void ClassDiagramView::drawBackgroundTiles()
     painter.drawRect(0, 0, TILE_SIZE, TILE_SIZE);
     painter.end();
     setBackgroundBrush(pixmap);
+}
+
+void ClassDiagramView::setAndApplyZoom(qreal zoom)
+{
+    qreal bounded = std::min(ZOOM_MAX, std::max(ZOOM_MIN, zoom));
+    this->zoom = bounded;
+    /*
+    QRect rect(QPoint(), size());
+    QPoint center = mapToScene(rect.center()).toPoint();
+    .translate(-center.x(), -center.y());
+    */
+    QTransform transform = QTransform().scale(bounded, bounded);
+    setTransform(transform);
 }
 
 void ClassDiagramView::addUMLClass(UMLClassData *classData)
@@ -128,3 +136,18 @@ void ClassDiagramView::mouseMoveEvent(QMouseEvent* event)
         QGraphicsView::mouseMoveEvent(event);
     }
 }
+
+void ClassDiagramView::keyPressEvent(QKeyEvent *event)
+{
+    switch (event->key())
+    {
+        case Qt::Key_Plus:
+            setAndApplyZoom(zoom + ZOOM_STEP);
+            break;
+        case Qt::Key_Minus:
+            setAndApplyZoom(zoom - ZOOM_STEP);
+            break;
+    }
+}
+
+

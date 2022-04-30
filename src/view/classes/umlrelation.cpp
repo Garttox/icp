@@ -107,7 +107,7 @@ void UMLRelation::createArrowHeadPolygon()
 
     if (isOfType(UMLRelationType::ASSOCIATION))
     {
-        return; // association has no arrow head
+        return; // Association has no arrow head
     }
 
     qreal angle = line().angle();
