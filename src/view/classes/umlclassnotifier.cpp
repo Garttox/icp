@@ -1,7 +1,6 @@
 #include "umlclassnotifier.h"
 
-UMLClassNotifier::UMLClassNotifier(QObject *parent)
-    : QObject(parent)
+UMLClassNotifier::UMLClassNotifier() : QObject()
 {}
 
 UMLClassNotifier* UMLClassNotifier::getInstance()

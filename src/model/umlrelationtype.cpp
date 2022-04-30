@@ -37,6 +37,7 @@ QString UMLRelationType::toString() const
         case GENERALISATION:
             return QString("Generalisation");
     }
+    return QString();
 }
 
 QStringList UMLRelationType::asStringList()

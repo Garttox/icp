@@ -18,20 +18,23 @@ public:
     void removeClass(UMLClassData *classData);
 
     void addRelation(UMLRelationData *relation);
-    void removeRelation(UMLRelationData *relation);
+    void removeRelation(UMLRelationData *umlRelationData);
 
     void clearData();
 
-    UMLClassData* findClassByName(QString clsName);
+    UMLClassData* findClassByName(QString className);
     QSet<UMLClassData *> *getClasses();
+    QSet<UMLRelationData *> getRelationsWithSourceClass(UMLClassData *umlClassData);
 public slots:
-    void classModelChanged();
-    void relationModelChanged();
+    void classModelChanged(UMLClassData *umlClassData);
+    void relationModelChanged(UMLRelationData *umlRelationData);
 
 signals:
-    void classModelAdded(UMLClassData *classData);
-    void relationModelAdded(UMLRelationData *relationData);
-    void relationModelRemoved(UMLRelationData *relationData);
+    void classModelAdded(UMLClassData *umlClassData);
+    void classModelEdited(UMLClassData *umlClassData);
+    void relationModelAdded(UMLRelationData *umlRelationData);
+    void relationModelEdited(UMLRelationData *umlRelationData);
+    void relationModelRemoved(UMLRelationData *umlRelationData);
     void umlModelCleared();
 
 private:

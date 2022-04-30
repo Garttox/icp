@@ -13,7 +13,7 @@ public:
     static UMLClassNotifier* getInstance();
 
 private:
-    explicit UMLClassNotifier(QObject *parent = nullptr);
+    explicit UMLClassNotifier();
 
 signals:
     void anchorDragged(UMLRelationAnchor *anchor, QPointF endpoint);

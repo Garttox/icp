@@ -22,7 +22,6 @@ UMLRelation::UMLRelation(UMLRelationData* relation, UMLRelationAnchor* sourceAnc
             this, SLOT(onAnchorRemoved(UMLRelationAnchor*)));
 }
 
-
 QRectF UMLRelation::boundingRect() const
 {
     QPointF p1 = line().p1();
@@ -38,8 +37,8 @@ QRectF UMLRelation::boundingRect() const
 QPainterPath UMLRelation::shape() const
 {
     QPainterPath path = QGraphicsLineItem::shape();
-        path.addPolygon(arrowHead);
-        return path;
+    path.addPolygon(arrowHead);
+    return path;
 }
 
 bool UMLRelation::isOfType(UMLRelationType umlRelationType)

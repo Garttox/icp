@@ -5,7 +5,6 @@ UMLFieldData::UMLFieldData(QString name, QString type, UMLAccessType access) :
 {}
 
 UMLFieldData::UMLFieldData(const UMLFieldData &original) :
-    QObject(),
     UMLIdentifier(original.name, original.type, original.access)
 {}
 

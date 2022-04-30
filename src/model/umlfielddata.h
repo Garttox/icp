@@ -5,7 +5,7 @@
 
 #include "umlidentifier.h"
 
-class UMLFieldData : public QObject, public UMLIdentifier
+class UMLFieldData : public UMLIdentifier
 {
     Q_OBJECT
 public:

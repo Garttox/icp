@@ -2,11 +2,13 @@
 #define UMLIDENTIFIER_H
 
 #include <QString>
+#include <QObject>
 
 #include "umlaccesstype.h"
 
-class UMLIdentifier
+class UMLIdentifier : public QObject
 {
+    Q_OBJECT
 public:
     UMLIdentifier(QString name, QString type, UMLAccessType access);
     ~UMLIdentifier();
@@ -21,6 +23,8 @@ protected:
     QString name;
     QString type;
     UMLAccessType access;
+signals:
+    void modelChanged(UMLIdentifier* identifier);
 };
 
 #endif // UMLIDENTIFIER_H

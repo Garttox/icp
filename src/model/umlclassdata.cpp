@@ -7,8 +7,7 @@
 
 UMLClassData::UMLClassData(QString name, UMLClassType type, int posX, int posY) :
     name(name), type(type), posX(posX), posY(posY), fields(QList<UMLFieldData*>()), methods(QList<UMLMethodData*>())
-{
-}
+{}
 
 UMLClassData::UMLClassData(const UMLClassData &original) :
     QObject(),
@@ -51,11 +50,13 @@ void UMLClassData::setData(const UMLClassData &data)
         UMLMethodData *copy = new UMLMethodData(*method);
         this->methods.append(copy);
     }
+    emit modelChanged(this);
 }
 
 void UMLClassData::setName(QString name)
 {
     this->name = name;
+    emit modelChanged(this);
 }
 
 bool UMLClassData::loadData(QJsonObject jsonClassData)
@@ -98,24 +99,31 @@ bool UMLClassData::loadData(QJsonObject jsonClassData)
 
 void UMLClassData::addMethod(UMLMethodData *method)
 {
+
     methods.append(method);
     connect(method, &UMLMethodData::modelChanged, this, &UMLClassData::methodModelChanged);
+    emit modelChanged(this);
 }
 
 void UMLClassData::addField(UMLFieldData *field)
 {
     fields.append(field);
     connect(field, &UMLFieldData::modelChanged, this, &UMLClassData::fieldModelChanged);
+    emit modelChanged(this);
 }
 
 void UMLClassData::removeFieldAt(int index)
 {
-    delete fields.takeAt(index);
+    UMLFieldData *umlFieldData = fields.takeAt(index);
+    emit modelChanged(this);
+    delete umlFieldData;
 }
 
 void UMLClassData::removeMethodAt(int index)
 {
-    delete methods.takeAt(index);
+    UMLMethodData *umlMethodData = methods.takeAt(index);
+    emit modelChanged(this);
+    delete umlMethodData;
 }
 
 bool UMLClassData::haveIdentifierWithSignature(QString signature) const
@@ -157,16 +165,16 @@ QList<UMLFieldData *> UMLClassData::getFields() const
     return fields;
 }
 
-QList<UMLIdentifier *> UMLClassData::getIdentifiers() const
+QSet<UMLIdentifier *> UMLClassData::getIdentifiers() const
 {
-    QList<UMLIdentifier *> identifiers;
+    QSet<UMLIdentifier *> identifiers;
     foreach (UMLFieldData *field, fields)
     {
-        identifiers.append(field);
+        identifiers.insert(field);
     }
     foreach (UMLMethodData *method, methods)
     {
-        identifiers.append(method);
+        identifiers.insert(method);
     }
     return identifiers;
 }
@@ -195,10 +203,10 @@ int UMLClassData::getPosY() const
 
 void UMLClassData::fieldModelChanged()
 {
-
+    emit modelChanged(this);
 }
 
 void UMLClassData::methodModelChanged()
 {
-
+    emit modelChanged(this);
 }

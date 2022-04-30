@@ -7,7 +7,7 @@
 #include "umlidentifier.h"
 #include "umlmethodparameterdata.h"
 
-class UMLMethodData : public QObject, public UMLIdentifier
+class UMLMethodData : public UMLIdentifier
 {
     Q_OBJECT
 public:
@@ -22,7 +22,7 @@ public:
 public slots:
     void parameterModelChanged();
 signals:
-    void modelChanged();
+    void modelChanged(UMLMethodData* umlMethodData);
 private:
     QList<UMLMethodParameterData *> parameters;
 };

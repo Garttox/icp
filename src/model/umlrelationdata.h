@@ -4,8 +4,9 @@
 #include "umlclassdata.h"
 #include "umlrelationtype.h"
 
-class UMLRelationData
+class UMLRelationData : public QObject
 {
+    Q_OBJECT
 public:
     UMLRelationData(UMLClassData *src, UMLClassData *dest, UMLRelationType type, int srcAnchorId, int destAnchorId);
     UMLClassData *getSource() const;
@@ -14,6 +15,9 @@ public:
     int getSourceAnchorId() const;
     int getDestinationAnchorId() const;
     void setType(UMLRelationType type);
+
+signals:
+    void modelChanged(UMLRelationData *umlRelationData);
 
 private:
     UMLClassData *source;

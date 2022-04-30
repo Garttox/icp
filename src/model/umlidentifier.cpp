@@ -1,7 +1,7 @@
 #include "umlidentifier.h"
 
 UMLIdentifier::UMLIdentifier(QString name, QString type, UMLAccessType access)
-    : name(name), type(type), access(access)
+    : QObject(), name(name), type(type), access(access)
 {}
 
 UMLIdentifier::~UMLIdentifier()
@@ -31,14 +31,17 @@ QString UMLIdentifier::toString() const
 void UMLIdentifier::setName(QString name)
 {
     this->name = name;
+    emit modelChanged(this);
 }
 
 void UMLIdentifier::setType(QString type)
 {
     this->type = type;
+    emit modelChanged(this);
 }
 
 void UMLIdentifier::setAccess(UMLAccessType access)
 {
     this->access = access;
+    emit modelChanged(this);
 }

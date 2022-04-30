@@ -26,7 +26,9 @@ public:
     void remove();
 
 private slots:
+    void onClassModelEdited(UMLClassData* umlClassData);
     void onRelationModelAdded(UMLRelationData *relationData);
+    void onRelationModelEdited(UMLRelationData *relationData);
     void onRelationModelRemoved(UMLRelationData *relationData);
     void onAnchorDragged(UMLRelationAnchor *anchor, QPointF endpoint);
     void onAnchorDragReleased(UMLRelationAnchor *source, UMLRelationAnchor *destination);
@@ -42,6 +44,7 @@ private:
     void addRelationAnchors();
     void resetAnchorsPositions();
     void setAnchorsVisible(bool enabled);
+    void actualizeRealizedIdentifiers();
     void addRelationDataToModel(UMLRelationAnchor *source, UMLRelationAnchor *destination);
 
     QColor textColor;
@@ -50,11 +53,11 @@ private:
     QColor selectedOutlineColor;
     UMLClassData *umlClassData;
     QList<UMLRelationAnchor *> anchors;
-    QList<QString> realizedIdentifiers;
+    QSet<QString> realizedIdentifiers;
 
     static constexpr qreal MIN_WIDTH = 60;
     static constexpr qreal ANCHOR_DRAG_OFFSET = 15;
-    static constexpr QColor HIGHLIGHT_COLOR = QColor(0, 80, 130);
+    static constexpr QColor HIGHLIGHT_COLOR = QColor(0, 90, 140);
 };
 
 #endif // UMLCLASS_H

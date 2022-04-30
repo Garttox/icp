@@ -75,22 +75,24 @@ void UMLData::removeClass(UMLClassData *classData)
 {
     if (classes->remove(classData))
     {
+        // emit classModelRemoved(umlRelationData);
         delete classData;
     }
 }
 
-void UMLData::addRelation(UMLRelationData *relation)
+void UMLData::addRelation(UMLRelationData *umlRelationData)
 {
-    relations->insert(relation);
-    emit relationModelAdded(relation);
+    relations->insert(umlRelationData);
+    connect(umlRelationData, &UMLRelationData::modelChanged, this, &UMLData::relationModelChanged);
+    emit relationModelAdded(umlRelationData);
 }
 
-void UMLData::removeRelation(UMLRelationData *relation)
+void UMLData::removeRelation(UMLRelationData *umlRelationData)
 {
-    if (relations->remove(relation))
+    if (relations->remove(umlRelationData))
     {
-        emit relationModelRemoved(relation);
-        delete relation;
+        emit relationModelRemoved(umlRelationData);
+        delete umlRelationData;
     }
 }
 
@@ -101,11 +103,11 @@ void UMLData::clearData()
     relations->clear();
 }
 
-UMLClassData* UMLData::findClassByName(QString clsName)
+UMLClassData* UMLData::findClassByName(QString className)
 {
     foreach (UMLClassData *cls, *classes)
     {
-        if (cls->getName() == clsName)
+        if (cls->getName() == className)
             return cls;
     }
     return nullptr;
@@ -116,11 +118,26 @@ QSet<UMLClassData *>* UMLData::getClasses()
     return classes;
 }
 
-// slots
-void UMLData::classModelChanged()
+QSet<UMLRelationData *> UMLData::getRelationsWithSourceClass(UMLClassData *umlClassData)
 {
+    QSet<UMLRelationData *> found;
+    foreach (UMLRelationData *umlRelationData, *relations)
+    {
+        if (umlRelationData->getSource() == umlClassData)
+        {
+            found.insert(umlRelationData);
+        }
+    }
+    return found;
 }
 
-void UMLData::relationModelChanged()
+// slots
+void UMLData::classModelChanged(UMLClassData *umlClassData)
 {
+    emit classModelEdited(umlClassData);
+}
+
+void UMLData::relationModelChanged(UMLRelationData *umlRelationData)
+{
+    emit relationModelEdited(umlRelationData);
 }

@@ -31,7 +31,7 @@ public:
     UMLMethodData *getMethodAt(int index) const;
     QList<UMLMethodData *> getMethods() const;
     QList<UMLFieldData *> getFields() const;
-    QList<UMLIdentifier *> getIdentifiers() const;
+    QSet<UMLIdentifier *> getIdentifiers() const;
     int getPosX() const;
     int getPosY() const;
     
@@ -39,8 +39,10 @@ public:
 public slots:
     void fieldModelChanged();
     void methodModelChanged();
+
 signals:
-    void modelChanged();
+    void modelChanged(UMLClassData *umlClassData);
+
 private:
     QString name;
     UMLClassType type;

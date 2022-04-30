@@ -26,8 +26,12 @@ UMLClass::UMLClass(UMLClassData *umlClassData) :
             this, SLOT(onAnchorDragged(UMLRelationAnchor*,QPointF)));
     connect(UMLClassNotifier::getInstance(), SIGNAL(anchorDragReleased(UMLRelationAnchor*,UMLRelationAnchor*)),
             this, SLOT(onAnchorDragReleased(UMLRelationAnchor*,UMLRelationAnchor*)));
+    connect(DataProvider::getInstance().getUMLData(), SIGNAL(classModelEdited(UMLClassData*)),
+            this, SLOT(onClassModelEdited(UMLClassData*)));
     connect(DataProvider::getInstance().getUMLData(), SIGNAL(relationModelAdded(UMLRelationData*)),
             this, SLOT(onRelationModelAdded(UMLRelationData*)));
+    connect(DataProvider::getInstance().getUMLData(), SIGNAL(relationModelEdited(UMLRelationData*)),
+            this, SLOT(onRelationModelEdited(UMLRelationData*)));
     connect(DataProvider::getInstance().getUMLData(), SIGNAL(relationModelRemoved(UMLRelationData*)),
             this, SLOT(onRelationModelRemoved(UMLRelationData*)));
 }
@@ -68,40 +72,34 @@ void UMLClass::remove()
 
 // - - - - - private slots  - - - - -
 
+void UMLClass::onClassModelEdited(UMLClassData */*umlClassData*/)
+{
+    actualizeRealizedIdentifiers();
+    update();
+}
+
 void UMLClass::onRelationModelAdded(UMLRelationData *relationData)
 {
-    UMLClassData *source = relationData->getSource();
-    UMLClassData *destination = relationData->getDestination();
-    if (relationData->getType() == UMLRelationType::GENERALISATION && source == umlClassData)
+    if (relationData->getType() == UMLRelationType::GENERALISATION)
     {
-        foreach (UMLIdentifier *identifier, umlClassData->getIdentifiers())
-        {
-            QString signature = identifier->toString();
-            if (destination->haveIdentifierWithSignature(signature))
-            {
-                realizedIdentifiers.append(signature);
-            }
-        }
+        actualizeRealizedIdentifiers();
+        update();
     }
+}
+
+void UMLClass::onRelationModelEdited(UMLRelationData * /*relationData*/)
+{
+    actualizeRealizedIdentifiers();
     update();
 }
 
 void UMLClass::onRelationModelRemoved(UMLRelationData *relationData)
 {
-    UMLClassData *source = relationData->getSource();
-    UMLClassData *destination = relationData->getDestination();
-    if (relationData->getType() == UMLRelationType::GENERALISATION && source == umlClassData)
+    if (relationData->getType() == UMLRelationType::GENERALISATION)
     {
-        foreach (UMLIdentifier *identifier, umlClassData->getIdentifiers())
-        {
-            QString signature = identifier->toString();
-            if (destination->haveIdentifierWithSignature(signature))
-            {
-                realizedIdentifiers.removeOne(signature);
-            }
-        }
+        actualizeRealizedIdentifiers();
+        update();
     }
-    update();
 }
 
 void UMLClass::onAnchorDragged(UMLRelationAnchor *anchor, QPointF endpoint)
@@ -263,6 +261,27 @@ void UMLClass::setAnchorsVisible(bool enabled)
     foreach (UMLRelationAnchor *anchor, anchors)
     {
         anchor->setVisible(enabled);
+    }
+}
+
+void UMLClass::actualizeRealizedIdentifiers()
+{
+    realizedIdentifiers.clear();
+    QSet<UMLRelationData *> relations = DataProvider::getInstance().getUMLData()->getRelationsWithSourceClass(umlClassData);
+    QSet<UMLIdentifier *> ownIdentifiers = umlClassData->getIdentifiers();
+    foreach (UMLRelationData *relation, relations)
+    {
+        if (relation->getType() == UMLRelationType::GENERALISATION)
+        {
+            foreach (UMLIdentifier *identifier, ownIdentifiers)
+            {
+                QString signature = identifier->toString();
+                if (relation->getDestination()->haveIdentifierWithSignature(signature))
+                {
+                    realizedIdentifiers.insert(signature);
+                }
+            }
+        }
     }
 }
 

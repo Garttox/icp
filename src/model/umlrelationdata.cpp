@@ -32,4 +32,5 @@ int UMLRelationData::getDestinationAnchorId() const
 void UMLRelationData::setType(UMLRelationType type)
 {
     this->type = type;
+    emit modelChanged(this);
 }

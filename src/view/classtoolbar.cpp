@@ -43,7 +43,7 @@ void ClassToolBar::createActions()
     undoAction = new QAction(this);
     undoAction->setIcon(QIcon("../res/undo.png"));
     undoAction->setToolTip("Undo (Ctrl+Z)");
-    addInterfaceAction->setShortcut(tr("Ctrl+Z"));
+    undoAction->setShortcut(tr("Ctrl+Z"));
     connect(undoAction, SIGNAL(triggered()), this, SLOT(undo()));
 }
 

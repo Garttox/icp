@@ -8,10 +8,10 @@ UMLMethodData::UMLMethodData(QString name, QString type, UMLAccessType access) :
 {}
 
 UMLMethodData::UMLMethodData(const UMLMethodData &original) :
-    QObject(),
     UMLIdentifier(original.name, original.type, original.access)
 {
-    foreach(UMLMethodParameterData *parameter, original.parameters) {
+    foreach(UMLMethodParameterData *parameter, original.parameters)
+    {
         QString name = parameter->getName();
         QString type = parameter->getType();
         this->parameters.append(new UMLMethodParameterData(name, type));
@@ -20,10 +20,7 @@ UMLMethodData::UMLMethodData(const UMLMethodData &original) :
 
 UMLMethodData::~UMLMethodData()
 {
-    foreach(UMLMethodParameterData *parameter, parameters)
-    {
-        delete parameter;
-    }
+    qDeleteAll(parameters);
 }
 
 bool UMLMethodData::loadData(QJsonObject jsonMethodData)
@@ -44,6 +41,7 @@ void UMLMethodData::addParameter(UMLMethodParameterData *parameter)
 {
     parameters.append(parameter);
     connect(parameter, &UMLMethodParameterData::modelChanged, this, &UMLMethodData::parameterModelChanged);
+    emit modelChanged(this);
 }
 
 QString UMLMethodData::toString() const
@@ -65,11 +63,12 @@ QList<UMLMethodParameterData *> UMLMethodData::getParameters() const
 void UMLMethodData::clearParameters()
 {
     parameters.clear();
+    emit modelChanged(this);
 }
 
 // Slots
 
 void UMLMethodData::parameterModelChanged()
 {
-
+    emit modelChanged(this);
 }

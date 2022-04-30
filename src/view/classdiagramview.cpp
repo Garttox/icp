@@ -17,6 +17,11 @@ ClassDiagramView::ClassDiagramView(QWidget* parent)
     connect(umlData, SIGNAL(relationModelAdded(UMLRelationData*)), this, SLOT(relationModelAdded(UMLRelationData*)));
     connect(umlData, SIGNAL(umlModelCleared()), this, SLOT(umlModelCleared()));
     drawBackgroundTiles();
+    /*
+    QTransform transform;
+    transform.scale(0.5, 0.5);
+    setTransform(transform);
+    */
 }
 
 void ClassDiagramView::classModelAdded(UMLClassData *classData)
