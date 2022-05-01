@@ -22,11 +22,6 @@ public:
     ClassDiagramView(QWidget* parent);
 
     /**
-     * @brief Creates and adds ClassToolBar to the view.
-     */
-    void createToolBar();
-
-    /**
      * @brief Create pixmap out of the current view, while hiding toolbar.
      * @return Pixel map of current viewport.
      */
@@ -80,10 +75,9 @@ private:
 
     int originX;
     int originY;
-    ClassToolBar *classToolBar;
 
     static constexpr qreal TILE_SIZE = 60;
-    QColor TILE_COLOR = QColor(225, 225, 225);
+    static constexpr QColor TILE_COLOR = QColor(225, 225, 225);
 };
 
 #endif // CLASSDIAGRAMVIEW_H

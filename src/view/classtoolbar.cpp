@@ -10,8 +10,8 @@ ClassToolBar::ClassToolBar(ClassDiagramView *view, const QGraphicsScene *scene) 
 {
     createActions();
     setOrientation(Qt::Vertical);
-    setStyleSheet("QToolButton { padding: 3px; margin: 3px; }");
-    setIconSize(QSize(30, 30));
+    setStyleSheet("QToolButton { padding: 2px; margin: 2px; }");
+    setIconSize(QSize(ICON_SIZE, ICON_SIZE));
     addAction(addClassAction);
     addAction(addInterfaceAction);
     addAction(removeSelectedAction);

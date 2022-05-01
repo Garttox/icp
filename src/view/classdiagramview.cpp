@@ -20,20 +20,10 @@ ClassDiagramView::ClassDiagramView(QWidget* parent)
     drawBackgroundTiles();
 }
 
-void ClassDiagramView::createToolBar()
-{
-    if (classToolBar == nullptr)
-    {
-        classToolBar = new ClassToolBar(this, scene());
-    }
-}
-
 QPixmap ClassDiagramView::getViewportPixmap()
 {
-    classToolBar->setVisible(false);
     QRect crop(0, 0, width(),height());
     QPixmap pixmap = grab(crop);
-    classToolBar->setVisible(true);
     return pixmap;
 }
 

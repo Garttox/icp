@@ -40,8 +40,7 @@ private:
     QAction *undoAction;
     const ClassDiagramView *view;
     const QGraphicsScene *scene;
-
-
+    static constexpr qreal ICON_SIZE = 20;
 
 private slots:
     void addClass();
