@@ -1,7 +1,14 @@
-# icp
+# ICP 2021/2022
+**Project for ICP class at FIT, Brno University of Technology.**
 
-[ICP - Google dokument](https://docs.google.com/document/d/126zGQqxto9vuAbuaSwgnlNyj_Gu-v9ese8HcQ6grwMI/edit#heading=h.c02ls8vfbfwo)
+### Authors:
+- Michal Trlica (xtrlic02)
+- Martin Bednář (xbedna77)
+    
+### Abstract:
+The main goal of this project is to create graphical application for 
+displaying, creating, editing and saving UML class diagrams and sequence diagrams.\
+Application uses it's own JSON file structure to store and load diagrams.
 
-[ICP - Moodle](https://moodle.vut.cz/mod/page/view.php?id=191034)
-
-[QT 5.5.1](https://download.qt.io/new_archive/qt/5.5/5.5.1/)
+### Sources:
+- [QT 5.5. Documentation](https://doc.qt.io/archives/qt-5.5/index.html)

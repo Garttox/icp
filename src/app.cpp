@@ -10,8 +10,8 @@
 #include <QMessageBox>
 
 #include "app.h"
-#include "model\umldata.h"
-#include "model\dataprovider.h"
+#include "model/umldata.h"
+#include "model/dataprovider.h"
 
 App::App(QWidget *parent) :
     QMainWindow(parent)
@@ -145,7 +145,7 @@ void App::exportImage()
         return; // User closed the dialog
     }
 
-    QPixmap pixmap = view->getViewportImage();
+    QPixmap pixmap = view->getViewportPixmap();
     if (!pixmap.save(fileName))
     {
         displayErrorMessageBox("Export error", "Error occured while exporting to the file.");

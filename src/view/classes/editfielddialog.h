@@ -2,7 +2,7 @@
 #define EDITFIELDDIALOG_H
 
 #include <QDialog>
-#include "model\umlfielddata.h"
+#include "model/umlfielddata.h"
 
 namespace Ui {
 class EditFieldDialog;

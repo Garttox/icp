@@ -2,7 +2,7 @@
 #define EDITMETHODDIALOG_H
 
 #include <QDialog>
-#include "model\umlmethoddata.h"
+#include "model/umlmethoddata.h"
 
 namespace Ui {
 class EditMethodDialog;

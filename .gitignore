@@ -1,4 +1,4 @@
-#ignore build files
+# ignore build files
 src/out/
 src/debug
 src/release
@@ -7,3 +7,6 @@ src/icp.pro.user
 src/icp.pro.user*
 build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug/
 build-icp-Desktop_Qt_5_15_1_MSVC2015_64bit-Debug/
+
+# ignore docs
+doc

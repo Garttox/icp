@@ -1,6 +1,6 @@
 #include "editfielddialog.h"
 #include "ui_editfielddialog.h"
-#include "model\umlaccesstype.h"
+#include "model/umlaccesstype.h"
 
 EditFieldDialog::EditFieldDialog(UMLClassType classType, UMLFieldData *umlFieldData, QWidget *parent) :
     QDialog(parent),

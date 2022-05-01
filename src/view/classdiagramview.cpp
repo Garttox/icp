@@ -1,10 +1,10 @@
 #include <QDebug>
 
 #include "classdiagramview.h"
-#include "model\dataprovider.h"
-#include "model\umlclassdata.h"
-#include "model\umldata.h"
-#include "view\classes\umlclass.h"
+#include "model/dataprovider.h"
+#include "model/umlclassdata.h"
+#include "model/umldata.h"
+#include "view/classes/umlclass.h"
 #include "classtoolbar.h"
 
 ClassDiagramView::ClassDiagramView(QWidget* parent)
@@ -28,7 +28,7 @@ void ClassDiagramView::createToolBar()
     }
 }
 
-QPixmap ClassDiagramView::getViewportImage()
+QPixmap ClassDiagramView::getViewportPixmap()
 {
     classToolBar->setVisible(false);
     QRect crop(0, 0, width(),height());
@@ -85,19 +85,6 @@ void ClassDiagramView::drawBackgroundTiles()
     setBackgroundBrush(pixmap);
 }
 
-void ClassDiagramView::setAndApplyZoom(qreal zoom)
-{
-    qreal bounded = std::min(ZOOM_MAX, std::max(ZOOM_MIN, zoom));
-    this->zoom = bounded;
-    /*
-    QRect rect(QPoint(), size());
-    QPoint center = mapToScene(rect.center()).toPoint();
-    .translate(-center.x(), -center.y());
-    */
-    QTransform transform = QTransform().scale(bounded, bounded);
-    setTransform(transform);
-}
-
 void ClassDiagramView::addUMLClass(UMLClassData *classData)
 {
     UMLClass *umlClass = new UMLClass(classData);
@@ -134,7 +121,9 @@ void ClassDiagramView::mousePressEvent(QMouseEvent* event)
     {
         originX = event->x();
         originY = event->y();
-    } else {
+    }
+    else
+    {
         QGraphicsView::mousePressEvent(event);
     }
 }
@@ -150,22 +139,10 @@ void ClassDiagramView::mouseMoveEvent(QMouseEvent* event)
         translate(translation.x(), translation.y());
         originX = event->x();
         originY = event->y();
-    } else {
+    }
+    else
+    {
         QGraphicsView::mouseMoveEvent(event);
     }
 }
-
-void ClassDiagramView::keyPressEvent(QKeyEvent *event)
-{
-    switch (event->key())
-    {
-        case Qt::Key_Plus:
-            setAndApplyZoom(zoom + ZOOM_STEP);
-            break;
-        case Qt::Key_Minus:
-            setAndApplyZoom(zoom - ZOOM_STEP);
-            break;
-    }
-}
-
 

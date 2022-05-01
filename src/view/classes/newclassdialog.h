@@ -3,7 +3,7 @@
 
 #include <QDialog>
 #include "classdialog.h"
-#include "model\umlclassdata.h"
+#include "model/umlclassdata.h"
 
 namespace Ui {
 class NewClassDialog;

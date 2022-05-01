@@ -9,4 +9,7 @@ compile:
 	$(MAKE) CXX=$(CC) -C src/ -o src/icp
 
 clean:
-	rm -rf src/debug  src/release src/Makefile* build*/
+	rm -rf src/debug src/release src/Makefile* build*/ doc
+
+doxygen:
+	doxygen Doxyfile

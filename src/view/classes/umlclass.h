@@ -7,8 +7,8 @@
 #include <QSet>
 #include <QEvent>
 #include <QVariant>
-#include "model\umldata.h"
-#include "model\umlclassdata.h"
+#include "model/umldata.h"
+#include "model/umlclassdata.h"
 #include "umlrelationanchor.h"
 #include "umlrelation.h"
 
