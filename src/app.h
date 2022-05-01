@@ -22,6 +22,7 @@ private:
 
     QAction *fileLoad;
     QAction *fileSave;
+    QAction *imageExport;
 
     void createActions();
     void createMainMenu();
@@ -31,6 +32,7 @@ private:
 private slots:
     void loadFile();
     void saveFile();
+    void exportImage();
 
 };
 

@@ -45,20 +45,25 @@ App::App(QWidget *parent) :
 
 void App::createActions()
 {
-    fileLoad = new QAction(tr("&Load"), this);
-    fileLoad->setShortcut(tr("Ctrl+L"));
+    fileLoad = new QAction("Load", this);
+    fileLoad->setShortcut(QString("Ctrl+L"));
     connect(fileLoad, SIGNAL(triggered()), this, SLOT(loadFile()));
 
-    fileSave = new QAction(tr("&Save"), this);
+    fileSave = new QAction("Save", this);
     fileSave->setShortcut(QString("Ctrl+S"));
     connect(fileSave, SIGNAL(triggered()), this, SLOT(saveFile()));
+
+    imageExport = new QAction("Export", this);
+    imageExport->setShortcut(QString("Ctrl+E"));
+    connect(imageExport, SIGNAL(triggered()), this, SLOT(exportImage()));
 }
 
 void App::createMainMenu()
 {
-    mainMenu = menuBar()->addMenu(tr("&File"));
+    mainMenu = menuBar()->addMenu("File");
     mainMenu->addAction(fileLoad);
     mainMenu->addAction(fileSave);
+    mainMenu->addAction(imageExport);
 }
 
 // - - - - - private slots - - - - -
@@ -130,4 +135,26 @@ void App::saveFile()
     document.setObject(root);
     file.write(document.toJson());
     file.close();
+}
+
+void App::exportImage()
+{
+    QString fileName = QFileDialog::getSaveFileName(this, "Export image", "../examples");
+    if (fileName.length() == 0)
+    {
+        return; // User closed the dialog
+    }
+
+    classToolBar->setVisible(false);
+    QPixmap pixmap = view->grab(view->sceneRect().toRect());
+    QRect crop(0, 0, view->width(), view->height());
+    classToolBar->setVisible(true);
+
+    if (!pixmap.copy(crop).save(fileName))
+    {
+        QMessageBox messageBox;
+        messageBox.critical(nullptr, "Export error", "Error occured while exporting to the file.");
+        messageBox.setFixedSize(500, 200);
+        return;
+    }
 }

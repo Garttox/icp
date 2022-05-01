@@ -14,7 +14,6 @@ UMLRelation::UMLRelation(UMLRelationData* relation, UMLRelationAnchor* sourceAnc
     sourceAnchor(sourceAnchor),
     destinationAnchor(destinationAnchor)
 {
-    setColorPen();
     setCorrectPosition();
     setFlag(ItemIsSelectable);
     setZValue(-1);
@@ -65,8 +64,14 @@ void UMLRelation::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
 {
     setCorrectPosition();
 
+    // disable default outline on select
+    QStyleOptionGraphicsItem myOption(*option);
+    myOption.state &= ~QStyle::State_Selected;
+
     // draw line
-    QGraphicsLineItem::paint(painter, option, widget);
+    setPen(getColorPen());
+    QGraphicsLineItem::paint(painter, &myOption, widget);
+
 
     // draw arrow head
     createArrowHeadPolygon();
@@ -85,12 +90,13 @@ void UMLRelation::onAnchorRemoved(UMLRelationAnchor *anchor)
 
 // - - - - - private - - - - -
 
-void UMLRelation::setColorPen()
+QPen UMLRelation::getColorPen() const
 {
     QPen pen;
-    pen.setWidth(2);
-    pen.setColor(QColor(120, 135, 140));
-    setPen(pen);
+    bool selected = isSelected();
+    pen.setWidth(selected ? 3 : 2);
+    pen.setColor(selected ? SELECT_COLOR : NORMAL_COLOR);
+    return pen;
 }
 
 
@@ -132,7 +138,7 @@ void UMLRelation::createArrowHeadPolygon()
 void UMLRelation::drawArrowHead(QPainter *painter)
 {
     QPainterPath path;
-    QColor fillColor = isOfType(UMLRelationType::COMPOSITION) ? LINE_COLOR : Qt::white;
+    QColor fillColor = isOfType(UMLRelationType::COMPOSITION) ? getColorPen().color() : Qt::white;
     path.addPolygon(arrowHead);
     painter->fillPath(path, fillColor);
     painter->drawPolygon(arrowHead);

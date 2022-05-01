@@ -27,7 +27,7 @@ private slots:
     void onAnchorRemoved(UMLRelationAnchor *anchor);
 
 private:
-    void setColorPen();
+    QPen getColorPen() const;
     void setCorrectPosition();
     void createArrowHeadPolygon();
     void drawArrowHead(QPainter *painter);
@@ -37,7 +37,8 @@ private:
     const UMLRelationAnchor *sourceAnchor;
     const UMLRelationAnchor *destinationAnchor;
     static constexpr qreal ARROW_SIZE = 14;
-    static constexpr QColor LINE_COLOR = QColor(100, 115, 120);
+    static constexpr QColor SELECT_COLOR = QColor(100, 170, 125);
+    static constexpr QColor NORMAL_COLOR = QColor(100, 115, 120);
 };
 
 #endif // UMLRELATION_H
