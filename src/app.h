@@ -26,7 +26,9 @@ private:
 
     void createActions();
     void createMainMenu();
+    void displayErrorMessageBox(QString title, QString message);
 
+    const QString DEFAULT_PATH = "../examples";
     static constexpr qreal SCENE_SIZE = 2400;
 
 private slots:

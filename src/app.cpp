@@ -66,12 +66,19 @@ void App::createMainMenu()
     mainMenu->addAction(imageExport);
 }
 
+void App::displayErrorMessageBox(QString title, QString message)
+{
+    QMessageBox messageBox;
+    messageBox.critical(nullptr, title, message);
+    messageBox.setFixedSize(500, 200);
+}
+
 // - - - - - private slots - - - - -
 
 void App::loadFile()
 {
     UMLData *umlData = DataProvider::getInstance().getUMLData();
-    QString fileName = QFileDialog::getOpenFileName(this, "Open a file", "../examples");
+    QString fileName = QFileDialog::getOpenFileName(this, "Open a file", DEFAULT_PATH, "JSON (*.json)");
     qInfo() << fileName;
     if (fileName.length() == 0)
     {
@@ -82,10 +89,7 @@ void App::loadFile()
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        qWarning() << "failed to read the file";
-        QMessageBox messageBox;
-        messageBox.critical(nullptr, "Reading error", "Error occured while reading the file");
-        messageBox.setFixedSize(500, 200);
+        displayErrorMessageBox("Reading error", "Error occured while reading the file");
         return;
     }
     QByteArray byteFile = file.readAll();
@@ -95,9 +99,7 @@ void App::loadFile()
     // validate if file is in json format
     if (doc.isNull())
     {
-        QMessageBox messageBox;
-        messageBox.critical(nullptr, "Loading error", "Given file data are not in supported format.");
-        messageBox.setFixedSize(500, 200);
+        displayErrorMessageBox("Loading error", "Given file data are not in supported format.");
         return;
     }
 
@@ -115,7 +117,7 @@ void App::loadFile()
 
 void App::saveFile()
 {
-    QString fileName = QFileDialog::getSaveFileName(this, "Save file", "../examples");
+    QString fileName = QFileDialog::getSaveFileName(this, "Save file", DEFAULT_PATH, "JSON (*.json)");
     if (fileName.length() == 0)
     {
         return; // User closed the dialog
@@ -124,9 +126,7 @@ void App::saveFile()
     QFile file(fileName);
     if (!file.open(QFile::WriteOnly))
     {
-        QMessageBox messageBox;
-        messageBox.critical(nullptr, "Save error", "Error occured while saving the file.");
-        messageBox.setFixedSize(500, 200);
+        displayErrorMessageBox("Save error", "Error occured while saving the file.");
         return;
     }
 
@@ -137,24 +137,25 @@ void App::saveFile()
     file.close();
 }
 
+
+
 void App::exportImage()
 {
-    QString fileName = QFileDialog::getSaveFileName(this, "Export image", "../examples");
+    QString fileName = QFileDialog::getSaveFileName(this, "Export image", DEFAULT_PATH, "PNG (*.png)");
     if (fileName.length() == 0)
     {
         return; // User closed the dialog
     }
 
     classToolBar->setVisible(false);
-    QPixmap pixmap = view->grab(view->sceneRect().toRect());
     QRect crop(0, 0, view->width(), view->height());
+    QPixmap pixmap = view->grab(crop);
+
     classToolBar->setVisible(true);
 
-    if (!pixmap.copy(crop).save(fileName))
+    if (!pixmap.save(fileName))
     {
-        QMessageBox messageBox;
-        messageBox.critical(nullptr, "Export error", "Error occured while exporting to the file.");
-        messageBox.setFixedSize(500, 200);
+        displayErrorMessageBox("Export error", "Error occured while exporting to the file.");
         return;
     }
 }
