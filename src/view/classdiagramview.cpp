@@ -5,6 +5,7 @@
 #include "model\umlclassdata.h"
 #include "model\umldata.h"
 #include "view\classes\umlclass.h"
+#include "classtoolbar.h"
 
 ClassDiagramView::ClassDiagramView(QWidget* parent)
     : QGraphicsView(parent)
@@ -17,6 +18,23 @@ ClassDiagramView::ClassDiagramView(QWidget* parent)
     connect(umlData, SIGNAL(relationModelAdded(UMLRelationData*)), this, SLOT(relationModelAdded(UMLRelationData*)));
     connect(umlData, SIGNAL(umlModelCleared()), this, SLOT(umlModelCleared()));
     drawBackgroundTiles();
+}
+
+void ClassDiagramView::createToolBar()
+{
+    if (classToolBar == nullptr)
+    {
+        classToolBar = new ClassToolBar(this, scene());
+    }
+}
+
+QPixmap ClassDiagramView::getViewportImage()
+{
+    classToolBar->setVisible(false);
+    QRect crop(0, 0, width(),height());
+    QPixmap pixmap = grab(crop);
+    classToolBar->setVisible(true);
+    return pixmap;
 }
 
 void ClassDiagramView::classModelAdded(UMLClassData *classData)

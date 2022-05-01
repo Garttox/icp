@@ -29,9 +29,7 @@ App::App(QWidget *parent) :
     view->setDragMode(QGraphicsView::RubberBandDrag);
     view->setRenderHints(QPainter::TextAntialiasing | QPainter::Antialiasing);
     view->setContextMenuPolicy(Qt::ActionsContextMenu);
-
-    classToolBar = new ClassToolBar(view, scene);
-    // setCentralWidget(view);
+    view->createToolBar();
 
     tabWidget->addTab(view, QString("Class Diagram"));
     tabWidget->addTab(new QWidget(), QString("Sequence 1"));
@@ -147,12 +145,7 @@ void App::exportImage()
         return; // User closed the dialog
     }
 
-    classToolBar->setVisible(false);
-    QRect crop(0, 0, view->width(), view->height());
-    QPixmap pixmap = view->grab(crop);
-
-    classToolBar->setVisible(true);
-
+    QPixmap pixmap = view->getViewportImage();
     if (!pixmap.save(fileName))
     {
         displayErrorMessageBox("Export error", "Error occured while exporting to the file.");

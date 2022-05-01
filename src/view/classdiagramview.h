@@ -8,12 +8,16 @@
 #include "model/umlclassdata.h"
 #include "model/umldata.h"
 
+class ClassToolBar;
+
 class ClassDiagramView : public QGraphicsView
 {
     Q_OBJECT
 
 public:
     ClassDiagramView(QWidget* parent);
+    void createToolBar();
+    QPixmap getViewportImage();
 
 private slots:
     void classModelAdded(UMLClassData *classData);
@@ -33,6 +37,7 @@ private:
     int originX;
     int originY;
     qreal zoom = 1;
+    ClassToolBar *classToolBar;
 
     static constexpr qreal ZOOM_MIN = 0.8;
     static constexpr qreal ZOOM_MAX = 1.2;

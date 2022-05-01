@@ -18,7 +18,6 @@ private:
     ClassDiagramView *view;
     QMenu *mainMenu;
     QTabWidget *tabWidget;
-    ClassToolBar *classToolBar;
 
     QAction *fileLoad;
     QAction *fileSave;
