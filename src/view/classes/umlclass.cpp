@@ -2,6 +2,8 @@
 #include <QStyleOptionGraphicsItem>
 #include <QGraphicsScene>
 #include <algorithm>
+#include <QGraphicsView>
+#include <QDebug>
 #include "model/dataprovider.h"
 #include "umlclass.h"
 #include "editclassdialog.h"
@@ -158,7 +160,8 @@ void UMLClass::paint(QPainter *painter, const QStyleOptionGraphicsItem * /*optio
     painter->drawRect(rect);
     painter->setPen(textColor);
 
-    QFontMetricsF metrics{qApp->font()};
+    QFont font = painter->font();
+    QFontMetricsF metrics(font);
     //painter->drawText(rect, Qt::AlignCenter, umlClassData->getName());
     QList<UMLFieldData *> fields = umlClassData->getFields();
     QList<UMLMethodData *> methods = umlClassData->getMethods();
@@ -166,9 +169,8 @@ void UMLClass::paint(QPainter *painter, const QStyleOptionGraphicsItem * /*optio
     qreal offsetX = 6.0;
     point.setY(point.y() + metrics.height());
     point.setX(point.x() + offsetX);
-
+    qDebug() << metrics.height();
     // class name
-    QFont font = painter->font();
     font.setBold(true);
     painter->setFont(font);
     painter->drawText(point, umlClassData->getDisplayName());
@@ -179,7 +181,6 @@ void UMLClass::paint(QPainter *painter, const QStyleOptionGraphicsItem * /*optio
     painter->drawLine(point, QPointF(point.x() + rect.width(), point.y()));
     point.setX(point.x() + offsetX);
     point.setY(point.y() + metrics.height());
-
     // fields
     foreach(auto *field, fields)
     {
@@ -187,7 +188,7 @@ void UMLClass::paint(QPainter *painter, const QStyleOptionGraphicsItem * /*optio
         QColor color = realizedIdentifiers.contains(string) ? HIGHLIGHT_COLOR : Qt::black;
         painter->setPen(color);
         painter->drawText(point, string);
-        point.setY(point.y() + metrics.height());
+        point.setY(point.y() + metrics.height() + 10);
     }
 
     // separator
@@ -204,7 +205,7 @@ void UMLClass::paint(QPainter *painter, const QStyleOptionGraphicsItem * /*optio
         QColor color = realizedIdentifiers.contains(string) ? HIGHLIGHT_COLOR : Qt::black;
         painter->setPen(color);
         painter->drawText(point, string);
-        point.setY(point.y() + metrics.height());
+        point.setY(point.y() + metrics.height() + 10);
     }
 }
 

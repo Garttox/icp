@@ -29,8 +29,8 @@ App::App(QWidget *parent) :
     view->setDragMode(QGraphicsView::RubberBandDrag);
     view->setRenderHints(QPainter::TextAntialiasing | QPainter::Antialiasing);
     view->setContextMenuPolicy(Qt::ActionsContextMenu);
-    view->createToolBar();
-
+    //view->createToolBar();
+    addToolBar(new ClassToolBar(view, scene));
     tabWidget->addTab(view, QString("Class Diagram"));
     tabWidget->addTab(new QWidget(), QString("Sequence 1"));
     setCentralWidget(tabWidget);
