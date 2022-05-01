@@ -9,7 +9,7 @@ compile:
 	$(MAKE) CXX=$(CC) -C src/ -o src/icp
 
 clean:
-	rm -rf src/debug src/release src/Makefile* build*/ doc
+	rm -rf src/debug src/release src/Makefile* build*/ doc src/ui_* src/*.o src/.qmake.stash
 
 doxygen:
 	doxygen Doxyfile

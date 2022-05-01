@@ -38,9 +38,9 @@ private:
     const qreal relX;
     const qreal relY;
 
-    static constexpr QColor BRUSH_COLOR = QColor(255, 255, 255, 0);
-    static constexpr QColor OUTLINE_COLOR = QColor(20, 120, 160, 90);
-    static constexpr QColor DRAGLINE_COLOR = QColor(21, 193, 232);
+    QColor BRUSH_COLOR = QColor(255, 255, 255, 0);
+    QColor OUTLINE_COLOR = QColor(20, 120, 160, 90);
+    QColor DRAGLINE_COLOR = QColor(21, 193, 232);
     static constexpr qreal SIZE = 9;
 };
 

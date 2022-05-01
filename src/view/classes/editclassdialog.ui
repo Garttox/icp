@@ -198,7 +198,7 @@ font-size: 18px;</string>
     <string>[HEADER]</string>
    </property>
    <property name="textFormat">
-    <enum>Qt::MarkdownText</enum>
+    <enum>Qt::AutoText</enum>
    </property>
   </widget>
  </widget>

@@ -37,8 +37,8 @@ private:
     const UMLRelationAnchor *sourceAnchor;
     const UMLRelationAnchor *destinationAnchor;
     static constexpr qreal ARROW_SIZE = 14;
-    static constexpr QColor SELECT_COLOR = QColor(100, 170, 125);
-    static constexpr QColor NORMAL_COLOR = QColor(100, 115, 120);
+    QColor SELECT_COLOR = QColor(100, 170, 125);
+    QColor NORMAL_COLOR = QColor(100, 115, 120);
 };
 
 #endif // UMLRELATION_H

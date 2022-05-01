@@ -57,7 +57,7 @@ private:
 
     static constexpr qreal MIN_WIDTH = 60;
     static constexpr qreal ANCHOR_DRAG_OFFSET = 15;
-    static constexpr QColor HIGHLIGHT_COLOR = QColor(0, 90, 140);
+    QColor HIGHLIGHT_COLOR = QColor(0, 90, 140);
 };
 
 #endif // UMLCLASS_H
