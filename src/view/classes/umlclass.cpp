@@ -15,10 +15,6 @@ UMLClass::UMLClass(UMLClassData *umlClassData) :
     QObject(),
     umlClassData(umlClassData)
 {
-    textColor = Qt::black;
-    outlineColor = QColor(0, 130, 180);
-    selectedOutlineColor = QColor(25, 195, 235);
-    backgroundColor = Qt::white;
     setFlags(ItemIsMovable | ItemIsSelectable | ItemSendsGeometryChanges);
     setPos(umlClassData->getPosX(), umlClassData->getPosY());
     addRelationAnchors();
@@ -36,6 +32,7 @@ UMLClass::UMLClass(UMLClassData *umlClassData) :
             this, SLOT(onRelationModelEdited(UMLRelationData*)));
     connect(DataProvider::getInstance().getUMLData(), SIGNAL(relationModelRemoved(UMLRelationData*)),
             this, SLOT(onRelationModelRemoved(UMLRelationData*)));
+
 }
 
 QRectF UMLClass::boundingRect() const
@@ -152,60 +149,55 @@ QVariant UMLClass::itemChange(GraphicsItemChange change, const QVariant &value)
 
 void UMLClass::paint(QPainter *painter, const QStyleOptionGraphicsItem * /*option*/, QWidget * /*widget*/)
 {
-    QPen pen = QPen(isSelected() ? selectedOutlineColor : outlineColor);
+    QPen pen = QPen(isSelected() ? SELECTED_OUTLINE_COLOR : OUTLINE_COLOR);
     pen.setWidth(2);
     painter->setPen(pen);
-    painter->setBrush(backgroundColor);
+    painter->setBrush(BACKGROUND_COLOR);
     QRectF rect = outlineRect();
     painter->drawRect(rect);
-    painter->setPen(textColor);
+    painter->setPen(TEXT_COLOR);
 
-    QFont font = painter->font();
-    QFontMetricsF metrics(font);
-    //painter->drawText(rect, Qt::AlignCenter, umlClassData->getName());
+    QFontMetricsF textFontMetrics(TEXT_FONT);
+    QFontMetricsF classNameFontMetrics(CLASS_NAME_FONT);
+
     QList<UMLFieldData *> fields = umlClassData->getFields();
     QList<UMLMethodData *> methods = umlClassData->getMethods();
+
     QPointF point = rect.topLeft();
-    qreal offsetX = 6.0;
-    point.setY(point.y() + metrics.height());
-    point.setX(point.x() + offsetX);
-    qDebug() << metrics.height();
-    // class name
-    font.setBold(true);
-    painter->setFont(font);
+    point.setX(point.x() + PADDING_HORIZONTAL);
+    point.setY(point.y() + classNameFontMetrics.height());
+    QRectF headerRect(rect.topLeft(), QPointF(rect.topLeft().x() + rect.width(), rect.topLeft().y() + classNameFontMetrics.height()+ PADDING_VERTICAL));
+    headerRect.adjust(1, 1, -1, -1);
+    painter->fillRect(headerRect, HEADER_BACKGROUND_COLOR);
+    painter->setFont(CLASS_NAME_FONT);
     painter->drawText(point, umlClassData->getDisplayName());
-    font.setBold(false);
-    painter->setFont(font);
-    point.setY(point.y() + metrics.height() / 2);
-    point.setX(point.x() - offsetX);
-    painter->drawLine(point, QPointF(point.x() + rect.width(), point.y()));
-    point.setX(point.x() + offsetX);
-    point.setY(point.y() + metrics.height());
-    // fields
+
+    point.setY(point.y() + PADDING_VERTICAL);
+
+    painter->drawLine(point.x() - PADDING_HORIZONTAL, point.y(), point.x() - PADDING_HORIZONTAL + rect.width(), point.y());
+
+    painter->setFont(TEXT_FONT);
     foreach(auto *field, fields)
     {
         QString string = field->toString();
-        QColor color = realizedIdentifiers.contains(string) ? HIGHLIGHT_COLOR : Qt::black;
+        QColor color = realizedIdentifiers.contains(string) ? HIGHLIGHT_COLOR : TEXT_COLOR;
         painter->setPen(color);
+        point.setY(point.y() + textFontMetrics.height());
         painter->drawText(point, string);
-        point.setY(point.y() + metrics.height() + 10);
     }
 
-    // separator
-    point.setX(point.x() - offsetX);
-    point.setY(point.y() - metrics.height()/2);
-    painter->drawLine(point, QPointF(point.x() + rect.width(), point.y()));
-    point.setX(point.x() + offsetX);
-    point.setY(point.y() + metrics.height());
+    if (!methods.empty() && !fields.empty()) {
+        point.setY(point.y() + 4);
+        painter->drawLine(point.x() - PADDING_HORIZONTAL, point.y(), point.x() - PADDING_HORIZONTAL + rect.width(), point.y());
+    }
 
-    // methods
     foreach(auto *method, methods)
     {
         QString string = method->toString();
-        QColor color = realizedIdentifiers.contains(string) ? HIGHLIGHT_COLOR : Qt::black;
+        QColor color = realizedIdentifiers.contains(string) ? HIGHLIGHT_COLOR : TEXT_COLOR;
         painter->setPen(color);
+        point.setY(point.y() + textFontMetrics.height());
         painter->drawText(point, string);
-        point.setY(point.y() + metrics.height() + 10);
     }
 }
 
@@ -213,33 +205,34 @@ void UMLClass::paint(QPainter *painter, const QStyleOptionGraphicsItem * /*optio
 
 QRectF UMLClass::outlineRect() const
 {
-    const int padding = 12;
-    QFontMetricsF metrics{ qApp->font() };
+    const int separatorsHeight = 8;
+    QFontMetricsF textFontMetrics(TEXT_FONT);
+    QFontMetricsF classNameFontMetrics(CLASS_NAME_FONT);
     QList<UMLFieldData *> fields = umlClassData->getFields();
     QList<UMLMethodData *> methods = umlClassData->getMethods();
-    QRectF rect = QRectF(0, 0, maxTextWidth() + padding, metrics.height() * (fields.size() + methods.size()) + padding);
-    rect.adjust(-padding, -padding, +padding, +padding);
+    QRectF rect = QRectF(0, 0, maxTextWidth(), textFontMetrics.height() * (fields.size() + methods.size()) + classNameFontMetrics.height() + separatorsHeight);
+    rect.adjust(-PADDING_HORIZONTAL, -PADDING_VERTICAL, +PADDING_HORIZONTAL, +PADDING_VERTICAL);
     rect.translate(-rect.center());
     return rect;
 }
 
-
 qreal UMLClass::maxTextWidth() const
 {
-    QFontMetricsF metrics{qApp->font()};
+    QFontMetricsF textFontMetrics(TEXT_FONT);
+    QFontMetricsF classNameFontMetrics(CLASS_NAME_FONT);
     QList<UMLFieldData *> fields = umlClassData->getFields();
     QList<UMLMethodData *> methods = umlClassData->getMethods();
-    qreal maxWidth = std::max(metrics.width(umlClassData->getDisplayName()), MIN_WIDTH);
+    qreal maxWidth = std::max(classNameFontMetrics.width(umlClassData->getDisplayName()), MIN_WIDTH);
 
     foreach(auto *method, methods)
     {
-        qreal rowWidth = metrics.width(method->toString());
+        qreal rowWidth = textFontMetrics.width(method->toString());
         maxWidth = std::max(rowWidth, maxWidth);
     }
 
     foreach(auto *field, fields)
     {
-        qreal rowWidth = metrics.width(field->toString());
+        qreal rowWidth = textFontMetrics.width(field->toString());
         maxWidth = std::max(rowWidth, maxWidth);
     }
     return maxWidth;

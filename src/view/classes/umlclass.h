@@ -47,17 +47,22 @@ private:
     void actualizeRealizedIdentifiers();
     void addRelationDataToModel(UMLRelationAnchor *source, UMLRelationAnchor *destination);
 
-    QColor textColor;
-    QColor backgroundColor;
-    QColor outlineColor;
-    QColor selectedOutlineColor;
     UMLClassData *umlClassData;
     QList<UMLRelationAnchor *> anchors;
     QSet<QString> realizedIdentifiers;
+    static constexpr int PADDING_HORIZONTAL = 12;
+    static constexpr int PADDING_VERTICAL = 6;
+    QFont TEXT_FONT = QFont(qApp->font().family(), 9, QFont::Normal);
+    QFont CLASS_NAME_FONT = QFont(qApp->font().family(), 10, QFont::Bold);
 
     static constexpr qreal MIN_WIDTH = 60;
     static constexpr qreal ANCHOR_DRAG_OFFSET = 15;
     QColor HIGHLIGHT_COLOR = QColor(0, 90, 140);
+    QColor TEXT_COLOR = Qt::black;
+    QColor OUTLINE_COLOR = QColor(0, 130, 180);
+    QColor SELECTED_OUTLINE_COLOR = QColor(25, 195, 235);
+    QColor BACKGROUND_COLOR = Qt::white;
+    QColor HEADER_BACKGROUND_COLOR = QColor(180, 220, 240);
 };
 
 #endif // UMLCLASS_H
