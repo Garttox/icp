@@ -6,6 +6,7 @@
 
 #include "umlclassdata.h"
 #include "umlrelationdata.h"
+#include "umlsequencedata.h"
 
 class UMLData : public QObject
 {
@@ -15,11 +16,14 @@ public:
     ~UMLData();
     bool loadData(QJsonObject json);
     QJsonObject getSaveData();
-    void addClass(UMLClassData *classData);
-    void removeClass(UMLClassData *classData);
+    void addClass(UMLClassData *umlClassData);
+    void removeClass(UMLClassData *umlClassData);
 
-    void addRelation(UMLRelationData *relation);
+    void addRelation(UMLRelationData *umlRelationData);
     void removeRelation(UMLRelationData *umlRelationData);
+
+    void addSequence(UMLSequenceData* umlSequenceData);
+    void removeSequence(UMLSequenceData* umlSequenceData);
 
     void clearData();
 
@@ -41,6 +45,7 @@ signals:
 private:
     QSet<UMLClassData *> *classes;
     QSet<UMLRelationData *> *relations;
+    QSet<UMLSequenceData *> *sequences;
 };
 
 #endif // UMLDATA_H

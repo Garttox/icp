@@ -166,9 +166,13 @@ void UMLClass::paint(QPainter *painter, const QStyleOptionGraphicsItem * /*optio
     QPointF point = rect.topLeft();
     point.setX(point.x() + PADDING_HORIZONTAL);
     point.setY(point.y() + classNameFontMetrics.height());
+
+    // class table background
     QRectF headerRect(rect.topLeft(), QPointF(rect.topLeft().x() + rect.width(), rect.topLeft().y() + classNameFontMetrics.height()+ PADDING_VERTICAL));
     headerRect.adjust(1, 1, -1, -1);
     painter->fillRect(headerRect, HEADER_BACKGROUND_COLOR);
+
+    // class name
     painter->setFont(CLASS_NAME_FONT);
     painter->drawText(point, umlClassData->getDisplayName());
 
@@ -177,6 +181,7 @@ void UMLClass::paint(QPainter *painter, const QStyleOptionGraphicsItem * /*optio
     painter->drawLine(point.x() - PADDING_HORIZONTAL, point.y(), point.x() - PADDING_HORIZONTAL + rect.width(), point.y());
 
     painter->setFont(TEXT_FONT);
+    // fields
     foreach(auto *field, fields)
     {
         QString string = field->toString();
@@ -185,12 +190,12 @@ void UMLClass::paint(QPainter *painter, const QStyleOptionGraphicsItem * /*optio
         point.setY(point.y() + textFontMetrics.height());
         painter->drawText(point, string);
     }
-
+    // separator
     if (!methods.empty() && !fields.empty()) {
         point.setY(point.y() + 4);
         painter->drawLine(point.x() - PADDING_HORIZONTAL, point.y(), point.x() - PADDING_HORIZONTAL + rect.width(), point.y());
     }
-
+    // methods
     foreach(auto *method, methods)
     {
         QString string = method->toString();

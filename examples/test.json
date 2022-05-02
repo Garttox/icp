@@ -114,27 +114,74 @@
       "destinationAnchorId": 1
     }
   ],
-  "instances": [
+  "sequences": [
     {
-      "name": "InstanceA",
-      "className": "ClassA",
-      "posX": 10
-    },
-    {
-      "name": "InstanceB",
-      "className": "ClassB",
-      "posX": 230
-    }
-  ],
-  "calls": [
-    {
-      "source": "InstanceB",
-      "destination": "InstanceA",
-      "method": "method1",
-      "returns": true,
-      "sync": true,
-      "length": 100,
-      "text": "My call"
+      "name": "seq1",
+      "instances": [
+        {
+          "name": "InstanceA",
+          "className": "ClassA",
+          "posX": 111
+        },
+        {
+          "name": "InstanceB",
+          "className": "ClassB",
+          "posX": 340
+        },
+        {
+          "name": "InstanceD",
+          "className": "ClassD",
+          "posX": 577
+        }
+      ],
+      "calls": [
+        {
+          "destination": "InstanceA",
+          "method": "method1",
+          "async": true,
+          "duration": 140,
+          "atTime": 50
+        },
+        {
+          "source": "InstanceA",
+          "destination": "InstanceB",
+          "method": "method3",
+          "async": false,
+          "duration": 70,
+          "atTime": 80
+        },
+        {
+          "destination": "InstanceA",
+          "method": "method2",
+          "async": false,
+          "duration": 100,
+          "atTime": 240
+        },
+        {
+          "source": "InstanceD",
+          "destination": "InstanceB",
+          "method": "method3",
+          "async": false,
+          "duration": 46,
+          "atTime": 244
+        },
+        {
+          "source": "InstanceA",
+          "destination": "InstanceD",
+          "method": "method4",
+          "async": false,
+          "duration": 100,
+          "atTime": 416
+        },
+        {
+          "source": "InstanceB",
+          "destination": "InstanceD",
+          "method": "method4",
+          "async": false,
+          "duration": 49,
+          "atTime": 88
+        }
+      ]
     }
   ]
 }

@@ -84,19 +84,19 @@ QJsonObject UMLData::getSaveData()
     return object;
 }
 
-void UMLData::addClass(UMLClassData *classData)
+void UMLData::addClass(UMLClassData *umlClassData)
 {
-    classes->insert(classData);
-    connect(classData, &UMLClassData::modelChanged, this, &UMLData::classModelChanged);
-    emit classModelAdded(classData);
+    classes->insert(umlClassData);
+    connect(umlClassData, &UMLClassData::modelChanged, this, &UMLData::classModelChanged);
+    emit classModelAdded(umlClassData);
 }
 
-void UMLData::removeClass(UMLClassData *classData)
+void UMLData::removeClass(UMLClassData *umlClassData)
 {
-    if (classes->remove(classData))
+    if (classes->remove(umlClassData))
     {
         // emit classModelRemoved(umlRelationData);
-        delete classData;
+        delete umlClassData;
     }
 }
 
@@ -113,6 +113,19 @@ void UMLData::removeRelation(UMLRelationData *umlRelationData)
     {
         emit relationModelRemoved(umlRelationData);
         delete umlRelationData;
+    }
+}
+
+void UMLData::addSequence(UMLSequenceData* umlSequenceData)
+{
+    sequences->insert(umlSequenceData);
+}
+
+void UMLData::removeSequence(UMLSequenceData* umlSequenceData)
+{
+    if (sequences->remove(umlSequenceData))
+    {
+        delete umlSequenceData;
     }
 }
 

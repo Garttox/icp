@@ -16,15 +16,18 @@ SOURCES += main.cpp\
         app.cpp \
         model/dataprovider.cpp \
         model/umlaccesstype.cpp \
+        model/umlcalldata.cpp \
         model/umlclassdata.cpp \
         model/umlclasstype.cpp \
         model/umldata.cpp \
         model/umlfielddata.cpp \
         model/umlidentifier.cpp \
+        model/umlinstancedata.cpp \
         model/umlmethoddata.cpp \
         model/umlmethodparameterdata.cpp \
         model/umlrelationdata.cpp \
         model/umlrelationtype.cpp \
+        model/umlsequencedata.cpp \
         view/classdiagramview.cpp \
         view/classes/classdialog.cpp \
         view/classes/editclassdialog.cpp \
@@ -36,20 +39,24 @@ SOURCES += main.cpp\
         view/classes/umlclassnotifier.cpp \
         view/classes/umlrelation.cpp \
         view/classes/umlrelationanchor.cpp \
-        view/classtoolbar.cpp
+        view/classtoolbar.cpp \
+        view/sequence/umlinstance.cpp
 
 HEADERS  += app.h \
     model/dataprovider.h \
     model/umlaccesstype.h \
+    model/umlcalldata.h \
     model/umlclassdata.h \
     model/umlclasstype.h \
     model/umldata.h \
     model/umlfielddata.h \
     model/umlidentifier.h \
+    model/umlinstancedata.h \
     model/umlmethoddata.h \
     model/umlmethodparameterdata.h \
     model/umlrelationdata.h \
     model/umlrelationtype.h \
+    model/umlsequencedata.h \
     view/classdiagramview.h \
     view/classes/classdialog.h \
     view/classes/editclassdialog.h \
@@ -61,7 +68,8 @@ HEADERS  += app.h \
     view/classes/umlclassnotifier.h \
     view/classes/umlrelation.h \
     view/classes/umlrelationanchor.h \
-    view/classtoolbar.h
+    view/classtoolbar.h \
+    view/sequence/umlinstance.h
 
 FORMS    += \
     view/classes/editclassdialog.ui \
