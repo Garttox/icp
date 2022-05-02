@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 24/4/2022
+ * @file classdiagramview.h
+ * @authors Michal Trlica (xtrlic02), Martin Bednář (xbedna77)
+ */
+
 #ifndef CLASSDIAGRAMVIEW_H
 #define CLASSDIAGRAMVIEW_H
 

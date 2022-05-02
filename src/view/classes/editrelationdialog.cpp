@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 25/4/2022
+ * @file editrelationdialog.cpp
+ * @author Martin Bednář (xbedna77)
+ */
+
 #include "editrelationdialog.h"
 #include "ui_editrelationdialog.h"
 #include "model/umlrelationtype.h"

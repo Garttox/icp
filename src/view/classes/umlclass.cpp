@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 24/4/2022
+ * @file umlclass.cpp
+ * @authors Michal Trlica (xtrlic02), Martin Bednář (xbedna77)
+ */
+
 #include <QtGui>
 #include <QStyleOptionGraphicsItem>
 #include <QGraphicsScene>

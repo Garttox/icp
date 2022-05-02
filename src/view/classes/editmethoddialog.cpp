@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 25/4/2022
+ * @file editmethoddialog.cpp
+ * @author Martin Bednář (xbedna77)
+ */
+
 #include "editmethoddialog.h"
 #include "ui_editmethoddialog.h"
 

@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 24/4/2022
+ * @file umlclass.h
+ * @authors Michal Trlica (xtrlic02), Martin Bednář (xbedna77)
+ */
+
 #ifndef UMLCLASS_H
 #define UMLCLASS_H
 
@@ -12,17 +19,47 @@
 #include "umlrelationanchor.h"
 #include "umlrelation.h"
 
-
+/**
+ * @brief Graphical object for displaying UML classes and their anchors.
+ * @authors Michal Trlica (xtrlic02), Martin Bednář (xbedna77)
+ */
 class UMLClass : public QObject, public QGraphicsItem
 {
     Q_OBJECT
 public:
     UMLClass(UMLClassData *umlClassData);
     QRectF boundingRect() const override;
+    
+    /**
+     * @brief Checks if given UMLClassData are being displayed by this object.
+     * @param umlClassData UMLClassData to check.
+     * @return True, if UMLClass is displaying given UMLClassData. 
+     */
     bool correspondsTo(UMLClassData *umlClassData);
+
+    /**
+     * @brief Get the anchor, specified by id, of the class. 
+     * @param id Id to search for.
+     * @return UMLRelationAnchor if found, nullptr otherwise.
+     */
     UMLRelationAnchor *getAnchorById(int id) const;
+
+    /**
+     * @brief Get underlying UMLClassData.
+     * @return Underlying UMLClassData.
+     */
     UMLClassData *getUMLClassData() const;
+    
+    /**
+     * @brief Get id of given relation anchor.
+     * @param anchor Anchor to search for.
+     * @return Id of the given anchor if found, -1 otherwise.
+     */
     int getAnchorId(UMLRelationAnchor *anchor);
+    
+    /**
+     * @brief Removes the class from scene and deletes it's data.
+     */
     void remove();
 
 private slots:

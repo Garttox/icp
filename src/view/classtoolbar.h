@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 29/4/2022
+ * @file classtoolbar.h
+ * @author Martin Bednář (xbedna77)
+ */
+
 #ifndef CLASSTOOLBAR_H
 #define CLASSTOOLBAR_H
 

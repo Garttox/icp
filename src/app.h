@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 22/4/2022
+ * @file app.h
+ * @authors Michal Trlica (xtrlic02), Martin Bednář (xbedna77)
+ */
+
 #ifndef APP_H
 #define APP_H
 

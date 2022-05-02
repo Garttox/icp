@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 25/4/2022
+ * @file umlrelation.cpp
+ * @author Martin Bednář (xbedna77)
+ */
+
 #include <QGraphicsScene>
 #include <QDebug>
 #include <QtMath>

@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 22/4/2022
+ * @file app.cpp
+ * @authors Michal Trlica (xtrlic02), Martin Bednář (xbedna77)
+ */
+
 #include <QFileDialog>
 #include <QDebug>
 #include <QJsonDocument>

@@ -7,8 +7,10 @@
     
 ### Abstract:
 The main goal of this project is to create graphical application for 
-displaying, creating, editing and saving UML class diagrams and sequence diagrams.\
+displaying, creating, editing and saving UML class diagrams and sequence diagrams.
+
 Application uses it's own JSON file structure to store and load diagrams.
 
 ### Sources:
 - [QT 5.5. Documentation](https://doc.qt.io/archives/qt-5.5/index.html)
+- [QT - Diagram Scene Example](https://doc.qt.io/qt-5/qtwidgets-graphicsview-diagramscene-example.html)

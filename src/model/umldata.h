@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 25/4/2022
+ * @file umldata.h
+ * @authors Michal Trlica (xtrlic02), Martin Bednář (xbedna77)
+ */
+
 #ifndef UMLDATA_H
 #define UMLDATA_H
 
@@ -8,6 +15,10 @@
 #include "umlrelationdata.h"
 #include "umlsequencedata.h"
 
+/**
+ * @brief Data class containing the whole data model of application.
+ * @authors Michal Trlica (xtrlic02), Martin Bednář (xbedna77)
+ */
 class UMLData : public QObject
 {
     Q_OBJECT

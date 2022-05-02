@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 25/4/2022
+ * @file editfielddialog.cpp
+ * @author Martin Bednář (xbedna77)
+ */
+
 #include "editfielddialog.h"
 #include "ui_editfielddialog.h"
 #include "model/umlaccesstype.h"

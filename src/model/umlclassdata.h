@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 25/4/2022
+ * @file umlclassdata.h
+ * @authors Michal Trlica (xtrlic02), Martin Bednář (xbedna77)
+ */
+
 #ifndef UMLCLASSDATA_H
 #define UMLCLASSDATA_H
 

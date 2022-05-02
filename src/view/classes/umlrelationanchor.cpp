@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 25/4/2022
+ * @file umlrelationanchor.cpp
+ * @author Martin Bednář (xbedna77)
+ */
+
 #include <QPen>
 #include <QDebug>
 #include <QPainter>

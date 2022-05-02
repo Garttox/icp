@@ -5,10 +5,21 @@
 #include "classdialog.h"
 #include "model/umlclassdata.h"
 
+/**
+ * ICP - UML Application
+ * @date 25/4/2022
+ * @file newclassdialog.h
+ * @author Martin Bednář (xbedna77)
+ */
+
 namespace Ui {
 class NewClassDialog;
 }
 
+/**
+ * @brief Dialog for creating new UML classes. 
+ * @author Martin Bednář (xbedna77)
+ */
 class NewClassDialog : public QDialog, public ClassDialog
 {
     Q_OBJECT

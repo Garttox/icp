@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 25/4/2022
+ * @file editmethoddialog.h
+ * @author Martin Bednář (xbedna77)
+ */
+
 #ifndef EDITMETHODDIALOG_H
 #define EDITMETHODDIALOG_H
 
@@ -8,6 +15,10 @@ namespace Ui {
 class EditMethodDialog;
 }
 
+/**
+ * @brief Dialog for editing methods. 
+ * @author Martin Bednář (xbedna77)
+ */
 class EditMethodDialog : public QDialog
 {
     Q_OBJECT

@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 25/4/2022
+ * @file newclassdialog.cpp
+ * @author Martin Bednář (xbedna77)
+ */
+
 #include <QDebug>
 #include "newclassdialog.h"
 #include "model/dataprovider.h"

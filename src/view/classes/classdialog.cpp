@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 25/4/2022
+ * @file classdialog.cpp
+ * @author Martin Bednář (xbedna77)
+ */
+
 #include "classdialog.h"
 #include "ui_editfielddialog.h"
 #include "ui_editmethoddialog.h"

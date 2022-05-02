@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 25/4/2022
+ * @file editrelationdialog.h
+ * @author Martin Bednář (xbedna77)
+ */
+
 #ifndef EDITRELATIONDIALOG_H
 #define EDITRELATIONDIALOG_H
 
@@ -8,6 +15,10 @@ namespace Ui {
 class EditRelationDialog;
 }
 
+/**
+ * @brief Dialog for editing relations. 
+ * @author Martin Bednář (xbedna77)
+ */
 class EditRelationDialog : public QDialog
 {
     Q_OBJECT

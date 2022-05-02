@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 25/4/2022
+ * @file editclassdialog.h
+ * @author Martin Bednář (xbedna77)
+ */
+
 #ifndef EDITCLASSDIALOG_H
 #define EDITCLASSDIALOG_H
 
@@ -9,6 +16,10 @@ namespace Ui {
 class EditClassDialog;
 }
 
+/**
+ * @brief Dialog for editing classes.
+ * @author Martin Bednář (xbedna77)
+ */
 class EditClassDialog : public QDialog, public ClassDialog
 {
     Q_OBJECT

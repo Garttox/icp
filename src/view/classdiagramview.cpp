@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 24/4/2022
+ * @file classdiagramview.cpp
+ * @authors Michal Trlica (xtrlic02), Martin Bednář (xbedna77)
+ */
+
 #include <QDebug>
 
 #include "classdiagramview.h"

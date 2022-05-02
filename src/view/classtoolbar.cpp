@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 29/4/2022
+ * @file classtoolbar.cpp
+ * @author Martin Bednář (xbedna77)
+ */
+
 #include <QIcon>
 #include <QAction>
 #include <QDebug>
