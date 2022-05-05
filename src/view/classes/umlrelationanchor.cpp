@@ -24,7 +24,6 @@ UMLRelationAnchor::UMLRelationAnchor(UMLClass* parent, qreal relX, qreal relY):
     setPositionRelativeToParent();
     setVisible(false);
     setDragLineProperties();
-    connect(UMLClassNotifier::getInstance(), SIGNAL(classRemoved(UMLClass*)), this, SLOT(onClassRemoved(UMLClass*)));
 }
 
 void UMLRelationAnchor::setPositionRelativeToParent()
@@ -53,12 +52,6 @@ UMLClass *UMLRelationAnchor::getParentUMLClass() const
 int UMLRelationAnchor::getId()
 {
     return getParentUMLClass()->getAnchorId(this);
-}
-
-void UMLRelationAnchor::remove()
-{
-    emit UMLClassNotifier::getInstance()->anchorRemoved(this);
-    delete this;
 }
 
 void UMLRelationAnchor::mousePressEvent(QGraphicsSceneMouseEvent *event)
@@ -96,14 +89,6 @@ void UMLRelationAnchor::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     dragLine.setLine(start.x(), start.y(), end.x(), end.y());
     update();
     emit UMLClassNotifier::getInstance()->anchorDragged(this, event->scenePos());
-}
-
-void UMLRelationAnchor::onClassRemoved(UMLClass *umlClass)
-{
-    if (parentItem() == umlClass)
-    {
-        remove();
-    }
 }
 
 void UMLRelationAnchor::setColorPen()

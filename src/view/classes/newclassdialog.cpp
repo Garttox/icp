@@ -11,7 +11,8 @@
 #include "model/umldata.h"
 #include "model/umlclassdata.h"
 #include "ui_newclassdialog.h"
-
+#include "command/commandstack.h"
+#include "command/classes/addclasscommand.h"
 
 NewClassDialog::NewClassDialog(UMLClassType classType, QPoint position, QWidget *parent) :
     QDialog(parent),
@@ -35,10 +36,9 @@ NewClassDialog::~NewClassDialog()
 
 void NewClassDialog::on_buttonBox_accepted()
 {
-    UMLData *umlData = DataProvider::getInstance().getUMLData();
     QString className = ui->nameLineEdit->text();
     umlClassData->setName(className);
-    umlData->addClass(umlClassData);
+    CommandStack::getInstance().push(new AddClassCommand(umlClassData));
 }
 
 void NewClassDialog::on_buttonBox_rejected()

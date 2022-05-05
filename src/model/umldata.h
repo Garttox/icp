@@ -41,6 +41,7 @@ public:
     UMLClassData* findClassByName(QString className);
     QSet<UMLClassData *> *getClasses();
     QSet<UMLRelationData *> getRelationsWithSourceClass(UMLClassData *umlClassData);
+
 public slots:
     void classModelChanged(UMLClassData *umlClassData);
     void relationModelChanged(UMLRelationData *umlRelationData);
@@ -48,6 +49,7 @@ public slots:
 signals:
     void classModelAdded(UMLClassData *umlClassData);
     void classModelEdited(UMLClassData *umlClassData);
+    void classModelRemoved(UMLClassData *umlClassData);
     void relationModelAdded(UMLRelationData *umlRelationData);
     void relationModelEdited(UMLRelationData *umlRelationData);
     void relationModelRemoved(UMLRelationData *umlRelationData);

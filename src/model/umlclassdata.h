@@ -23,12 +23,11 @@ public:
     UMLClassData(QString name, UMLClassType type, int posX, int posY);
     UMLClassData(const UMLClassData &original);
     ~UMLClassData();
-    void setData(const UMLClassData &data);
+    void setData(UMLClassData &data);
     bool loadData(QJsonObject jsonClassData);
     QJsonObject getSaveData();
     void setName(QString name);
-    void setPosX(int x);
-    void setPosY(int y);
+    void setPosition(int x, int y);
     void addField(UMLFieldData *field);
     void addMethod(UMLMethodData *method);
     void removeFieldAt(int index);

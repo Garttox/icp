@@ -19,12 +19,12 @@
 #include <QToolButton>
 
 #include <view/sequencediagramview.h>
-
 #include <view/sequence/newsequencedialog.h>
 
 #include "app.h"
 #include "model/umldata.h"
 #include "model/dataprovider.h"
+#include "command/commandstack.h"
 
 App::App(QWidget *parent) :
     QMainWindow(parent)
@@ -56,9 +56,8 @@ App::App(QWidget *parent) :
     tabWidget->setCornerWidget(addTabButton, Qt::TopRightCorner);
     setCentralWidget(tabWidget);
 
-    connect(tabWidget, SIGNAL(tabCloseRequested(int)),this, SLOT(removeSequenceDiagram(int)));
-    connect(umlData, SIGNAL(sequenceModelAdded(UMLSequenceData*)),
-            this, SLOT(addSequenceDiagram(UMLSequenceData*)));
+    connect(tabWidget, &QTabWidget::tabCloseRequested,this, &App::removeSequenceDiagram);
+    connect(umlData, &UMLData::sequenceModelAdded, this, &App::addSequenceDiagram);
 }
 
 //  - - - - - private  - - - - -
@@ -67,19 +66,23 @@ void App::createActions()
 {
     fileLoad = new QAction("Load", this);
     fileLoad->setShortcut(QString("Ctrl+L"));
-    connect(fileLoad, SIGNAL(triggered()), this, SLOT(loadFile()));
+    connect(fileLoad, &QAction::triggered, this, &App::loadFile);
 
     fileSave = new QAction("Save", this);
     fileSave->setShortcut(QString("Ctrl+S"));
-    connect(fileSave, SIGNAL(triggered()), this, SLOT(saveFile()));
+    connect(fileSave, &QAction::triggered, this, &App::saveFile);
 
     imageExport = new QAction("Export", this);
     imageExport->setShortcut(QString("Ctrl+E"));
-    connect(imageExport, SIGNAL(triggered()), this, SLOT(exportImage()));
+    connect(imageExport, &QAction::triggered, this, &App::exportImage);
+
+    undoAction = new QAction("Undo", this);
+    undoAction->setShortcut(QString("Ctrl+Z"));
+    connect(undoAction, &QAction::triggered, this, &App::undo);
 
     addSequenceTab = new QAction("Add Sequence", this);
     addSequenceTab->setShortcut(QString("Ctrl+D"));
-    connect(addSequenceTab, SIGNAL(triggered()), this, SLOT(addSequenceDiagramDialog()));
+    connect(addSequenceTab, &QAction::triggered, this, &App::addSequenceDiagramDialog);
 }
 
 void App::createMainMenu()
@@ -88,6 +91,9 @@ void App::createMainMenu()
     mainMenu->addAction(fileLoad);
     mainMenu->addAction(fileSave);
     mainMenu->addAction(imageExport);
+
+    editMenu = menuBar()->addMenu("Edit");
+    editMenu->addAction(undoAction);
 }
 
 void App::displayErrorMessageBox(QString title, QString message)
@@ -179,10 +185,14 @@ void App::exportImage()
     }
 }
 
+void App::undo()
+{
+    CommandStack::getInstance().undo();
+    scene->update();
+}
+
 void App::addSequenceDiagram(UMLSequenceData *umlSequenceData)
 {
-
-
     SequenceDiagramView *sequenceView = new SequenceDiagramView(this, umlSequenceData);
     QGraphicsScene *sequenceScene = new QGraphicsScene(sequenceView);
     sequenceScene->setSceneRect(0, 0, SCENE_SIZE, SCENE_SIZE);
@@ -191,7 +201,6 @@ void App::addSequenceDiagram(UMLSequenceData *umlSequenceData)
     sequenceView->setDragMode(QGraphicsView::RubberBandDrag);
     sequenceView->setRenderHints(QPainter::TextAntialiasing | QPainter::Antialiasing);
     sequenceView->setContextMenuPolicy(Qt::ActionsContextMenu);
-
 
     tabWidget->addTab(sequenceView, umlSequenceData->getName());
     qDebug() << "added " << umlSequenceData->getName();

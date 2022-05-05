@@ -8,6 +8,8 @@
 #include "editrelationdialog.h"
 #include "ui_editrelationdialog.h"
 #include "model/umlrelationtype.h"
+#include "command/commandstack.h"
+#include "command/classes/editrelationcommand.h"
 
 EditRelationDialog::EditRelationDialog(UMLRelationData *umlRelationData, QWidget *parent) :
     QDialog(parent),
@@ -30,6 +32,6 @@ EditRelationDialog::~EditRelationDialog()
 void EditRelationDialog::on_buttonBox_accepted()
 {
     UMLRelationType type(ui->typeComboBox->currentText());
-    umlRelationData->setType(type);
+    CommandStack::getInstance().push(new EditRelationCommand(umlRelationData, type));
 }
 

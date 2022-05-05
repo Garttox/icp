@@ -11,6 +11,9 @@
 #include <algorithm>
 #include <QGraphicsView>
 #include <QDebug>
+#include "command/commandstack.h"
+#include "command/classes/addrelationcommand.h"
+#include "command/classes/moveclasscommand.h"
 #include "model/dataprovider.h"
 #include "umlclass.h"
 #include "editclassdialog.h"
@@ -20,6 +23,7 @@
 
 UMLClass::UMLClass(UMLClassData *umlClassData) :
     QObject(),
+    QGraphicsItem(),
     umlClassData(umlClassData)
 {
     setFlags(ItemIsMovable | ItemIsSelectable | ItemSendsGeometryChanges);
@@ -27,19 +31,15 @@ UMLClass::UMLClass(UMLClassData *umlClassData) :
     addRelationAnchors();
 
     // connect signals
-    connect(UMLClassNotifier::getInstance(), SIGNAL(anchorDragged(UMLRelationAnchor*,QPointF)),
-            this, SLOT(onAnchorDragged(UMLRelationAnchor*,QPointF)));
-    connect(UMLClassNotifier::getInstance(), SIGNAL(anchorDragReleased(UMLRelationAnchor*,UMLRelationAnchor*)),
-            this, SLOT(onAnchorDragReleased(UMLRelationAnchor*,UMLRelationAnchor*)));
-    connect(DataProvider::getInstance().getUMLData(), SIGNAL(classModelEdited(UMLClassData*)),
-            this, SLOT(onClassModelEdited(UMLClassData*)));
-    connect(DataProvider::getInstance().getUMLData(), SIGNAL(relationModelAdded(UMLRelationData*)),
-            this, SLOT(onRelationModelAdded(UMLRelationData*)));
-    connect(DataProvider::getInstance().getUMLData(), SIGNAL(relationModelEdited(UMLRelationData*)),
-            this, SLOT(onRelationModelEdited(UMLRelationData*)));
-    connect(DataProvider::getInstance().getUMLData(), SIGNAL(relationModelRemoved(UMLRelationData*)),
-            this, SLOT(onRelationModelRemoved(UMLRelationData*)));
+    UMLData *umlData = DataProvider::getInstance().getUMLData();
+    UMLClassNotifier* notifier = UMLClassNotifier::getInstance();
 
+    connect(notifier, &UMLClassNotifier::anchorDragged, this, &UMLClass::onAnchorDragged);
+    connect(notifier, &UMLClassNotifier::anchorDragReleased, this, &UMLClass::onAnchorDragReleased);
+    connect(umlData, &UMLData::classModelEdited, this, &UMLClass::onClassModelEdited);
+    connect(umlData, &UMLData::relationModelAdded, this, &UMLClass::onRelationModelAdded);
+    connect(umlData, &UMLData::relationModelEdited, this, &UMLClass::onRelationModelEdited);
+    connect(umlData, &UMLData::relationModelRemoved, this, &UMLClass::onRelationModelRemoved);
 }
 
 QRectF UMLClass::boundingRect() const
@@ -67,19 +67,15 @@ int UMLClass::getAnchorId(UMLRelationAnchor *anchor)
     return anchors.indexOf(anchor);
 }
 
-void UMLClass::remove()
-{
-    emit UMLClassNotifier::getInstance()->classRemoved(this);
-    scene()->removeItem(this);
-    anchors.clear();
-    DataProvider::getInstance().getUMLData()->removeClass(umlClassData);
-    delete this;
-}
-
 // - - - - - private slots  - - - - -
 
-void UMLClass::onClassModelEdited(UMLClassData */*umlClassData*/)
+void UMLClass::onClassModelEdited(UMLClassData *umlClassData)
 {
+    if (correspondsTo(umlClassData))
+    {
+        setPos(umlClassData->getPosX(), umlClassData->getPosY());
+        resetAnchorsPositions();
+    }
     actualizeRealizedIdentifiers();
     update();
 }
@@ -136,6 +132,13 @@ void UMLClass::mouseDoubleClickEvent(QGraphicsSceneMouseEvent */*event*/)
     resetAnchorsPositions();
 }
 
+void UMLClass::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+    QPoint position = this->pos().toPoint();
+    CommandStack::getInstance().push(new MoveClassCommand(umlClassData, position));
+    QGraphicsItem::mouseReleaseEvent(event);
+}
+
 QVariant UMLClass::itemChange(GraphicsItemChange change, const QVariant &value)
 {
     switch (change)
@@ -143,10 +146,6 @@ QVariant UMLClass::itemChange(GraphicsItemChange change, const QVariant &value)
         case QGraphicsItem::ItemSelectedHasChanged:
             setZValue(isSelected() ? 1 : 0);
             setAnchorsVisible(isSelected());
-            break;
-        case QGraphicsItem::ItemPositionHasChanged:
-            umlClassData->setPosX(this->pos().x());
-            umlClassData->setPosY(this->pos().y());
             break;
         default:
             break;  // Keeps Qt Creator without warnings
@@ -306,7 +305,7 @@ void UMLClass::addRelationDataToModel(UMLRelationAnchor *source, UMLRelationAnch
     UMLClassData *srcClassData = source->getParentUMLClass()->getUMLClassData();
     UMLClassData *destClassData = destination->getParentUMLClass()->getUMLClassData();
     UMLRelationType type = UMLRelationType::ASSOCIATION;
-    UMLRelationData *relationData = new UMLRelationData(srcClassData, destClassData, type, srcAnchorId, destAnchorId);
-    DataProvider::getInstance().getUMLData()->addRelation(relationData);
+    UMLRelationData *umlRelationData = new UMLRelationData(srcClassData, destClassData, type, srcAnchorId, destAnchorId);
+    CommandStack::getInstance().push(new AddRelationCommand(umlRelationData));
 }
 

@@ -20,11 +20,13 @@ UMLClassData::UMLClassData(const UMLClassData &original) :
     QObject(),
     name(original.name), type(original.type), posX(original.posX), posY(original.posY)
 {
-    foreach(UMLFieldData *field, original.fields) {
+    foreach(UMLFieldData *field, original.fields)
+    {
         UMLFieldData *copy = new UMLFieldData(*field);
         this->fields.append(copy);
     }
-    foreach(UMLMethodData *method, original.methods) {
+    foreach(UMLMethodData *method, original.methods)
+    {
         UMLMethodData *copy = new UMLMethodData(*method);
         this->methods.append(copy);
     }
@@ -36,7 +38,7 @@ UMLClassData::~UMLClassData()
     qDeleteAll(methods.begin(), methods.end());
 }
 
-void UMLClassData::setData(const UMLClassData &data)
+void UMLClassData::setData(UMLClassData &data)
 {
     // delete current data
     qDeleteAll(fields.begin(), fields.end());
@@ -57,6 +59,7 @@ void UMLClassData::setData(const UMLClassData &data)
         UMLMethodData *copy = new UMLMethodData(*method);
         this->methods.append(copy);
     }
+
     emit modelChanged(this);
 }
 
@@ -66,14 +69,11 @@ void UMLClassData::setName(QString name)
     emit modelChanged(this);
 }
 
-void UMLClassData::setPosX(int x)
+void UMLClassData::setPosition(int x, int y)
 {
     this->posX = x;
-}
-
-void UMLClassData::setPosY(int y)
-{
     this->posY = y;
+    emit modelChanged(this);
 }
 
 bool UMLClassData::loadData(QJsonObject jsonClassData)

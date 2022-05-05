@@ -56,11 +56,6 @@ public:
      * @return Id of the given anchor if found, -1 otherwise.
      */
     int getAnchorId(UMLRelationAnchor *anchor);
-    
-    /**
-     * @brief Removes the class from scene and deletes it's data.
-     */
-    void remove();
 
 private slots:
     void onClassModelEdited(UMLClassData* umlClassData);
@@ -72,6 +67,7 @@ private slots:
 
 protected:
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
     QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 

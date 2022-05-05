@@ -13,7 +13,7 @@
 #include "classes/newclassdialog.h"
 #include "ui_newclassdialog.h"
 
-ClassToolBar::ClassToolBar(ClassDiagramView *view, const QGraphicsScene *scene) :
+ClassToolBar::ClassToolBar(ClassDiagramView *view, QGraphicsScene *scene) :
     QToolBar("Tools", view), view(view), scene(scene)
 {
     createActions();
@@ -24,7 +24,6 @@ ClassToolBar::ClassToolBar(ClassDiagramView *view, const QGraphicsScene *scene) 
     addAction(addInterfaceAction);
     addAction(removeSelectedAction);
     addAction(addInstanceAction);
-    addAction(undoAction);
 }
 
 // - - - - - private - - - - -
@@ -35,31 +34,25 @@ void ClassToolBar::createActions()
     addClassAction->setIcon(QIcon("../res/add.png"));
     addClassAction->setToolTip("Add class (Ctrl+N)");
     addClassAction->setShortcut(QString("Ctrl+N"));
-    connect(addClassAction, SIGNAL(triggered()), this, SLOT(addClass()));
+    connect(addClassAction, &QAction::triggered, this, &ClassToolBar::addClass);
 
     addInterfaceAction = new QAction(this);
     addInterfaceAction->setIcon(QIcon("../res/addi.png"));
     addInterfaceAction->setToolTip("Add interface (Ctrl+M)");
     addInterfaceAction->setShortcut(QString("Ctrl+M"));
-    connect(addInterfaceAction, SIGNAL(triggered()), this, SLOT(addInterface()));
+    connect(addInterfaceAction, &QAction::triggered, this, &ClassToolBar::addInterface);
 
     removeSelectedAction = new QAction(this);
     removeSelectedAction->setIcon(QIcon("../res/remove.png"));
     removeSelectedAction->setToolTip("Remove selected (Delete)");
     removeSelectedAction->setShortcut(Qt::Key_Delete);
-    connect(removeSelectedAction, SIGNAL(triggered()), this, SLOT(removeSelected()));
-
-    undoAction = new QAction(this);
-    undoAction->setIcon(QIcon("../res/undo.png"));
-    undoAction->setToolTip("Undo (Ctrl+Z)");
-    undoAction->setShortcut(tr("Ctrl+Z"));
-    connect(undoAction, SIGNAL(triggered()), this, SLOT(undo()));
+    connect(removeSelectedAction, &QAction::triggered, this, &ClassToolBar::removeSelected);
 
     addInstanceAction = new QAction(this);
     addInstanceAction->setIcon(QIcon("../res/addi.png"));
     addInstanceAction->setToolTip("Add instance (Ctrl+L)");
     addInstanceAction->setShortcut(QString("Ctrl+L"));
-    connect(addInstanceAction, SIGNAL(triggered()), this, SLOT(addInstance()));
+    connect(addInstanceAction, &QAction::triggered, this, &ClassToolBar::addInstance);
 }
 
 QPoint ClassToolBar::getViewportCenter()
@@ -104,17 +97,12 @@ void ClassToolBar::removeSelected()
 {
     foreach(UMLRelation *umlRelation, getSelectedOfGivenType<UMLRelation*>())
     {
-        umlRelation->remove();
+        view->removeUMLRelation(umlRelation);
     }
     foreach(UMLClass *umlClass, getSelectedOfGivenType<UMLClass*>())
     {
-        umlClass->remove();
+        view->removeUMLClass(umlClass);
     }
-}
-
-void ClassToolBar::undo()
-{
-    // TODO
 }
 
 void ClassToolBar::addInstance()

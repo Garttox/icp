@@ -10,6 +10,7 @@
 
 #include <QObject>
 #include "umlrelationanchor.h"
+#include "umlrelation.h"
 
 /**
  * @brief Singleton, which serves as intermediary for sending signals between UMLClass, UMLRelation and UMLRelationAnchor.
@@ -29,8 +30,8 @@ private:
 signals:
     void anchorDragged(UMLRelationAnchor *anchor, QPointF endpoint);
     void anchorDragReleased(UMLRelationAnchor *source, UMLRelationAnchor* destination);
-    void anchorRemoved(UMLRelationAnchor *anchor);
     void classRemoved(UMLClass *umlClass);
+    void relationRemoved(UMLRelation *umlRelation);
 
 };
 

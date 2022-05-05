@@ -24,12 +24,14 @@ private:
     QGraphicsScene *scene;
     ClassDiagramView *view;
     QMenu *mainMenu;
+    QMenu *editMenu;
     QTabWidget *tabWidget;
     ClassToolBar *classToolBar;
 
     QAction *fileLoad;
     QAction *fileSave;
     QAction *imageExport;
+    QAction *undoAction;
     QAction *addSequenceTab;
 
     void createActions();
@@ -43,6 +45,7 @@ private slots:
     void loadFile();
     void saveFile();
     void exportImage();
+    void undo();
     void addSequenceDiagram(UMLSequenceData *umlSequenceData);
     void removeSequenceDiagram(int tabIndex);
     void addSequenceDiagramDialog();

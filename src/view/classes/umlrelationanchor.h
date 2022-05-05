@@ -51,11 +51,6 @@ public:
      * @return Constant id of the anchor. 
      */
     int getId();
-    
-    /**
-     * @brief Removes the anchor from scene and deletes it's data.
-     */
-    void remove();
 
 signals:
     void anchorDragged(UMLRelationAnchor *anchor, QPointF endpoint);
@@ -64,9 +59,6 @@ protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
-
-private slots:
-    void onClassRemoved(UMLClass* umlClass);
 
 private:
     void setColorPen();

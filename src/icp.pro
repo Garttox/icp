@@ -14,6 +14,13 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         app.cpp \
+        command/classes/addclasscommand.cpp \
+        command/classes/addrelationcommand.cpp \
+        command/classes/editclasscommand.cpp \
+        command/classes/editrelationcommand.cpp \
+        command/classes/moveclasscommand.cpp \
+        command/command.cpp \
+        command/commandstack.cpp \
         model/dataprovider.cpp \
         model/umlaccesstype.cpp \
         model/umlattribute.cpp \
@@ -49,6 +56,13 @@ SOURCES += main.cpp\
         view/sequencediagramview.cpp
 
 HEADERS  += app.h \
+    command/classes/addclasscommand.h \
+    command/classes/addrelationcommand.h \
+    command/classes/editclasscommand.h \
+    command/classes/editrelationcommand.h \
+    command/classes/moveclasscommand.h \
+    command/command.h \
+    command/commandstack.h \
     model/dataprovider.h \
     model/umlaccesstype.h \
     model/umlattribute.h \

@@ -34,23 +34,30 @@ public:
      */
     QPixmap getViewportPixmap();
 
+    /**
+     * @brief Adds new UMLClass, containing given UMLClassData, to the scene.
+     * @param classData Data to initialize with the UMLClass.
+     */
+    void addUMLClass(UMLClassData *umlClassData);
+
+    void removeUMLClass(UMLClass *umlClass);
+    void removeUMLClass(UMLClassData *umlClassData);
+
+    /**
+     * @brief Adds new UMLRelation, containing given UMLRelationData, to the scene.
+     * @param relationData Data to initialize with the UMLRelation.
+     */
+    void addUMLRelation(UMLRelationData *relationData);
+
+    void removeUMLRelation(UMLRelation *umlRelation);
+    void removeUMLRelation(UMLRelationData *umlRelationData);
+
 private slots:
-    /**
-     * @brief Called, when UMLClassData model is added.
-     * @param classData Newly added UML class data.
-     */
-    void classModelAdded(UMLClassData *classData);
-
-    /**
-     * @brief Called, when UMLRelationData model is added.
-     * @param relationData Newly added UML relation data.
-     */
-    void relationModelAdded(UMLRelationData *relationData);
-
-    /**
-     * @brief Called, when all data has been cleared from UMLData model.
-     */
-    void umlModelCleared();
+    void onClassModelAdded(UMLClassData *umlClassData);
+    void onClassModelRemoved(UMLClassData *umlClassData);
+    void onRelationModelAdded(UMLRelationData *umlRelationData);
+    void onRelationModelRemoved(UMLRelationData *umlRelationData);
+    void onUmlModelCleared();
 
 private:
     /**
@@ -61,21 +68,28 @@ private:
     UMLClass *getUMLClass(UMLClassData *umlClassData);
 
     /**
+     * @brief Gets UMLRelation based on UMLRelationData given.
+     * @param umlRelationData Data to search for in UMLRelations.
+     * @return UMLRelation corresponding to UMLRelationData, or nullptr when not found.
+     */
+    UMLRelation *getUMLRelation(UMLRelationData *umlRelationData);
+
+    /**
+     * @brief Gets all the items of type T from the scene.
+     * @return Scene's items of type T.
+     */
+    template <class T> QList<T> getItemsOfType();
+
+    /**
+     * @brief Removes all the relations connected to givem UMLClass.
+     * @param umlClass UMLClass of which relations remove.
+     */
+    void removeRelationConnectedTo(UMLClass *umlClass);
+
+    /**
      * @brief Draws the background of the view.
      */
     void drawBackgroundTiles();
-
-    /**
-     * @brief Adds new UMLClass, containing given UMLClassData, to the scene.
-     * @param classData Data to initialize with the UMLClass.
-     */
-    void addUMLClass(UMLClassData *classData);
-
-    /**
-     * @brief Adds new UMLRelation, containing given UMLRelationData, to the scene.
-     * @param relationData Data to initialize with the UMLRelation.
-     */
-    void addUMLRelation(UMLRelationData *relationData);
 
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
