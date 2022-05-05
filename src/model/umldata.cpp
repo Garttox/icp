@@ -80,13 +80,13 @@ bool UMLData::loadData(QJsonObject json)
         }
         QString name = object["name"].toString();
         UMLSequenceData *sequenceData = new UMLSequenceData(name);
+        addSequence(sequenceData);
         bool loadedSuccesfully = sequenceData->loadData(object);
         if (!loadedSuccesfully)
         {
-            delete sequenceData;
+            removeSequence(sequenceData);
             return false;
         }
-        addSequence(sequenceData);
     }
     return true;
 }

@@ -8,7 +8,8 @@
 UMLInstance::UMLInstance(UMLInstanceData *umlInstanceData)
     : umlInstanceData(umlInstanceData)
 {
-
+    setFlags(ItemIsMovable | ItemIsSelectable | ItemSendsGeometryChanges);
+    setPos(umlInstanceData->getPosX(), 100);
 }
 
 QRectF UMLInstance::boundingRect() const
@@ -29,6 +30,23 @@ void UMLInstance::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
     painter->setPen(TEXT_COLOR);
 
     painter->drawText(rect, umlInstanceData->getDisplayName());
+}
+
+QVariant UMLInstance::itemChange(GraphicsItemChange change, const QVariant &value)
+{
+    switch (change)
+    {
+        case QGraphicsItem::ItemSelectedHasChanged:
+            setZValue(isSelected() ? 1 : 0);
+            break;
+        case QGraphicsItem::ItemPositionHasChanged:
+            umlInstanceData->setPosX(this->pos().x());
+            setPos(this->pos().x(), DEFAULT_POSY);
+            break;
+        default:
+            break;  // Keeps Qt Creator without warnings
+    }
+    return QGraphicsItem::itemChange(change, value);
 }
 
 // - - - - - private - - - - -

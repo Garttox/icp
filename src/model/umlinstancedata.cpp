@@ -19,6 +19,16 @@ void UMLInstanceData::setName(QString name)
     this->name = name;
 }
 
+int UMLInstanceData::getPosX() const
+{
+    return this->posX;
+}
+
+void UMLInstanceData::setPosX(int posX)
+{
+    this->posX = posX;
+}
+
 UMLClassData *UMLInstanceData::getClassData()
 {
     return this->umlClassData;

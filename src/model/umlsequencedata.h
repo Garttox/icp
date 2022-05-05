@@ -6,10 +6,9 @@
 
 #include <QString>
 
-
-
-class UMLSequenceData
+class UMLSequenceData : public QObject
 {
+    Q_OBJECT
 public:
     UMLSequenceData(QString name);
     ~UMLSequenceData();
@@ -18,6 +17,8 @@ public:
     void addCall(UMLCallData *call);
     UMLInstanceData* findInstanceByName(QString instanceName);
     QString getName();
+signals:
+    void instanceModelAdded(UMLInstanceData *umlInstanceData);
 private:
     QString name;
     QSet<UMLInstanceData *> instances;

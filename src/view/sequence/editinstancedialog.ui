@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>NewInstanceDialog</class>
- <widget class="QDialog" name="NewInstanceDialog">
+ <class>EditInstanceDialog</class>
+ <widget class="QDialog" name="EditInstanceDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -75,7 +75,7 @@
 font-size: 18px;</string>
    </property>
    <property name="text">
-    <string>Add Instance</string>
+    <string>Edit Instance</string>
    </property>
    <property name="textFormat">
     <enum>Qt::AutoText</enum>
@@ -87,7 +87,7 @@ font-size: 18px;</string>
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>NewInstanceDialog</receiver>
+   <receiver>EditInstanceDialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -103,7 +103,7 @@ font-size: 18px;</string>
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>NewInstanceDialog</receiver>
+   <receiver>EditInstanceDialog</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

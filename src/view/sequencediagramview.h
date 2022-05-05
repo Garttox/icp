@@ -13,15 +13,15 @@ class SequenceDiagramView : public QGraphicsView
 public:
     SequenceDiagramView(QWidget* parent, UMLSequenceData *umlSequenceData);
 
-    void addInstance(UMLInstanceData *umlInstanceData) const;
     UMLSequenceData *getUMLSequenceData() const;
 private slots:
-
+    void onInstanceModelAdded(UMLInstanceData *umlInstanceData);
 private:
     /**
      * @brief Draws the background of the view.
      */
     void drawBackgroundTiles();
+    void addUMLInstance(UMLInstanceData *umlInstanceData);
 
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;

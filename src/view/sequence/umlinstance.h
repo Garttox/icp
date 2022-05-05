@@ -16,10 +16,14 @@ public:
     QRectF boundingRect() const override;
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+    QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
 private:
     QRectF outlineRect() const;
     UMLInstanceData *umlInstanceData;
 
+    qreal posY = DEFAULT_POSY;
+
+    static constexpr qreal DEFAULT_POSY = 100;
     static constexpr int PADDING = 8;
     QFont NAME_FONT = QFont(qApp->font().family(), 10, QFont::Bold);
     QColor TEXT_COLOR = Qt::black;

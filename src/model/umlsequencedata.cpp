@@ -66,6 +66,7 @@ bool UMLSequenceData::loadData(QJsonObject jsonSequenceData)
 void UMLSequenceData::addInstance(UMLInstanceData *instance)
 {
     this->instances.insert(instance);
+    emit instanceModelAdded(instance);
 }
 
 void UMLSequenceData::addCall(UMLCallData *call)

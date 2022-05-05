@@ -41,6 +41,7 @@ SOURCES += main.cpp\
         view/classes/umlrelation.cpp \
         view/classes/umlrelationanchor.cpp \
         view/classtoolbar.cpp \
+        view/sequence/editinstancedialog.cpp \
         view/sequence/newinstancedialog.cpp \
         view/sequence/newsequencedialog.cpp \
         view/sequence/umlinstance.cpp \
@@ -75,6 +76,7 @@ HEADERS  += app.h \
     view/classes/umlrelation.h \
     view/classes/umlrelationanchor.h \
     view/classtoolbar.h \
+    view/sequence/editinstancedialog.h \
     view/sequence/newinstancedialog.h \
     view/sequence/newsequencedialog.h \
     view/sequence/umlinstance.h \
@@ -87,6 +89,7 @@ FORMS    += \
     view/classes/editmethoddialog.ui \
     view/classes/editrelationdialog.ui \
     view/classes/newclassdialog.ui \
+    view/sequence/editinstancedialog.ui \
     view/sequence/newinstancedialog.ui \
     view/sequence/newsequencedialog.ui
 

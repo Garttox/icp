@@ -4,6 +4,7 @@
 #include <model/umlclassdata.h>
 #include <model/umlclasstype.h>
 #include <QMouseEvent>
+#include <view/sequence/umlinstance.h>
 
 
 
@@ -14,18 +15,23 @@ SequenceDiagramView::SequenceDiagramView(QWidget* parent, UMLSequenceData *umlSe
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setTransformationAnchor(QGraphicsView::NoAnchor);
 
+    connect(umlSequenceData, &UMLSequenceData::instanceModelAdded, this, &SequenceDiagramView::onInstanceModelAdded);
+
     drawBackgroundTiles();
-
-}
-
-void SequenceDiagramView::addInstance(UMLInstanceData *UMLInstanceData) const
-{
 
 }
 
 UMLSequenceData *SequenceDiagramView::getUMLSequenceData() const
 {
     return this->umlSequenceData;
+}
+
+// - - - - - private slots - - - - -
+
+
+void SequenceDiagramView::onInstanceModelAdded(UMLInstanceData *umlInstanceData)
+{
+    addUMLInstance(umlInstanceData);
 }
 
 // - - - - - private - - - - -
@@ -39,6 +45,13 @@ void SequenceDiagramView::drawBackgroundTiles()
     painter.drawRect(0, 0, TILE_SIZE, TILE_SIZE);
     painter.end();
     setBackgroundBrush(pixmap);
+}
+
+void SequenceDiagramView::addUMLInstance(UMLInstanceData *umlInstanceData)
+{
+    UMLInstance *umlInstance = new UMLInstance(umlInstanceData);
+    scene()->addItem(umlInstance);
+    qDebug() << "added";
 }
 
 void SequenceDiagramView::mousePressEvent(QMouseEvent* event)

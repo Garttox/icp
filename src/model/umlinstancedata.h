@@ -14,6 +14,8 @@ public:
     QString getDisplayName() const;
     QString getName() const;
     void setName(QString name);
+    int getPosX() const;
+    void setPosX(int posX);
     UMLClassData* getClassData();
 private:
     QString name;
