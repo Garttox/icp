@@ -26,7 +26,6 @@ UMLClass::UMLClass(UMLClassData *umlClassData) :
     QGraphicsItem(),
     umlClassData(umlClassData)
 {
-    qDebug("CONSTRUCT");
     setFlags(ItemIsMovable | ItemIsSelectable | ItemSendsGeometryChanges);
     setPos(umlClassData->getPosX(), umlClassData->getPosY());
     addRelationAnchors();
