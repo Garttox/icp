@@ -10,7 +10,8 @@
 #include "model/umldata.h"
 #include "model/umlclassdata.h"
 #include "ui_editclassdialog.h"
-
+#include "command/commandstack.h"
+#include "command/classes/editclasscommand.h"
 
 EditClassDialog::EditClassDialog(UMLClassData *umlClassData, QWidget *parent) :
     QDialog(parent),
@@ -44,7 +45,7 @@ EditClassDialog::~EditClassDialog()
 void EditClassDialog::on_buttonBox_accepted()
 {
     umlClassDataCopy->setName(ui->nameLineEdit->text());
-    umlClassData->setData(*umlClassDataCopy);
+    CommandStack::getInstance().push(new EditClassCommand(umlClassData, umlClassDataCopy));
 }
 
 void EditClassDialog::on_buttonBox_rejected()

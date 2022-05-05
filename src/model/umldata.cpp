@@ -122,7 +122,7 @@ void UMLData::removeClass(UMLClassData *umlClassData)
 {
     if (classes->remove(umlClassData))
     {
-        // emit classModelRemoved(umlRelationData);
+        emit classModelRemoved(umlClassData);
         delete umlClassData;
     }
 }

@@ -13,6 +13,7 @@
 #include "model/umldata.h"
 #include "view/classes/umlclass.h"
 #include "classtoolbar.h"
+#include "classes/umlclassnotifier.h"
 
 ClassDiagramView::ClassDiagramView(QWidget* parent)
     : QGraphicsView(parent)
@@ -20,11 +21,14 @@ ClassDiagramView::ClassDiagramView(QWidget* parent)
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setTransformationAnchor(QGraphicsView::NoAnchor);
-    UMLData* umlData = DataProvider::getInstance().getUMLData();
-    connect(umlData, SIGNAL(classModelAdded(UMLClassData*)), this, SLOT(classModelAdded(UMLClassData*)));
-    connect(umlData, SIGNAL(relationModelAdded(UMLRelationData*)), this, SLOT(relationModelAdded(UMLRelationData*)));
-    connect(umlData, SIGNAL(umlModelCleared()), this, SLOT(umlModelCleared()));
     drawBackgroundTiles();
+
+    UMLData* umlData = DataProvider::getInstance().getUMLData();
+    connect(umlData, &UMLData::classModelAdded, this, &ClassDiagramView::onClassModelAdded);
+    connect(umlData, &UMLData::classModelRemoved, this, &ClassDiagramView::onClassModelRemoved);
+    connect(umlData, &UMLData::relationModelAdded, this, &ClassDiagramView::onRelationModelAdded);
+    connect(umlData, &UMLData::relationModelRemoved, this, &ClassDiagramView::onRelationModelRemoved);
+    connect(umlData, &UMLData::umlModelCleared, this, &ClassDiagramView::onUmlModelCleared);
 }
 
 QPixmap ClassDiagramView::getViewportPixmap()
@@ -34,33 +38,143 @@ QPixmap ClassDiagramView::getViewportPixmap()
     return pixmap;
 }
 
-void ClassDiagramView::classModelAdded(UMLClassData *classData)
+void ClassDiagramView::addUMLClass(UMLClassData *umlClassData)
 {
-    addUMLClass(classData);
+    UMLClass *umlClass = new UMLClass(umlClassData);
+    scene()->addItem(umlClass);
 }
 
-void ClassDiagramView::relationModelAdded(UMLRelationData *relationData)
+void ClassDiagramView::removeUMLClass(UMLClass *umlClass)
 {
-    addUMLRelation(relationData);
+    removeRelationConnectedTo(umlClass);
+    emit UMLClassNotifier::getInstance()->classRemoved(umlClass);
+    scene()->removeItem(umlClass);
+    delete umlClass;
 }
 
-void ClassDiagramView::umlModelCleared()
+void ClassDiagramView::removeUMLClass(UMLClassData *umlClassData)
+{
+    UMLClass *umlClass = getUMLClass(umlClassData);
+    if (umlClass != nullptr)
+    {
+        removeUMLClass(umlClass);
+    }
+}
+
+void ClassDiagramView::addUMLRelation(UMLRelationData *relationData)
+{
+    UMLClass *source = getUMLClass(relationData->getSource());
+    UMLClass *destination = getUMLClass(relationData->getDestination());
+    if (source != nullptr && destination != nullptr)
+    {
+        UMLRelationAnchor *sourceAnchor = source->getAnchorById(relationData->getSourceAnchorId());
+        UMLRelationAnchor *destinationAnchor = destination->getAnchorById(relationData->getDestinationAnchorId());
+        if (sourceAnchor != nullptr && destinationAnchor != nullptr)
+        {
+            UMLRelation *relation = new UMLRelation(relationData, sourceAnchor, destinationAnchor);
+            scene()->addItem(relation);
+        }
+    }
+    else
+    {
+        // inconsistency
+    }
+}
+
+void ClassDiagramView::removeUMLRelation(UMLRelation *umlRelation)
+{
+    emit UMLClassNotifier::getInstance()->relationRemoved(umlRelation);
+    scene()->removeItem(umlRelation);
+    delete umlRelation;
+}
+
+void ClassDiagramView::removeUMLRelation(UMLRelationData *umlRelationData)
+{
+    UMLRelation *umlRelation = getUMLRelation(umlRelationData);
+    if (umlRelation != nullptr)
+    {
+        removeUMLRelation(umlRelation);
+    }
+}
+
+// - - - - - private slots - - - - -
+
+void ClassDiagramView::onClassModelAdded(UMLClassData *umlClassData)
+{
+    addUMLClass(umlClassData);
+}
+
+void ClassDiagramView::onClassModelRemoved(UMLClassData *umlClassData)
+{
+    removeUMLClass(umlClassData);
+}
+
+void ClassDiagramView::onRelationModelAdded(UMLRelationData *umlRelationData)
+{
+    addUMLRelation(umlRelationData);
+}
+
+void ClassDiagramView::onRelationModelRemoved(UMLRelationData *umlRelationData)
+{
+    removeUMLRelation(umlRelationData);
+}
+
+void ClassDiagramView::onUmlModelCleared()
 {
     scene()->clear();
 }
 
+// - - - - - private - - - - -
+
 UMLClass *ClassDiagramView::getUMLClass(UMLClassData *umlClassData)
 {
-    QList<QGraphicsItem *> graphicsItems = items();
-    foreach (QGraphicsItem *graphicsItem, graphicsItems)
+    QList<UMLClass*> umlClasses = getItemsOfType<UMLClass*>();
+    foreach (auto umlClass, umlClasses)
     {
-        UMLClass *umlClass = dynamic_cast<UMLClass *>(graphicsItem);
-        if (umlClass != nullptr && umlClass->correspondsTo(umlClassData))
+        if (umlClass->correspondsTo(umlClassData))
         {
             return umlClass;
         }
     }
     return nullptr;
+}
+
+UMLRelation *ClassDiagramView::getUMLRelation(UMLRelationData *umlRelationData)
+{
+    QList<UMLRelation*> umlRelations = getItemsOfType<UMLRelation*>();
+    foreach (auto umlRelation, umlRelations)
+    {
+        if (umlRelation->correspondsTo(umlRelationData))
+        {
+            return umlRelation;
+        }
+    }
+    return nullptr;
+}
+
+template<class T>
+QList<T> ClassDiagramView::getItemsOfType()
+{
+    QList<T> filtered;
+    foreach(QGraphicsItem *item, scene()->items())
+    {
+        if (T casted = dynamic_cast<T>(item))
+        {
+            filtered.append(casted);
+        }
+    }
+    return filtered;
+}
+
+void ClassDiagramView::removeRelationConnectedTo(UMLClass *umlClass)
+{
+    foreach (auto umlRelation, getItemsOfType<UMLRelation*>())
+    {
+        if (umlRelation->isConnectedToUMLClass(umlClass))
+        {
+            removeUMLRelation(umlRelation);
+        }
+    }
 }
 
 void ClassDiagramView::drawBackgroundTiles()
@@ -80,36 +194,6 @@ void ClassDiagramView::drawBackgroundTiles()
     painter.drawRect(0, 0, TILE_SIZE, TILE_SIZE);
     painter.end();
     setBackgroundBrush(pixmap);
-}
-
-void ClassDiagramView::addUMLClass(UMLClassData *classData)
-{
-    UMLClass *umlClass = new UMLClass(classData);
-    scene()->addItem(umlClass);
-}
-
-void ClassDiagramView::addUMLRelation(UMLRelationData *relationData)
-{
-    UMLClass *source = getUMLClass(relationData->getSource());
-    UMLClass *destination = getUMLClass(relationData->getDestination());
-    if (source != nullptr && destination != nullptr)
-    {
-        UMLRelationAnchor *sourceAnchor = source->getAnchorById(relationData->getSourceAnchorId());
-        UMLRelationAnchor *destinationAnchor = destination->getAnchorById(relationData->getDestinationAnchorId());
-        if (sourceAnchor != nullptr && destinationAnchor != nullptr)
-        {
-            UMLRelation *relation = new UMLRelation(relationData, sourceAnchor, destinationAnchor);
-            scene()->addItem(relation);
-        }
-        else
-        {
-            // data error
-        }
-    }
-    else
-    {
-        // inconsistency
-    }
 }
 
 void ClassDiagramView::mousePressEvent(QMouseEvent* event)

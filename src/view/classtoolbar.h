@@ -21,7 +21,7 @@ class ClassToolBar : public QToolBar
 {
     Q_OBJECT
 public:
-    ClassToolBar(ClassDiagramView *view, const QGraphicsScene *scene);
+    ClassToolBar(ClassDiagramView *view, QGraphicsScene *scene);
 
 private:
     /**
@@ -44,17 +44,15 @@ private:
     QAction *addClassAction;
     QAction *addInterfaceAction;
     QAction *removeSelectedAction;
-    QAction *undoAction;
     QAction *addInstanceAction;
-    const ClassDiagramView *view;
-    const QGraphicsScene *scene;
+    ClassDiagramView *view;
+    QGraphicsScene *scene;
     static constexpr qreal ICON_SIZE = 20;
 
 private slots:
     void addClass();
     void addInterface();
     void removeSelected();
-    void undo();
     void addInstance();
 };
 

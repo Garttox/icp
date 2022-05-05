@@ -33,24 +33,34 @@ public:
      * @return True if relation is of given type, false otherwise.
      */
     bool isOfType(UMLRelationType umlRelationType);
-    
+
     /**
-     * @brief Removes the relation from the scene and deletes it's data.
+     * @brief Checks if given UMLRelationData are being held by this object.
+     * @param umlRelationData UMLRelationData to check.
+     * @return True, if UMLRelation is displaying given UMLRelationData.
      */
-    void remove();
+    bool correspondsTo(UMLRelationData *umlRelationData);
+
+    /**
+     * @brief Checks if it's connected to given UMLClass.
+     * @param umlClass UMLClass to check.
+     * @return True, if it's connected to given UMLClass.
+     */
+    bool isConnectedToUMLClass(UMLClass *umlClass);
 
 protected:
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
 private slots:
-    void onAnchorRemoved(UMLRelationAnchor *anchor);
+    void onClassRemoved(UMLClass *umlClass);
 
 private:
     QPen getColorPen() const;
     void setCorrectPosition();
     void createArrowHeadPolygon();
     void drawArrowHead(QPainter *painter);
+
 
     QPolygonF arrowHead;
     UMLRelationData *umlRelationData;

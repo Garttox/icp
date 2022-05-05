@@ -24,8 +24,7 @@ UMLRelation::UMLRelation(UMLRelationData* relation, UMLRelationAnchor* sourceAnc
     setCorrectPosition();
     setFlag(ItemIsSelectable);
     setZValue(-1);
-    connect(UMLClassNotifier::getInstance(), SIGNAL(anchorRemoved(UMLRelationAnchor*)),
-            this, SLOT(onAnchorRemoved(UMLRelationAnchor*)));
+    connect(UMLClassNotifier::getInstance(), &UMLClassNotifier::classRemoved, this, &UMLRelation::onClassRemoved);
 }
 
 QRectF UMLRelation::boundingRect() const
@@ -52,11 +51,17 @@ bool UMLRelation::isOfType(UMLRelationType umlRelationType)
     return umlRelationData->getType() == umlRelationType;
 }
 
-void UMLRelation::remove()
+bool UMLRelation::correspondsTo(UMLRelationData *umlRelationData)
 {
-    scene()->removeItem(this);
-    DataProvider::getInstance().getUMLData()->removeRelation(umlRelationData);
-    delete this;
+    return this->umlRelationData == umlRelationData;
+}
+
+bool UMLRelation::isConnectedToUMLClass(UMLClass *umlClass)
+{
+    UMLClassData *umlClassData = umlClass->getUMLClassData();
+    UMLClassData *source = umlRelationData->getSource();
+    UMLClassData *destination = umlRelationData->getDestination();
+    return source == umlClassData || destination == umlClassData;
 }
 
 // - - - - - protected - - - - -
@@ -87,13 +92,14 @@ void UMLRelation::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
 
 // - - - - - private slots - - - - -
 
-void UMLRelation::onAnchorRemoved(UMLRelationAnchor *anchor)
+void UMLRelation::onClassRemoved(UMLClass *umlClass)
 {
-    if (anchor == sourceAnchor || anchor == destinationAnchor)
+    if (isConnectedToUMLClass(umlClass))
     {
-        remove();
+
     }
 }
+
 
 // - - - - - private - - - - -
 
@@ -150,3 +156,4 @@ void UMLRelation::drawArrowHead(QPainter *painter)
     painter->fillPath(path, fillColor);
     painter->drawPolygon(arrowHead);
 }
+

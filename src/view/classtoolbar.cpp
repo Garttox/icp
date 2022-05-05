@@ -13,7 +13,7 @@
 #include "classes/newclassdialog.h"
 #include "ui_newclassdialog.h"
 
-ClassToolBar::ClassToolBar(ClassDiagramView *view, const QGraphicsScene *scene) :
+ClassToolBar::ClassToolBar(ClassDiagramView *view, QGraphicsScene *scene) :
     QToolBar("Tools", view), view(view), scene(scene)
 {
     createActions();
@@ -24,7 +24,6 @@ ClassToolBar::ClassToolBar(ClassDiagramView *view, const QGraphicsScene *scene) 
     addAction(addInterfaceAction);
     addAction(removeSelectedAction);
     addAction(addInstanceAction);
-    addAction(undoAction);
 }
 
 // - - - - - private - - - - -
@@ -48,12 +47,6 @@ void ClassToolBar::createActions()
     removeSelectedAction->setToolTip("Remove selected (Delete)");
     removeSelectedAction->setShortcut(Qt::Key_Delete);
     connect(removeSelectedAction, SIGNAL(triggered()), this, SLOT(removeSelected()));
-
-    undoAction = new QAction(this);
-    undoAction->setIcon(QIcon("../res/undo.png"));
-    undoAction->setToolTip("Undo (Ctrl+Z)");
-    undoAction->setShortcut(tr("Ctrl+Z"));
-    connect(undoAction, SIGNAL(triggered()), this, SLOT(undo()));
 
     addInstanceAction = new QAction(this);
     addInstanceAction->setIcon(QIcon("../res/addi.png"));
@@ -104,17 +97,12 @@ void ClassToolBar::removeSelected()
 {
     foreach(UMLRelation *umlRelation, getSelectedOfGivenType<UMLRelation*>())
     {
-        umlRelation->remove();
+        view->removeUMLRelation(umlRelation);
     }
     foreach(UMLClass *umlClass, getSelectedOfGivenType<UMLClass*>())
     {
-        umlClass->remove();
+        view->removeUMLClass(umlClass);
     }
-}
-
-void ClassToolBar::undo()
-{
-    // TODO
 }
 
 void ClassToolBar::addInstance()
