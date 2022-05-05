@@ -4,11 +4,11 @@
 #include "umlmethoddata.h"
 
 UMLMethodData::UMLMethodData(QString name, QString type, UMLAccessType access) :
-    UMLIdentifier(name, type, access)
+    UMLAttribute(name, type, access)
 {}
 
 UMLMethodData::UMLMethodData(const UMLMethodData &original) :
-    UMLIdentifier(original.name, original.type, original.access)
+    UMLAttribute(original.name, original.type, original.access)
 {
     foreach(UMLMethodParameterData *parameter, original.parameters)
     {

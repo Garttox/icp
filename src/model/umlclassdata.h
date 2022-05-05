@@ -39,9 +39,10 @@ public:
     QString getDisplayName() const;
     UMLFieldData *getFieldAt(int index) const;
     UMLMethodData *getMethodAt(int index) const;
+    UMLMethodData *findMethodByName(QString methodName) const;
     QList<UMLMethodData *> getMethods() const;
     QList<UMLFieldData *> getFields() const;
-    QSet<UMLIdentifier *> getIdentifiers() const;
+    QSet<UMLAttribute *> getIdentifiers() const;
     int getPosX() const;
     int getPosY() const;
     

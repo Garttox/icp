@@ -84,7 +84,7 @@ private:
     int originY;
 
     static constexpr qreal TILE_SIZE = 60;
-    static constexpr QColor TILE_COLOR = QColor(225, 225, 225);
+    QColor TILE_COLOR = QColor(225, 225, 225);
 };
 
 #endif // CLASSDIAGRAMVIEW_H

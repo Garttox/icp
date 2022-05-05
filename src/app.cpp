@@ -15,6 +15,12 @@
 #include <QMenu>
 #include <QMenuBar>
 #include <QMessageBox>
+#include <QTabBar>
+#include <QToolButton>
+
+#include <view/sequencediagramview.h>
+
+#include <view/sequence/newsequencedialog.h>
 
 #include "app.h"
 #include "model/umldata.h"
@@ -37,14 +43,22 @@ App::App(QWidget *parent) :
     view->setRenderHints(QPainter::TextAntialiasing | QPainter::Antialiasing);
     view->setContextMenuPolicy(Qt::ActionsContextMenu);
 
+    createActions();
+    createMainMenu();
+
     classToolBar = new ClassToolBar(view, scene);
     addToolBar(classToolBar);
     tabWidget->addTab(view, QString("Class Diagram"));
-    tabWidget->addTab(new QWidget(), QString("Sequence 1"));
+    tabWidget->setTabsClosable(true);
+    tabWidget->tabBar()->tabButton(0, QTabBar::RightSide)->resize(0, 0);
+    QToolButton *addTabButton = new QToolButton();
+    addTabButton->setDefaultAction(addSequenceTab);
+    tabWidget->setCornerWidget(addTabButton, Qt::TopRightCorner);
     setCentralWidget(tabWidget);
 
-    createActions();
-    createMainMenu();
+    connect(tabWidget, SIGNAL(tabCloseRequested(int)),this, SLOT(removeSequenceDiagram(int)));
+    connect(umlData, SIGNAL(sequenceModelAdded(UMLSequenceData*)),
+            this, SLOT(addSequenceDiagram(UMLSequenceData*)));
 }
 
 //  - - - - - private  - - - - -
@@ -62,6 +76,10 @@ void App::createActions()
     imageExport = new QAction("Export", this);
     imageExport->setShortcut(QString("Ctrl+E"));
     connect(imageExport, SIGNAL(triggered()), this, SLOT(exportImage()));
+
+    addSequenceTab = new QAction("Add Sequence", this);
+    addSequenceTab->setShortcut(QString("Ctrl+D"));
+    connect(addSequenceTab, SIGNAL(triggered()), this, SLOT(addSequenceDiagramDialog()));
 }
 
 void App::createMainMenu()
@@ -159,4 +177,41 @@ void App::exportImage()
         displayErrorMessageBox("Export error", "Error occured while exporting to the file.");
         return;
     }
+}
+
+void App::addSequenceDiagram(UMLSequenceData *umlSequenceData)
+{
+
+
+    SequenceDiagramView *sequenceView = new SequenceDiagramView(this, umlSequenceData);
+    QGraphicsScene *sequenceScene = new QGraphicsScene(sequenceView);
+    sequenceScene->setSceneRect(0, 0, SCENE_SIZE, SCENE_SIZE);
+    sequenceView->setMinimumSize(600, 600);
+    sequenceView->setScene(sequenceScene);
+    sequenceView->setDragMode(QGraphicsView::RubberBandDrag);
+    sequenceView->setRenderHints(QPainter::TextAntialiasing | QPainter::Antialiasing);
+    sequenceView->setContextMenuPolicy(Qt::ActionsContextMenu);
+
+
+    tabWidget->addTab(sequenceView, umlSequenceData->getName());
+    qDebug() << "added " << umlSequenceData->getName();
+}
+
+void App::removeSequenceDiagram(int tabIndex)
+{
+    SequenceDiagramView *sequenceView = static_cast<SequenceDiagramView *>(tabWidget->widget(tabIndex));
+    UMLSequenceData *umlSequenceData = sequenceView->getUMLSequenceData();
+    QString message = QString("Do you want to delete \"%1\" sequence diagram?").arg(umlSequenceData->getName());
+    QMessageBox::StandardButton dialogReply = QMessageBox::question(this, "Remove sequence diagram", message, QMessageBox::Yes|QMessageBox::No);
+    if (dialogReply == QMessageBox::Yes)
+    {
+        tabWidget->removeTab(tabIndex);
+        DataProvider::getInstance().getUMLData()->removeSequence(umlSequenceData);
+    }
+}
+
+void App::addSequenceDiagramDialog()
+{
+    NewSequenceDialog *newClassDialog = new NewSequenceDialog();
+    newClassDialog->show();
 }

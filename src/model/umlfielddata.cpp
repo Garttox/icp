@@ -1,11 +1,11 @@
 #include "umlfielddata.h"
 
 UMLFieldData::UMLFieldData(QString name, QString type, UMLAccessType access) :
-    UMLIdentifier(name, type, access)
+    UMLAttribute(name, type, access)
 {}
 
 UMLFieldData::UMLFieldData(const UMLFieldData &original) :
-    UMLIdentifier(original.name, original.type, original.access)
+    UMLAttribute(original.name, original.type, original.access)
 {}
 
 QString UMLFieldData::toString() const

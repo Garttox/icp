@@ -10,10 +10,14 @@
 class UMLInstanceData
 {
 public:
-    UMLInstanceData(QString name, UMLClassData *className, int posX);
+    UMLInstanceData(QString name, UMLClassData *umlClassData, int posX);
+    QString getDisplayName() const;
+    QString getName() const;
+    void setName(QString name);
+    UMLClassData* getClassData();
 private:
     QString name;
-    UMLClassData *className;
+    UMLClassData *umlClassData;
     int posX;
 };
 

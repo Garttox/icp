@@ -3,9 +3,9 @@
 
 #include <QObject>
 #include <QJsonObject>
-#include "umlidentifier.h"
+#include "umlattribute.h"
 
-class UMLFieldData : public UMLIdentifier
+class UMLFieldData : public UMLAttribute
 {
     Q_OBJECT
 public:

@@ -11,7 +11,7 @@
 #include "umldata.h"
 
 UMLData::UMLData() :
-    classes(new QSet<UMLClassData *>()), relations(new QSet<UMLRelationData *>)
+    classes(new QSet<UMLClassData *>()), relations(new QSet<UMLRelationData *>), sequences(new QSet<UMLSequenceData *>)
 {}
 
 UMLData::~UMLData()
@@ -30,18 +30,19 @@ bool UMLData::loadData(QJsonObject json)
     // read classes
     foreach (auto clsEl, json["classes"].toArray())
     {
-        if (clsEl.toObject()["name"].isNull() || clsEl.toObject()["type"].isNull() ||
-                clsEl.toObject()["posX"].isNull() || clsEl.toObject()["posY"].isNull())
+        QJsonObject object = clsEl.toObject();
+        if (object["name"].isNull() || object["type"].isNull() ||
+                object["posX"].isNull() || object["posY"].isNull())
         {
             return false;
         }
 
-        QString name = clsEl.toObject()["name"].toString();
-        UMLClassType type = UMLClassType(clsEl.toObject()["type"].toString());
-        int posX = clsEl.toObject()["posX"].toInt();
-        int posY = clsEl.toObject()["posY"].toInt();
+        QString name = object["name"].toString();
+        UMLClassType type = UMLClassType(object["type"].toString());
+        int posX = object["posX"].toInt();
+        int posY = object["posY"].toInt();
         UMLClassData *classData = new UMLClassData(name, type, posX, posY);
-        bool loadedSuccesfully = classData->loadData(clsEl.toObject());
+        bool loadedSuccesfully = classData->loadData(object);
         if (!loadedSuccesfully)
         {
             delete classData;
@@ -67,6 +68,25 @@ bool UMLData::loadData(QJsonObject json)
         int destinationAnchorId = object["destinationAnchorId"].toInt();
         UMLRelationData *relation = new UMLRelationData(source, destination, type, sourceAnchorId, destinationAnchorId);
         addRelation(relation);
+    }
+
+    //read sequences
+    foreach (auto sequenceEl, json["sequences"].toArray())
+    {
+        QJsonObject object = sequenceEl.toObject();
+        if (object["name"].isNull())
+        {
+            return false;
+        }
+        QString name = object["name"].toString();
+        UMLSequenceData *sequenceData = new UMLSequenceData(name);
+        bool loadedSuccesfully = sequenceData->loadData(object);
+        if (!loadedSuccesfully)
+        {
+            delete sequenceData;
+            return false;
+        }
+        addSequence(sequenceData);
     }
     return true;
 }
@@ -123,9 +143,11 @@ void UMLData::removeRelation(UMLRelationData *umlRelationData)
     }
 }
 
-void UMLData::addSequence(UMLSequenceData* umlSequenceData)
+void UMLData::addSequence(UMLSequenceData *umlSequenceData)
 {
     sequences->insert(umlSequenceData);
+    //connect(umlSequenceData, &UMLSequenceData::model)
+    emit sequenceModelAdded(umlSequenceData);
 }
 
 void UMLData::removeSequence(UMLSequenceData* umlSequenceData)

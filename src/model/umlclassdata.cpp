@@ -81,14 +81,14 @@ bool UMLClassData::loadData(QJsonObject jsonClassData)
     // read fields
     foreach (auto fieldEl, jsonClassData["fields"].toArray())
     {
-        if (fieldEl.toObject()["name"].isNull() || fieldEl.toObject()["type"].isNull() ||
-                fieldEl.toObject()["access"].isNull())
+        QJsonObject object = fieldEl.toObject();
+        if (object["name"].isNull() || object["type"].isNull() || object["access"].isNull())
         {
             return false;
         }
-        QString name = fieldEl.toObject()["name"].toString();
-        QString type = fieldEl.toObject()["type"].toString();
-        UMLAccessType access = UMLAccessType(fieldEl.toObject()["access"].toString());
+        QString name = object["name"].toString();
+        QString type = object["type"].toString();
+        UMLAccessType access = UMLAccessType(object["access"].toString());
         UMLFieldData *field = new UMLFieldData(name, type, access);
         addField(field);
     }
@@ -170,7 +170,7 @@ void UMLClassData::removeMethodAt(int index)
 
 bool UMLClassData::haveIdentifierWithSignature(QString signature) const
 {
-    foreach (UMLIdentifier *identifier, getIdentifiers())
+    foreach (UMLAttribute *identifier, getIdentifiers())
     {
         if (identifier->toString() == signature)
         {
@@ -207,9 +207,9 @@ QList<UMLFieldData *> UMLClassData::getFields() const
     return fields;
 }
 
-QSet<UMLIdentifier *> UMLClassData::getIdentifiers() const
+QSet<UMLAttribute *> UMLClassData::getIdentifiers() const
 {
-    QSet<UMLIdentifier *> identifiers;
+    QSet<UMLAttribute *> identifiers;
     foreach (UMLFieldData *field, fields)
     {
         identifiers.insert(field);
@@ -229,6 +229,16 @@ UMLFieldData* UMLClassData::getFieldAt(int index) const
 UMLMethodData* UMLClassData::getMethodAt(int index) const
 {
     return methods.at(index);
+}
+
+UMLMethodData *UMLClassData::findMethodByName(QString methodName) const
+{
+    foreach (UMLMethodData *method, methods)
+    {
+        if (method->getName() == methodName)
+            return method;
+    }
+    return nullptr;
 }
 
 int UMLClassData::getPosX() const

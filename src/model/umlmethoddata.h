@@ -4,10 +4,10 @@
 #include <QVector>
 #include <QObject>
 
-#include "umlidentifier.h"
+#include "umlattribute.h"
 #include "umlmethodparameterdata.h"
 
-class UMLMethodData : public UMLIdentifier
+class UMLMethodData : public UMLAttribute
 {
     Q_OBJECT
 public:

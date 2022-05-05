@@ -1,17 +1,17 @@
-#ifndef UMLIDENTIFIER_H
-#define UMLIDENTIFIER_H
+#ifndef UMLATTRIBUTEH_H
+#define UMLATTRIBUTEH_H
 
 #include <QString>
 #include <QObject>
 
 #include "umlaccesstype.h"
 
-class UMLIdentifier : public QObject
+class UMLAttribute : public QObject
 {
     Q_OBJECT
 public:
-    UMLIdentifier(QString name, QString type, UMLAccessType access);
-    ~UMLIdentifier();
+    UMLAttribute(QString name, QString type, UMLAccessType access);
+    ~UMLAttribute();
     QString getName() const;
     QString getType() const;
     UMLAccessType getAccess() const;
@@ -24,7 +24,7 @@ protected:
     QString type;
     UMLAccessType access;
 signals:
-    void modelChanged(UMLIdentifier* identifier);
+    void modelChanged(UMLAttribute* identifier);
 };
 
-#endif // UMLIDENTIFIER_H
+#endif // UMLATTRIBUTEH_H

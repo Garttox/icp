@@ -282,12 +282,12 @@ void UMLClass::actualizeRealizedIdentifiers()
 {
     realizedIdentifiers.clear();
     QSet<UMLRelationData *> relations = DataProvider::getInstance().getUMLData()->getRelationsWithSourceClass(umlClassData);
-    QSet<UMLIdentifier *> ownIdentifiers = umlClassData->getIdentifiers();
+    QSet<UMLAttribute *> ownIdentifiers = umlClassData->getIdentifiers();
     foreach (UMLRelationData *relation, relations)
     {
         if (relation->getType() == UMLRelationType::GENERALISATION)
         {
-            foreach (UMLIdentifier *identifier, ownIdentifiers)
+            foreach (UMLAttribute *identifier, ownIdentifiers)
             {
                 QString signature = identifier->toString();
                 if (relation->getDestination()->haveIdentifierWithSignature(signature))

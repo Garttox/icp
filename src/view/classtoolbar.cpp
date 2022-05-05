@@ -8,6 +8,7 @@
 #include <QIcon>
 #include <QAction>
 #include <QDebug>
+#include <view/sequence/newinstancedialog.h>
 #include "classtoolbar.h"
 #include "classes/newclassdialog.h"
 #include "ui_newclassdialog.h"
@@ -22,6 +23,7 @@ ClassToolBar::ClassToolBar(ClassDiagramView *view, const QGraphicsScene *scene) 
     addAction(addClassAction);
     addAction(addInterfaceAction);
     addAction(removeSelectedAction);
+    addAction(addInstanceAction);
     addAction(undoAction);
 }
 
@@ -52,6 +54,12 @@ void ClassToolBar::createActions()
     undoAction->setToolTip("Undo (Ctrl+Z)");
     undoAction->setShortcut(tr("Ctrl+Z"));
     connect(undoAction, SIGNAL(triggered()), this, SLOT(undo()));
+
+    addInstanceAction = new QAction(this);
+    addInstanceAction->setIcon(QIcon("../res/addi.png"));
+    addInstanceAction->setToolTip("Add instance (Ctrl+L)");
+    addInstanceAction->setShortcut(QString("Ctrl+L"));
+    connect(addInstanceAction, SIGNAL(triggered()), this, SLOT(addInstance()));
 }
 
 QPoint ClassToolBar::getViewportCenter()
@@ -109,3 +117,7 @@ void ClassToolBar::undo()
     // TODO
 }
 
+void ClassToolBar::addInstance()
+{
+
+}

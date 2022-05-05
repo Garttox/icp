@@ -30,6 +30,7 @@ private:
     QAction *fileLoad;
     QAction *fileSave;
     QAction *imageExport;
+    QAction *addSequenceTab;
 
     void createActions();
     void createMainMenu();
@@ -42,6 +43,9 @@ private slots:
     void loadFile();
     void saveFile();
     void exportImage();
+    void addSequenceDiagram(UMLSequenceData *umlSequenceData);
+    void removeSequenceDiagram(int tabIndex);
+    void addSequenceDiagramDialog();
 
 };
 

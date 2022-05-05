@@ -45,6 +45,7 @@ private:
     QAction *addInterfaceAction;
     QAction *removeSelectedAction;
     QAction *undoAction;
+    QAction *addInstanceAction;
     const ClassDiagramView *view;
     const QGraphicsScene *scene;
     static constexpr qreal ICON_SIZE = 20;
@@ -54,7 +55,7 @@ private slots:
     void addInterface();
     void removeSelected();
     void undo();
-
+    void addInstance();
 };
 
 #endif // CLASSTOOLBAR_H

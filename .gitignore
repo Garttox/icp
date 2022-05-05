@@ -5,6 +5,7 @@ src/release
 src/Makefile*
 src/icp.pro.user
 src/icp.pro.user*
+src/object_script.icp.*
 build*
 
 # ignore docs

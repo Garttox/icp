@@ -130,7 +130,7 @@
         },
         {
           "name": "InstanceD",
-          "className": "ClassD",
+          "className": "ClassC",
           "posX": 577
         }
       ],
@@ -140,7 +140,8 @@
           "method": "method1",
           "async": true,
           "duration": 140,
-          "atTime": 50
+          "atTime": 50,
+          "type": "Message"
         },
         {
           "source": "InstanceA",
@@ -148,14 +149,16 @@
           "method": "method3",
           "async": false,
           "duration": 70,
-          "atTime": 80
+          "atTime": 80,
+          "type": "Message"
         },
         {
           "destination": "InstanceA",
           "method": "method2",
           "async": false,
           "duration": 100,
-          "atTime": 240
+          "atTime": 240,
+          "type": "Message"
         },
         {
           "source": "InstanceD",
@@ -163,7 +166,8 @@
           "method": "method3",
           "async": false,
           "duration": 46,
-          "atTime": 244
+          "atTime": 244,
+          "type": "Message"
         },
         {
           "source": "InstanceA",
@@ -171,7 +175,8 @@
           "method": "method4",
           "async": false,
           "duration": 100,
-          "atTime": 416
+          "atTime": 416,
+          "type": "Message"
         },
         {
           "source": "InstanceB",
@@ -179,7 +184,8 @@
           "method": "method4",
           "async": false,
           "duration": 49,
-          "atTime": 88
+          "atTime": 88,
+          "type": "Message"   
         }
       ]
     }

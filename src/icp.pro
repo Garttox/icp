@@ -16,12 +16,13 @@ SOURCES += main.cpp\
         app.cpp \
         model/dataprovider.cpp \
         model/umlaccesstype.cpp \
+        model/umlattribute.cpp \
         model/umlcalldata.cpp \
+        model/umlcalltype.cpp \
         model/umlclassdata.cpp \
         model/umlclasstype.cpp \
         model/umldata.cpp \
         model/umlfielddata.cpp \
-        model/umlidentifier.cpp \
         model/umlinstancedata.cpp \
         model/umlmethoddata.cpp \
         model/umlmethodparameterdata.cpp \
@@ -40,17 +41,22 @@ SOURCES += main.cpp\
         view/classes/umlrelation.cpp \
         view/classes/umlrelationanchor.cpp \
         view/classtoolbar.cpp \
-        view/sequence/umlinstance.cpp
+        view/sequence/newinstancedialog.cpp \
+        view/sequence/newsequencedialog.cpp \
+        view/sequence/umlinstance.cpp \
+        view/sequence/umlinstancelifeline.cpp \
+        view/sequencediagramview.cpp
 
 HEADERS  += app.h \
     model/dataprovider.h \
     model/umlaccesstype.h \
+    model/umlattribute.h \
     model/umlcalldata.h \
+    model/umlcalltype.h \
     model/umlclassdata.h \
     model/umlclasstype.h \
     model/umldata.h \
     model/umlfielddata.h \
-    model/umlidentifier.h \
     model/umlinstancedata.h \
     model/umlmethoddata.h \
     model/umlmethodparameterdata.h \
@@ -69,14 +75,20 @@ HEADERS  += app.h \
     view/classes/umlrelation.h \
     view/classes/umlrelationanchor.h \
     view/classtoolbar.h \
-    view/sequence/umlinstance.h
+    view/sequence/newinstancedialog.h \
+    view/sequence/newsequencedialog.h \
+    view/sequence/umlinstance.h \
+    view/sequence/umlinstancelifeline.h \
+    view/sequencediagramview.h
 
 FORMS    += \
     view/classes/editclassdialog.ui \
     view/classes/editfielddialog.ui \
     view/classes/editmethoddialog.ui \
     view/classes/editrelationdialog.ui \
-    view/classes/newclassdialog.ui
+    view/classes/newclassdialog.ui \
+    view/sequence/newinstancedialog.ui \
+    view/sequence/newsequencedialog.ui
 
 CONFIG += c++17
 
