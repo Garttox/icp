@@ -10,7 +10,6 @@ public:
     AddRelationCommand(UMLRelationData *const umlRelationData);
 
 private:
-    virtual ~AddRelationCommand();
     virtual void process() override;
     virtual void undo() override;
 

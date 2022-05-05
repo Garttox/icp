@@ -6,9 +6,6 @@ AddClassCommand::AddClassCommand(UMLClassData *umlClassData) :
     umlClassData(umlClassData)
 {}
 
-AddClassCommand::~AddClassCommand()
-{}
-
 void AddClassCommand::process()
 {
     UMLData *umlData = DataProvider::getInstance().getUMLData();

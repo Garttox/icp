@@ -13,6 +13,7 @@
 #include <QDebug>
 #include "command/commandstack.h"
 #include "command/classes/addrelationcommand.h"
+#include "command/classes/moveclasscommand.h"
 #include "model/dataprovider.h"
 #include "umlclass.h"
 #include "editclassdialog.h"
@@ -22,8 +23,10 @@
 
 UMLClass::UMLClass(UMLClassData *umlClassData) :
     QObject(),
+    QGraphicsItem(),
     umlClassData(umlClassData)
 {
+    qDebug("CONSTRUCT");
     setFlags(ItemIsMovable | ItemIsSelectable | ItemSendsGeometryChanges);
     setPos(umlClassData->getPosX(), umlClassData->getPosY());
     addRelationAnchors();
@@ -67,10 +70,14 @@ int UMLClass::getAnchorId(UMLRelationAnchor *anchor)
 
 // - - - - - private slots  - - - - -
 
-void UMLClass::onClassModelEdited(UMLClassData */*umlClassData*/)
+void UMLClass::onClassModelEdited(UMLClassData *umlClassData)
 {
+    if (correspondsTo(umlClassData))
+    {
+        setPos(umlClassData->getPosX(), umlClassData->getPosY());
+        resetAnchorsPositions();
+    }
     actualizeRealizedIdentifiers();
-    resetAnchorsPositions();
     update();
 }
 
@@ -126,6 +133,13 @@ void UMLClass::mouseDoubleClickEvent(QGraphicsSceneMouseEvent */*event*/)
     resetAnchorsPositions();
 }
 
+void UMLClass::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+    QPoint position = this->pos().toPoint();
+    CommandStack::getInstance().push(new MoveClassCommand(umlClassData, position));
+    QGraphicsItem::mouseReleaseEvent(event);
+}
+
 QVariant UMLClass::itemChange(GraphicsItemChange change, const QVariant &value)
 {
     switch (change)
@@ -133,10 +147,6 @@ QVariant UMLClass::itemChange(GraphicsItemChange change, const QVariant &value)
         case QGraphicsItem::ItemSelectedHasChanged:
             setZValue(isSelected() ? 1 : 0);
             setAnchorsVisible(isSelected());
-            break;
-        case QGraphicsItem::ItemPositionHasChanged:
-            umlClassData->setPosX(this->pos().x());
-            umlClassData->setPosY(this->pos().y());
             break;
         default:
             break;  // Keeps Qt Creator without warnings

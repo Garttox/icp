@@ -6,9 +6,6 @@ AddRelationCommand::AddRelationCommand(UMLRelationData * const umlRelationData) 
     umlRelationData(umlRelationData)
 {}
 
-AddRelationCommand::~AddRelationCommand()
-{}
-
 // - - - - - private - - - - -
 
 void AddRelationCommand::process()

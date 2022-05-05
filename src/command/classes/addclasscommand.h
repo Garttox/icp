@@ -10,7 +10,6 @@ public:
     AddClassCommand(UMLClassData *umlClassData);
 
 private:
-    virtual ~AddClassCommand();
     virtual void process() override;
     virtual void undo() override;
 

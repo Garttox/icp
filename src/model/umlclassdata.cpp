@@ -69,14 +69,11 @@ void UMLClassData::setName(QString name)
     emit modelChanged(this);
 }
 
-void UMLClassData::setPosX(int x)
+void UMLClassData::setPosition(int x, int y)
 {
     this->posX = x;
-}
-
-void UMLClassData::setPosY(int y)
-{
     this->posY = y;
+    emit modelChanged(this);
 }
 
 bool UMLClassData::loadData(QJsonObject jsonClassData)
