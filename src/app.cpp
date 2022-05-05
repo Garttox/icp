@@ -56,8 +56,8 @@ App::App(QWidget *parent) :
     tabWidget->setCornerWidget(addTabButton, Qt::TopRightCorner);
     setCentralWidget(tabWidget);
 
-    connect(tabWidget, SIGNAL(tabCloseRequested(int)),this, SLOT(removeSequenceDiagram(int)));
-    connect(umlData, SIGNAL(sequenceModelAdded(UMLSequenceData*)), this, SLOT(addSequenceDiagram(UMLSequenceData*)));
+    connect(tabWidget, &QTabWidget::tabCloseRequested,this, &App::removeSequenceDiagram);
+    connect(umlData, &UMLData::sequenceModelAdded, this, &App::addSequenceDiagram);
 }
 
 //  - - - - - private  - - - - -
@@ -66,23 +66,23 @@ void App::createActions()
 {
     fileLoad = new QAction("Load", this);
     fileLoad->setShortcut(QString("Ctrl+L"));
-    connect(fileLoad, SIGNAL(triggered()), this, SLOT(loadFile()));
+    connect(fileLoad, &QAction::triggered, this, &App::loadFile);
 
     fileSave = new QAction("Save", this);
     fileSave->setShortcut(QString("Ctrl+S"));
-    connect(fileSave, SIGNAL(triggered()), this, SLOT(saveFile()));
+    connect(fileSave, &QAction::triggered, this, &App::saveFile);
 
     imageExport = new QAction("Export", this);
     imageExport->setShortcut(QString("Ctrl+E"));
-    connect(imageExport, SIGNAL(triggered()), this, SLOT(exportImage()));
+    connect(imageExport, &QAction::triggered, this, &App::exportImage);
 
     undoAction = new QAction("Undo", this);
     undoAction->setShortcut(QString("Ctrl+Z"));
-    connect(undoAction, SIGNAL(triggered()), this, SLOT(undo()));
+    connect(undoAction, &QAction::triggered, this, &App::undo);
 
     addSequenceTab = new QAction("Add Sequence", this);
     addSequenceTab->setShortcut(QString("Ctrl+D"));
-    connect(addSequenceTab, SIGNAL(triggered()), this, SLOT(addSequenceDiagramDialog()));
+    connect(addSequenceTab, &QAction::triggered, this, &App::addSequenceDiagramDialog);
 }
 
 void App::createMainMenu()

@@ -34,25 +34,25 @@ void ClassToolBar::createActions()
     addClassAction->setIcon(QIcon("../res/add.png"));
     addClassAction->setToolTip("Add class (Ctrl+N)");
     addClassAction->setShortcut(QString("Ctrl+N"));
-    connect(addClassAction, SIGNAL(triggered()), this, SLOT(addClass()));
+    connect(addClassAction, &QAction::triggered, this, &ClassToolBar::addClass);
 
     addInterfaceAction = new QAction(this);
     addInterfaceAction->setIcon(QIcon("../res/addi.png"));
     addInterfaceAction->setToolTip("Add interface (Ctrl+M)");
     addInterfaceAction->setShortcut(QString("Ctrl+M"));
-    connect(addInterfaceAction, SIGNAL(triggered()), this, SLOT(addInterface()));
+    connect(addInterfaceAction, &QAction::triggered, this, &ClassToolBar::addInterface);
 
     removeSelectedAction = new QAction(this);
     removeSelectedAction->setIcon(QIcon("../res/remove.png"));
     removeSelectedAction->setToolTip("Remove selected (Delete)");
     removeSelectedAction->setShortcut(Qt::Key_Delete);
-    connect(removeSelectedAction, SIGNAL(triggered()), this, SLOT(removeSelected()));
+    connect(removeSelectedAction, &QAction::triggered, this, &ClassToolBar::removeSelected);
 
     addInstanceAction = new QAction(this);
     addInstanceAction->setIcon(QIcon("../res/addi.png"));
     addInstanceAction->setToolTip("Add instance (Ctrl+L)");
     addInstanceAction->setShortcut(QString("Ctrl+L"));
-    connect(addInstanceAction, SIGNAL(triggered()), this, SLOT(addInstance()));
+    connect(addInstanceAction, &QAction::triggered, this, &ClassToolBar::addInstance);
 }
 
 QPoint ClassToolBar::getViewportCenter()
