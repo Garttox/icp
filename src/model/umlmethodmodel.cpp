@@ -1,29 +1,29 @@
 #include <QJsonObject>
 #include <QJsonArray>
 
-#include "umlmethoddata.h"
+#include "umlmethodmodel.h"
 
-UMLMethodData::UMLMethodData(QString name, QString type, UMLAccessType access) :
+UMLMethodModel::UMLMethodModel(QString name, QString type, UMLAccessType access) :
     UMLAttribute(name, type, access)
 {}
 
-UMLMethodData::UMLMethodData(const UMLMethodData &original) :
+UMLMethodModel::UMLMethodModel(const UMLMethodModel &original) :
     UMLAttribute(original.name, original.type, original.access)
 {
-    foreach(UMLMethodParameterData *parameter, original.parameters)
+    foreach(UMLMethodParameterModel *parameter, original.parameters)
     {
         QString name = parameter->getName();
         QString type = parameter->getType();
-        this->parameters.append(new UMLMethodParameterData(name, type));
+        this->parameters.append(new UMLMethodParameterModel(name, type));
     }
 }
 
-UMLMethodData::~UMLMethodData()
+UMLMethodModel::~UMLMethodModel()
 {
     qDeleteAll(parameters);
 }
 
-bool UMLMethodData::loadData(QJsonObject jsonMethodData)
+bool UMLMethodModel::loadData(QJsonObject jsonMethodData)
 {
     foreach (auto parameterEl, jsonMethodData["parameters"].toArray())
     {
@@ -31,13 +31,13 @@ bool UMLMethodData::loadData(QJsonObject jsonMethodData)
             return false;
         QString name = parameterEl.toObject()["name"].toString();
         QString type = parameterEl.toObject()["type"].toString();
-        UMLMethodParameterData *parameter = new UMLMethodParameterData(name, type);
+        UMLMethodParameterModel *parameter = new UMLMethodParameterModel(name, type);
         addParameter(parameter);
     }
     return true;
 }
 
-QJsonObject UMLMethodData::getSaveData()
+QJsonObject UMLMethodModel::getSaveData()
 {
     QJsonObject object;
     QJsonArray parametersData;
@@ -55,17 +55,17 @@ QJsonObject UMLMethodData::getSaveData()
     return object;
 }
 
-void UMLMethodData::addParameter(UMLMethodParameterData *parameter)
+void UMLMethodModel::addParameter(UMLMethodParameterModel *parameter)
 {
     parameters.append(parameter);
-    connect(parameter, &UMLMethodParameterData::modelChanged, this, &UMLMethodData::parameterModelChanged);
+    connect(parameter, &UMLMethodParameterModel::modelChanged, this, &UMLMethodModel::parameterModelChanged);
     emit modelChanged(this);
 }
 
-QString UMLMethodData::toString() const
+QString UMLMethodModel::toString() const
 {
     QStringList paramList;
-    foreach(UMLMethodParameterData *parameter, parameters)
+    foreach(UMLMethodParameterModel *parameter, parameters)
     {
         paramList.append(parameter->toString());
     }
@@ -73,12 +73,12 @@ QString UMLMethodData::toString() const
     return QString("%1 %2(%3): %4").arg(access.toAnnotationString(), name, paramList.join(", "), type);
 }
 
-QList<UMLMethodParameterData *> UMLMethodData::getParameters() const
+QList<UMLMethodParameterModel *> UMLMethodModel::getParameters() const
 {
     return this->parameters;
 }
 
-void UMLMethodData::clearParameters()
+void UMLMethodModel::clearParameters()
 {
     parameters.clear();
     emit modelChanged(this);
@@ -86,7 +86,7 @@ void UMLMethodData::clearParameters()
 
 // Slots
 
-void UMLMethodData::parameterModelChanged()
+void UMLMethodModel::parameterModelChanged()
 {
     emit modelChanged(this);
 }

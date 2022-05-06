@@ -1,15 +1,15 @@
 #include "moveclasscommand.h"
 #include "command/commandstack.h"
 
-MoveClassCommand::MoveClassCommand(UMLClassData *umlClassData, QPoint newPosition) :
+MoveClassCommand::MoveClassCommand(UMLClassModel *umlClassModel, QPoint newPosition) :
     newPosition(newPosition),
-    umlClassData(umlClassData)
+    umlClassModel(umlClassModel)
 {}
 
 void MoveClassCommand::process()
 {
-    oldPosition = QPoint(umlClassData->getPosX(), umlClassData->getPosY());
-    umlClassData->setPosition(newPosition.x(), newPosition.y());
+    oldPosition = QPoint(umlClassModel->getPosX(), umlClassModel->getPosY());
+    umlClassModel->setPosition(newPosition.x(), newPosition.y());
 
     // If item was not actually moved, then do not store this command
     if (oldPosition == newPosition)
@@ -20,5 +20,5 @@ void MoveClassCommand::process()
 
 void MoveClassCommand::undo()
 {
-    umlClassData->setPosition(oldPosition.x(), oldPosition.y());
+    umlClassModel->setPosition(oldPosition.x(), oldPosition.y());
 }

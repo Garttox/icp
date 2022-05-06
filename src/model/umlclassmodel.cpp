@@ -1,82 +1,80 @@
 /**
  * ICP - UML Application
  * @date 25/4/2022
- * @file umlclassdata.cpp
+ * @file umlclassmodel.cpp
  * @authors Michal Trlica (xtrlic02), Martin Bednář (xbedna77)
  */
 
 #include <QJsonObject>
 #include <QJsonArray>
 
-#include "umlclassdata.h"
+#include "umlclassmodel.h"
 
 #include <QDebug>
 
-UMLClassData::UMLClassData(QString name, UMLClassType type, int posX, int posY) :
-    name(name), type(type), posX(posX), posY(posY), fields(QList<UMLFieldData*>()), methods(QList<UMLMethodData*>())
+UMLClassModel::UMLClassModel(QString name, UMLClassType type, int posX, int posY) :
+    name(name), type(type), posX(posX), posY(posY), fields(QList<UMLFieldModel*>()), methods(QList<UMLMethodModel*>())
 {}
 
-UMLClassData::UMLClassData(const UMLClassData &original) :
+UMLClassModel::UMLClassModel(const UMLClassModel &original) :
     QObject(),
     name(original.name), type(original.type), posX(original.posX), posY(original.posY)
 {
-    foreach(UMLFieldData *field, original.fields)
+    foreach(UMLFieldModel *field, original.fields)
     {
-        UMLFieldData *copy = new UMLFieldData(*field);
+        UMLFieldModel *copy = new UMLFieldModel(*field);
         this->fields.append(copy);
     }
-    foreach(UMLMethodData *method, original.methods)
+    foreach(UMLMethodModel *method, original.methods)
     {
-        UMLMethodData *copy = new UMLMethodData(*method);
+        UMLMethodModel *copy = new UMLMethodModel(*method);
         this->methods.append(copy);
     }
 }
 
-UMLClassData::~UMLClassData()
+UMLClassModel::~UMLClassModel()
 {
     qDeleteAll(fields.begin(), fields.end());
     qDeleteAll(methods.begin(), methods.end());
 }
 
-void UMLClassData::setData(UMLClassData &data)
+void UMLClassModel::setModel(UMLClassModel &umlClassModel)
 {
-    // delete current data
     qDeleteAll(fields.begin(), fields.end());
     qDeleteAll(methods.begin(), methods.end());
     fields.clear();
     methods.clear();
 
-    // set new data
-    this->name = data.name;
-    this->type = data.type;
-    foreach(UMLFieldData *field, data.fields)
+    this->name = umlClassModel.name;
+    this->type = umlClassModel.type;
+    foreach(UMLFieldModel *field, umlClassModel.fields)
     {
-        UMLFieldData *copy = new UMLFieldData(*field);
+        UMLFieldModel *copy = new UMLFieldModel(*field);
         this->fields.append(copy);
     }
-    foreach(UMLMethodData *method, data.methods)
+    foreach(UMLMethodModel *method, umlClassModel.methods)
     {
-        UMLMethodData *copy = new UMLMethodData(*method);
+        UMLMethodModel *copy = new UMLMethodModel(*method);
         this->methods.append(copy);
     }
 
     emit modelChanged(this);
 }
 
-void UMLClassData::setName(QString name)
+void UMLClassModel::setName(QString name)
 {
     this->name = name;
     emit modelChanged(this);
 }
 
-void UMLClassData::setPosition(int x, int y)
+void UMLClassModel::setPosition(int x, int y)
 {
     this->posX = x;
     this->posY = y;
     emit modelChanged(this);
 }
 
-bool UMLClassData::loadData(QJsonObject jsonClassData)
+bool UMLClassModel::loadData(QJsonObject jsonClassData)
 {
     // read fields
     foreach (auto fieldEl, jsonClassData["fields"].toArray())
@@ -89,7 +87,7 @@ bool UMLClassData::loadData(QJsonObject jsonClassData)
         QString name = object["name"].toString();
         QString type = object["type"].toString();
         UMLAccessType access = UMLAccessType(object["access"].toString());
-        UMLFieldData *field = new UMLFieldData(name, type, access);
+        UMLFieldModel *field = new UMLFieldModel(name, type, access);
         addField(field);
     }
 
@@ -104,7 +102,7 @@ bool UMLClassData::loadData(QJsonObject jsonClassData)
         QString name = methodEl.toObject()["name"].toString();
         QString type = methodEl.toObject()["type"].toString();
         UMLAccessType access = UMLAccessType(methodEl.toObject()["access"].toString());
-        UMLMethodData *method = new UMLMethodData(name, type, access);
+        UMLMethodModel *method = new UMLMethodModel(name, type, access);
         bool loadedSuccesfully = method->loadData(methodEl.toObject());
         if (!loadedSuccesfully)
             return false;
@@ -114,7 +112,7 @@ bool UMLClassData::loadData(QJsonObject jsonClassData)
     return true;
 }
 
-QJsonObject UMLClassData::getSaveData()
+QJsonObject UMLClassModel::getSaveData()
 {
     QJsonObject object;
     QJsonArray fieldsData;
@@ -139,36 +137,36 @@ QJsonObject UMLClassData::getSaveData()
     return object;
 }
 
-void UMLClassData::addMethod(UMLMethodData *method)
+void UMLClassModel::addMethod(UMLMethodModel *method)
 {
 
     methods.append(method);
-    connect(method, &UMLMethodData::modelChanged, this, &UMLClassData::methodModelChanged);
+    connect(method, &UMLMethodModel::modelChanged, this, &UMLClassModel::methodModelChanged);
     emit modelChanged(this);
 }
 
-void UMLClassData::addField(UMLFieldData *field)
+void UMLClassModel::addField(UMLFieldModel *field)
 {
     fields.append(field);
-    connect(field, &UMLFieldData::modelChanged, this, &UMLClassData::fieldModelChanged);
+    connect(field, &UMLFieldModel::modelChanged, this, &UMLClassModel::fieldModelChanged);
     emit modelChanged(this);
 }
 
-void UMLClassData::removeFieldAt(int index)
+void UMLClassModel::removeFieldAt(int index)
 {
-    UMLFieldData *umlFieldData = fields.takeAt(index);
+    UMLFieldModel *umlFieldModel = fields.takeAt(index);
     emit modelChanged(this);
-    delete umlFieldData;
+    delete umlFieldModel;
 }
 
-void UMLClassData::removeMethodAt(int index)
+void UMLClassModel::removeMethodAt(int index)
 {
-    UMLMethodData *umlMethodData = methods.takeAt(index);
+    UMLMethodModel *umlMethodModel = methods.takeAt(index);
     emit modelChanged(this);
-    delete umlMethodData;
+    delete umlMethodModel;
 }
 
-bool UMLClassData::haveIdentifierWithSignature(QString signature) const
+bool UMLClassModel::haveIdentifierWithSignature(QString signature) const
 {
     foreach (UMLAttribute *identifier, getIdentifiers())
     {
@@ -180,60 +178,60 @@ bool UMLClassData::haveIdentifierWithSignature(QString signature) const
     return false;
 }
 
-QString UMLClassData::getName() const
+QString UMLClassModel::getName() const
 {
     return name;
 }
 
-UMLClassType UMLClassData::getType() const
+UMLClassType UMLClassModel::getType() const
 {
     return type;
 }
 
-QString UMLClassData::getDisplayName() const
+QString UMLClassModel::getDisplayName() const
 {
     if (type == UMLClassType::INTERFACE)
         return QString("%1 <<%2>>").arg(name, "interface");
     return name;
 }
 
-QList<UMLMethodData *> UMLClassData::getMethods() const
+QList<UMLMethodModel *> UMLClassModel::getMethods() const
 {
     return methods;
 }
 
-QList<UMLFieldData *> UMLClassData::getFields() const
+QList<UMLFieldModel *> UMLClassModel::getFields() const
 {
     return fields;
 }
 
-QSet<UMLAttribute *> UMLClassData::getIdentifiers() const
+QSet<UMLAttribute *> UMLClassModel::getIdentifiers() const
 {
     QSet<UMLAttribute *> identifiers;
-    foreach (UMLFieldData *field, fields)
+    foreach (UMLFieldModel *field, fields)
     {
         identifiers.insert(field);
     }
-    foreach (UMLMethodData *method, methods)
+    foreach (UMLMethodModel *method, methods)
     {
         identifiers.insert(method);
     }
     return identifiers;
 }
 
-UMLFieldData* UMLClassData::getFieldAt(int index) const
+UMLFieldModel* UMLClassModel::getFieldAt(int index) const
 {
     return fields.at(index);
 }
 
-UMLMethodData* UMLClassData::getMethodAt(int index) const
+UMLMethodModel* UMLClassModel::getMethodAt(int index) const
 {
     return methods.at(index);
 }
 
-UMLMethodData *UMLClassData::findMethodByName(QString methodName) const
+UMLMethodModel *UMLClassModel::findMethodByName(QString methodName) const
 {
-    foreach (UMLMethodData *method, methods)
+    foreach (UMLMethodModel *method, methods)
     {
         if (method->getName() == methodName)
             return method;
@@ -241,24 +239,24 @@ UMLMethodData *UMLClassData::findMethodByName(QString methodName) const
     return nullptr;
 }
 
-int UMLClassData::getPosX() const
+int UMLClassModel::getPosX() const
 {
     return posX;
 }
 
-int UMLClassData::getPosY() const
+int UMLClassModel::getPosY() const
 {
     return posY;
 }
 
 // Slots
 
-void UMLClassData::fieldModelChanged()
+void UMLClassModel::fieldModelChanged()
 {
     emit modelChanged(this);
 }
 
-void UMLClassData::methodModelChanged()
+void UMLClassModel::methodModelChanged()
 {
     emit modelChanged(this);
 }

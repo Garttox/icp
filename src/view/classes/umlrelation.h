@@ -10,7 +10,7 @@
 
 #include <QGraphicsLineItem>
 #include <QPainter>
-#include "model/umlrelationdata.h"
+#include "model/umlrelationmodel.h"
 #include "umlrelationanchor.h"
 
 class UMLClass;
@@ -23,23 +23,23 @@ class UMLRelation : public QObject, public QGraphicsLineItem
 {
     Q_OBJECT
 public:
-    UMLRelation(UMLRelationData* relation, UMLRelationAnchor* sourceAnchor, UMLRelationAnchor* destinationAnchor);
+    UMLRelation(UMLRelationModel* relation, UMLRelationAnchor* sourceAnchor, UMLRelationAnchor* destinationAnchor);
     QRectF boundingRect() const override;
     QPainterPath shape() const override;
     
     /**
-     * @brief Checks, if relation (resp. underlying UMLRelationData) is of given relation type.
+     * @brief Checks, if relation (resp. underlying UMLRelationModel) is of given relation type.
      * @param umlRelationType Type of the relation to check.
      * @return True if relation is of given type, false otherwise.
      */
     bool isOfType(UMLRelationType umlRelationType);
 
     /**
-     * @brief Checks if given UMLRelationData are being held by this object.
-     * @param umlRelationData UMLRelationData to check.
-     * @return True, if UMLRelation is displaying given UMLRelationData.
+     * @brief Checks if given UMLRelationModel are being held by this object.
+     * @param umlRelationModel UMLRelationModel to check.
+     * @return True, if UMLRelation is displaying given UMLRelationModel.
      */
-    bool correspondsTo(UMLRelationData *umlRelationData);
+    bool correspondsTo(UMLRelationModel *umlRelationModel);
 
     /**
      * @brief Checks if it's connected to given UMLClass.
@@ -63,7 +63,7 @@ private:
 
 
     QPolygonF arrowHead;
-    UMLRelationData *umlRelationData;
+    UMLRelationModel *umlRelationModel;
     const UMLRelationAnchor *sourceAnchor;
     const UMLRelationAnchor *destinationAnchor;
     static constexpr qreal ARROW_SIZE = 14;

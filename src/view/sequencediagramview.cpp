@@ -1,37 +1,37 @@
 #include "sequencediagramview.h"
 
 #include <view/classes/umlclass.h>
-#include <model/umlclassdata.h>
+#include <model/umlclassmodel.h>
 #include <model/umlclasstype.h>
 #include <QMouseEvent>
 #include <view/sequence/umlinstance.h>
 
 
 
-SequenceDiagramView::SequenceDiagramView(QWidget* parent, UMLSequenceData *umlSequenceData)
-    : QGraphicsView(parent), umlSequenceData(umlSequenceData)
+SequenceDiagramView::SequenceDiagramView(QWidget* parent, UMLSequenceModel *umlSequenceModel)
+    : QGraphicsView(parent), umlSequenceModel(umlSequenceModel)
 {
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setTransformationAnchor(QGraphicsView::NoAnchor);
 
-    connect(umlSequenceData, &UMLSequenceData::instanceModelAdded, this, &SequenceDiagramView::onInstanceModelAdded);
+    connect(umlSequenceModel, &UMLSequenceModel::instanceModelAdded, this, &SequenceDiagramView::onInstanceModelAdded);
 
     drawBackgroundTiles();
 
 }
 
-UMLSequenceData *SequenceDiagramView::getUMLSequenceData() const
+UMLSequenceModel *SequenceDiagramView::getUMLSequenceModel() const
 {
-    return this->umlSequenceData;
+    return this->umlSequenceModel;
 }
 
 // - - - - - private slots - - - - -
 
 
-void SequenceDiagramView::onInstanceModelAdded(UMLInstanceData *umlInstanceData)
+void SequenceDiagramView::onInstanceModelAdded(UMLInstanceModel *umlInstanceModel)
 {
-    addUMLInstance(umlInstanceData);
+    addUMLInstance(umlInstanceModel);
 }
 
 // - - - - - private - - - - -
@@ -47,9 +47,9 @@ void SequenceDiagramView::drawBackgroundTiles()
     setBackgroundBrush(pixmap);
 }
 
-void SequenceDiagramView::addUMLInstance(UMLInstanceData *umlInstanceData)
+void SequenceDiagramView::addUMLInstance(UMLInstanceModel *umlInstanceModel)
 {
-    UMLInstance *umlInstance = new UMLInstance(umlInstanceData);
+    UMLInstance *umlInstance = new UMLInstance(umlInstanceModel);
     scene()->addItem(umlInstance);
     qDebug() << "added";
 }

@@ -3,7 +3,7 @@
 
 #include <QDialog>
 #include "classdialog.h"
-#include "model/umlclassdata.h"
+#include "model/umlclassmodel.h"
 
 /**
  * ICP - UML Application
@@ -45,7 +45,7 @@ private:
     QString getHeaderString() const;
 
     Ui::NewClassDialog *ui;
-    UMLClassData *umlClassData;
+    UMLClassModel *umlClassModel;
 };
 
 #endif // NEWCLASSDIALOG_H

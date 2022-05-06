@@ -6,30 +6,30 @@
  */
 
 #include "editclassdialog.h"
-#include "model/dataprovider.h"
-#include "model/umldata.h"
-#include "model/umlclassdata.h"
+#include "model/modelprovider.h"
+#include "model/umlmodel.h"
+#include "model/umlclassmodel.h"
 #include "ui_editclassdialog.h"
 #include "command/commandstack.h"
 #include "command/classes/editclasscommand.h"
 
-EditClassDialog::EditClassDialog(UMLClassData *umlClassData, QWidget *parent) :
+EditClassDialog::EditClassDialog(UMLClassModel *umlClassModel, QWidget *parent) :
     QDialog(parent),
     ClassDialog(),
     ui(new Ui::EditClassDialog),
-    umlClassData(umlClassData),
-    umlClassDataCopy(new UMLClassData(*umlClassData))
+    umlClassModel(umlClassModel),
+    umlClassModelCopy(new UMLClassModel(*umlClassModel))
 {
     ui->setupUi(this);
-    ui->nameLineEdit->setText(umlClassDataCopy->getName());
+    ui->nameLineEdit->setText(umlClassModelCopy->getName());
     ui->header->setText(getHeaderString());
     setWindowTitle(getHeaderString());
 
-    foreach (UMLFieldData *field, umlClassDataCopy->getFields())
+    foreach (UMLFieldModel *field, umlClassModelCopy->getFields())
     {
          ui->fieldsList->addItem(field->toString());
     }
-    foreach (UMLMethodData *method, umlClassDataCopy->getMethods())
+    foreach (UMLMethodModel *method, umlClassModelCopy->getMethods())
     {
          ui->methodsList->addItem(method->toString());
     }
@@ -44,13 +44,13 @@ EditClassDialog::~EditClassDialog()
 
 void EditClassDialog::on_buttonBox_accepted()
 {
-    umlClassDataCopy->setName(ui->nameLineEdit->text());
-    CommandStack::getInstance().push(new EditClassCommand(umlClassData, umlClassDataCopy));
+    umlClassModelCopy->setName(ui->nameLineEdit->text());
+    CommandStack::getInstance().push(new EditClassCommand(umlClassModel, umlClassModelCopy));
 }
 
 void EditClassDialog::on_buttonBox_rejected()
 {
-    delete umlClassDataCopy;
+    delete umlClassModelCopy;
 }
 
 void EditClassDialog::on_nameLineEdit_textEdited(const QString &text)
@@ -63,17 +63,17 @@ void EditClassDialog::on_nameLineEdit_textEdited(const QString &text)
 
 void EditClassDialog::on_addFieldButton_clicked()
 {
-    addField(umlClassDataCopy, ui->fieldsList);
+    addField(umlClassModelCopy, ui->fieldsList);
 }
 
 void EditClassDialog::on_editFieldButton_clicked()
 {
-    editSelectedFields(umlClassDataCopy, ui->fieldsList);
+    editSelectedFields(umlClassModelCopy, ui->fieldsList);
 }
 
 void EditClassDialog::on_removeFieldButton_clicked()
 {
-    removeSelectedFields(umlClassDataCopy, ui->fieldsList);
+    removeSelectedFields(umlClassModelCopy, ui->fieldsList);
 }
 
 
@@ -81,17 +81,17 @@ void EditClassDialog::on_removeFieldButton_clicked()
 
 void EditClassDialog::on_addMethodButton_clicked()
 {
-    addMethod(umlClassDataCopy, ui->methodsList);
+    addMethod(umlClassModelCopy, ui->methodsList);
 }
 
 void EditClassDialog::on_editMethodButton_clicked()
 {
-    editSelectedMethods(umlClassDataCopy, ui->methodsList);
+    editSelectedMethods(umlClassModelCopy, ui->methodsList);
 }
 
 void EditClassDialog::on_removeMethodButton_clicked()
 {
-    removeSelectedMethods(umlClassDataCopy, ui->methodsList);
+    removeSelectedMethods(umlClassModelCopy, ui->methodsList);
 }
 
 // Item selection event handlers
@@ -111,5 +111,5 @@ void EditClassDialog::on_methodsList_itemSelectionChanged()
 
 QString EditClassDialog::getHeaderString() const
 {
-    return "Edit " + umlClassData->getType().toString();
+    return "Edit " + umlClassModel->getType().toString();
 }

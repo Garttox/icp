@@ -1,8 +1,8 @@
 #include "newsequencedialog.h"
 #include "ui_newsequencedialog.h"
 
-#include <model/dataprovider.h>
-#include <model/umlsequencedata.h>
+#include <model/modelprovider.h>
+#include <model/umlsequencemodel.h>
 
 NewSequenceDialog::NewSequenceDialog(QWidget *parent) :
     QDialog(parent),
@@ -19,6 +19,6 @@ NewSequenceDialog::~NewSequenceDialog()
 void NewSequenceDialog::on_buttonBox_accepted()
 {
     QString name = this->ui->lineEdit->text();
-    UMLSequenceData *umlSequenceData = new UMLSequenceData(name);
-    DataProvider::getInstance().getUMLData()->addSequence(umlSequenceData);
+    UMLSequenceModel *umlSequenceModel = new UMLSequenceModel(name);
+    ModelProvider::getInstance().getModel()->addSequence(umlSequenceModel);
 }

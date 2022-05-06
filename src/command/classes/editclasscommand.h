@@ -2,21 +2,21 @@
 #define EDITCLASSCOMMAND_H
 
 #include "command/command.h"
-#include "model/umlclassdata.h"
+#include "model/umlclassmodel.h"
 
 class EditClassCommand : public Command
 {
 public:
-    EditClassCommand(UMLClassData *umlClassData, UMLClassData *umlClassDataEdited);
+    EditClassCommand(UMLClassModel *umlClassModel, UMLClassModel *umlClassModelEdited);
 
 private:
     virtual ~EditClassCommand();
     virtual void process() override;
     virtual void undo() override;
 
-    UMLClassData *umlClassData;
-    UMLClassData *umlClassDataOld;
-    UMLClassData *umlClassDataEdited;
+    UMLClassModel *umlClassModel;
+    UMLClassModel *umlClassModelOld;
+    UMLClassModel *umlClassModelEdited;
 };
 
 #endif // EDITCLASSCOMMAND_H

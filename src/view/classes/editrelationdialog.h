@@ -8,7 +8,7 @@
 #ifndef EDITRELATIONDIALOG_H
 #define EDITRELATIONDIALOG_H
 
-#include "model/umlrelationdata.h"
+#include "model/umlrelationmodel.h"
 #include <QDialog>
 
 namespace Ui {
@@ -24,7 +24,7 @@ class EditRelationDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit EditRelationDialog(UMLRelationData *umlRelationData, QWidget *parent = nullptr);
+    explicit EditRelationDialog(UMLRelationModel *umlRelationModel, QWidget *parent = nullptr);
     ~EditRelationDialog();
 
 private slots:
@@ -32,7 +32,7 @@ private slots:
 
 private:
     Ui::EditRelationDialog *ui;
-    UMLRelationData *umlRelationData;
+    UMLRelationModel *umlRelationModel;
 };
 
 #endif // EDITRELATIONDIALOG_H

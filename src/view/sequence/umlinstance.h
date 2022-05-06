@@ -6,20 +6,20 @@
 #include <QColor>
 #include <QFont>
 
-#include <model/umlinstancedata.h>
+#include <model/umlinstancemodel.h>
 
 class UMLInstance : public QObject, public QGraphicsItem
 {
     Q_OBJECT
 public:
-    UMLInstance(UMLInstanceData *umlInstanceData);
+    UMLInstance(UMLInstanceModel *umlInstanceModel);
     QRectF boundingRect() const override;
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
     QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
 private:
     QRectF outlineRect() const;
-    UMLInstanceData *umlInstanceData;
+    UMLInstanceModel *umlInstanceModel;
 
     qreal posY = DEFAULT_POSY;
 

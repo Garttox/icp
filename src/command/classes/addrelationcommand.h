@@ -2,18 +2,18 @@
 #define ADDRELATIONCOMMAND_H
 
 #include "command/command.h"
-#include "model/umlrelationdata.h"
+#include "model/umlrelationmodel.h"
 
 class AddRelationCommand : public Command
 {
 public:
-    AddRelationCommand(UMLRelationData *const umlRelationData);
+    AddRelationCommand(UMLRelationModel *const umlRelationModel);
 
 private:
     virtual void process() override;
     virtual void undo() override;
 
-    UMLRelationData *const umlRelationData;
+    UMLRelationModel *const umlRelationModel;
 };
 
 #endif // ADDRELATIONCOMMAND_H

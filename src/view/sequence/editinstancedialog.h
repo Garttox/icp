@@ -3,7 +3,7 @@
 
 #include <QDialog>
 
-#include <model/umlinstancedata.h>
+#include <model/umlinstancemodel.h>
 
 namespace Ui {
 class EditInstanceDialog;
@@ -14,7 +14,7 @@ class EditInstanceDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit EditInstanceDialog(UMLInstanceData *umlInstanceData, QWidget *parent = nullptr);
+    explicit EditInstanceDialog(UMLInstanceModel *umlInstanceModel, QWidget *parent = nullptr);
     ~EditInstanceDialog();
 
 private slots:
@@ -22,7 +22,7 @@ private slots:
 
 private:
     Ui::EditInstanceDialog *ui;
-    UMLInstanceData *umlInstanceData;
+    UMLInstanceModel *umlInstanceModel;
 };
 
 #endif // EDITINSTANCEDIALOG_H

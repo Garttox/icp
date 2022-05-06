@@ -8,18 +8,18 @@
 #include "editmethoddialog.h"
 #include "ui_editmethoddialog.h"
 
-EditMethodDialog::EditMethodDialog(UMLClassType classType, UMLMethodData *umlMethodData, QWidget *parent) :
+EditMethodDialog::EditMethodDialog(UMLClassType classType, UMLMethodModel *umlMethodModel, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::EditMethodDialog),
-    umlMethodData(umlMethodData)
+    umlMethodModel(umlMethodModel)
 {
     ui->setupUi(this);
-    ui->nameLineEdit->setText(umlMethodData->getName());
-    ui->typeLineEdit->setText(umlMethodData->getType());
+    ui->nameLineEdit->setText(umlMethodModel->getName());
+    ui->typeLineEdit->setText(umlMethodModel->getType());
     ui->accessComboBox->addItems(UMLAccessType::asStringListFor(classType));
-    ui->accessComboBox->setCurrentText(umlMethodData->getAccess().toString());
+    ui->accessComboBox->setCurrentText(umlMethodModel->getAccess().toString());
     ui->parametersTable->clearContents();
-    setDataToParameterTable(umlMethodData);
+    setDataToParameterTable(umlMethodModel);
 }
 
 EditMethodDialog::~EditMethodDialog()
@@ -30,17 +30,17 @@ EditMethodDialog::~EditMethodDialog()
 
 void EditMethodDialog::on_buttonBox_accepted()
 {
-    umlMethodData->setName(ui->nameLineEdit->text());
-    umlMethodData->setType(ui->typeLineEdit->text());
-    umlMethodData->setAccess(UMLAccessType(ui->accessComboBox->currentText()));
-    umlMethodData->clearParameters();
+    umlMethodModel->setName(ui->nameLineEdit->text());
+    umlMethodModel->setType(ui->typeLineEdit->text());
+    umlMethodModel->setAccess(UMLAccessType(ui->accessComboBox->currentText()));
+    umlMethodModel->clearParameters();
     setDataFromParameterTable();
 }
 
-void EditMethodDialog::setDataToParameterTable(UMLMethodData *umlMethodData)
+void EditMethodDialog::setDataToParameterTable(UMLMethodModel *umlMethodModel)
 {
     int row = 0;
-    foreach(UMLMethodParameterData *parameter, umlMethodData->getParameters())
+    foreach(UMLMethodParameterModel *parameter, umlMethodModel->getParameters())
     {
         QString name = parameter->getName();
         QString type = parameter->getType();
@@ -63,8 +63,8 @@ void EditMethodDialog::setDataFromParameterTable()
             if (!name.isEmpty())
             {
                 QString type = typeItem != nullptr ? typeItem->text() : QString("void");
-                UMLMethodParameterData* umlMethodParameterData = new UMLMethodParameterData(name, type);
-                umlMethodData->addParameter(umlMethodParameterData);
+                UMLMethodParameterModel* umlMethodParameterModel = new UMLMethodParameterModel(name, type);
+                umlMethodModel->addParameter(umlMethodParameterModel);
             }
         }
     }

@@ -5,11 +5,11 @@
 #include <QPainter>
 #include <QPen>
 
-UMLInstance::UMLInstance(UMLInstanceData *umlInstanceData)
-    : umlInstanceData(umlInstanceData)
+UMLInstance::UMLInstance(UMLInstanceModel *umlInstanceModel)
+    : umlInstanceModel(umlInstanceModel)
 {
     setFlags(ItemIsMovable | ItemIsSelectable | ItemSendsGeometryChanges);
-    setPos(umlInstanceData->getPosX(), 100);
+    setPos(umlInstanceModel->getPosX(), 100);
 }
 
 QRectF UMLInstance::boundingRect() const
@@ -29,7 +29,7 @@ void UMLInstance::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
     painter->drawRect(rect);
     painter->setPen(TEXT_COLOR);
 
-    painter->drawText(rect, umlInstanceData->getDisplayName());
+    painter->drawText(rect, umlInstanceModel->getDisplayName());
 }
 
 QVariant UMLInstance::itemChange(GraphicsItemChange change, const QVariant &value)
@@ -40,7 +40,7 @@ QVariant UMLInstance::itemChange(GraphicsItemChange change, const QVariant &valu
             setZValue(isSelected() ? 1 : 0);
             break;
         case QGraphicsItem::ItemPositionHasChanged:
-            umlInstanceData->setPosX(this->pos().x());
+            umlInstanceModel->setPosX(this->pos().x());
             setPos(this->pos().x(), DEFAULT_POSY);
             break;
         default:
@@ -55,7 +55,7 @@ QRectF UMLInstance::outlineRect() const
 {
 
     QFontMetricsF fontMetrics(NAME_FONT);
-    QRectF rect = fontMetrics.boundingRect(umlInstanceData->getDisplayName());
+    QRectF rect = fontMetrics.boundingRect(umlInstanceModel->getDisplayName());
     rect.adjust(-PADDING, -PADDING, +PADDING, +PADDING);
     rect.translate(-rect.center());
     return rect;

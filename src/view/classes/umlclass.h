@@ -14,8 +14,8 @@
 #include <QSet>
 #include <QEvent>
 #include <QVariant>
-#include "model/umldata.h"
-#include "model/umlclassdata.h"
+#include "model/umlmodel.h"
+#include "model/umlclassmodel.h"
 #include "umlrelationanchor.h"
 #include "umlrelation.h"
 
@@ -27,15 +27,15 @@ class UMLClass : public QObject, public QGraphicsItem
 {
     Q_OBJECT
 public:
-    UMLClass(UMLClassData *umlClassData);
+    UMLClass(UMLClassModel *umlClassModel);
     QRectF boundingRect() const override;
     
     /**
-     * @brief Checks if given UMLClassData are being displayed by this object.
-     * @param umlClassData UMLClassData to check.
-     * @return True, if UMLClass is displaying given UMLClassData. 
+     * @brief Checks if given UMLClassModel are being displayed by this object.
+     * @param umlClassModel UMLClassModel to check.
+     * @return True, if UMLClass is displaying given UMLClassModel. 
      */
-    bool correspondsTo(UMLClassData *umlClassData);
+    bool correspondsTo(UMLClassModel *umlClassModel);
 
     /**
      * @brief Get the anchor, specified by id, of the class. 
@@ -45,10 +45,10 @@ public:
     UMLRelationAnchor *getAnchorById(int id) const;
 
     /**
-     * @brief Get underlying UMLClassData.
-     * @return Underlying UMLClassData.
+     * @brief Get underlying UMLClassModel.
+     * @return Underlying UMLClassModel.
      */
-    UMLClassData *getUMLClassData() const;
+    UMLClassModel *getUMLClassModel() const;
     
     /**
      * @brief Get id of given relation anchor.
@@ -58,10 +58,10 @@ public:
     int getAnchorId(UMLRelationAnchor *anchor);
 
 private slots:
-    void onClassModelEdited(UMLClassData* umlClassData);
-    void onRelationModelAdded(UMLRelationData *relationData);
-    void onRelationModelEdited(UMLRelationData *relationData);
-    void onRelationModelRemoved(UMLRelationData *relationData);
+    void onClassModelEdited(UMLClassModel* umlClassModel);
+    void onRelationModelAdded(UMLRelationModel *umlRelationModel);
+    void onRelationModelEdited(UMLRelationModel *umlRelationModel);
+    void onRelationModelRemoved(UMLRelationModel *umlRelationModel);
     void onAnchorDragged(UMLRelationAnchor *anchor, QPointF endpoint);
     void onAnchorDragReleased(UMLRelationAnchor *source, UMLRelationAnchor *destination);
 
@@ -78,9 +78,9 @@ private:
     void resetAnchorsPositions();
     void setAnchorsVisible(bool enabled);
     void actualizeRealizedIdentifiers();
-    void addRelationDataToModel(UMLRelationAnchor *source, UMLRelationAnchor *destination);
+    void addRelationToModel(UMLRelationAnchor *source, UMLRelationAnchor *destination);
 
-    UMLClassData *umlClassData;
+    UMLClassModel *umlClassModel;
     QList<UMLRelationAnchor *> anchors;
     QSet<QString> realizedIdentifiers;
     static constexpr int PADDING_HORIZONTAL = 12;

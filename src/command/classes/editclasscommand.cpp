@@ -1,23 +1,23 @@
 #include "editclasscommand.h"
 
-EditClassCommand::EditClassCommand(UMLClassData *umlClassData, UMLClassData *umlClassDataEdited) :
-    umlClassData(umlClassData),
-    umlClassDataEdited(umlClassDataEdited)
+EditClassCommand::EditClassCommand(UMLClassModel *umlClassModel, UMLClassModel *umlClassModelEdited) :
+    umlClassModel(umlClassModel),
+    umlClassModelEdited(umlClassModelEdited)
 {}
 
 EditClassCommand::~EditClassCommand()
 {
-    delete umlClassDataEdited;
-    delete umlClassDataOld;
+    delete umlClassModelEdited;
+    delete umlClassModelOld;
 }
 
 void EditClassCommand::process()
 {
-    umlClassDataOld = new UMLClassData(*umlClassData);
-    umlClassData->setData(*umlClassDataEdited);
+    umlClassModelOld = new UMLClassModel(*umlClassModel);
+    umlClassModel->setModel(*umlClassModelEdited);
 }
 
 void EditClassCommand::undo()
 {
-    umlClassData->setData(*umlClassDataOld);
+    umlClassModel->setModel(*umlClassModelOld);
 }

@@ -4,29 +4,29 @@
 #include <QApplication>
 #include <QGraphicsView>
 
-#include <model/umlinstancedata.h>
-#include <model/umlsequencedata.h>
+#include <model/umlinstancemodel.h>
+#include <model/umlsequencemodel.h>
 
 class SequenceDiagramView : public QGraphicsView
 {
     Q_OBJECT
 public:
-    SequenceDiagramView(QWidget* parent, UMLSequenceData *umlSequenceData);
+    SequenceDiagramView(QWidget* parent, UMLSequenceModel *umlSequenceModel);
 
-    UMLSequenceData *getUMLSequenceData() const;
+    UMLSequenceModel *getUMLSequenceModel() const;
 private slots:
-    void onInstanceModelAdded(UMLInstanceData *umlInstanceData);
+    void onInstanceModelAdded(UMLInstanceModel *umlInstanceModel);
 private:
     /**
      * @brief Draws the background of the view.
      */
     void drawBackgroundTiles();
-    void addUMLInstance(UMLInstanceData *umlInstanceData);
+    void addUMLInstance(UMLInstanceModel *umlInstanceModel);
 
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
 
-    UMLSequenceData *umlSequenceData;
+    UMLSequenceModel *umlSequenceModel;
     int originX;
     int originY;
     static constexpr qreal TILE_SIZE = 60;

@@ -10,7 +10,7 @@
 
 #include <QDialog>
 #include "classdialog.h"
-#include "model/umlclassdata.h"
+#include "model/umlclassmodel.h"
 
 namespace Ui {
 class EditClassDialog;
@@ -25,7 +25,7 @@ class EditClassDialog : public QDialog, public ClassDialog
     Q_OBJECT
 
 public:
-    explicit EditClassDialog(UMLClassData *umlClassData, QWidget *parent = nullptr);
+    explicit EditClassDialog(UMLClassModel *umlClassModel, QWidget *parent = nullptr);
     ~EditClassDialog();
 
 private slots:
@@ -45,8 +45,8 @@ private:
     QString getHeaderString() const;
 
     Ui::EditClassDialog *ui;
-    UMLClassData *umlClassData;
-    UMLClassData *umlClassDataCopy;
+    UMLClassModel *umlClassModel;
+    UMLClassModel *umlClassModelCopy;
 };
 
 #endif // EDITCLASSDIALOG_H

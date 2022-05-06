@@ -1,18 +1,18 @@
 #include "editrelationcommand.h"
 
-EditRelationCommand::EditRelationCommand(UMLRelationData *umlRelationData, UMLRelationType newType) :
-    umlRelationData(umlRelationData),
+EditRelationCommand::EditRelationCommand(UMLRelationModel *umlRelationModel, UMLRelationType newType) :
+    umlRelationModel(umlRelationModel),
     newType(newType),
-    oldType(umlRelationData->getType())
+    oldType(umlRelationModel->getType())
 {}
 
 void EditRelationCommand::process()
 {
-    umlRelationData->setType(newType);
+    umlRelationModel->setType(newType);
 }
 
 void EditRelationCommand::undo()
 {
-    umlRelationData->setType(oldType);
+    umlRelationModel->setType(oldType);
 }
 

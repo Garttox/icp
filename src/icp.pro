@@ -21,21 +21,21 @@ SOURCES += main.cpp\
         command/classes/moveclasscommand.cpp \
         command/command.cpp \
         command/commandstack.cpp \
-        model/dataprovider.cpp \
+        model/modelprovider.cpp \
         model/umlaccesstype.cpp \
         model/umlattribute.cpp \
-        model/umlcalldata.cpp \
+        model/umlcallmodel.cpp \
         model/umlcalltype.cpp \
-        model/umlclassdata.cpp \
+        model/umlclassmodel.cpp \
         model/umlclasstype.cpp \
-        model/umldata.cpp \
-        model/umlfielddata.cpp \
-        model/umlinstancedata.cpp \
-        model/umlmethoddata.cpp \
-        model/umlmethodparameterdata.cpp \
-        model/umlrelationdata.cpp \
+        model/umlfieldmodel.cpp \
+        model/umlinstancemodel.cpp \
+        model/umlmethodmodel.cpp \
+        model/umlmethodparametermodel.cpp \
+        model/umlmodel.cpp \
+        model/umlrelationmodel.cpp \
         model/umlrelationtype.cpp \
-        model/umlsequencedata.cpp \
+        model/umlsequencemodel.cpp \
         view/classdiagramview.cpp \
         view/classes/classdialog.cpp \
         view/classes/editclassdialog.cpp \
@@ -63,21 +63,21 @@ HEADERS  += app.h \
     command/classes/moveclasscommand.h \
     command/command.h \
     command/commandstack.h \
-    model/dataprovider.h \
+    model/modelprovider.h \
     model/umlaccesstype.h \
     model/umlattribute.h \
-    model/umlcalldata.h \
+    model/umlcallmodel.h \
     model/umlcalltype.h \
-    model/umlclassdata.h \
+    model/umlclassmodel.h \
     model/umlclasstype.h \
-    model/umldata.h \
-    model/umlfielddata.h \
-    model/umlinstancedata.h \
-    model/umlmethoddata.h \
-    model/umlmethodparameterdata.h \
-    model/umlrelationdata.h \
+    model/umlfieldmodel.h \
+    model/umlinstancemodel.h \
+    model/umlmethodmodel.h \
+    model/umlmethodparametermodel.h \
+    model/umlmodel.h \
+    model/umlrelationmodel.h \
     model/umlrelationtype.h \
-    model/umlsequencedata.h \
+    model/umlsequencemodel.h \
     view/classdiagramview.h \
     view/classes/classdialog.h \
     view/classes/editclassdialog.h \
