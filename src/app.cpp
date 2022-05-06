@@ -22,6 +22,7 @@
 #include <view/sequence/newsequencedialog.h>
 
 #include "app.h"
+#include "data/umldata.h"
 #include "model/umlmodel.h"
 #include "model/modelprovider.h"
 #include "command/commandstack.h"
@@ -132,6 +133,15 @@ void App::loadFile()
         displayErrorMessageBox("Loading error", "Given file data are not in supported format.");
         return;
     }
+
+    // TODO:
+    /*
+    UMLData *data = new UMLData();
+    qDebug() << data->load(doc.object());
+    UMLModel = data->toModel();
+    delete data;
+    */
+
 
     bool loadedSuccesfully = umlModel->loadData(json);
 

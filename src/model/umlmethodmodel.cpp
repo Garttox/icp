@@ -10,11 +10,11 @@ UMLMethodModel::UMLMethodModel(QString name, QString type, UMLAccessType access)
 UMLMethodModel::UMLMethodModel(const UMLMethodModel &original) :
     UMLAttribute(original.name, original.type, original.access)
 {
-    foreach(UMLMethodParameterModel *parameter, original.parameters)
+    foreach(UMLParameterModel *parameter, original.parameters)
     {
         QString name = parameter->getName();
         QString type = parameter->getType();
-        this->parameters.append(new UMLMethodParameterModel(name, type));
+        this->parameters.append(new UMLParameterModel(name, type));
     }
 }
 
@@ -31,7 +31,7 @@ bool UMLMethodModel::loadData(QJsonObject jsonMethodData)
             return false;
         QString name = parameterEl.toObject()["name"].toString();
         QString type = parameterEl.toObject()["type"].toString();
-        UMLMethodParameterModel *parameter = new UMLMethodParameterModel(name, type);
+        UMLParameterModel *parameter = new UMLParameterModel(name, type);
         addParameter(parameter);
     }
     return true;
@@ -55,17 +55,17 @@ QJsonObject UMLMethodModel::getSaveData()
     return object;
 }
 
-void UMLMethodModel::addParameter(UMLMethodParameterModel *parameter)
+void UMLMethodModel::addParameter(UMLParameterModel *parameter)
 {
     parameters.append(parameter);
-    connect(parameter, &UMLMethodParameterModel::modelChanged, this, &UMLMethodModel::parameterModelChanged);
+    connect(parameter, &UMLParameterModel::modelChanged, this, &UMLMethodModel::parameterModelChanged);
     emit modelChanged(this);
 }
 
 QString UMLMethodModel::toString() const
 {
     QStringList paramList;
-    foreach(UMLMethodParameterModel *parameter, parameters)
+    foreach(UMLParameterModel *parameter, parameters)
     {
         paramList.append(parameter->toString());
     }
@@ -73,7 +73,7 @@ QString UMLMethodModel::toString() const
     return QString("%1 %2(%3): %4").arg(access.toAnnotationString(), name, paramList.join(", "), type);
 }
 
-QList<UMLMethodParameterModel *> UMLMethodModel::getParameters() const
+QList<UMLParameterModel *> UMLMethodModel::getParameters() const
 {
     return this->parameters;
 }

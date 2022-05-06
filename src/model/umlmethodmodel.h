@@ -5,7 +5,7 @@
 #include <QObject>
 
 #include "umlattribute.h"
-#include "umlmethodparametermodel.h"
+#include "umlparametermodel.h"
 
 class UMLMethodModel : public UMLAttribute
 {
@@ -16,16 +16,16 @@ public:
     ~UMLMethodModel();
     bool loadData(QJsonObject jsonMethodData);
     QJsonObject getSaveData();
-    void addParameter(UMLMethodParameterModel *parameter);
+    void addParameter(UMLParameterModel *parameter);
     QString toString() const override;
-    QList<UMLMethodParameterModel *> getParameters() const;
+    QList<UMLParameterModel *> getParameters() const;
     void clearParameters();
 public slots:
     void parameterModelChanged();
 signals:
     void modelChanged(UMLMethodModel* umlMethodModel);
 private:
-    QList<UMLMethodParameterModel *> parameters;
+    QList<UMLParameterModel *> parameters;
 };
 
 #endif // UMLMETHODMODEL_H

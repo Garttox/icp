@@ -21,6 +21,16 @@ SOURCES += main.cpp\
         command/classes/moveclasscommand.cpp \
         command/command.cpp \
         command/commandstack.cpp \
+        data/umlattributedata.cpp \
+        data/umlcalldata.cpp \
+        data/umlclassdata.cpp \
+        data/umldata.cpp \
+        data/umlfielddata.cpp \
+        data/umlinstancedata.cpp \
+        data/umlmethoddata.cpp \
+        data/umlparameterdata.cpp \
+        data/umlrelationdata.cpp \
+        data/umlsequencedata.cpp \
         model/modelprovider.cpp \
         model/umlaccesstype.cpp \
         model/umlattribute.cpp \
@@ -31,8 +41,8 @@ SOURCES += main.cpp\
         model/umlfieldmodel.cpp \
         model/umlinstancemodel.cpp \
         model/umlmethodmodel.cpp \
-        model/umlmethodparametermodel.cpp \
         model/umlmodel.cpp \
+        model/umlparametermodel.cpp \
         model/umlrelationmodel.cpp \
         model/umlrelationtype.cpp \
         model/umlsequencemodel.cpp \
@@ -63,6 +73,18 @@ HEADERS  += app.h \
     command/classes/moveclasscommand.h \
     command/command.h \
     command/commandstack.h \
+    data/data.h \
+    data/umlattributedata.h \
+    data/umlcalldata.h \
+    data/umlclassdata.h \
+    data/umldata.h \
+    data/umlfielddata.h \
+    data/umlinstancedata.h \
+    data/umlmethoddata.h \
+    data/umlparameterdata.h \
+    data/umlrelationdata.h \
+    data/umlsequencedata.h \
+    data/utils.h \
     model/modelprovider.h \
     model/umlaccesstype.h \
     model/umlattribute.h \
@@ -73,8 +95,8 @@ HEADERS  += app.h \
     model/umlfieldmodel.h \
     model/umlinstancemodel.h \
     model/umlmethodmodel.h \
-    model/umlmethodparametermodel.h \
     model/umlmodel.h \
+    model/umlparametermodel.h \
     model/umlrelationmodel.h \
     model/umlrelationtype.h \
     model/umlsequencemodel.h \
