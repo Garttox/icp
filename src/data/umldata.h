@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 1/5/2022
+ * @file umldata.h
+ * @author Martin Bednář (xbedna77)
+ */
+
 #ifndef UMLDATA_H
 #define UMLDATA_H
 
@@ -7,6 +14,9 @@
 #include "data/umlsequencedata.h"
 #include "model/umlmodel.h"
 
+/**
+ * @brief Data class for storing whole application data model.
+ */
 class UMLData : Data<UMLModel>
 {
 public:

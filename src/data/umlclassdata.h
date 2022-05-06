@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 1/5/2022
+ * @file umlclassdata.h
+ * @author Martin Bednář (xbedna77)
+ */
+
 #ifndef UMLCLASSDATA_H
 #define UMLCLASSDATA_H
 
@@ -6,6 +13,9 @@
 #include "data/umlmethoddata.h"
 #include "model/umlclassmodel.h"
 
+/**
+ * @brief Data class for holding UML class data.
+ */
 class UMLClassData : Data<UMLClassModel>
 {
 public:

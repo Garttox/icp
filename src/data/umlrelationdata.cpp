@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 1/5/2022
+ * @file umlrelationdata.cpp
+ * @author Martin Bednář (xbedna77)
+ */
+
 #include "umlrelationdata.h"
 
 bool UMLRelationData::load(QJsonObject object)

@@ -1,9 +1,19 @@
+/**
+ * ICP - UML Application
+ * @date 1/5/2022
+ * @file umlcalldata.h
+ * @author Martin Bednář (xbedna77)
+ */
+
 #ifndef UMLCALLDATA_H
 #define UMLCALLDATA_H
 
 #include "data.h"
 #include "model/umlcallmodel.h"
 
+/**
+ * @brief Data class for holding UML call/message data.
+ */
 class UMLCallData : Data<UMLCallModel>
 {
 

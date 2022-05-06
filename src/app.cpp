@@ -137,7 +137,7 @@ void App::loadFile()
     // TODO:
     /*
     UMLData *data = new UMLData();
-    qDebug() << data->load(doc.object());
+    bool loadSuccesfull = data->load(doc.object());
     UMLModel = data->toModel();
     delete data;
     */

@@ -1,9 +1,19 @@
+/**
+ * ICP - UML Application
+ * @date 1/5/2022
+ * @file umlinstancedata.h
+ * @author Martin Bednář (xbedna77)
+ */
+
 #ifndef UMLINSTANCEDATA_H
 #define UMLINSTANCEDATA_H
 
 #include "data.h"
 #include "model/umlinstancemodel.h"
 
+/**
+ * @brief Data class for storing UML instance data.
+ */
 class UMLInstanceData : public Data<UMLInstanceModel>
 {
 public:

@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 1/5/2022
+ * @file umldata.cpp
+ * @author Martin Bednář (xbedna77)
+ */
+
 #include "umldata.h"
 
 UMLData::~UMLData()

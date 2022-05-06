@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 1/5/2022
+ * @file umlfielddata.cpp
+ * @author Martin Bednář (xbedna77)
+ */
+
 #include "umlfielddata.h"
 
 bool UMLFieldData::load(QJsonObject object)

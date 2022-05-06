@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 1/5/2022
+ * @file umlsequencedata.h
+ * @author Martin Bednář (xbedna77)
+ */
+
 #ifndef UMLSEQUENCEDATA_H
 #define UMLSEQUENCEDATA_H
 
@@ -6,6 +13,9 @@
 #include "data/umlinstancedata.h"
 #include "model/umlsequencemodel.h"
 
+/**
+ * @brief Data class for storing sequence diagram data.
+ */
 class UMLSequenceData : public Data<UMLSequenceModel>
 {
 public:

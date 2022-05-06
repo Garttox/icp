@@ -1,5 +1,11 @@
-#include "umlparameterdata.h"
+/**
+ * ICP - UML Application
+ * @date 1/5/2022
+ * @file umlparameterdata.cpp
+ * @author Martin Bednář (xbedna77)
+ */
 
+#include "umlparameterdata.h"
 
 bool UMLParameterData::load(QJsonObject object)
 {

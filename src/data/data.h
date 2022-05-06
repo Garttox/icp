@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 1/5/2022
+ * @file data.h
+ * @author Martin Bednář (xbedna77)
+ */
+
 #ifndef DATA_H
 #define DATA_H
 

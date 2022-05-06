@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 1/5/2022
+ * @file umlsequencedata.cpp
+ * @author Martin Bednář (xbedna77)
+ */
+
 #include "umlsequencedata.h"
 
 UMLSequenceData::~UMLSequenceData()
