@@ -51,6 +51,9 @@ SOURCES += main.cpp\
         view/sequence/editinstancedialog.cpp \
         view/sequence/newinstancedialog.cpp \
         view/sequence/newsequencedialog.cpp \
+        view/sequence/umlcall.cpp \
+        view/sequence/umlcallarrow.cpp \
+        view/sequence/umlcalldragrect.cpp \
         view/sequence/umlinstance.cpp \
         view/sequence/umlinstancelifeline.cpp \
         view/sequencediagramview.cpp
@@ -93,6 +96,9 @@ HEADERS  += app.h \
     view/sequence/editinstancedialog.h \
     view/sequence/newinstancedialog.h \
     view/sequence/newsequencedialog.h \
+    view/sequence/umlcall.h \
+    view/sequence/umlcallarrow.h \
+    view/sequence/umlcalldragrect.h \
     view/sequence/umlinstance.h \
     view/sequence/umlinstancelifeline.h \
     view/sequencediagramview.h

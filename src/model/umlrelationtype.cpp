@@ -23,6 +23,11 @@ bool UMLRelationType::operator==(const RelationType rhs)
     return type == rhs;
 }
 
+bool UMLRelationType::operator==(const UMLRelationType& rhs)
+{
+    return type == rhs.type;
+}
+
 QString UMLRelationType::toString() const
 {
     switch (type)
@@ -43,9 +48,4 @@ QStringList UMLRelationType::asStringList()
 {
     QStringList list = { "Association", "Agregation", "Composition", "Generalisation" };
     return list;
-}
-
-bool UMLRelationType::operator==(const UMLRelationType& rhs)
-{
-    return type == rhs.type;
 }

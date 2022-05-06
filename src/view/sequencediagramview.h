@@ -7,6 +7,8 @@
 #include <model/umlinstancedata.h>
 #include <model/umlsequencedata.h>
 
+#include <view/sequence/umlinstance.h>
+
 class SequenceDiagramView : public QGraphicsView
 {
     Q_OBJECT
@@ -16,12 +18,22 @@ public:
     UMLSequenceData *getUMLSequenceData() const;
 private slots:
     void onInstanceModelAdded(UMLInstanceData *umlInstanceData);
+    void onCallModelAdded(UMLCallData *umlCallData);
 private:
     /**
      * @brief Draws the background of the view.
      */
     void drawBackgroundTiles();
     void addUMLInstance(UMLInstanceData *umlInstanceData);
+    void addUMLCall(UMLCallData *umlCallData);
+
+    UMLInstance *getUMLInstance(UMLInstanceData *umlInstanceData);
+
+    /**
+     * @brief Gets all the items of type T from the scene.
+     * @return Scene's items of type T.
+     */
+    template <class T> QList<T> getItemsOfType();
 
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;

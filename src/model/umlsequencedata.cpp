@@ -72,6 +72,7 @@ void UMLSequenceData::addInstance(UMLInstanceData *instance)
 void UMLSequenceData::addCall(UMLCallData *call)
 {
     this->calls.insert(call);
+    emit callModelAdded(call);
 }
 
 UMLInstanceData* UMLSequenceData::findInstanceByName(QString instanceName)
@@ -87,4 +88,28 @@ UMLInstanceData* UMLSequenceData::findInstanceByName(QString instanceName)
 QString UMLSequenceData::getName()
 {
     return this->name;
+}
+
+UMLCallData *UMLSequenceData::instanceCreatedBy(UMLInstanceData *umlInstanceData)
+{
+    foreach(auto call, calls)
+    {
+        if (call->getDestination() == umlInstanceData && call->getType() == UMLCallType::CREATE)
+        {
+            return call;
+        }
+    }
+    return nullptr;
+}
+
+UMLCallData *UMLSequenceData::instanceDestroyedBy(UMLInstanceData *umlInstanceData)
+{
+    foreach(auto call, calls)
+    {
+        if (call->getDestination() == umlInstanceData && call->getType() == UMLCallType::DESTROY)
+        {
+            return call;
+        }
+    }
+    return nullptr;
 }

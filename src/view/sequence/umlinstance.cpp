@@ -1,20 +1,51 @@
 #include "umlinstance.h"
+#include "umlcall.h"
 
 #include <QColor>
 #include <QFontMetricsF>
 #include <QPainter>
 #include <QPen>
+#include <QGraphicsScene>
 
-UMLInstance::UMLInstance(UMLInstanceData *umlInstanceData)
-    : umlInstanceData(umlInstanceData)
+#include <model/dataprovider.h>
+
+UMLInstance::UMLInstance(UMLInstanceData *umlInstanceData, UMLSequenceData *umlSequenceData)
+    : umlInstanceData(umlInstanceData), umlSequenceData(umlSequenceData)
 {
     setFlags(ItemIsMovable | ItemIsSelectable | ItemSendsGeometryChanges);
     setPos(umlInstanceData->getPosX(), 100);
+
+    lifeLine = new UMLInstanceLifeLine(this);
 }
 
 QRectF UMLInstance::boundingRect() const
 {
     return outlineRect();
+}
+
+QPointF UMLInstance::getStartCenter() const
+{
+    QRectF rect = outlineRect();
+    QPointF startCenter = rect.center();
+    startCenter.setY(rect.bottom());
+    return startCenter;
+}
+
+QPointF UMLInstance::getEndCenter() const
+{
+    QPointF endCenter = getStartCenter();
+    endCenter.setY(endCenter.y() + MAX_LENGTH);
+    return endCenter;
+}
+
+qreal UMLInstance::getPosX() const
+{
+    return this->pos().x();
+}
+
+bool UMLInstance::correspondsTo(UMLInstanceData *umlInstanceData)
+{
+    return this->umlInstanceData == umlInstanceData;
 }
 
 // - - - - - protected - - - - -
@@ -28,8 +59,8 @@ void UMLInstance::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
     QRectF rect = outlineRect();
     painter->drawRect(rect);
     painter->setPen(TEXT_COLOR);
-
-    painter->drawText(rect, umlInstanceData->getDisplayName());
+    painter->setFont(TEXT_FONT);
+    painter->drawText(rect, Qt::AlignCenter, umlInstanceData->getDisplayName());
 }
 
 QVariant UMLInstance::itemChange(GraphicsItemChange change, const QVariant &value)
@@ -38,10 +69,11 @@ QVariant UMLInstance::itemChange(GraphicsItemChange change, const QVariant &valu
     {
         case QGraphicsItem::ItemSelectedHasChanged:
             setZValue(isSelected() ? 1 : 0);
+            lifeLine->setZValue(-1);
             break;
         case QGraphicsItem::ItemPositionHasChanged:
             umlInstanceData->setPosX(this->pos().x());
-            setPos(this->pos().x(), DEFAULT_POSY);
+            setPos(this->pos().x(), this->posY);
             break;
         default:
             break;  // Keeps Qt Creator without warnings
@@ -54,9 +86,40 @@ QVariant UMLInstance::itemChange(GraphicsItemChange change, const QVariant &valu
 QRectF UMLInstance::outlineRect() const
 {
 
-    QFontMetricsF fontMetrics(NAME_FONT);
+    QFontMetricsF fontMetrics(TEXT_FONT);
     QRectF rect = fontMetrics.boundingRect(umlInstanceData->getDisplayName());
     rect.adjust(-PADDING, -PADDING, +PADDING, +PADDING);
     rect.translate(-rect.center());
     return rect;
+}
+
+int UMLInstance::getLifeLength()
+{
+    return calculateEndLifeLine() - calculateStartLifeLine();
+}
+
+int UMLInstance::calculateStartLifeLine()
+{
+    UMLCallData *umlCallData = umlSequenceData->instanceCreatedBy(umlInstanceData);
+    if (umlCallData)
+    {
+        // TODO:
+    }
+    else
+    {
+        return getStartCenter().y();
+    }
+}
+
+int UMLInstance::calculateEndLifeLine()
+{
+    UMLCallData *umlCallData = umlSequenceData->instanceDestroyedBy(umlInstanceData);
+    if (umlCallData)
+    {
+        // TODO:
+    }
+    else
+    {
+        return getStartCenter().y() + MAX_LENGTH;
+    }
 }

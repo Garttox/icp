@@ -15,3 +15,13 @@ UMLCallType::UMLCallType(QString string)
     else
         type = MESSAGE;
 }
+
+bool UMLCallType::operator==(const CallType rhs)
+{
+    return type == rhs;
+}
+
+bool UMLCallType::operator==(const UMLCallType& rhs)
+{
+    return type == rhs.type;
+}

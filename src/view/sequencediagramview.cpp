@@ -4,9 +4,7 @@
 #include <model/umlclassdata.h>
 #include <model/umlclasstype.h>
 #include <QMouseEvent>
-#include <view/sequence/umlinstance.h>
-
-
+#include <view/sequence/umlcall.h>
 
 SequenceDiagramView::SequenceDiagramView(QWidget* parent, UMLSequenceData *umlSequenceData)
     : QGraphicsView(parent), umlSequenceData(umlSequenceData)
@@ -16,7 +14,7 @@ SequenceDiagramView::SequenceDiagramView(QWidget* parent, UMLSequenceData *umlSe
     setTransformationAnchor(QGraphicsView::NoAnchor);
 
     connect(umlSequenceData, &UMLSequenceData::instanceModelAdded, this, &SequenceDiagramView::onInstanceModelAdded);
-
+    connect(umlSequenceData, &UMLSequenceData::callModelAdded, this, &SequenceDiagramView::onCallModelAdded);
     drawBackgroundTiles();
 
 }
@@ -34,6 +32,11 @@ void SequenceDiagramView::onInstanceModelAdded(UMLInstanceData *umlInstanceData)
     addUMLInstance(umlInstanceData);
 }
 
+void SequenceDiagramView::onCallModelAdded(UMLCallData *umlCallData)
+{
+    addUMLCall(umlCallData);
+}
+
 // - - - - - private - - - - -
 
 void SequenceDiagramView::drawBackgroundTiles()
@@ -49,9 +52,43 @@ void SequenceDiagramView::drawBackgroundTiles()
 
 void SequenceDiagramView::addUMLInstance(UMLInstanceData *umlInstanceData)
 {
-    UMLInstance *umlInstance = new UMLInstance(umlInstanceData);
+    UMLInstance *umlInstance = new UMLInstance(umlInstanceData, umlSequenceData);
     scene()->addItem(umlInstance);
-    qDebug() << "added";
+}
+
+void SequenceDiagramView::addUMLCall(UMLCallData *umlCallData)
+{
+    UMLInstance* sourceInstance = getUMLInstance(umlCallData->getSource());
+    UMLInstance* destinationInstance = getUMLInstance(umlCallData->getDestination());
+    UMLCall *umlCall = new UMLCall(umlCallData, sourceInstance, destinationInstance);
+    scene()->addItem(umlCall);
+}
+
+UMLInstance *SequenceDiagramView::getUMLInstance(UMLInstanceData *umlInstanceData)
+{
+    QList<UMLInstance*> umlInstances = getItemsOfType<UMLInstance*>();
+    foreach (auto umlInstance, umlInstances)
+    {
+        if (umlInstance->correspondsTo(umlInstanceData))
+        {
+            return umlInstance;
+        }
+    }
+    return nullptr;
+}
+
+template<class T>
+QList<T> SequenceDiagramView::getItemsOfType()
+{
+    QList<T> filtered;
+    foreach(QGraphicsItem *item, scene()->items())
+    {
+        if (T casted = dynamic_cast<T>(item))
+        {
+            filtered.append(casted);
+        }
+    }
+    return filtered;
 }
 
 void SequenceDiagramView::mousePressEvent(QMouseEvent* event)

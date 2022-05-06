@@ -3,8 +3,6 @@
 
 #include <QString>
 
-
-
 class UMLCallType
 {
 public:
@@ -16,6 +14,9 @@ public:
 
     UMLCallType(CallType type);
     UMLCallType(QString type);
+
+    bool operator==(const CallType rhs);
+    bool operator==(const UMLCallType& rhs);
 private:
     CallType type;
 };

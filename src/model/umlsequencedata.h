@@ -17,8 +17,11 @@ public:
     void addCall(UMLCallData *call);
     UMLInstanceData* findInstanceByName(QString instanceName);
     QString getName();
+    UMLCallData *instanceCreatedBy(UMLInstanceData *umlInstanceData);
+    UMLCallData *instanceDestroyedBy(UMLInstanceData *umlInstanceData);
 signals:
     void instanceModelAdded(UMLInstanceData *umlInstanceData);
+    void callModelAdded(UMLCallData *umlCallData);
 private:
     QString name;
     QSet<UMLInstanceData *> instances;
