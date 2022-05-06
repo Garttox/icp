@@ -2,19 +2,19 @@
 #define EDITRELATIONCOMMAND_H
 
 #include "command/command.h"
-#include "model/umlrelationdata.h"
+#include "model/umlrelationmodel.h"
 #include "model/umlrelationtype.h"
 
 class EditRelationCommand : public Command
 {
 public:
-    EditRelationCommand(UMLRelationData *umlRelationData, UMLRelationType newType);
+    EditRelationCommand(UMLRelationModel *umlRelationModel, UMLRelationType newType);
 
 private:
     virtual void process() override;
     virtual void undo() override;
 
-    UMLRelationData *umlRelationData;
+    UMLRelationModel *umlRelationModel;
     UMLRelationType newType;
     UMLRelationType oldType;
 };

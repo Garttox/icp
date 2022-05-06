@@ -1,19 +1,19 @@
 #include "newinstancedialog.h"
 #include "ui_newinstancedialog.h"
 
-#include <model/dataprovider.h>
-#include <model/umlclassdata.h>
-#include <model/umlinstancedata.h>
+#include <model/modelprovider.h>
+#include <model/umlclassmodel.h>
+#include <model/umlinstancemodel.h>
 
-NewInstanceDialog::NewInstanceDialog(UMLSequenceData *umlSequenceData, QWidget *parent) :
+NewInstanceDialog::NewInstanceDialog(UMLSequenceModel *umlSequenceModel, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::NewInstanceDialog),
-    umlSequenceData(umlSequenceData)
+    umlSequenceModel(umlSequenceModel)
 {
     ui->setupUi(this);
-    UMLData *umlData = DataProvider::getInstance().getUMLData();
+    UMLModel *umlModel = ModelProvider::getInstance().getModel();
 
-    foreach (UMLClassData *cls, *umlData->getClasses())
+    foreach (UMLClassModel *cls, *umlModel->getClasses())
     {
         ui->comboBox->addItem(cls->getName(), QVariant::fromValue(cls));
     }
@@ -28,8 +28,8 @@ NewInstanceDialog::~NewInstanceDialog()
 void NewInstanceDialog::on_buttonBox_accepted()
 {
     QString name = ui->lineEdit->text();
-    UMLClassData *umlClassData = ui->comboBox->currentData().value<UMLClassData *>();
-    UMLInstanceData * umlInstanceData = new UMLInstanceData(name, umlClassData, 100);
-    umlSequenceData->addInstance(umlInstanceData);
+    UMLClassModel *umlClassModel = ui->comboBox->currentData().value<UMLClassModel *>();
+    UMLInstanceModel * umlInstanceModel = new UMLInstanceModel(name, umlClassModel, 100);
+    umlSequenceModel->addInstance(umlInstanceModel);
 }
 

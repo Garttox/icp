@@ -2,18 +2,18 @@
 #define ADDCLASSCOMMAND_H
 
 #include "command/command.h"
-#include "model/umlclassdata.h"
+#include "model/umlclassmodel.h"
 
 class AddClassCommand : public Command
 {
 public:
-    AddClassCommand(UMLClassData *umlClassData);
+    AddClassCommand(UMLClassModel *umlClassModel);
 
 private:
     virtual void process() override;
     virtual void undo() override;
 
-    UMLClassData *const umlClassData;
+    UMLClassModel *const umlClassModel;
 };
 
 #endif // ADDCLASSCOMMAND_H

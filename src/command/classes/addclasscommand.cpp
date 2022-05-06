@@ -1,19 +1,19 @@
 #include "addclasscommand.h"
-#include "model/dataprovider.h"
-#include "model/umldata.h"
+#include "model/modelprovider.h"
+#include "model/umlmodel.h"
 
-AddClassCommand::AddClassCommand(UMLClassData *umlClassData) :
-    umlClassData(umlClassData)
+AddClassCommand::AddClassCommand(UMLClassModel *umlClassModel) :
+    umlClassModel(umlClassModel)
 {}
 
 void AddClassCommand::process()
 {
-    UMLData *umlData = DataProvider::getInstance().getUMLData();
-    umlData->addClass(umlClassData);
+    UMLModel *umlModel = ModelProvider::getInstance().getModel();
+    umlModel->addClass(umlClassModel);
 }
 
 void AddClassCommand::undo()
 {
-    UMLData *umlData = DataProvider::getInstance().getUMLData();
-    umlData->removeClass(umlClassData);
+    UMLModel *umlModel = ModelProvider::getInstance().getModel();
+    umlModel->removeClass(umlClassModel);
 }

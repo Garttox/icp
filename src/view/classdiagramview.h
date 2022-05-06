@@ -12,8 +12,8 @@
 #include <QMouseEvent>
 #include <QWidget>
 #include "classes/umlclass.h"
-#include "model/umlclassdata.h"
-#include "model/umldata.h"
+#include "model/umlclassmodel.h"
+#include "model/umlmodel.h"
 
 class ClassToolBar;
 
@@ -35,44 +35,44 @@ public:
     QPixmap getViewportPixmap();
 
     /**
-     * @brief Adds new UMLClass, containing given UMLClassData, to the scene.
-     * @param classData Data to initialize with the UMLClass.
+     * @brief Adds new UMLClass, containing given UMLClassModel, to the scene.
+     * @param umlClassModel Model to initialize with the UMLClass.
      */
-    void addUMLClass(UMLClassData *umlClassData);
+    void addUMLClass(UMLClassModel *umlClassModel);
 
     void removeUMLClass(UMLClass *umlClass);
-    void removeUMLClass(UMLClassData *umlClassData);
+    void removeUMLClass(UMLClassModel *umlClassModel);
 
     /**
-     * @brief Adds new UMLRelation, containing given UMLRelationData, to the scene.
-     * @param relationData Data to initialize with the UMLRelation.
+     * @brief Adds new UMLRelation, containing given UMLRelationModel, to the scene.
+     * @param umlRelationModel Model to initialize with the UMLRelation.
      */
-    void addUMLRelation(UMLRelationData *relationData);
+    void addUMLRelation(UMLRelationModel *umlRelationModel);
 
     void removeUMLRelation(UMLRelation *umlRelation);
-    void removeUMLRelation(UMLRelationData *umlRelationData);
+    void removeUMLRelation(UMLRelationModel *umlRelationModel);
 
 private slots:
-    void onClassModelAdded(UMLClassData *umlClassData);
-    void onClassModelRemoved(UMLClassData *umlClassData);
-    void onRelationModelAdded(UMLRelationData *umlRelationData);
-    void onRelationModelRemoved(UMLRelationData *umlRelationData);
+    void onClassModelAdded(UMLClassModel *umlClassModel);
+    void onClassModelRemoved(UMLClassModel *umlClassModel);
+    void onRelationModelAdded(UMLRelationModel *umlRelationModel);
+    void onRelationModelRemoved(UMLRelationModel *umlRelationModel);
     void onUmlModelCleared();
 
 private:
     /**
-     * @brief Gets UMLClass based on UMLClassData given.
-     * @param umlClassData Data to search for in UMLClasses.
-     * @return UMLClass corresponding to UMLClassData, or nullptr when not found.
+     * @brief Gets UMLClass based on UMLClassModel given.
+     * @param umlClassModel Model to search for in UMLClasses.
+     * @return UMLClass corresponding to UMLClassModel, or nullptr when not found.
      */
-    UMLClass *getUMLClass(UMLClassData *umlClassData);
+    UMLClass *getUMLClass(UMLClassModel *umlClassModel);
 
     /**
-     * @brief Gets UMLRelation based on UMLRelationData given.
-     * @param umlRelationData Data to search for in UMLRelations.
-     * @return UMLRelation corresponding to UMLRelationData, or nullptr when not found.
+     * @brief Gets UMLRelation based on UMLRelationModel given.
+     * @param umlRelationModel Model to search for in UMLRelations.
+     * @return UMLRelation corresponding to UMLRelationModel, or nullptr when not found.
      */
-    UMLRelation *getUMLRelation(UMLRelationData *umlRelationData);
+    UMLRelation *getUMLRelation(UMLRelationModel *umlRelationModel);
 
     /**
      * @brief Gets all the items of type T from the scene.

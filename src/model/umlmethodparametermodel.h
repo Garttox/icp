@@ -1,15 +1,15 @@
-#ifndef UMLMETHODPARAMETERDATA_H
-#define UMLMETHODPARAMETERDATA_H
+#ifndef UMLMETHODPARAMETERMODEL_H
+#define UMLMETHODPARAMETERMODEL_H
 
 #include <QString>
 #include <QObject>
 #include <QJsonObject>
 
-class UMLMethodParameterData : public QObject
+class UMLMethodParameterModel : public QObject
 {
     Q_OBJECT
 public:
-    UMLMethodParameterData(QString name, QString type);
+    UMLMethodParameterModel(QString name, QString type);
     QString toString() const;
     QString getName() const;
     QString getType() const;
@@ -21,4 +21,4 @@ private:
     QString type;
 };
 
-#endif // UMLMETHODPARAMETERDATA_H
+#endif // UMLMETHODPARAMETERMODEL_H

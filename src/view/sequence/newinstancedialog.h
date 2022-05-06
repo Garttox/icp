@@ -3,7 +3,7 @@
 
 #include <QDialog>
 
-#include <model/umlsequencedata.h>
+#include <model/umlsequencemodel.h>
 
 namespace Ui {
 class NewInstanceDialog;
@@ -14,7 +14,7 @@ class NewInstanceDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit NewInstanceDialog(UMLSequenceData *umlSequenceData, QWidget *parent = nullptr);
+    explicit NewInstanceDialog(UMLSequenceModel *umlSequenceModel, QWidget *parent = nullptr);
     ~NewInstanceDialog();
 
 private slots:
@@ -22,7 +22,7 @@ private slots:
 
 private:
     Ui::NewInstanceDialog *ui;
-    UMLSequenceData *umlSequenceData;
+    UMLSequenceModel *umlSequenceModel;
 };
 
 #endif // NEWINSTANCEDIALOG_H

@@ -12,9 +12,9 @@
 #include <QPushButton>
 #include "editfielddialog.h"
 #include "editmethoddialog.h"
-#include "model/umlclassdata.h"
-#include "model/umlfielddata.h"
-#include "model/umlmethoddata.h"
+#include "model/umlclassmodel.h"
+#include "model/umlfieldmodel.h"
+#include "model/umlmethodmodel.h"
 #include "model/umlaccesstype.h"
 
 /**
@@ -27,12 +27,12 @@ public:
     ClassDialog();
 
 protected:
-    void addField(UMLClassData *umlClassData, QListWidget *fieldsList);
-    void addMethod(UMLClassData *umlClassData, QListWidget *methodsList);
-    void editSelectedFields(UMLClassData *umlClassData, QListWidget *fieldsList);
-    void editSelectedMethods(UMLClassData *umlClassData, QListWidget *methodsList);
-    void removeSelectedFields(UMLClassData *umlClassData, QListWidget *fieldsList);
-    void removeSelectedMethods(UMLClassData *umlClassData, QListWidget *methodsList);
+    void addField(UMLClassModel *umlClassModel, QListWidget *fieldsList);
+    void addMethod(UMLClassModel *umlClassModel, QListWidget *methodsList);
+    void editSelectedFields(UMLClassModel *umlClassModel, QListWidget *fieldsList);
+    void editSelectedMethods(UMLClassModel *umlClassModel, QListWidget *methodsList);
+    void removeSelectedFields(UMLClassModel *umlClassModel, QListWidget *fieldsList);
+    void removeSelectedMethods(UMLClassModel *umlClassModel, QListWidget *methodsList);
     void disableButtonsIfListEmpty(QListWidget *list, QPushButton *btn1, QPushButton *btn2);
 };
 

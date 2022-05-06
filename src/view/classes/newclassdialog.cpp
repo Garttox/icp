@@ -7,9 +7,9 @@
 
 #include <QDebug>
 #include "newclassdialog.h"
-#include "model/dataprovider.h"
-#include "model/umldata.h"
-#include "model/umlclassdata.h"
+#include "model/modelprovider.h"
+#include "model/umlmodel.h"
+#include "model/umlclassmodel.h"
 #include "ui_newclassdialog.h"
 #include "command/commandstack.h"
 #include "command/classes/addclasscommand.h"
@@ -18,7 +18,7 @@ NewClassDialog::NewClassDialog(UMLClassType classType, QPoint position, QWidget 
     QDialog(parent),
     ClassDialog(),
     ui(new Ui::NewClassDialog),
-    umlClassData(new UMLClassData(QString(), classType, position.x(), position.y()))
+    umlClassModel(new UMLClassModel(QString(), classType, position.x(), position.y()))
 {
     ui->setupUi(this);
     ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
@@ -37,13 +37,13 @@ NewClassDialog::~NewClassDialog()
 void NewClassDialog::on_buttonBox_accepted()
 {
     QString className = ui->nameLineEdit->text();
-    umlClassData->setName(className);
-    CommandStack::getInstance().push(new AddClassCommand(umlClassData));
+    umlClassModel->setName(className);
+    CommandStack::getInstance().push(new AddClassCommand(umlClassModel));
 }
 
 void NewClassDialog::on_buttonBox_rejected()
 {
-    delete umlClassData;
+    delete umlClassModel;
 }
 
 void NewClassDialog::on_nameLineEdit_textEdited(const QString &text)
@@ -56,17 +56,17 @@ void NewClassDialog::on_nameLineEdit_textEdited(const QString &text)
 
 void NewClassDialog::on_addFieldButton_clicked()
 {
-    addField(umlClassData, ui->fieldsList);
+    addField(umlClassModel, ui->fieldsList);
 }
 
 void NewClassDialog::on_editFieldButton_clicked()
 {
-    editSelectedFields(umlClassData, ui->fieldsList);
+    editSelectedFields(umlClassModel, ui->fieldsList);
 }
 
 void NewClassDialog::on_removeFieldButton_clicked()
 {
-    removeSelectedFields(umlClassData, ui->fieldsList);
+    removeSelectedFields(umlClassModel, ui->fieldsList);
 }
 
 
@@ -74,17 +74,17 @@ void NewClassDialog::on_removeFieldButton_clicked()
 
 void NewClassDialog::on_addMethodButton_clicked()
 {
-    addMethod(umlClassData, ui->methodsList);
+    addMethod(umlClassModel, ui->methodsList);
 }
 
 void NewClassDialog::on_editMethodButton_clicked()
 {
-    editSelectedMethods(umlClassData, ui->methodsList);
+    editSelectedMethods(umlClassModel, ui->methodsList);
 }
 
 void NewClassDialog::on_removeMethodButton_clicked()
 {
-    removeSelectedMethods(umlClassData, ui->methodsList);
+    removeSelectedMethods(umlClassModel, ui->methodsList);
 }
 
 
@@ -105,5 +105,5 @@ void NewClassDialog::on_methodsList_itemSelectionChanged()
 
 QString NewClassDialog::getHeaderString() const
 {
-    return "Create " + umlClassData->getType().toString();
+    return "Create " + umlClassModel->getType().toString();
 }

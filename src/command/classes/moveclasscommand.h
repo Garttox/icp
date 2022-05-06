@@ -3,13 +3,13 @@
 
 #include <QPoint>
 #include "command/command.h"
-#include "model/umlclassdata.h"
+#include "model/umlclassmodel.h"
 
 
 class MoveClassCommand : public Command
 {
 public:
-    MoveClassCommand(UMLClassData *umlClassData, QPoint newPosition);
+    MoveClassCommand(UMLClassModel *umlClassModel, QPoint newPosition);
 
 private:
     virtual void process() override;
@@ -17,7 +17,7 @@ private:
 
     QPoint oldPosition;
     QPoint newPosition;
-    UMLClassData *umlClassData;
+    UMLClassModel *umlClassModel;
 };
 
 #endif // MOVECLASSCOMMAND_H

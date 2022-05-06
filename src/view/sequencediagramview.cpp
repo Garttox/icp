@@ -1,40 +1,41 @@
 #include "sequencediagramview.h"
 
 #include <view/classes/umlclass.h>
-#include <model/umlclassdata.h>
+#include <model/umlclassmodel.h>
 #include <model/umlclasstype.h>
 #include <QMouseEvent>
 #include <view/sequence/umlcall.h>
 
-SequenceDiagramView::SequenceDiagramView(QWidget* parent, UMLSequenceData *umlSequenceData)
-    : QGraphicsView(parent), umlSequenceData(umlSequenceData)
+SequenceDiagramView::SequenceDiagramView(QWidget* parent, UMLSequenceModel *umlSequenceModel)
+    : QGraphicsView(parent), umlSequenceModel(umlSequenceModel)
 {
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setTransformationAnchor(QGraphicsView::NoAnchor);
 
-    connect(umlSequenceData, &UMLSequenceData::instanceModelAdded, this, &SequenceDiagramView::onInstanceModelAdded);
-    connect(umlSequenceData, &UMLSequenceData::callModelAdded, this, &SequenceDiagramView::onCallModelAdded);
+    connect(umlSequenceModel, &UMLSequenceModel::instanceModelAdded, this, &SequenceDiagramView::onInstanceModelAdded);
+    connect(umlSequenceModel, &UMLSequenceModel::callModelAdded, this, &SequenceDiagramView::onCallModelAdded);
+
     drawBackgroundTiles();
 
 }
 
-UMLSequenceData *SequenceDiagramView::getUMLSequenceData() const
+UMLSequenceModel *SequenceDiagramView::getUMLSequenceModel() const
 {
-    return this->umlSequenceData;
+    return this->umlSequenceModel;
 }
 
 // - - - - - private slots - - - - -
 
 
-void SequenceDiagramView::onInstanceModelAdded(UMLInstanceData *umlInstanceData)
+void SequenceDiagramView::onInstanceModelAdded(UMLInstanceModel *umlInstanceModel)
 {
-    addUMLInstance(umlInstanceData);
+    addUMLInstance(umlInstanceModel);
 }
 
-void SequenceDiagramView::onCallModelAdded(UMLCallData *umlCallData)
+void SequenceDiagramView::onCallModelAdded(UMLCallModel *umlCallModel)
 {
-    addUMLCall(umlCallData);
+    addUMLCall(umlCallModel);
 }
 
 // - - - - - private - - - - -
@@ -50,26 +51,26 @@ void SequenceDiagramView::drawBackgroundTiles()
     setBackgroundBrush(pixmap);
 }
 
-void SequenceDiagramView::addUMLInstance(UMLInstanceData *umlInstanceData)
+void SequenceDiagramView::addUMLInstance(UMLInstanceModel *umlInstanceModel)
 {
-    UMLInstance *umlInstance = new UMLInstance(umlInstanceData, umlSequenceData);
+    UMLInstance *umlInstance = new UMLInstance(umlInstanceModel, umlSequenceModel);
     scene()->addItem(umlInstance);
 }
 
-void SequenceDiagramView::addUMLCall(UMLCallData *umlCallData)
+void SequenceDiagramView::addUMLCall(UMLCallModel *umlCallModel)
 {
-    UMLInstance* sourceInstance = getUMLInstance(umlCallData->getSource());
-    UMLInstance* destinationInstance = getUMLInstance(umlCallData->getDestination());
-    UMLCall *umlCall = new UMLCall(umlCallData, sourceInstance, destinationInstance);
+    UMLInstance* sourceInstance = getUMLInstance(umlCallModel->getSource());
+    UMLInstance* destinationInstance = getUMLInstance(umlCallModel->getDestination());
+    UMLCall *umlCall = new UMLCall(umlCallModel, sourceInstance, destinationInstance);
     scene()->addItem(umlCall);
 }
 
-UMLInstance *SequenceDiagramView::getUMLInstance(UMLInstanceData *umlInstanceData)
+UMLInstance *SequenceDiagramView::getUMLInstance(UMLInstanceModel *umlInstanceModel)
 {
     QList<UMLInstance*> umlInstances = getItemsOfType<UMLInstance*>();
     foreach (auto umlInstance, umlInstances)
     {
-        if (umlInstance->correspondsTo(umlInstanceData))
+        if (umlInstance->correspondsTo(umlInstanceModel))
         {
             return umlInstance;
         }

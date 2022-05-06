@@ -11,17 +11,17 @@
 #include "command/commandstack.h"
 #include "command/classes/editrelationcommand.h"
 
-EditRelationDialog::EditRelationDialog(UMLRelationData *umlRelationData, QWidget *parent) :
+EditRelationDialog::EditRelationDialog(UMLRelationModel *umlRelationModel, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::EditRelationDialog),
-    umlRelationData(umlRelationData)
+    umlRelationModel(umlRelationModel)
 {
     ui->setupUi(this);
 
-    ui->sourceLineEdit->setText(umlRelationData->getSource()->getDisplayName());
-    ui->destinationLineEdit->setText(umlRelationData->getDestination()->getDisplayName());
+    ui->sourceLineEdit->setText(umlRelationModel->getSource()->getDisplayName());
+    ui->destinationLineEdit->setText(umlRelationModel->getDestination()->getDisplayName());
     ui->typeComboBox->addItems(UMLRelationType::asStringList());
-    ui->typeComboBox->setCurrentText(umlRelationData->getType().toString());
+    ui->typeComboBox->setCurrentText(umlRelationModel->getType().toString());
 }
 
 EditRelationDialog::~EditRelationDialog()
@@ -32,6 +32,6 @@ EditRelationDialog::~EditRelationDialog()
 void EditRelationDialog::on_buttonBox_accepted()
 {
     UMLRelationType type(ui->typeComboBox->currentText());
-    CommandStack::getInstance().push(new EditRelationCommand(umlRelationData, type));
+    CommandStack::getInstance().push(new EditRelationCommand(umlRelationModel, type));
 }
 

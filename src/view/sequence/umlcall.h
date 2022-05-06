@@ -4,7 +4,7 @@
 #include <QGraphicsItem>
 #include <QObject>
 
-#include <model/umlcalldata.h>
+#include <model/umlcallmodel.h>
 
 class UMLInstance;
 
@@ -12,7 +12,7 @@ class UMLCall : public QObject, public QGraphicsItem
 {
     Q_OBJECT
 public:
-    UMLCall(UMLCallData *umlCallData, UMLInstance *sourceInstance, UMLInstance *destinationInstance);
+    UMLCall(UMLCallModel *umlCallModel, UMLInstance *sourceInstance, UMLInstance *destinationInstance);
     QRectF boundingRect() const override;
 
 protected:
@@ -22,7 +22,7 @@ protected:
 private:
     QRectF outlineRect() const;
     void setCorrectPosition();
-    UMLCallData *umlCallData;
+    UMLCallModel *umlCallModel;
     UMLInstance *sourceInstance;
     UMLInstance *destinationInstance;
 

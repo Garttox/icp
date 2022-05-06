@@ -12,67 +12,67 @@
 ClassDialog::ClassDialog()
 {}
 
-void ClassDialog::addField(UMLClassData *umlClassData, QListWidget *fieldsList)
+void ClassDialog::addField(UMLClassModel *umlClassModel, QListWidget *fieldsList)
 {
     UMLAccessType umlAccessType(UMLAccessType::PUBLIC);
-    UMLFieldData *umlFieldData = new UMLFieldData(QString("NewField"), QString("void"), umlAccessType);
-    umlClassData->addField(umlFieldData);
-    fieldsList->addItem(umlFieldData->toString());
+    UMLFieldModel *umlFieldModel = new UMLFieldModel(QString("NewField"), QString("void"), umlAccessType);
+    umlClassModel->addField(umlFieldModel);
+    fieldsList->addItem(umlFieldModel->toString());
 }
 
-void ClassDialog::addMethod(UMLClassData *umlClassData, QListWidget *methodsList)
+void ClassDialog::addMethod(UMLClassModel *umlClassModel, QListWidget *methodsList)
 {
     UMLAccessType umlAccessType(UMLAccessType::PUBLIC);
-    UMLMethodData *umlMethodData = new UMLMethodData(QString("NewMethod"), QString("void"), umlAccessType);
-    umlClassData->addMethod(umlMethodData);
-    methodsList->addItem(umlMethodData->toString());
+    UMLMethodModel *umlMethodModel = new UMLMethodModel(QString("NewMethod"), QString("void"), umlAccessType);
+    umlClassModel->addMethod(umlMethodModel);
+    methodsList->addItem(umlMethodModel->toString());
 }
 
-void ClassDialog::editSelectedFields(UMLClassData *umlClassData, QListWidget *fieldsList)
+void ClassDialog::editSelectedFields(UMLClassModel *umlClassModel, QListWidget *fieldsList)
 {
     QModelIndexList selectedItems = fieldsList->selectionModel()->selectedIndexes();
     foreach (auto selectedItem, selectedItems)
     {
         int selectedRow = selectedItem.row();
-        UMLFieldData *umlFieldData = umlClassData->getFieldAt(selectedRow);
-        EditFieldDialog *editFieldDialog = new EditFieldDialog(umlClassData->getType(), umlFieldData);
+        UMLFieldModel *umlFieldModel = umlClassModel->getFieldAt(selectedRow);
+        EditFieldDialog *editFieldDialog = new EditFieldDialog(umlClassModel->getType(), umlFieldModel);
         editFieldDialog->exec();
         fieldsList->takeItem(selectedRow);
-        fieldsList->insertItem(selectedRow, umlFieldData->toString());
+        fieldsList->insertItem(selectedRow, umlFieldModel->toString());
     }
 }
 
-void ClassDialog::editSelectedMethods(UMLClassData *umlClassData, QListWidget *methodsList)
+void ClassDialog::editSelectedMethods(UMLClassModel *umlClassModel, QListWidget *methodsList)
 {
 
     QModelIndexList selectedItems = methodsList->selectionModel()->selectedIndexes();
     foreach (auto selectedItem, selectedItems)
     {
         int selectedRow = selectedItem.row();
-        UMLMethodData *umlMethodData = umlClassData->getMethodAt(selectedRow);
-        EditMethodDialog *editFieldDialog = new EditMethodDialog(umlClassData->getType(), umlMethodData);
+        UMLMethodModel *umlMethodModel = umlClassModel->getMethodAt(selectedRow);
+        EditMethodDialog *editFieldDialog = new EditMethodDialog(umlClassModel->getType(), umlMethodModel);
         editFieldDialog->exec();
         methodsList->takeItem(selectedRow);
-        methodsList->insertItem(selectedRow, umlMethodData->toString());
+        methodsList->insertItem(selectedRow, umlMethodModel->toString());
     }
 }
 
-void ClassDialog::removeSelectedFields(UMLClassData *umlClassData, QListWidget *fieldsList)
+void ClassDialog::removeSelectedFields(UMLClassModel *umlClassModel, QListWidget *fieldsList)
 {
     QModelIndexList selectedIndexes = fieldsList->selectionModel()->selectedIndexes();
     for (auto i = selectedIndexes.rbegin(); i != selectedIndexes.rend(); ++i)
     {
-        umlClassData->removeFieldAt(i->row());
+        umlClassModel->removeFieldAt(i->row());
     }
     qDeleteAll(fieldsList->selectedItems());
 }
 
-void ClassDialog::removeSelectedMethods(UMLClassData *umlClassData, QListWidget *methodsList)
+void ClassDialog::removeSelectedMethods(UMLClassModel *umlClassModel, QListWidget *methodsList)
 {
     QModelIndexList selectedIndexes = methodsList->selectionModel()->selectedIndexes();
     for (auto i = selectedIndexes.rbegin(); i != selectedIndexes.rend(); ++i)
     {
-        umlClassData->removeMethodAt(i->row());
+        umlClassModel->removeMethodAt(i->row());
     }
     qDeleteAll(methodsList->selectedItems());
 }

@@ -8,16 +8,16 @@
 #include <QGraphicsScene>
 #include <QDebug>
 #include <QtMath>
-#include "model/dataprovider.h"
+#include "model/modelprovider.h"
 #include "umlrelation.h"
 #include "umlclass.h"
 #include "umlclassnotifier.h"
 #include "view/classes/editrelationdialog.h"
 #include "ui_editrelationdialog.h"
 
-UMLRelation::UMLRelation(UMLRelationData* relation, UMLRelationAnchor* sourceAnchor, UMLRelationAnchor* destinationAnchor) :
+UMLRelation::UMLRelation(UMLRelationModel* relation, UMLRelationAnchor* sourceAnchor, UMLRelationAnchor* destinationAnchor) :
     QObject(), QGraphicsLineItem(),
-    umlRelationData(relation),
+    umlRelationModel(relation),
     sourceAnchor(sourceAnchor),
     destinationAnchor(destinationAnchor)
 {
@@ -48,27 +48,27 @@ QPainterPath UMLRelation::shape() const
 
 bool UMLRelation::isOfType(UMLRelationType umlRelationType)
 {
-    return umlRelationData->getType() == umlRelationType;
+    return umlRelationModel->getType() == umlRelationType;
 }
 
-bool UMLRelation::correspondsTo(UMLRelationData *umlRelationData)
+bool UMLRelation::correspondsTo(UMLRelationModel *umlRelationModel)
 {
-    return this->umlRelationData == umlRelationData;
+    return this->umlRelationModel == umlRelationModel;
 }
 
 bool UMLRelation::isConnectedToUMLClass(UMLClass *umlClass)
 {
-    UMLClassData *umlClassData = umlClass->getUMLClassData();
-    UMLClassData *source = umlRelationData->getSource();
-    UMLClassData *destination = umlRelationData->getDestination();
-    return source == umlClassData || destination == umlClassData;
+    UMLClassModel *umlClassModel = umlClass->getUMLClassModel();
+    UMLClassModel *source = umlRelationModel->getSource();
+    UMLClassModel *destination = umlRelationModel->getDestination();
+    return source == umlClassModel || destination == umlClassModel;
 }
 
 // - - - - - protected - - - - -
 
 void UMLRelation::mouseDoubleClickEvent(QGraphicsSceneMouseEvent * /*event*/)
 {
-    EditRelationDialog dialog(umlRelationData);
+    EditRelationDialog dialog(umlRelationModel);
     dialog.exec();
 }
 

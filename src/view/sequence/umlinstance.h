@@ -8,24 +8,24 @@
 #include <QColor>
 #include <QFont>
 
-#include <model/umlinstancedata.h>
-#include <model/umlsequencedata.h>
+#include <model/umlsequencemodel.h>
+#include <model/umlinstancemodel.h>
 
 class UMLInstance : public QObject, public QGraphicsItem
 {
     Q_OBJECT
 public:
-    UMLInstance(UMLInstanceData *umlInstanceData, UMLSequenceData *umlSequenceData);
+    UMLInstance(UMLInstanceModel *umlInstanceModel, UMLSequenceModel *umlSequenceModel);
     QRectF boundingRect() const override;
     QPointF getStartCenter() const;
     QPointF getEndCenter() const;
     qreal getPosX() const;
     /**
-     * @brief Checks if given UMLInstanceData are being displayed by this object.
-     * @param umlInstanceData UMLInstanceData to check.
-     * @return True, if UMLInstance is displaying given UMLInstanceData.
+     * @brief Checks if given UMLInstanceModel are being displayed by this object.
+     * @param umlInstanceModel UMLInstanceModel to check.
+     * @return True, if UMLInstance is displaying given UMLInstanceModel.
      */
-    bool correspondsTo(UMLInstanceData *umlInstanceData);
+    bool correspondsTo(UMLInstanceModel *umlInstanceModel);
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
     QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
@@ -34,8 +34,8 @@ private:
     int getLifeLength();
     int calculateStartLifeLine();
     int calculateEndLifeLine();
-    UMLInstanceData *umlInstanceData;
-    UMLSequenceData *umlSequenceData;
+    UMLInstanceModel *umlInstanceModel;
+    UMLSequenceModel *umlSequenceModel;
     UMLInstanceLifeLine *lifeLine;
 
     qreal posY = DEFAULT_POSY;

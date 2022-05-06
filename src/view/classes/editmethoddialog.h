@@ -9,7 +9,7 @@
 #define EDITMETHODDIALOG_H
 
 #include <QDialog>
-#include "model/umlmethoddata.h"
+#include "model/umlmethodmodel.h"
 
 namespace Ui {
 class EditMethodDialog;
@@ -24,7 +24,7 @@ class EditMethodDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit EditMethodDialog(UMLClassType classType, UMLMethodData *umlMethodData, QWidget *parent = nullptr);
+    explicit EditMethodDialog(UMLClassType classType, UMLMethodModel *umlMethodModel, QWidget *parent = nullptr);
     ~EditMethodDialog();
 
 private slots:
@@ -32,8 +32,8 @@ private slots:
 
 private:
     Ui::EditMethodDialog *ui;
-    UMLMethodData *umlMethodData;
-    void setDataToParameterTable(UMLMethodData *umlMethodData);
+    UMLMethodModel *umlMethodModel;
+    void setDataToParameterTable(UMLMethodModel *umlMethodModel);
     void setDataFromParameterTable();
 
     const int NAME_COLUMN_INDEX = 0;

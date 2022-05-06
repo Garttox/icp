@@ -14,32 +14,32 @@
 #include "command/commandstack.h"
 #include "command/classes/addrelationcommand.h"
 #include "command/classes/moveclasscommand.h"
-#include "model/dataprovider.h"
+#include "model/modelprovider.h"
 #include "umlclass.h"
 #include "editclassdialog.h"
 #include "ui_editclassdialog.h"
 #include "umlrelationanchor.h"
 #include "umlclassnotifier.h"
 
-UMLClass::UMLClass(UMLClassData *umlClassData) :
+UMLClass::UMLClass(UMLClassModel *umlClassModel) :
     QObject(),
     QGraphicsItem(),
-    umlClassData(umlClassData)
+    umlClassModel(umlClassModel)
 {
     setFlags(ItemIsMovable | ItemIsSelectable | ItemSendsGeometryChanges);
-    setPos(umlClassData->getPosX(), umlClassData->getPosY());
+    setPos(umlClassModel->getPosX(), umlClassModel->getPosY());
     addRelationAnchors();
 
     // connect signals
-    UMLData *umlData = DataProvider::getInstance().getUMLData();
+    UMLModel *umlModel = ModelProvider::getInstance().getModel();
     UMLClassNotifier* notifier = UMLClassNotifier::getInstance();
 
     connect(notifier, &UMLClassNotifier::anchorDragged, this, &UMLClass::onAnchorDragged);
     connect(notifier, &UMLClassNotifier::anchorDragReleased, this, &UMLClass::onAnchorDragReleased);
-    connect(umlData, &UMLData::classModelEdited, this, &UMLClass::onClassModelEdited);
-    connect(umlData, &UMLData::relationModelAdded, this, &UMLClass::onRelationModelAdded);
-    connect(umlData, &UMLData::relationModelEdited, this, &UMLClass::onRelationModelEdited);
-    connect(umlData, &UMLData::relationModelRemoved, this, &UMLClass::onRelationModelRemoved);
+    connect(umlModel, &UMLModel::classModelEdited, this, &UMLClass::onClassModelEdited);
+    connect(umlModel, &UMLModel::relationModelAdded, this, &UMLClass::onRelationModelAdded);
+    connect(umlModel, &UMLModel::relationModelEdited, this, &UMLClass::onRelationModelEdited);
+    connect(umlModel, &UMLModel::relationModelRemoved, this, &UMLClass::onRelationModelRemoved);
 }
 
 QRectF UMLClass::boundingRect() const
@@ -47,9 +47,9 @@ QRectF UMLClass::boundingRect() const
     return outlineRect();
 }
 
-bool UMLClass::correspondsTo(UMLClassData *umlClassData)
+bool UMLClass::correspondsTo(UMLClassModel *umlClassModel)
 {
-    return this->umlClassData == umlClassData;
+    return this->umlClassModel == umlClassModel;
 }
 
 UMLRelationAnchor *UMLClass::getAnchorById(int id) const
@@ -57,9 +57,9 @@ UMLRelationAnchor *UMLClass::getAnchorById(int id) const
     return (id >= 0 && id < anchors.count()) ? anchors.at(id) : nullptr;
 }
 
-UMLClassData *UMLClass::getUMLClassData() const
+UMLClassModel *UMLClass::getUMLClassModel() const
 {
-    return umlClassData;
+    return umlClassModel;
 }
 
 int UMLClass::getAnchorId(UMLRelationAnchor *anchor)
@@ -69,35 +69,35 @@ int UMLClass::getAnchorId(UMLRelationAnchor *anchor)
 
 // - - - - - private slots  - - - - -
 
-void UMLClass::onClassModelEdited(UMLClassData *umlClassData)
+void UMLClass::onClassModelEdited(UMLClassModel *umlClassModel)
 {
-    if (correspondsTo(umlClassData))
+    if (correspondsTo(umlClassModel))
     {
-        setPos(umlClassData->getPosX(), umlClassData->getPosY());
+        setPos(umlClassModel->getPosX(), umlClassModel->getPosY());
         resetAnchorsPositions();
     }
     actualizeRealizedIdentifiers();
     update();
 }
 
-void UMLClass::onRelationModelAdded(UMLRelationData *relationData)
+void UMLClass::onRelationModelAdded(UMLRelationModel *umlRelationModel)
 {
-    if (relationData->getType() == UMLRelationType::GENERALISATION)
+    if (umlRelationModel->getType() == UMLRelationType::GENERALISATION)
     {
         actualizeRealizedIdentifiers();
         update();
     }
 }
 
-void UMLClass::onRelationModelEdited(UMLRelationData * /*relationData*/)
+void UMLClass::onRelationModelEdited(UMLRelationModel * /*umlRelationModel*/)
 {
     actualizeRealizedIdentifiers();
     update();
 }
 
-void UMLClass::onRelationModelRemoved(UMLRelationData *relationData)
+void UMLClass::onRelationModelRemoved(UMLRelationModel *umlRelationModel)
 {
-    if (relationData->getType() == UMLRelationType::GENERALISATION)
+    if (umlRelationModel->getType() == UMLRelationType::GENERALISATION)
     {
         actualizeRealizedIdentifiers();
         update();
@@ -118,7 +118,7 @@ void UMLClass::onAnchorDragReleased(UMLRelationAnchor *source, UMLRelationAnchor
 {
     if (destination != nullptr && anchors.contains(source))
     {
-        addRelationDataToModel(source, destination);
+        addRelationToModel(source, destination);
     }
     setAnchorsVisible(isSelected());
 }
@@ -127,7 +127,7 @@ void UMLClass::onAnchorDragReleased(UMLRelationAnchor *source, UMLRelationAnchor
 
 void UMLClass::mouseDoubleClickEvent(QGraphicsSceneMouseEvent */*event*/)
 {
-    EditClassDialog *editClassDialog = new EditClassDialog(umlClassData);
+    EditClassDialog *editClassDialog = new EditClassDialog(umlClassModel);
     editClassDialog->exec();
     resetAnchorsPositions();
 }
@@ -135,7 +135,7 @@ void UMLClass::mouseDoubleClickEvent(QGraphicsSceneMouseEvent */*event*/)
 void UMLClass::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     QPoint position = this->pos().toPoint();
-    CommandStack::getInstance().push(new MoveClassCommand(umlClassData, position));
+    CommandStack::getInstance().push(new MoveClassCommand(umlClassModel, position));
     QGraphicsItem::mouseReleaseEvent(event);
 }
 
@@ -166,8 +166,8 @@ void UMLClass::paint(QPainter *painter, const QStyleOptionGraphicsItem * /*optio
     QFontMetricsF textFontMetrics(TEXT_FONT);
     QFontMetricsF classNameFontMetrics(CLASS_NAME_FONT);
 
-    QList<UMLFieldData *> fields = umlClassData->getFields();
-    QList<UMLMethodData *> methods = umlClassData->getMethods();
+    QList<UMLFieldModel *> fields = umlClassModel->getFields();
+    QList<UMLMethodModel *> methods = umlClassModel->getMethods();
 
     QPointF point = rect.topLeft();
     point.setX(point.x() + PADDING_HORIZONTAL);
@@ -180,7 +180,7 @@ void UMLClass::paint(QPainter *painter, const QStyleOptionGraphicsItem * /*optio
 
     // class name
     painter->setFont(CLASS_NAME_FONT);
-    painter->drawText(point, umlClassData->getDisplayName());
+    painter->drawText(point, umlClassModel->getDisplayName());
 
     point.setY(point.y() + PADDING_VERTICAL);
 
@@ -219,8 +219,8 @@ QRectF UMLClass::outlineRect() const
     const int separatorsHeight = 8;
     QFontMetricsF textFontMetrics(TEXT_FONT);
     QFontMetricsF classNameFontMetrics(CLASS_NAME_FONT);
-    QList<UMLFieldData *> fields = umlClassData->getFields();
-    QList<UMLMethodData *> methods = umlClassData->getMethods();
+    QList<UMLFieldModel *> fields = umlClassModel->getFields();
+    QList<UMLMethodModel *> methods = umlClassModel->getMethods();
     QRectF rect = QRectF(0, 0, maxTextWidth(), textFontMetrics.height() * (fields.size() + methods.size()) + classNameFontMetrics.height() + separatorsHeight);
     rect.adjust(-PADDING_HORIZONTAL, -PADDING_VERTICAL, +PADDING_HORIZONTAL, +PADDING_VERTICAL);
     rect.translate(-rect.center());
@@ -231,9 +231,9 @@ qreal UMLClass::maxTextWidth() const
 {
     QFontMetricsF textFontMetrics(TEXT_FONT);
     QFontMetricsF classNameFontMetrics(CLASS_NAME_FONT);
-    QList<UMLFieldData *> fields = umlClassData->getFields();
-    QList<UMLMethodData *> methods = umlClassData->getMethods();
-    qreal maxWidth = std::max(classNameFontMetrics.width(umlClassData->getDisplayName()), MIN_WIDTH);
+    QList<UMLFieldModel *> fields = umlClassModel->getFields();
+    QList<UMLMethodModel *> methods = umlClassModel->getMethods();
+    qreal maxWidth = std::max(classNameFontMetrics.width(umlClassModel->getDisplayName()), MIN_WIDTH);
 
     foreach(auto *method, methods)
     {
@@ -280,9 +280,9 @@ void UMLClass::setAnchorsVisible(bool enabled)
 void UMLClass::actualizeRealizedIdentifiers()
 {
     realizedIdentifiers.clear();
-    QSet<UMLRelationData *> relations = DataProvider::getInstance().getUMLData()->getRelationsWithSourceClass(umlClassData);
-    QSet<UMLAttribute *> ownIdentifiers = umlClassData->getIdentifiers();
-    foreach (UMLRelationData *relation, relations)
+    QSet<UMLRelationModel *> relations = ModelProvider::getInstance().getModel()->getRelationsWithSourceClass(umlClassModel);
+    QSet<UMLAttribute *> ownIdentifiers = umlClassModel->getIdentifiers();
+    foreach (UMLRelationModel *relation, relations)
     {
         if (relation->getType() == UMLRelationType::GENERALISATION)
         {
@@ -298,14 +298,14 @@ void UMLClass::actualizeRealizedIdentifiers()
     }
 }
 
-void UMLClass::addRelationDataToModel(UMLRelationAnchor *source, UMLRelationAnchor *destination)
+void UMLClass::addRelationToModel(UMLRelationAnchor *source, UMLRelationAnchor *destination)
 {
     int srcAnchorId = source->getId();
     int destAnchorId = destination->getId();
-    UMLClassData *srcClassData = source->getParentUMLClass()->getUMLClassData();
-    UMLClassData *destClassData = destination->getParentUMLClass()->getUMLClassData();
+    UMLClassModel *sourceClassModel = source->getParentUMLClass()->getUMLClassModel();
+    UMLClassModel *destinationClassModel = destination->getParentUMLClass()->getUMLClassModel();
     UMLRelationType type = UMLRelationType::ASSOCIATION;
-    UMLRelationData *umlRelationData = new UMLRelationData(srcClassData, destClassData, type, srcAnchorId, destAnchorId);
-    CommandStack::getInstance().push(new AddRelationCommand(umlRelationData));
+    UMLRelationModel *umlRelationModel = new UMLRelationModel(sourceClassModel, destinationClassModel, type, srcAnchorId, destAnchorId);
+    CommandStack::getInstance().push(new AddRelationCommand(umlRelationModel));
 }
 

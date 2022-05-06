@@ -5,8 +5,8 @@
 #include <QPen>
 #include <QRectF>
 
-UMLCall::UMLCall(UMLCallData *umlCallData, UMLInstance *sourceInstance, UMLInstance *destinationInstance)
-    : QObject(), QGraphicsItem(), umlCallData(umlCallData),
+UMLCall::UMLCall(UMLCallModel *umlCallModel, UMLInstance *sourceInstance, UMLInstance *destinationInstance)
+    : QObject(), QGraphicsItem(), umlCallModel(umlCallModel),
       sourceInstance(sourceInstance), destinationInstance(destinationInstance)
 {
     setFlags(ItemIsMovable | ItemIsSelectable | ItemSendsGeometryChanges);

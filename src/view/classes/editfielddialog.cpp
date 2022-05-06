@@ -9,16 +9,16 @@
 #include "ui_editfielddialog.h"
 #include "model/umlaccesstype.h"
 
-EditFieldDialog::EditFieldDialog(UMLClassType classType, UMLFieldData *umlFieldData, QWidget *parent) :
+EditFieldDialog::EditFieldDialog(UMLClassType classType, UMLFieldModel *umlFieldModel, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::EditFieldDialog),
-    umlFieldData(umlFieldData)
+    umlFieldModel(umlFieldModel)
 {
     ui->setupUi(this);
-    ui->nameLineEdit->setText(umlFieldData->getName());
-    ui->typeLineEdit->setText(umlFieldData->getType());
+    ui->nameLineEdit->setText(umlFieldModel->getName());
+    ui->typeLineEdit->setText(umlFieldModel->getType());
     ui->accessComboBox->addItems(UMLAccessType::asStringListFor(classType));
-    ui->accessComboBox->setCurrentText(umlFieldData->getAccess().toString());
+    ui->accessComboBox->setCurrentText(umlFieldModel->getAccess().toString());
 }
 
 EditFieldDialog::~EditFieldDialog()
@@ -28,8 +28,8 @@ EditFieldDialog::~EditFieldDialog()
 
 void EditFieldDialog::on_buttonBox_accepted()
 {
-    umlFieldData->setName(ui->nameLineEdit->text());
-    umlFieldData->setType(ui->typeLineEdit->text());
-    umlFieldData->setAccess(UMLAccessType(ui->accessComboBox->currentText()));
+    umlFieldModel->setName(ui->nameLineEdit->text());
+    umlFieldModel->setType(ui->typeLineEdit->text());
+    umlFieldModel->setAccess(UMLAccessType(ui->accessComboBox->currentText()));
 }
 

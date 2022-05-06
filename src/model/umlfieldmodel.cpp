@@ -1,19 +1,19 @@
-#include "umlfielddata.h"
+#include "umlfieldmodel.h"
 
-UMLFieldData::UMLFieldData(QString name, QString type, UMLAccessType access) :
+UMLFieldModel::UMLFieldModel(QString name, QString type, UMLAccessType access) :
     UMLAttribute(name, type, access)
 {}
 
-UMLFieldData::UMLFieldData(const UMLFieldData &original) :
+UMLFieldModel::UMLFieldModel(const UMLFieldModel &original) :
     UMLAttribute(original.name, original.type, original.access)
 {}
 
-QString UMLFieldData::toString() const
+QString UMLFieldModel::toString() const
 {
     return QString("%1 %2: %3").arg(access.toAnnotationString(), name, type);
 }
 
-QJsonObject UMLFieldData::getSaveData()
+QJsonObject UMLFieldModel::getSaveData()
 {
     QJsonObject object;
     object.insert("name", name);

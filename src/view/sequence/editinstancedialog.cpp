@@ -1,14 +1,14 @@
 #include "editinstancedialog.h"
 #include "ui_editinstancedialog.h"
 
-EditInstanceDialog::EditInstanceDialog(UMLInstanceData *umlInstanceData, QWidget *parent) :
+EditInstanceDialog::EditInstanceDialog(UMLInstanceModel *umlInstanceModel, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::EditInstanceDialog)
 {
     ui->setupUi(this);
 
-    ui->lineEdit->setText(umlInstanceData->getName());
-    ui->comboBox->addItem(umlInstanceData->getClassData()->getName());
+    ui->lineEdit->setText(umlInstanceModel->getName());
+    ui->comboBox->addItem(umlInstanceModel->getClassModel()->getName());
     ui->comboBox->setCurrentIndex(0);
     ui->comboBox->setEnabled(false);
 }
@@ -20,6 +20,6 @@ EditInstanceDialog::~EditInstanceDialog()
 
 void EditInstanceDialog::on_buttonBox_accepted()
 {
-    umlInstanceData->setName(ui->lineEdit->text());
+    umlInstanceModel->setName(ui->lineEdit->text());
 }
 

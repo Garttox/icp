@@ -7,13 +7,11 @@
 #include <QPen>
 #include <QGraphicsScene>
 
-#include <model/dataprovider.h>
-
-UMLInstance::UMLInstance(UMLInstanceData *umlInstanceData, UMLSequenceData *umlSequenceData)
-    : umlInstanceData(umlInstanceData), umlSequenceData(umlSequenceData)
+UMLInstance::UMLInstance(UMLInstanceModel *umlInstanceModel, UMLSequenceModel *umlSequenceModel)
+    : umlInstanceModel(umlInstanceModel), umlSequenceModel(umlSequenceModel)
 {
     setFlags(ItemIsMovable | ItemIsSelectable | ItemSendsGeometryChanges);
-    setPos(umlInstanceData->getPosX(), 100);
+    setPos(umlInstanceModel->getPosX(), 100);
 
     lifeLine = new UMLInstanceLifeLine(this);
 }
@@ -43,9 +41,9 @@ qreal UMLInstance::getPosX() const
     return this->pos().x();
 }
 
-bool UMLInstance::correspondsTo(UMLInstanceData *umlInstanceData)
+bool UMLInstance::correspondsTo(UMLInstanceModel *umlInstanceModel)
 {
-    return this->umlInstanceData == umlInstanceData;
+    return this->umlInstanceModel == umlInstanceModel;
 }
 
 // - - - - - protected - - - - -
@@ -60,7 +58,7 @@ void UMLInstance::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
     painter->drawRect(rect);
     painter->setPen(TEXT_COLOR);
     painter->setFont(TEXT_FONT);
-    painter->drawText(rect, Qt::AlignCenter, umlInstanceData->getDisplayName());
+    painter->drawText(rect, Qt::AlignCenter, umlInstanceModel->getDisplayName());
 }
 
 QVariant UMLInstance::itemChange(GraphicsItemChange change, const QVariant &value)
@@ -72,7 +70,7 @@ QVariant UMLInstance::itemChange(GraphicsItemChange change, const QVariant &valu
             lifeLine->setZValue(-1);
             break;
         case QGraphicsItem::ItemPositionHasChanged:
-            umlInstanceData->setPosX(this->pos().x());
+            umlInstanceModel->setPosX(this->pos().x());
             setPos(this->pos().x(), this->posY);
             break;
         default:
@@ -87,7 +85,7 @@ QRectF UMLInstance::outlineRect() const
 {
 
     QFontMetricsF fontMetrics(TEXT_FONT);
-    QRectF rect = fontMetrics.boundingRect(umlInstanceData->getDisplayName());
+    QRectF rect = fontMetrics.boundingRect(umlInstanceModel->getDisplayName());
     rect.adjust(-PADDING, -PADDING, +PADDING, +PADDING);
     rect.translate(-rect.center());
     return rect;
@@ -100,8 +98,8 @@ int UMLInstance::getLifeLength()
 
 int UMLInstance::calculateStartLifeLine()
 {
-    UMLCallData *umlCallData = umlSequenceData->instanceCreatedBy(umlInstanceData);
-    if (umlCallData)
+    UMLCallModel *umlCallModel = umlSequenceModel->instanceCreatedBy(umlInstanceModel);
+    if (umlCallModel)
     {
         // TODO:
     }
@@ -113,8 +111,8 @@ int UMLInstance::calculateStartLifeLine()
 
 int UMLInstance::calculateEndLifeLine()
 {
-    UMLCallData *umlCallData = umlSequenceData->instanceDestroyedBy(umlInstanceData);
-    if (umlCallData)
+    UMLCallModel *umlCallModel = umlSequenceModel->instanceDestroyedBy(umlInstanceModel);
+    if (umlCallModel)
     {
         // TODO:
     }

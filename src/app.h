@@ -46,7 +46,7 @@ private slots:
     void saveFile();
     void exportImage();
     void undo();
-    void addSequenceDiagram(UMLSequenceData *umlSequenceData);
+    void addSequenceDiagram(UMLSequenceModel *umlSequenceModel);
     void removeSequenceDiagram(int tabIndex);
     void addSequenceDiagramDialog();
 

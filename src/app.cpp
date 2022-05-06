@@ -22,15 +22,15 @@
 #include <view/sequence/newsequencedialog.h>
 
 #include "app.h"
-#include "model/umldata.h"
-#include "model/dataprovider.h"
+#include "model/umlmodel.h"
+#include "model/modelprovider.h"
 #include "command/commandstack.h"
 
 App::App(QWidget *parent) :
     QMainWindow(parent)
 {
-    UMLData* umlData = new UMLData();
-    DataProvider::getInstance().setUMLData(umlData);
+    UMLModel* umlModel = new UMLModel();
+    ModelProvider::getInstance().setModel(umlModel);
 
     setWindowTitle(tr("UML App"));
     tabWidget = new QTabWidget(this);
@@ -57,7 +57,7 @@ App::App(QWidget *parent) :
     setCentralWidget(tabWidget);
 
     connect(tabWidget, &QTabWidget::tabCloseRequested,this, &App::removeSequenceDiagram);
-    connect(umlData, &UMLData::sequenceModelAdded, this, &App::addSequenceDiagram);
+    connect(umlModel, &UMLModel::sequenceModelAdded, this, &App::addSequenceDiagram);
 }
 
 //  - - - - - private  - - - - -
@@ -107,14 +107,14 @@ void App::displayErrorMessageBox(QString title, QString message)
 
 void App::loadFile()
 {
-    UMLData *umlData = DataProvider::getInstance().getUMLData();
+    UMLModel *umlModel = ModelProvider::getInstance().getModel();
     QString fileName = QFileDialog::getOpenFileName(this, "Open a file", DEFAULT_PATH, "JSON (*.json)");
     qInfo() << fileName;
     if (fileName.length() == 0)
     {
         return; // User closed the dialog
     }
-    umlData->clearData();
+    umlModel->clear();
     QJsonDocument doc;
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -133,7 +133,7 @@ void App::loadFile()
         return;
     }
 
-    bool loadedSuccesfully = umlData->loadData(json);
+    bool loadedSuccesfully = umlModel->loadData(json);
 
     if (!loadedSuccesfully)
     {
@@ -161,7 +161,7 @@ void App::saveFile()
     }
 
     QJsonDocument document;
-    QJsonObject root = DataProvider::getInstance().getUMLData()->getSaveData();
+    QJsonObject root = ModelProvider::getInstance().getModel()->getSaveData();
     document.setObject(root);
     file.write(document.toJson());
     file.close();
@@ -191,9 +191,9 @@ void App::undo()
     scene->update();
 }
 
-void App::addSequenceDiagram(UMLSequenceData *umlSequenceData)
+void App::addSequenceDiagram(UMLSequenceModel *umlSequenceModel)
 {
-    SequenceDiagramView *sequenceView = new SequenceDiagramView(this, umlSequenceData);
+    SequenceDiagramView *sequenceView = new SequenceDiagramView(this, umlSequenceModel);
     QGraphicsScene *sequenceScene = new QGraphicsScene(sequenceView);
     sequenceScene->setSceneRect(0, 0, SCENE_SIZE, SCENE_SIZE);
     sequenceView->setMinimumSize(600, 600);
@@ -202,20 +202,20 @@ void App::addSequenceDiagram(UMLSequenceData *umlSequenceData)
     sequenceView->setRenderHints(QPainter::TextAntialiasing | QPainter::Antialiasing);
     sequenceView->setContextMenuPolicy(Qt::ActionsContextMenu);
 
-    tabWidget->addTab(sequenceView, umlSequenceData->getName());
-    qDebug() << "added " << umlSequenceData->getName();
+    tabWidget->addTab(sequenceView, umlSequenceModel->getName());
+    qDebug() << "added " << umlSequenceModel->getName();
 }
 
 void App::removeSequenceDiagram(int tabIndex)
 {
     SequenceDiagramView *sequenceView = static_cast<SequenceDiagramView *>(tabWidget->widget(tabIndex));
-    UMLSequenceData *umlSequenceData = sequenceView->getUMLSequenceData();
-    QString message = QString("Do you want to delete \"%1\" sequence diagram?").arg(umlSequenceData->getName());
+    UMLSequenceModel *umlSequenceModel = sequenceView->getUMLSequenceModel();
+    QString message = QString("Do you want to delete \"%1\" sequence diagram?").arg(umlSequenceModel->getName());
     QMessageBox::StandardButton dialogReply = QMessageBox::question(this, "Remove sequence diagram", message, QMessageBox::Yes|QMessageBox::No);
     if (dialogReply == QMessageBox::Yes)
     {
         tabWidget->removeTab(tabIndex);
-        DataProvider::getInstance().getUMLData()->removeSequence(umlSequenceData);
+        ModelProvider::getInstance().getModel()->removeSequence(umlSequenceModel);
     }
 }
 

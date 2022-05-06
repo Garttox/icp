@@ -1,21 +1,21 @@
 #include "addrelationcommand.h"
-#include "model/dataprovider.h"
-#include "model/umldata.h"
+#include "model/modelprovider.h"
+#include "model/umlmodel.h"
 
-AddRelationCommand::AddRelationCommand(UMLRelationData * const umlRelationData) :
-    umlRelationData(umlRelationData)
+AddRelationCommand::AddRelationCommand(UMLRelationModel * const umlRelationModel) :
+    umlRelationModel(umlRelationModel)
 {}
 
 // - - - - - private - - - - -
 
 void AddRelationCommand::process()
 {
-    UMLData *umlData = DataProvider::getInstance().getUMLData();
-    umlData->addRelation(umlRelationData);
+    UMLModel *umlModel = ModelProvider::getInstance().getModel();
+    umlModel->addRelation(umlRelationModel);
 }
 
 void AddRelationCommand::undo()
 {
-    UMLData *umlData = DataProvider::getInstance().getUMLData();
-    umlData->removeRelation(umlRelationData);
+    UMLModel *umlModel = ModelProvider::getInstance().getModel();
+    umlModel->removeRelation(umlRelationModel);
 }

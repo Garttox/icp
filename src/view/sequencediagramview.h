@@ -4,8 +4,8 @@
 #include <QApplication>
 #include <QGraphicsView>
 
-#include <model/umlinstancedata.h>
-#include <model/umlsequencedata.h>
+#include <model/umlinstancemodel.h>
+#include <model/umlsequencemodel.h>
 
 #include <view/sequence/umlinstance.h>
 
@@ -13,21 +13,21 @@ class SequenceDiagramView : public QGraphicsView
 {
     Q_OBJECT
 public:
-    SequenceDiagramView(QWidget* parent, UMLSequenceData *umlSequenceData);
+    SequenceDiagramView(QWidget* parent, UMLSequenceModel *umlSequenceModel);
 
-    UMLSequenceData *getUMLSequenceData() const;
+    UMLSequenceModel *getUMLSequenceModel() const;
 private slots:
-    void onInstanceModelAdded(UMLInstanceData *umlInstanceData);
-    void onCallModelAdded(UMLCallData *umlCallData);
+    void onInstanceModelAdded(UMLInstanceModel *umlInstanceModel);
+    void onCallModelAdded(UMLCallModel *umlCallModel);
 private:
     /**
      * @brief Draws the background of the view.
      */
     void drawBackgroundTiles();
-    void addUMLInstance(UMLInstanceData *umlInstanceData);
-    void addUMLCall(UMLCallData *umlCallData);
+    void addUMLInstance(UMLInstanceModel *umlInstanceModel);
+    void addUMLCall(UMLCallModel *umlCallModel);
 
-    UMLInstance *getUMLInstance(UMLInstanceData *umlInstanceData);
+    UMLInstance *getUMLInstance(UMLInstanceModel *umlInstanceModel);
 
     /**
      * @brief Gets all the items of type T from the scene.
@@ -38,7 +38,7 @@ private:
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
 
-    UMLSequenceData *umlSequenceData;
+    UMLSequenceModel *umlSequenceModel;
     int originX;
     int originY;
     static constexpr qreal TILE_SIZE = 60;

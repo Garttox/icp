@@ -8,9 +8,9 @@
 #include <QDebug>
 
 #include "classdiagramview.h"
-#include "model/dataprovider.h"
-#include "model/umlclassdata.h"
-#include "model/umldata.h"
+#include "model/modelprovider.h"
+#include "model/umlclassmodel.h"
+#include "model/umlmodel.h"
 #include "view/classes/umlclass.h"
 #include "classtoolbar.h"
 #include "classes/umlclassnotifier.h"
@@ -23,12 +23,12 @@ ClassDiagramView::ClassDiagramView(QWidget* parent)
     setTransformationAnchor(QGraphicsView::NoAnchor);
     drawBackgroundTiles();
 
-    UMLData* umlData = DataProvider::getInstance().getUMLData();
-    connect(umlData, &UMLData::classModelAdded, this, &ClassDiagramView::onClassModelAdded);
-    connect(umlData, &UMLData::classModelRemoved, this, &ClassDiagramView::onClassModelRemoved);
-    connect(umlData, &UMLData::relationModelAdded, this, &ClassDiagramView::onRelationModelAdded);
-    connect(umlData, &UMLData::relationModelRemoved, this, &ClassDiagramView::onRelationModelRemoved);
-    connect(umlData, &UMLData::umlModelCleared, this, &ClassDiagramView::onUmlModelCleared);
+    UMLModel* umlModel = ModelProvider::getInstance().getModel();
+    connect(umlModel, &UMLModel::classModelAdded, this, &ClassDiagramView::onClassModelAdded);
+    connect(umlModel, &UMLModel::classModelRemoved, this, &ClassDiagramView::onClassModelRemoved);
+    connect(umlModel, &UMLModel::relationModelAdded, this, &ClassDiagramView::onRelationModelAdded);
+    connect(umlModel, &UMLModel::relationModelRemoved, this, &ClassDiagramView::onRelationModelRemoved);
+    connect(umlModel, &UMLModel::umlModelCleared, this, &ClassDiagramView::onUmlModelCleared);
 }
 
 QPixmap ClassDiagramView::getViewportPixmap()
@@ -38,9 +38,9 @@ QPixmap ClassDiagramView::getViewportPixmap()
     return pixmap;
 }
 
-void ClassDiagramView::addUMLClass(UMLClassData *umlClassData)
+void ClassDiagramView::addUMLClass(UMLClassModel *umlClassModel)
 {
-    UMLClass *umlClass = new UMLClass(umlClassData);
+    UMLClass *umlClass = new UMLClass(umlClassModel);
     scene()->addItem(umlClass);
 }
 
@@ -52,26 +52,26 @@ void ClassDiagramView::removeUMLClass(UMLClass *umlClass)
     delete umlClass;
 }
 
-void ClassDiagramView::removeUMLClass(UMLClassData *umlClassData)
+void ClassDiagramView::removeUMLClass(UMLClassModel *umlClassModel)
 {
-    UMLClass *umlClass = getUMLClass(umlClassData);
+    UMLClass *umlClass = getUMLClass(umlClassModel);
     if (umlClass != nullptr)
     {
         removeUMLClass(umlClass);
     }
 }
 
-void ClassDiagramView::addUMLRelation(UMLRelationData *relationData)
+void ClassDiagramView::addUMLRelation(UMLRelationModel *umlRelationModel)
 {
-    UMLClass *source = getUMLClass(relationData->getSource());
-    UMLClass *destination = getUMLClass(relationData->getDestination());
+    UMLClass *source = getUMLClass(umlRelationModel->getSource());
+    UMLClass *destination = getUMLClass(umlRelationModel->getDestination());
     if (source != nullptr && destination != nullptr)
     {
-        UMLRelationAnchor *sourceAnchor = source->getAnchorById(relationData->getSourceAnchorId());
-        UMLRelationAnchor *destinationAnchor = destination->getAnchorById(relationData->getDestinationAnchorId());
+        UMLRelationAnchor *sourceAnchor = source->getAnchorById(umlRelationModel->getSourceAnchorId());
+        UMLRelationAnchor *destinationAnchor = destination->getAnchorById(umlRelationModel->getDestinationAnchorId());
         if (sourceAnchor != nullptr && destinationAnchor != nullptr)
         {
-            UMLRelation *relation = new UMLRelation(relationData, sourceAnchor, destinationAnchor);
+            UMLRelation *relation = new UMLRelation(umlRelationModel, sourceAnchor, destinationAnchor);
             scene()->addItem(relation);
         }
     }
@@ -88,9 +88,9 @@ void ClassDiagramView::removeUMLRelation(UMLRelation *umlRelation)
     delete umlRelation;
 }
 
-void ClassDiagramView::removeUMLRelation(UMLRelationData *umlRelationData)
+void ClassDiagramView::removeUMLRelation(UMLRelationModel *umlRelationModel)
 {
-    UMLRelation *umlRelation = getUMLRelation(umlRelationData);
+    UMLRelation *umlRelation = getUMLRelation(umlRelationModel);
     if (umlRelation != nullptr)
     {
         removeUMLRelation(umlRelation);
@@ -99,24 +99,24 @@ void ClassDiagramView::removeUMLRelation(UMLRelationData *umlRelationData)
 
 // - - - - - private slots - - - - -
 
-void ClassDiagramView::onClassModelAdded(UMLClassData *umlClassData)
+void ClassDiagramView::onClassModelAdded(UMLClassModel *umlClassModel)
 {
-    addUMLClass(umlClassData);
+    addUMLClass(umlClassModel);
 }
 
-void ClassDiagramView::onClassModelRemoved(UMLClassData *umlClassData)
+void ClassDiagramView::onClassModelRemoved(UMLClassModel *umlClassModel)
 {
-    removeUMLClass(umlClassData);
+    removeUMLClass(umlClassModel);
 }
 
-void ClassDiagramView::onRelationModelAdded(UMLRelationData *umlRelationData)
+void ClassDiagramView::onRelationModelAdded(UMLRelationModel *umlRelationModel)
 {
-    addUMLRelation(umlRelationData);
+    addUMLRelation(umlRelationModel);
 }
 
-void ClassDiagramView::onRelationModelRemoved(UMLRelationData *umlRelationData)
+void ClassDiagramView::onRelationModelRemoved(UMLRelationModel *umlRelationModel)
 {
-    removeUMLRelation(umlRelationData);
+    removeUMLRelation(umlRelationModel);
 }
 
 void ClassDiagramView::onUmlModelCleared()
@@ -126,12 +126,12 @@ void ClassDiagramView::onUmlModelCleared()
 
 // - - - - - private - - - - -
 
-UMLClass *ClassDiagramView::getUMLClass(UMLClassData *umlClassData)
+UMLClass *ClassDiagramView::getUMLClass(UMLClassModel *umlClassModel)
 {
     QList<UMLClass*> umlClasses = getItemsOfType<UMLClass*>();
     foreach (auto umlClass, umlClasses)
     {
-        if (umlClass->correspondsTo(umlClassData))
+        if (umlClass->correspondsTo(umlClassModel))
         {
             return umlClass;
         }
@@ -139,12 +139,12 @@ UMLClass *ClassDiagramView::getUMLClass(UMLClassData *umlClassData)
     return nullptr;
 }
 
-UMLRelation *ClassDiagramView::getUMLRelation(UMLRelationData *umlRelationData)
+UMLRelation *ClassDiagramView::getUMLRelation(UMLRelationModel *umlRelationModel)
 {
     QList<UMLRelation*> umlRelations = getItemsOfType<UMLRelation*>();
     foreach (auto umlRelation, umlRelations)
     {
-        if (umlRelation->correspondsTo(umlRelationData))
+        if (umlRelation->correspondsTo(umlRelationModel))
         {
             return umlRelation;
         }

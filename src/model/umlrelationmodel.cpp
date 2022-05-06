@@ -1,35 +1,35 @@
-#include "umlrelationdata.h"
+#include "umlrelationmodel.h"
 
-UMLRelationData::UMLRelationData(UMLClassData *src, UMLClassData *dest, UMLRelationType type, int srcAnchorId, int destAnchorId)
+UMLRelationModel::UMLRelationModel(UMLClassModel *src, UMLClassModel *dest, UMLRelationType type, int srcAnchorId, int destAnchorId)
     : source(src), destination(dest), type(type), sourceAnchorId(srcAnchorId), destinationAnchorId(destAnchorId)
 {}
 
-UMLClassData *UMLRelationData::getSource() const
+UMLClassModel *UMLRelationModel::getSource() const
 {
     return source;
 }
 
-UMLClassData *UMLRelationData::getDestination() const
+UMLClassModel *UMLRelationModel::getDestination() const
 {
     return destination;
 }
 
-UMLRelationType UMLRelationData::getType() const
+UMLRelationType UMLRelationModel::getType() const
 {
     return type;
 }
 
-int UMLRelationData::getSourceAnchorId() const
+int UMLRelationModel::getSourceAnchorId() const
 {
     return sourceAnchorId;
 }
 
-int UMLRelationData::getDestinationAnchorId() const
+int UMLRelationModel::getDestinationAnchorId() const
 {
     return destinationAnchorId;
 }
 
-QJsonObject UMLRelationData::getSaveData()
+QJsonObject UMLRelationModel::getSaveData()
 {
     QJsonObject object;
     object.insert("type", type.toString());
@@ -40,7 +40,7 @@ QJsonObject UMLRelationData::getSaveData()
     return object;
 }
 
-void UMLRelationData::setType(UMLRelationType type)
+void UMLRelationModel::setType(UMLRelationType type)
 {
     this->type = type;
     emit modelChanged(this);

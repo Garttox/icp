@@ -9,7 +9,7 @@
 #define EDITFIELDDIALOG_H
 
 #include <QDialog>
-#include "model/umlfielddata.h"
+#include "model/umlfieldmodel.h"
 
 namespace Ui {
 class EditFieldDialog;
@@ -24,7 +24,7 @@ class EditFieldDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit EditFieldDialog(UMLClassType classType, UMLFieldData *umlFieldData, QWidget *parent = nullptr);
+    explicit EditFieldDialog(UMLClassType classType, UMLFieldModel *umlFieldModel, QWidget *parent = nullptr);
     ~EditFieldDialog();
 
 private slots:
@@ -32,7 +32,7 @@ private slots:
 
 private:
     Ui::EditFieldDialog *ui;
-    UMLFieldData *umlFieldData;
+    UMLFieldModel *umlFieldModel;
 };
 
 #endif // EDITFIELDDIALOG_H
