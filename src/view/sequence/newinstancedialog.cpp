@@ -13,7 +13,7 @@ NewInstanceDialog::NewInstanceDialog(UMLSequenceModel *umlSequenceModel, QWidget
     ui->setupUi(this);
     UMLModel *umlModel = ModelProvider::getInstance().getModel();
 
-    foreach (UMLClassModel *cls, *umlModel->getClasses())
+    foreach (UMLClassModel *cls, umlModel->getClasses())
     {
         ui->comboBox->addItem(cls->getName(), QVariant::fromValue(cls));
     }

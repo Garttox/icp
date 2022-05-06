@@ -39,7 +39,7 @@ public:
     void clear();
 
     UMLClassModel* findClassByName(QString className);
-    QSet<UMLClassModel *> *getClasses();
+    QSet<UMLClassModel *> getClasses();
     QSet<UMLRelationModel *> getRelationsWithSourceClass(UMLClassModel *umlClassModel);
 
 public slots:
@@ -57,9 +57,9 @@ signals:
     void umlModelCleared();
 
 private:
-    QSet<UMLClassModel *> *classes;
-    QSet<UMLRelationModel *> *relations;
-    QSet<UMLSequenceModel *> *sequences;
+    QSet<UMLClassModel *> classes;
+    QSet<UMLRelationModel *> relations;
+    QSet<UMLSequenceModel *> sequences;
 };
 
 #endif // UMLMODEL_H
