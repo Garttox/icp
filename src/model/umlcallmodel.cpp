@@ -6,30 +6,41 @@ UMLCallModel::UMLCallModel(UMLInstanceModel *source, UMLInstanceModel *destinati
 
 UMLInstanceModel *UMLCallModel::getDestination() const
 {
-    return this->destination;
+    return destination;
 }
 
 UMLInstanceModel *UMLCallModel::getSource() const
 {
-    return this->source;
+    return source;
 }
 
 UMLCallType UMLCallModel::getType() const
 {
-    return this->type;
+    return type;
 }
 
 int UMLCallModel::getAtTime() const
 {
-    return this->atTime;
+    return atTime;
+}
+
+UMLMethodModel *UMLCallModel::getMethod() const
+{
+    return method;
+}
+
+bool UMLCallModel::getAsync() const
+{
+    return async;
 }
 
 int UMLCallModel::getDuration() const
 {
-    return this->duration;
+    return duration;
 }
 
 QString UMLCallModel::getDisplayMethodName() const
 {
     return method->toString();
+    return duration;
 }

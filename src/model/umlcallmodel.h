@@ -14,11 +14,14 @@ public:
     UMLInstanceModel *getDestination() const;
     UMLInstanceModel *getSource() const;
     UMLCallType getType() const;
+    UMLMethodModel *getMethod() const;
     int getAtTime() const;
     int getDuration() const;
+    bool getAsync() const;
     QString getDisplayMethodName() const;
 
     static constexpr qreal RELATIVE_MAX_LIFE = 1000;
+    
 private:
     UMLInstanceModel *source;
     UMLInstanceModel *destination;

@@ -25,3 +25,16 @@ bool UMLCallType::operator==(const UMLCallType& rhs)
 {
     return type == rhs.type;
 }
+
+QString UMLCallType::toString() const
+{
+    switch (type)
+    {
+        case MESSAGE:
+            return QString("Message");
+        case CREATE:
+            return QString("Create");
+        case DESTROY:
+            return QString("Destroy");
+    }
+}

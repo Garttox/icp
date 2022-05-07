@@ -127,17 +127,17 @@
       "instances": [
         {
           "name": "InstanceA",
-          "className": "ClassA",
+          "class": "ClassA",
           "posX": 111
         },
         {
           "name": "InstanceB",
-          "className": "ClassB",
+          "class": "ClassB",
           "posX": 340
         },
         {
           "name": "InstanceD",
-          "className": "ClassC",
+          "class": "ClassC",
           "posX": 577
         }
       ],

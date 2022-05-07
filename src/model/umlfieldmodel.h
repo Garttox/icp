@@ -13,7 +13,7 @@ public:
     UMLFieldModel(const UMLFieldModel& original);
     ~UMLFieldModel() {};
     QString toString() const override;
-    QJsonObject getSaveData();
+
 signals:
     void modelChanged();
 };

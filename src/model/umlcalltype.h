@@ -17,6 +17,7 @@ public:
 
     bool operator==(const CallType rhs);
     bool operator==(const UMLCallType& rhs);
+    QString toString() const;
 private:
     CallType type;
 };

@@ -40,7 +40,7 @@ void EditMethodDialog::on_buttonBox_accepted()
 void EditMethodDialog::setDataToParameterTable(UMLMethodModel *umlMethodModel)
 {
     int row = 0;
-    foreach(UMLMethodParameterModel *parameter, umlMethodModel->getParameters())
+    foreach(UMLParameterModel *parameter, umlMethodModel->getParameters())
     {
         QString name = parameter->getName();
         QString type = parameter->getType();
@@ -63,7 +63,7 @@ void EditMethodDialog::setDataFromParameterTable()
             if (!name.isEmpty())
             {
                 QString type = typeItem != nullptr ? typeItem->text() : QString("void");
-                UMLMethodParameterModel* umlMethodParameterModel = new UMLMethodParameterModel(name, type);
+                UMLParameterModel* umlMethodParameterModel = new UMLParameterModel(name, type);
                 umlMethodModel->addParameter(umlMethodParameterModel);
             }
         }

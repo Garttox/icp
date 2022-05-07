@@ -18,13 +18,17 @@
 #include <QTabBar>
 #include <QToolButton>
 
-#include <view/sequencediagramview.h>
-#include <view/sequence/newsequencedialog.h>
+#include "view/sequencediagramview.h"
+#include "view/sequence/newsequencedialog.h"
+#include "view/resolvedinconsistenciesdialog.h"
 
 #include "app.h"
+#include "data/inconsistencyresolver.h"
+#include "data/umldata.h"
 #include "model/umlmodel.h"
 #include "model/modelprovider.h"
 #include "command/commandstack.h"
+
 
 App::App(QWidget *parent) :
     QMainWindow(parent)
@@ -103,46 +107,56 @@ void App::displayErrorMessageBox(QString title, QString message)
     messageBox.setFixedSize(500, 200);
 }
 
+void App::setLoadedData(UMLData *data)
+{
+    InconsistencyResolver *resolver = new InconsistencyResolver();
+    QStringList resolved = resolver->resolve(data);
+    if (!resolved.empty())
+    {
+        ResolvedInconsistenciesDialog dialog(resolved);
+        dialog.exec();
+    }
+
+    ModelProvider &modelProvider = ModelProvider::getInstance();
+    modelProvider.getModel()->clear();
+    modelProvider.setModel(data->toModel());
+}
+
 // - - - - - private slots - - - - -
 
 void App::loadFile()
 {
-    UMLModel *umlModel = ModelProvider::getInstance().getModel();
     QString fileName = QFileDialog::getOpenFileName(this, "Open a file", DEFAULT_PATH, "JSON (*.json)");
-    qInfo() << fileName;
     if (fileName.length() == 0)
     {
         return; // User closed the dialog
     }
-    umlModel->clear();
-    QJsonDocument doc;
+
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         displayErrorMessageBox("Reading error", "Error occured while reading the file");
         return;
     }
-    QByteArray byteFile = file.readAll();
-    doc = QJsonDocument::fromJson(byteFile);
-    QJsonObject json = doc.object();
 
-    // validate if file is in json format
+    QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
     if (doc.isNull())
     {
         displayErrorMessageBox("Loading error", "Given file data are not in supported format.");
         return;
     }
 
-    bool loadedSuccesfully = umlModel->loadData(json);
-
-    if (!loadedSuccesfully)
+    QJsonObject json = doc.object();
+    UMLData *data = new UMLData();
+    if (data->load(json))
     {
-        QMessageBox messageBox;
-        messageBox.critical(nullptr, "Loading error", "Given file data are probably corrupted.");
-        messageBox.setFixedSize(500, 200);
-        return;
+        setLoadedData(data);
     }
-
+    else
+    {
+        displayErrorMessageBox("Loading error", "Given file data are probably corrupted.");
+    }
+    delete data;
 }
 
 void App::saveFile()
@@ -160,14 +174,15 @@ void App::saveFile()
         return;
     }
 
-    QJsonDocument document;
-    QJsonObject root = ModelProvider::getInstance().getModel()->getSaveData();
-    document.setObject(root);
+    UMLData umlData;
+    umlData.fromModel(ModelProvider::getInstance().getModel());
+
+    QJsonObject root = umlData.toJson();
+    QJsonDocument document(root);
+
     file.write(document.toJson());
     file.close();
 }
-
-
 
 void App::exportImage()
 {

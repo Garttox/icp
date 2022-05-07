@@ -25,8 +25,7 @@ class UMLModel : public QObject
 public:
     UMLModel();
     ~UMLModel();
-    bool loadData(QJsonObject json);
-    QJsonObject getSaveData();
+
     void addClass(UMLClassModel *umlClassModel);
     void removeClass(UMLClassModel *umlClassModel);
 
@@ -39,7 +38,9 @@ public:
     void clear();
 
     UMLClassModel* findClassByName(QString className);
-    QSet<UMLClassModel *> *getClasses();
+    QList<UMLClassModel *> getClasses() const;
+    QList<UMLRelationModel *> getRelations() const;
+    QList<UMLSequenceModel *> getSequences() const;
     QSet<UMLRelationModel *> getRelationsWithSourceClass(UMLClassModel *umlClassModel);
 
 public slots:
@@ -57,9 +58,10 @@ signals:
     void umlModelCleared();
 
 private:
-    QSet<UMLClassModel *> *classes;
-    QSet<UMLRelationModel *> *relations;
-    QSet<UMLSequenceModel *> *sequences;
+    QSet<UMLClassModel *> classes;
+    QSet<UMLRelationModel *> relations;
+    QSet<UMLSequenceModel *> sequences;
+
 };
 
 #endif // UMLMODEL_H

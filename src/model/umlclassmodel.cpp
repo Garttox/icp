@@ -16,6 +16,10 @@ UMLClassModel::UMLClassModel(QString name, UMLClassType type, int posX, int posY
     name(name), type(type), posX(posX), posY(posY), fields(QList<UMLFieldModel*>()), methods(QList<UMLMethodModel*>())
 {}
 
+UMLClassModel::UMLClassModel(QString name, UMLClassType type, QList<UMLFieldModel*> fields, QList<UMLMethodModel*> methods, int posX, int posY) :
+    name(name), type(type), posX(posX), posY(posY), fields(fields), methods(methods)
+{}
+
 UMLClassModel::UMLClassModel(const UMLClassModel &original) :
     QObject(),
     name(original.name), type(original.type), posX(original.posX), posY(original.posY)
@@ -72,69 +76,6 @@ void UMLClassModel::setPosition(int x, int y)
     this->posX = x;
     this->posY = y;
     emit modelChanged(this);
-}
-
-bool UMLClassModel::loadData(QJsonObject jsonClassData)
-{
-    // read fields
-    foreach (auto fieldEl, jsonClassData["fields"].toArray())
-    {
-        QJsonObject object = fieldEl.toObject();
-        if (object["name"].isNull() || object["type"].isNull() || object["access"].isNull())
-        {
-            return false;
-        }
-        QString name = object["name"].toString();
-        QString type = object["type"].toString();
-        UMLAccessType access = UMLAccessType(object["access"].toString());
-        UMLFieldModel *field = new UMLFieldModel(name, type, access);
-        addField(field);
-    }
-
-    // read methods
-    foreach (auto methodEl, jsonClassData["methods"].toArray())
-    {
-        if (methodEl.toObject()["name"].isNull() || methodEl.toObject()["type"].isNull() ||
-                methodEl.toObject()["access"].isNull())
-        {
-            return false;
-        }
-        QString name = methodEl.toObject()["name"].toString();
-        QString type = methodEl.toObject()["type"].toString();
-        UMLAccessType access = UMLAccessType(methodEl.toObject()["access"].toString());
-        UMLMethodModel *method = new UMLMethodModel(name, type, access);
-        bool loadedSuccesfully = method->loadData(methodEl.toObject());
-        if (!loadedSuccesfully)
-            return false;
-        addMethod(method);
-    }
-
-    return true;
-}
-
-QJsonObject UMLClassModel::getSaveData()
-{
-    QJsonObject object;
-    QJsonArray fieldsData;
-    QJsonArray methodsData;
-
-    foreach (auto field, fields)
-    {
-        fieldsData.append(field->getSaveData());
-    }
-    foreach (auto method, methods)
-    {
-        methodsData.append(method->getSaveData());
-    }
-
-    object.insert("name", name);
-    object.insert("type", type.toString());
-    object.insert("posX", posX);
-    object.insert("posY", posY);
-    object.insert("fields", fieldsData);
-    object.insert("methods", methodsData);
-
-    return object;
 }
 
 void UMLClassModel::addMethod(UMLMethodModel *method)

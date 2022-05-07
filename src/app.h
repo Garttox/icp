@@ -10,6 +10,7 @@
 
 #include <QMainWindow>
 #include <QGraphicsView>
+#include "data/umldata.h"
 #include "view/classdiagramview.h"
 #include "view/classtoolbar.h"
 
@@ -37,10 +38,11 @@ private:
     void createActions();
     void createMainMenu();
     void displayErrorMessageBox(QString title, QString message);
+    void setLoadedData(UMLData *data);
 
     const QString DEFAULT_PATH = "../examples";
     static constexpr qreal SCENE_SIZE = 2400;
-
+    
 private slots:
     void loadFile();
     void saveFile();
