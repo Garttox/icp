@@ -60,14 +60,11 @@ QJsonObject UMLCallData::toJson() const
     return object;
 }
 
-UMLCallModel *UMLCallData::toModel()
+UMLCallModel *UMLCallData::toModel(UMLSequenceModel* context)
 {
-    // TODO: Get instances from sequence
-    // TODO: Get method from dest. instance
-    // UMLModel* model = ModelProvider::getInstance().getModel();
-    UMLInstanceModel* srcInstanceModel = nullptr;
-    UMLInstanceModel* destInstanceModel = nullptr;
-    UMLMethodModel* umlMethodModel = nullptr;
+    UMLInstanceModel* srcInstanceModel = context->findInstanceByName(source);
+    UMLInstanceModel* destInstanceModel = context->findInstanceByName(destination);
+    UMLMethodModel* umlMethodModel = destInstanceModel->getClassModel()->findMethodByName(method);
     UMLCallType umlCallType(type);
     UMLCallModel* umlClassModel = new UMLCallModel(srcInstanceModel, destInstanceModel, umlMethodModel, async, duration, atTime, umlCallType);
     return umlClassModel;

@@ -41,7 +41,7 @@ QJsonObject UMLFieldData::toJson() const
     return object;
 }
 
-UMLFieldModel *UMLFieldData::toModel()
+UMLFieldModel *UMLFieldData::toModel(void */*context*/)
 {
     UMLAccessType umlAccessType(access);
     UMLFieldModel *umlFieldModel = new UMLFieldModel(name, type, umlAccessType);

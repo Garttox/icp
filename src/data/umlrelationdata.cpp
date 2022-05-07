@@ -50,7 +50,7 @@ QJsonObject UMLRelationData::toJson() const
     return object;
 }
 
-UMLRelationModel *UMLRelationData::toModel()
+UMLRelationModel *UMLRelationData::toModel(void */*context*/)
 {
     UMLModel* model = ModelProvider::getInstance().getModel();
     UMLClassModel* srcClassModel = model->findClassByName(source);

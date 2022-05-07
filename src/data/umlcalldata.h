@@ -10,11 +10,12 @@
 
 #include "data.h"
 #include "model/umlcallmodel.h"
+#include "model/umlsequencemodel.h"
 
 /**
  * @brief Data class for holding UML call/message data.
  */
-class UMLCallData : Data<UMLCallModel>
+class UMLCallData : Data<UMLCallModel, UMLSequenceModel>
 {
 
 public:
@@ -22,7 +23,7 @@ public:
     bool load(QJsonObject object) override;
     void fromModel(UMLCallModel *model) override;
     QJsonObject toJson() const;
-    UMLCallModel *toModel() override;
+    UMLCallModel *toModel(UMLSequenceModel* context) override;
 
     QString getType() const;
     QString getSource() const;

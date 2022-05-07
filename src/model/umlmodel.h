@@ -38,7 +38,6 @@ public:
     void clear();
 
     UMLClassModel* findClassByName(QString className);
-    UMLInstanceModel* findInstanceByName(QString instanceName);
     QList<UMLClassModel *> getClasses() const;
     QList<UMLRelationModel *> getRelations() const;
     QList<UMLSequenceModel *> getSequences() const;

@@ -59,7 +59,7 @@ QJsonObject UMLClassData::toJson() const
     return object;
 }
 
-UMLClassModel *UMLClassData::toModel()
+UMLClassModel *UMLClassData::toModel(void */*context*/)
 {
     UMLClassType umlClassType(type);
     QList<UMLFieldModel*> umlFieldModels = toModels<UMLFieldData, UMLFieldModel>(fields);

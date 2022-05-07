@@ -21,7 +21,7 @@ public:
     bool load(QJsonObject object) override;
     void fromModel(UMLRelationModel *model) override;
     QJsonObject toJson() const;
-    UMLRelationModel *toModel() override;
+    UMLRelationModel *toModel(void* context = nullptr) override;
 
     QString getSource() const;
     QString getDestination() const;

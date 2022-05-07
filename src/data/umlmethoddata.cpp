@@ -51,7 +51,7 @@ QJsonObject UMLMethodData::toJson() const
     return object;
 }
 
-UMLMethodModel *UMLMethodData::toModel()
+UMLMethodModel *UMLMethodData::toModel(void */*context*/)
 {
     UMLAccessType umlAccessType(access);
     QList<UMLParameterModel *> umlParametersModels = toModels<UMLParameterData, UMLParameterModel>(this->parameters);

@@ -21,7 +21,7 @@ public:
     bool load(QJsonObject object) override;
     void fromModel(UMLInstanceModel *model) override;
     QJsonObject toJson() const;
-    UMLInstanceModel *toModel() override;
+    UMLInstanceModel *toModel(void* context = nullptr) override;
 
     QString getName() const;
     QString getUmlClass() const;

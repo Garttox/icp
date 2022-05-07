@@ -37,7 +37,7 @@ QJsonObject UMLParameterData::toJson() const
     return object;
 }
 
-UMLParameterModel *UMLParameterData::toModel()
+UMLParameterModel *UMLParameterData::toModel(void */*context*/)
 {
     UMLParameterModel* umlParameterModel = new UMLParameterModel(name, type);
     return umlParameterModel;

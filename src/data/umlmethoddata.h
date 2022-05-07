@@ -23,7 +23,7 @@ public:
     bool load(QJsonObject object) override;
     void fromModel(UMLMethodModel *model) override;
     QJsonObject toJson() const;
-    UMLMethodModel *toModel() override;
+    UMLMethodModel *toModel(void* context = nullptr) override;
 
     QList<UMLParameterData *> getParameters() const;
 

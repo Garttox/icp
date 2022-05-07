@@ -75,13 +75,13 @@ QJsonArray toJsonArray(QList<DATA*> list)
  * @param data List of DATA classes.
  * @return List of MODEL classes.
  */
-template<class DATA, class MODEL>
-QList<MODEL*> toModels(QList<DATA*> data)
+template<class DATA, class MODEL, class ARG = void>
+QList<MODEL*> toModels(QList<DATA*> data, ARG* arg = nullptr)
 {
     QList<MODEL*> list;
     foreach (auto item, data)
     {
-        auto model = item->toModel();
+        auto model = item->toModel(arg);
         list.append(model);
     }
     return list;

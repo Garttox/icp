@@ -23,7 +23,7 @@ public:
     bool load(QJsonObject object) override;
     void fromModel(UMLSequenceModel *model) override;
     QJsonObject toJson() const;
-    UMLSequenceModel *toModel() override;
+    UMLSequenceModel *toModel(void* context = nullptr) override;
 
     QString getName() const;
     QList<UMLInstanceData *> getInstances() const;

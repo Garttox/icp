@@ -24,7 +24,7 @@ public:
     bool load(QJsonObject object) override;
     void fromModel(UMLModel *model) override;
     QJsonObject toJson() const;
-    UMLModel *toModel() override;
+    UMLModel *toModel(void* context = nullptr) override;
 
     QList<UMLClassData *> getClasses() const;
     QList<UMLRelationData *> getRelations() const;

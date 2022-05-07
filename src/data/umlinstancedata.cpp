@@ -42,7 +42,7 @@ QJsonObject UMLInstanceData::toJson() const
     return object;
 }
 
-UMLInstanceModel *UMLInstanceData::toModel()
+UMLInstanceModel *UMLInstanceData::toModel(void */*context*/)
 {
     UMLModel* model = ModelProvider::getInstance().getModel();
     UMLClassModel* umlClassModel = model->findClassByName(umlClass);

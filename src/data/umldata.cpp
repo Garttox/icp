@@ -49,7 +49,7 @@ QJsonObject UMLData::toJson() const
     return object;
 }
 
-UMLModel *UMLData::toModel()
+UMLModel *UMLData::toModel(void */*context*/)
 {
     UMLModel* umlModel = ModelProvider::getInstance().getModel();
 
@@ -65,13 +65,11 @@ UMLModel *UMLData::toModel()
         umlModel->addRelation(umlRelationModel);
     }
 
-    /*
     QList<UMLSequenceModel*> umlSequenceModels = toModels<UMLSequenceData, UMLSequenceModel>(sequences);
     foreach (auto umlSequenceModel, umlSequenceModels)
     {
         umlModel->addSequence(umlSequenceModel);
     }
-    */
 
     return umlModel;
 }

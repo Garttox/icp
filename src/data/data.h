@@ -14,14 +14,14 @@
  * @brief Base data class with shared functionality.
  * @author Martin Bednář (xbedna77)
  */
-template <class MODEL>
+template <class MODEL, class CONTEXT = void>
 class Data
 {
 public:
     virtual bool load(QJsonObject object) = 0;
     virtual void fromModel(MODEL* model) = 0;
     // virtual QJsonObject toJson() const;
-    virtual MODEL* toModel() = 0;
+    virtual MODEL* toModel(CONTEXT* context = nullptr) = 0;
 
 };
 
