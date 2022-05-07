@@ -26,12 +26,12 @@ public:
      * @return True, if UMLInstance is displaying given UMLInstanceModel.
      */
     bool correspondsTo(UMLInstanceModel *umlInstanceModel);
+    int getLifeLength();
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
     QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
 private:
     QRectF outlineRect() const;
-    int getLifeLength();
     int calculateStartLifeLine();
     int calculateEndLifeLine();
     UMLInstanceModel *umlInstanceModel;
@@ -39,8 +39,8 @@ private:
     UMLInstanceLifeLine *lifeLine;
 
     qreal posY = DEFAULT_POSY;
-    static constexpr int MAX_LENGTH = 1000;
-    static constexpr qreal DEFAULT_POSY = 20;
+    static constexpr int MAX_LENGTH = 900;
+    static constexpr qreal DEFAULT_POSY = 50;
     static constexpr int PADDING = 8;
     QFont TEXT_FONT = QFont(qApp->font().family(), 10, QFont::Bold);
     QColor TEXT_COLOR = Qt::black;

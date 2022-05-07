@@ -46,6 +46,11 @@ bool UMLInstance::correspondsTo(UMLInstanceModel *umlInstanceModel)
     return this->umlInstanceModel == umlInstanceModel;
 }
 
+int UMLInstance::getLifeLength()
+{
+    return calculateEndLifeLine() - calculateStartLifeLine();
+}
+
 // - - - - - protected - - - - -
 
 void UMLInstance::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget */* widget */)
@@ -89,11 +94,6 @@ QRectF UMLInstance::outlineRect() const
     rect.adjust(-PADDING, -PADDING, +PADDING, +PADDING);
     rect.translate(-rect.center());
     return rect;
-}
-
-int UMLInstance::getLifeLength()
-{
-    return calculateEndLifeLine() - calculateStartLifeLine();
 }
 
 int UMLInstance::calculateStartLifeLine()

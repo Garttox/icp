@@ -15,6 +15,10 @@ public:
     UMLInstanceModel *getSource() const;
     UMLCallType getType() const;
     int getAtTime() const;
+    int getDuration() const;
+    QString getDisplayMethodName() const;
+
+    static constexpr qreal RELATIVE_MAX_LIFE = 1000;
 private:
     UMLInstanceModel *source;
     UMLInstanceModel *destination;

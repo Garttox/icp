@@ -9,7 +9,6 @@
 #define CLASSTOOLBAR_H
 
 #include <QToolBar>
-#include "view/classtoolbar.h"
 #include "view/classdiagramview.h"
 
 
@@ -53,7 +52,6 @@ private slots:
     void addClass();
     void addInterface();
     void removeSelected();
-    void addInstance();
 };
 
 #endif // CLASSTOOLBAR_H

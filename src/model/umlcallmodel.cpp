@@ -23,3 +23,13 @@ int UMLCallModel::getAtTime() const
 {
     return this->atTime;
 }
+
+int UMLCallModel::getDuration() const
+{
+    return this->duration;
+}
+
+QString UMLCallModel::getDisplayMethodName() const
+{
+    return method->toString();
+}

@@ -56,7 +56,8 @@ SOURCES += main.cpp\
         view/sequence/umlcalldragrect.cpp \
         view/sequence/umlinstance.cpp \
         view/sequence/umlinstancelifeline.cpp \
-        view/sequencediagramview.cpp
+        view/sequencediagramview.cpp \
+        view/sequencetoolbar.cpp
 
 HEADERS  += app.h \
     command/classes/addclasscommand.h \
@@ -101,7 +102,8 @@ HEADERS  += app.h \
     view/sequence/umlcalldragrect.h \
     view/sequence/umlinstance.h \
     view/sequence/umlinstancelifeline.h \
-    view/sequencediagramview.h
+    view/sequencediagramview.h \
+    view/sequencetoolbar.h
 
 FORMS    += \
     view/classes/editclassdialog.ui \

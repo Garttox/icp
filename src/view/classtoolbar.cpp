@@ -47,12 +47,6 @@ void ClassToolBar::createActions()
     removeSelectedAction->setToolTip("Remove selected (Delete)");
     removeSelectedAction->setShortcut(Qt::Key_Delete);
     connect(removeSelectedAction, &QAction::triggered, this, &ClassToolBar::removeSelected);
-
-    addInstanceAction = new QAction(this);
-    addInstanceAction->setIcon(QIcon("../res/addi.png"));
-    addInstanceAction->setToolTip("Add instance (Ctrl+L)");
-    addInstanceAction->setShortcut(QString("Ctrl+L"));
-    connect(addInstanceAction, &QAction::triggered, this, &ClassToolBar::addInstance);
 }
 
 QPoint ClassToolBar::getViewportCenter()
@@ -103,9 +97,4 @@ void ClassToolBar::removeSelected()
     {
         view->removeUMLClass(umlClass);
     }
-}
-
-void ClassToolBar::addInstance()
-{
-
 }

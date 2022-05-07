@@ -6,16 +6,33 @@
 #include <QRectF>
 
 UMLCall::UMLCall(UMLCallModel *umlCallModel, UMLInstance *sourceInstance, UMLInstance *destinationInstance)
-    : QObject(), QGraphicsItem(), umlCallModel(umlCallModel),
+    : QObject(), QGraphicsItem(destinationInstance), umlCallModel(umlCallModel),
       sourceInstance(sourceInstance), destinationInstance(destinationInstance)
 {
     setFlags(ItemIsMovable | ItemIsSelectable | ItemSendsGeometryChanges);
     setCorrectPosition();
+    setPos(pos().x(), getAtTime());
+    forwardArrow = new UMLCallArrow(this);
+    //backArrow = new UMLCallArrow(this);
 }
 
 QRectF UMLCall::boundingRect() const
 {
     return outlineRect();
+}
+
+qreal UMLCall::getSourceDistance()
+{
+    if (this->sourceInstance)
+    {
+        return this->sourceInstance->getPosX() - this->destinationInstance->getPosX();
+    }
+    return DEFAULT_POSX_EXTERN - this->destinationInstance->getPosX();
+}
+
+UMLCallModel *UMLCall::getUMLCallModel() const
+{
+    return umlCallModel;
 }
 
 // - - - - - protected - - - - -
@@ -52,24 +69,33 @@ QVariant UMLCall::itemChange(GraphicsItemChange change, const QVariant &value)
 
 QRectF UMLCall::outlineRect() const
 {
-    QRectF rect = QRectF(0,0,15,40);
+    QRectF rect = QRectF(0,0,MESSAGE_WIDTH, getDuration());
     rect.translate(-rect.center());
     return rect;
 }
 
 void UMLCall::setCorrectPosition()
 {
-    qreal destinationPosX = destinationInstance->getPosX();
-    if (this->pos().y() < destinationInstance->getStartCenter().y())
+    if (this->pos().y() + this->boundingRect().top() < destinationInstance->getStartCenter().y())
     {
-        setPos(destinationPosX, destinationInstance->getStartCenter().y());
+        setPos(0, destinationInstance->getStartCenter().y() - this->boundingRect().top());
     }
-    else if (this->pos().y() > destinationInstance->getEndCenter().y())
+    else if (this->pos().y() + this->boundingRect().bottom() > destinationInstance->getEndCenter().y())
     {
-        setPos(destinationPosX, destinationInstance->getEndCenter().y());
+        setPos(0, destinationInstance->getEndCenter().y() - this->boundingRect().bottom());
     }
     else
     {
-        setPos(destinationPosX, this->pos().y());
+        setPos(0, this->pos().y());
     }
+}
+
+qreal UMLCall::getDuration() const
+{
+    return ((qreal)destinationInstance->getLifeLength() / UMLCallModel::RELATIVE_MAX_LIFE) * (qreal)umlCallModel->getDuration();
+}
+
+qreal UMLCall::getAtTime() const
+{
+    return ((qreal)destinationInstance->getLifeLength() / UMLCallModel::RELATIVE_MAX_LIFE) * (qreal)umlCallModel->getAtTime();
 }

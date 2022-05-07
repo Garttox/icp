@@ -67,7 +67,14 @@
           "access": "Public"
         }
       ],
-      "methods": []
+      "methods": [
+        {
+          "parameters": [],
+          "name": "method4",
+          "type": "Int",
+          "access": "Public"
+        }
+      ]
     },
     {
       "name": "InterfaceA",
@@ -144,29 +151,11 @@
           "type": "Message"
         },
         {
-          "source": "InstanceA",
-          "destination": "InstanceB",
-          "method": "method3",
-          "async": false,
-          "duration": 70,
-          "atTime": 80,
-          "type": "Message"
-        },
-        {
           "destination": "InstanceA",
           "method": "method2",
           "async": false,
           "duration": 100,
           "atTime": 240,
-          "type": "Message"
-        },
-        {
-          "source": "InstanceD",
-          "destination": "InstanceB",
-          "method": "method3",
-          "async": false,
-          "duration": 46,
-          "atTime": 244,
           "type": "Message"
         },
         {
