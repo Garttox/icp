@@ -20,12 +20,3 @@ QString UMLParameterModel::getType() const
 {
     return this->type;
 }
-
-QJsonObject UMLParameterModel::getSaveData()
-{
-    QJsonObject object;
-    object.insert("name", name);
-    object.insert("type", type);
-    return object;
-}
-

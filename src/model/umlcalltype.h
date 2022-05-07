@@ -16,6 +16,8 @@ public:
 
     UMLCallType(CallType type);
     UMLCallType(QString type);
+
+    QString toString() const;
 private:
     CallType type;
 };

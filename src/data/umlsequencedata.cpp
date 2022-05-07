@@ -16,8 +16,8 @@ UMLSequenceData::~UMLSequenceData()
 bool UMLSequenceData::load(QJsonObject object)
 {
     auto name = object["name"];
-    auto instances = loadArray<UMLInstanceData>(object["source"]);
-    auto calls = loadArray<UMLCallData>(object["calls"]);
+    auto instances = fromJsonArray<UMLInstanceData>(object["source"]);
+    auto calls = fromJsonArray<UMLCallData>(object["calls"]);
 
     if (hasNull(name) || !instances.ok || !calls.ok)
     {
@@ -33,12 +33,26 @@ bool UMLSequenceData::load(QJsonObject object)
 
 void UMLSequenceData::fromModel(UMLSequenceModel *model)
 {
-    // TODO
+    this->name = model->getName();
+    this->instances = fromModels<UMLInstanceModel, UMLInstanceData>(model->getInstances());
+    this->calls = fromModels<UMLCallModel, UMLCallData>(model->getCalls());
+}
+
+QJsonObject UMLSequenceData::toJson() const
+{
+    QJsonObject object;
+    object.insert("name", name);
+    object.insert("instances", toJsonArray(instances));
+    object.insert("calls", toJsonArray(calls));
+    return object;
 }
 
 UMLSequenceModel *UMLSequenceData::toModel()
 {
-    // TODO
+    QList<UMLInstanceModel*> instanceModels = toModels<UMLInstanceData, UMLInstanceModel>(instances);
+    QList<UMLCallModel*> callModels = toModels<UMLCallData, UMLCallModel>(calls);
+    UMLSequenceModel *umlSequenceModel = new UMLSequenceModel(name, instanceModels, callModels);
+    return umlSequenceModel;
 }
 
 QString UMLSequenceData::getName() const

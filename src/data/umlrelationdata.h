@@ -20,6 +20,7 @@ public:
     virtual ~UMLRelationData() {};
     bool load(QJsonObject object) override;
     void fromModel(UMLRelationModel *model) override;
+    QJsonObject toJson() const;
     UMLRelationModel *toModel() override;
 
     QString getSource() const;

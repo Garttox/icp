@@ -23,6 +23,7 @@ public:
     virtual ~UMLData();
     bool load(QJsonObject object) override;
     void fromModel(UMLModel *model) override;
+    QJsonObject toJson() const;
     UMLModel *toModel() override;
 
     QList<UMLClassData *> getClasses() const;

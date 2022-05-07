@@ -6,6 +6,7 @@
  */
 
 #include "umlrelationdata.h"
+#include "model/modelprovider.h"
 
 bool UMLRelationData::load(QJsonObject object)
 {
@@ -31,12 +32,32 @@ bool UMLRelationData::load(QJsonObject object)
 
 void UMLRelationData::fromModel(UMLRelationModel *model)
 {
-    // TODO
+    this->type = model->getType().toString();
+    this->source = model->getSource()->getName();
+    this->destination = model->getDestination()->getName();
+    this->sourceAnchorId = model->getSourceAnchorId();
+    this->destinationAnchorId = model->getDestinationAnchorId();
+}
+
+QJsonObject UMLRelationData::toJson() const
+{
+    QJsonObject object;
+    object.insert("type", type);
+    object.insert("source", source);
+    object.insert("destination", destination);
+    object.insert("sourceAnchorId", sourceAnchorId);
+    object.insert("destinationAnchorId", destinationAnchorId);
+    return object;
 }
 
 UMLRelationModel *UMLRelationData::toModel()
 {
-    // TODO
+    UMLModel* model = ModelProvider::getInstance().getModel();
+    UMLClassModel* srcClassModel = model->findClassByName(source);
+    UMLClassModel* destClassModel = model->findClassByName(destination);
+    UMLRelationType umlRelationType(type);
+    UMLRelationModel *umlRelationModel = new UMLRelationModel(srcClassModel, destClassModel, umlRelationType, sourceAnchorId, destinationAnchorId);
+    return umlRelationModel;
 }
 
 QString UMLRelationData::getSource() const

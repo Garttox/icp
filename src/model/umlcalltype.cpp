@@ -15,3 +15,16 @@ UMLCallType::UMLCallType(QString string)
     else
         type = MESSAGE;
 }
+
+QString UMLCallType::toString() const
+{
+    switch (type)
+    {
+        case MESSAGE:
+            return QString("Message");
+        case CREATE:
+            return QString("Create");
+        case DESTROY:
+            return QString("Destroy");
+    }
+}

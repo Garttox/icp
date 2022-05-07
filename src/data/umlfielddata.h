@@ -21,6 +21,7 @@ public:
     virtual ~UMLFieldData() {};
     bool load(QJsonObject object) override;
     void fromModel(UMLFieldModel *model) override;
+    QJsonObject toJson() const;
     UMLFieldModel *toModel() override;
 
 };

@@ -6,6 +6,7 @@
  */
 
 #include "umlinstancedata.h"
+#include "model/modelprovider.h"
 
 bool UMLInstanceData::load(QJsonObject object)
 {
@@ -27,12 +28,26 @@ bool UMLInstanceData::load(QJsonObject object)
 
 void UMLInstanceData::fromModel(UMLInstanceModel *model)
 {
-    // TODO
+    this->name = model->getName();
+    this->umlClass = model->getClassModel()->getName();
+    this->posX = model->getPosX();
+}
+
+QJsonObject UMLInstanceData::toJson() const
+{
+    QJsonObject object;
+    object.insert("name", name);
+    object.insert("class", umlClass);
+    object.insert("posX", posX);
+    return object;
 }
 
 UMLInstanceModel *UMLInstanceData::toModel()
 {
-    // TODO
+    UMLModel* model = ModelProvider::getInstance().getModel();
+    UMLClassModel* umlClassModel = model->findClassByName(umlClass);
+    UMLInstanceModel *umlInstanceModel = new UMLInstanceModel(name, umlClassModel, posX);
+    return umlInstanceModel;
 }
 
 QString UMLInstanceData::getName() const

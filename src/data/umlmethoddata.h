@@ -22,6 +22,7 @@ public:
     virtual ~UMLMethodData();
     bool load(QJsonObject object) override;
     void fromModel(UMLMethodModel *model) override;
+    QJsonObject toJson() const;
     UMLMethodModel *toModel() override;
 
     QList<UMLParameterData *> getParameters() const;

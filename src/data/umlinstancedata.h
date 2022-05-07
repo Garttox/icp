@@ -20,6 +20,7 @@ public:
     virtual ~UMLInstanceData() {};
     bool load(QJsonObject object) override;
     void fromModel(UMLInstanceModel *model) override;
+    QJsonObject toJson() const;
     UMLInstanceModel *toModel() override;
 
     QString getName() const;

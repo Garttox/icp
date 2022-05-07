@@ -13,6 +13,14 @@ class UMLCallModel
 {
 public:
     UMLCallModel(UMLInstanceModel *source, UMLInstanceModel *destination, UMLMethodModel *method, bool async, int duration, int atTime, UMLCallType type);
+    UMLInstanceModel *getSource() const;
+    UMLInstanceModel *getDestination() const;
+    UMLMethodModel *getMethod() const;
+    bool getAsync() const;
+    int getDuration() const;
+    int getAtTime() const;
+    UMLCallType getType() const;
+
 private:
     UMLInstanceModel *source;
     UMLInstanceModel *destination;

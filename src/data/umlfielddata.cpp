@@ -27,10 +27,23 @@ bool UMLFieldData::load(QJsonObject object)
 
 void UMLFieldData::fromModel(UMLFieldModel *model)
 {
-    // TODO
+    this->name = model->getName();
+    this->type = model->getType();
+    this->access = model->getAccess().toString();
+}
+
+QJsonObject UMLFieldData::toJson() const
+{
+    QJsonObject object;
+    object.insert("name", name);
+    object.insert("type", type);
+    object.insert("access", access);
+    return object;
 }
 
 UMLFieldModel *UMLFieldData::toModel()
 {
-    // TODO
+    UMLAccessType umlAccessType(access);
+    UMLFieldModel *umlFieldModel = new UMLFieldModel(name, type, umlAccessType);
+    return umlFieldModel;
 }

@@ -6,6 +6,7 @@
  */
 
 #include "umldata.h"
+#include "model/modelprovider.h"
 
 UMLData::~UMLData()
 {
@@ -16,9 +17,9 @@ UMLData::~UMLData()
 
 bool UMLData::load(QJsonObject object)
 {
-    auto classes = loadArray<UMLClassData>(object["classes"]);
-    auto relations = loadArray<UMLRelationData>(object["relations"]);
-    auto sequences = loadArray<UMLSequenceData>(object["sequences"]);
+    auto classes = fromJsonArray<UMLClassData>(object["classes"]);
+    auto relations = fromJsonArray<UMLRelationData>(object["relations"]);
+    auto sequences = fromJsonArray<UMLSequenceData>(object["sequences"]);
 
     if (!classes.ok || !relations.ok || !sequences.ok)
     {
@@ -34,12 +35,45 @@ bool UMLData::load(QJsonObject object)
 
 void UMLData::fromModel(UMLModel *model)
 {
-    // TODO
+    this->classes = fromModels<UMLClassModel, UMLClassData>(model->getClasses());
+    this->relations = fromModels<UMLRelationModel, UMLRelationData>(model->getRelations());
+    this->sequences = fromModels<UMLSequenceModel, UMLSequenceData>(model->getSequences());
+}
+
+QJsonObject UMLData::toJson() const
+{
+    QJsonObject object;
+    object.insert("classes", toJsonArray(classes));
+    object.insert("relations", toJsonArray(relations));
+    object.insert("sequences", toJsonArray(sequences));
+    return object;
 }
 
 UMLModel *UMLData::toModel()
 {
-    // TODO
+    UMLModel* umlModel = ModelProvider::getInstance().getModel();
+
+    QList<UMLClassModel*> umlClassModels = toModels<UMLClassData, UMLClassModel>(classes);
+    foreach (auto umlClassModel, umlClassModels)
+    {
+        umlModel->addClass(umlClassModel);
+    }
+
+    QList<UMLRelationModel*> umlRelationModels = toModels<UMLRelationData, UMLRelationModel>(relations);
+    foreach (auto umlRelationModel, umlRelationModels)
+    {
+        umlModel->addRelation(umlRelationModel);
+    }
+
+    /*
+    QList<UMLSequenceModel*> umlSequenceModels = toModels<UMLSequenceData, UMLSequenceModel>(sequences);
+    foreach (auto umlSequenceModel, umlSequenceModels)
+    {
+        umlModel->addSequence(umlSequenceModel);
+    }
+    */
+
+    return umlModel;
 }
 
 QList<UMLClassData *> UMLData::getClasses() const

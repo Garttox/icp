@@ -22,6 +22,7 @@ public:
     virtual ~UMLClassData();
     bool load(QJsonObject object) override;
     void fromModel(UMLClassModel *model) override;
+    QJsonObject toJson() const;
     UMLClassModel *toModel() override;
 
     QString getName() const;

@@ -16,7 +16,6 @@ public:
     int getSourceAnchorId() const;
     int getDestinationAnchorId() const;
     void setType(UMLRelationType type);
-    QJsonObject getSaveData();
 
 signals:
     void modelChanged(UMLRelationModel *umlRelationModel);

@@ -19,92 +19,6 @@ UMLModel::~UMLModel()
     qDeleteAll(relations.begin(), relations.end());
 }
 
-bool UMLModel::loadData(QJsonObject json)
-{
-    // read classes
-    foreach (auto clsEl, json["classes"].toArray())
-    {
-        QJsonObject object = clsEl.toObject();
-        if (object["name"].isNull() || object["type"].isNull() ||
-                object["posX"].isNull() || object["posY"].isNull())
-        {
-            return false;
-        }
-
-        QString name = object["name"].toString();
-        UMLClassType type = UMLClassType(object["type"].toString());
-        int posX = object["posX"].toInt();
-        int posY = object["posY"].toInt();
-        UMLClassModel *umlClassModel = new UMLClassModel(name, type, posX, posY);
-        bool loadedSuccesfully = umlClassModel->loadData(object);
-        if (!loadedSuccesfully)
-        {
-            delete umlClassModel;
-            return false;
-        }
-        addClass(umlClassModel);
-    }
-
-    // read relations
-    foreach (auto relationEl, json["relations"].toArray())
-    {
-        QJsonObject object = relationEl.toObject();
-        if (object["source"].isNull() || object["destination"].isNull() || object["type"].isNull()
-                || object["sourceAnchorId"].isNull() || object["destinationAnchorId"].isNull())
-        {
-            return false;
-        }
-
-        UMLClassModel *source = findClassByName(object["source"].toString());
-        UMLClassModel *destination = findClassByName(object["destination"].toString());
-        UMLRelationType type(object["type"].toString());
-        int sourceAnchorId = object["sourceAnchorId"].toInt();
-        int destinationAnchorId = object["destinationAnchorId"].toInt();
-        UMLRelationModel *relation = new UMLRelationModel(source, destination, type, sourceAnchorId, destinationAnchorId);
-        addRelation(relation);
-    }
-
-    //read sequences
-    foreach (auto sequenceEl, json["sequences"].toArray())
-    {
-        QJsonObject object = sequenceEl.toObject();
-        if (object["name"].isNull())
-        {
-            return false;
-        }
-        QString name = object["name"].toString();
-        UMLSequenceModel *umlSequenceModel = new UMLSequenceModel(name);
-        addSequence(umlSequenceModel);
-        bool loadedSuccesfully = umlSequenceModel->loadData(object);
-        if (!loadedSuccesfully)
-        {
-            removeSequence(umlSequenceModel);
-            return false;
-        }
-    }
-    return true;
-}
-
-QJsonObject UMLModel::getSaveData()
-{
-    QJsonObject object;
-    QJsonArray classesData;
-    QJsonArray relationsData;
-
-    foreach (auto cls, classes)
-    {
-        classesData.append(cls->getSaveData());
-    }
-    foreach (auto relation, relations)
-    {
-        relationsData.append(relation->getSaveData());
-    }
-
-    object.insert("classes", classesData);
-    object.insert("relations", relationsData);
-    return object;
-}
-
 void UMLModel::addClass(UMLClassModel *umlClassModel)
 {
     classes.insert(umlClassModel);
@@ -169,9 +83,19 @@ UMLClassModel* UMLModel::findClassByName(QString className)
     return nullptr;
 }
 
-QSet<UMLClassModel *> UMLModel::getClasses()
+QList<UMLClassModel *> UMLModel::getClasses() const
 {
-    return classes;
+    return classes.values();
+}
+
+QList<UMLRelationModel *> UMLModel::getRelations() const
+{
+    return relations.values();
+}
+
+QList<UMLSequenceModel *> UMLModel::getSequences() const
+{
+    return sequences.values();
 }
 
 QSet<UMLRelationModel *> UMLModel::getRelationsWithSourceClass(UMLClassModel *umlClassModel)

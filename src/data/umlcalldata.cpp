@@ -6,6 +6,7 @@
  */
 
 #include "umlcalldata.h"
+#include "model/modelprovider.h"
 #include "data.h"
 
 bool UMLCallData::load(QJsonObject object)
@@ -36,12 +37,40 @@ bool UMLCallData::load(QJsonObject object)
 
 void UMLCallData::fromModel(UMLCallModel *model)
 {
-    // TODO
+    UMLInstanceModel *sourceInstance = model->getSource();
+    this->type = model->getType().toString();
+    this->source = sourceInstance != nullptr ? sourceInstance->getName() : nullptr;
+    this->destination = model->getDestination()->getName();
+    this->method = model->getMethod()->getName();
+    this->async = model->getAsync();
+    this->duration = model->getDuration();
+    this->atTime = model->getAtTime();
+}
+
+QJsonObject UMLCallData::toJson() const
+{
+    QJsonObject object;
+    object.insert("type", type);
+    object.insert("source", source);
+    object.insert("destination", destination);
+    object.insert("method", method);
+    object.insert("async", async);
+    object.insert("duration", duration);
+    object.insert("atTime", atTime);
+    return object;
 }
 
 UMLCallModel *UMLCallData::toModel()
 {
-    // TODO
+    // TODO: Get instances from sequence
+    // TODO: Get method from dest. instance
+    // UMLModel* model = ModelProvider::getInstance().getModel();
+    UMLInstanceModel* srcInstanceModel = nullptr;
+    UMLInstanceModel* destInstanceModel = nullptr;
+    UMLMethodModel* umlMethodModel = nullptr;
+    UMLCallType umlCallType(type);
+    UMLCallModel* umlClassModel = new UMLCallModel(srcInstanceModel, destInstanceModel, umlMethodModel, async, duration, atTime, umlCallType);
+    return umlClassModel;
 }
 
 QString UMLCallData::getType() const

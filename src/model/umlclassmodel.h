@@ -21,11 +21,10 @@ class UMLClassModel : public QObject
     Q_OBJECT
 public:
     UMLClassModel(QString name, UMLClassType type, int posX, int posY);
+    UMLClassModel(QString name, UMLClassType type, QList<UMLFieldModel*> fields,  QList<UMLMethodModel*> methods, int posX, int posY);
     UMLClassModel(const UMLClassModel &original);
     ~UMLClassModel();
     void setModel(UMLClassModel &model);
-    bool loadData(QJsonObject jsonClassData);
-    QJsonObject getSaveData();
     void setName(QString name);
     void setPosition(int x, int y);
     void addField(UMLFieldModel *field);

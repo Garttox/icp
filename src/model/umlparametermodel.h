@@ -13,9 +13,10 @@ public:
     QString toString() const;
     QString getName() const;
     QString getType() const;
-    QJsonObject getSaveData();
+
 signals:
     void modelChanged();
+
 private:
     QString name;
     QString type;

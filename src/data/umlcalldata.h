@@ -21,6 +21,7 @@ public:
     virtual ~UMLCallData() {};
     bool load(QJsonObject object) override;
     void fromModel(UMLCallModel *model) override;
+    QJsonObject toJson() const;
     UMLCallModel *toModel() override;
 
     QString getType() const;

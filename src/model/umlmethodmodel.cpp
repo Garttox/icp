@@ -4,7 +4,11 @@
 #include "umlmethodmodel.h"
 
 UMLMethodModel::UMLMethodModel(QString name, QString type, UMLAccessType access) :
-    UMLAttribute(name, type, access)
+    UMLAttribute(name, type, access), parameters(QList<UMLParameterModel*>())
+{}
+
+UMLMethodModel::UMLMethodModel(QString name, QString type, UMLAccessType access, QList<UMLParameterModel *> parameters) :
+    UMLAttribute(name, type, access), parameters(parameters)
 {}
 
 UMLMethodModel::UMLMethodModel(const UMLMethodModel &original) :
@@ -23,37 +27,6 @@ UMLMethodModel::~UMLMethodModel()
     qDeleteAll(parameters);
 }
 
-bool UMLMethodModel::loadData(QJsonObject jsonMethodData)
-{
-    foreach (auto parameterEl, jsonMethodData["parameters"].toArray())
-    {
-        if (parameterEl.toObject()["name"].isNull() || parameterEl.toObject()["type"].isNull())
-            return false;
-        QString name = parameterEl.toObject()["name"].toString();
-        QString type = parameterEl.toObject()["type"].toString();
-        UMLParameterModel *parameter = new UMLParameterModel(name, type);
-        addParameter(parameter);
-    }
-    return true;
-}
-
-QJsonObject UMLMethodModel::getSaveData()
-{
-    QJsonObject object;
-    QJsonArray parametersData;
-
-    foreach (auto parameter, parameters)
-    {
-        parametersData.append(parameter->getSaveData());
-    }
-
-    object.insert("name", name);
-    object.insert("type", type);
-    object.insert("access", access.toString());
-    object.insert("parameters", parametersData);
-
-    return object;
-}
 
 void UMLMethodModel::addParameter(UMLParameterModel *parameter)
 {

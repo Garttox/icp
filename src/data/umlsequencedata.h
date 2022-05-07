@@ -22,6 +22,7 @@ public:
     virtual ~UMLSequenceData();
     bool load(QJsonObject object) override;
     void fromModel(UMLSequenceModel *model) override;
+    QJsonObject toJson() const;
     UMLSequenceModel *toModel() override;
 
     QString getName() const;

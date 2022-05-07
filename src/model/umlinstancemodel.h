@@ -14,10 +14,12 @@ public:
     int getPosX() const;
     void setPosX(int posX);
     UMLClassModel* getClassModel();
+
 private:
     QString name;
     UMLClassModel *umlClassModel;
     int posX;
+
 };
 
 #endif // UMLINSTANCEMODEL_H

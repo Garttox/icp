@@ -19,8 +19,8 @@ bool UMLClassData::load(QJsonObject object)
     auto name =  object["name"];
     auto posX = object["posX"];
     auto posY = object["posY"];
-    auto fields = loadArray<UMLFieldData>(object["fields"]);
-    auto methods = loadArray<UMLMethodData>(object["methods"]);
+    auto fields = fromJsonArray<UMLFieldData>(object["fields"]);
+    auto methods = fromJsonArray<UMLMethodData>(object["methods"]);
 
     if (hasNull(type, name, posX, posY) || !fields.ok || !methods.ok)
     {
@@ -39,12 +39,33 @@ bool UMLClassData::load(QJsonObject object)
 
 void UMLClassData::fromModel(UMLClassModel *model)
 {
-    // TODO
+    this->type = model->getType().toString();
+    this->name = model->getName();
+    this->posX = model->getPosX();
+    this->posY = model->getPosY();
+    this->fields = fromModels<UMLFieldModel, UMLFieldData>(model->getFields());
+    this->methods = fromModels<UMLMethodModel, UMLMethodData>(model->getMethods());
+}
+
+QJsonObject UMLClassData::toJson() const
+{
+    QJsonObject object;
+    object.insert("type", type);
+    object.insert("name", name);
+    object.insert("posX", posX);
+    object.insert("posY", posY);
+    object.insert("fields", toJsonArray(fields));
+    object.insert("methods", toJsonArray(methods));
+    return object;
 }
 
 UMLClassModel *UMLClassData::toModel()
 {
-    // TODO
+    UMLClassType umlClassType(type);
+    QList<UMLFieldModel*> umlFieldModels = toModels<UMLFieldData, UMLFieldModel>(fields);
+    QList<UMLMethodModel*> umlMethodModels = toModels<UMLMethodData, UMLMethodModel>(methods);
+    UMLClassModel* umlClassModel = new UMLClassModel(name, umlClassType, umlFieldModels, umlMethodModels, posX, posY);
+    return umlClassModel;
 }
 
 QString UMLClassData::getName() const

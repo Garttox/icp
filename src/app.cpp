@@ -108,51 +108,39 @@ void App::displayErrorMessageBox(QString title, QString message)
 
 void App::loadFile()
 {
-    UMLModel *umlModel = ModelProvider::getInstance().getModel();
     QString fileName = QFileDialog::getOpenFileName(this, "Open a file", DEFAULT_PATH, "JSON (*.json)");
-    qInfo() << fileName;
     if (fileName.length() == 0)
     {
         return; // User closed the dialog
     }
-    umlModel->clear();
-    QJsonDocument doc;
+
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         displayErrorMessageBox("Reading error", "Error occured while reading the file");
         return;
     }
-    QByteArray byteFile = file.readAll();
-    doc = QJsonDocument::fromJson(byteFile);
-    QJsonObject json = doc.object();
 
-    // validate if file is in json format
+    QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
     if (doc.isNull())
     {
         displayErrorMessageBox("Loading error", "Given file data are not in supported format.");
         return;
     }
 
-    // TODO:
-    /*
+    QJsonObject json = doc.object();
     UMLData *data = new UMLData();
-    bool loadSuccesfull = data->load(doc.object());
-    UMLModel = data->toModel();
-    delete data;
-    */
-
-
-    bool loadedSuccesfully = umlModel->loadData(json);
-
-    if (!loadedSuccesfully)
+    if (data->load(json))
     {
-        QMessageBox messageBox;
-        messageBox.critical(nullptr, "Loading error", "Given file data are probably corrupted.");
-        messageBox.setFixedSize(500, 200);
-        return;
+        ModelProvider &modelProvider = ModelProvider::getInstance();
+        modelProvider.getModel()->clear();
+        modelProvider.setModel(data->toModel());
     }
-
+    else
+    {
+        displayErrorMessageBox("Loading error", "Given file data are probably corrupted.");
+    }
+    delete data;
 }
 
 void App::saveFile()
@@ -170,14 +158,14 @@ void App::saveFile()
         return;
     }
 
-    QJsonDocument document;
-    QJsonObject root = ModelProvider::getInstance().getModel()->getSaveData();
-    document.setObject(root);
+    UMLData umlData;
+    umlData.fromModel(ModelProvider::getInstance().getModel());
+
+    QJsonObject root = umlData.toJson();
+    QJsonDocument document(root);
     file.write(document.toJson());
     file.close();
 }
-
-
 
 void App::exportImage()
 {

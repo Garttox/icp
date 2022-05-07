@@ -25,12 +25,22 @@ bool UMLParameterData::load(QJsonObject object)
 
 void UMLParameterData::fromModel(UMLParameterModel *model)
 {
-    // TODO
+    this->name = model->getName();
+    this->type = model->getType();
+}
+
+QJsonObject UMLParameterData::toJson() const
+{
+    QJsonObject object;
+    object.insert("name", name);
+    object.insert("type", type);
+    return object;
 }
 
 UMLParameterModel *UMLParameterData::toModel()
 {
-    // TODO
+    UMLParameterModel* umlParameterModel = new UMLParameterModel(name, type);
+    return umlParameterModel;
 }
 
 QString UMLParameterData::getName() const

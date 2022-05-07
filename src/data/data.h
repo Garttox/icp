@@ -20,6 +20,7 @@ class Data
 public:
     virtual bool load(QJsonObject object) = 0;
     virtual void fromModel(MODEL* model) = 0;
+    // virtual QJsonObject toJson() const;
     virtual MODEL* toModel() = 0;
 
 };
