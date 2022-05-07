@@ -21,6 +21,7 @@ SOURCES += main.cpp\
         command/classes/moveclasscommand.cpp \
         command/command.cpp \
         command/commandstack.cpp \
+        data/inconsistencyresolver.cpp \
         data/umlattributedata.cpp \
         data/umlcalldata.cpp \
         data/umlclassdata.cpp \
@@ -58,6 +59,7 @@ SOURCES += main.cpp\
         view/classes/umlrelation.cpp \
         view/classes/umlrelationanchor.cpp \
         view/classtoolbar.cpp \
+        view/resolvedinconsistenciesdialog.cpp \
         view/sequence/editinstancedialog.cpp \
         view/sequence/newinstancedialog.cpp \
         view/sequence/newsequencedialog.cpp \
@@ -74,6 +76,7 @@ HEADERS  += app.h \
     command/command.h \
     command/commandstack.h \
     data/data.h \
+    data/inconsistencyresolver.h \
     data/umlattributedata.h \
     data/umlcalldata.h \
     data/umlclassdata.h \
@@ -112,6 +115,7 @@ HEADERS  += app.h \
     view/classes/umlrelation.h \
     view/classes/umlrelationanchor.h \
     view/classtoolbar.h \
+    view/resolvedinconsistenciesdialog.h \
     view/sequence/editinstancedialog.h \
     view/sequence/newinstancedialog.h \
     view/sequence/newsequencedialog.h \
@@ -125,6 +129,7 @@ FORMS    += \
     view/classes/editmethoddialog.ui \
     view/classes/editrelationdialog.ui \
     view/classes/newclassdialog.ui \
+    view/resolvedinconsistenciesdialog.ui \
     view/sequence/editinstancedialog.ui \
     view/sequence/newinstancedialog.ui \
     view/sequence/newsequencedialog.ui

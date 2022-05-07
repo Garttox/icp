@@ -18,14 +18,17 @@
 #include <QTabBar>
 #include <QToolButton>
 
-#include <view/sequencediagramview.h>
-#include <view/sequence/newsequencedialog.h>
+#include "view/sequencediagramview.h"
+#include "view/sequence/newsequencedialog.h"
+#include "view/resolvedinconsistenciesdialog.h"
 
 #include "app.h"
+#include "data/inconsistencyresolver.h"
 #include "data/umldata.h"
 #include "model/umlmodel.h"
 #include "model/modelprovider.h"
 #include "command/commandstack.h"
+
 
 App::App(QWidget *parent) :
     QMainWindow(parent)
@@ -104,6 +107,21 @@ void App::displayErrorMessageBox(QString title, QString message)
     messageBox.setFixedSize(500, 200);
 }
 
+void App::setLoadedData(UMLData *data)
+{
+    InconsistencyResolver *resolver = new InconsistencyResolver();
+    QStringList resolved = resolver->resolve(data);
+    if (!resolved.empty())
+    {
+        ResolvedInconsistenciesDialog dialog(resolved);
+        dialog.exec();
+    }
+
+    ModelProvider &modelProvider = ModelProvider::getInstance();
+    modelProvider.getModel()->clear();
+    modelProvider.setModel(data->toModel());
+}
+
 // - - - - - private slots - - - - -
 
 void App::loadFile()
@@ -132,9 +150,7 @@ void App::loadFile()
     UMLData *data = new UMLData();
     if (data->load(json))
     {
-        ModelProvider &modelProvider = ModelProvider::getInstance();
-        modelProvider.getModel()->clear();
-        modelProvider.setModel(data->toModel());
+        setLoadedData(data);
     }
     else
     {
@@ -163,6 +179,7 @@ void App::saveFile()
 
     QJsonObject root = umlData.toJson();
     QJsonDocument document(root);
+
     file.write(document.toJson());
     file.close();
 }
