@@ -4,16 +4,17 @@
 #include "umlmethodmodel.h"
 
 UMLMethodModel::UMLMethodModel(QString name, QString type, UMLAccessType access) :
-    UMLAttribute(name, type, access), parameters(QList<UMLParameterModel*>())
+    UMLAttribute(name, type, access), oid(QUuid::createUuid()), parameters(QList<UMLParameterModel*>())
 {}
 
 UMLMethodModel::UMLMethodModel(QString name, QString type, UMLAccessType access, QList<UMLParameterModel *> parameters) :
-    UMLAttribute(name, type, access), parameters(parameters)
+    UMLAttribute(name, type, access), oid(QUuid::createUuid()), parameters(parameters)
 {}
 
 UMLMethodModel::UMLMethodModel(const UMLMethodModel &original) :
     UMLAttribute(original.name, original.type, original.access)
 {
+    this->oid = original.getOid();
     foreach(UMLParameterModel *parameter, original.parameters)
     {
         QString name = parameter->getName();
@@ -26,7 +27,6 @@ UMLMethodModel::~UMLMethodModel()
 {
     qDeleteAll(parameters);
 }
-
 
 void UMLMethodModel::addParameter(UMLParameterModel *parameter)
 {
@@ -57,7 +57,29 @@ void UMLMethodModel::clearParameters()
     emit modelChanged(this);
 }
 
-// Slots
+void UMLMethodModel::setModelData(UMLMethodModel *copy)
+{
+    this->name = copy->name;
+    this->type = copy->type;
+    this->access = copy->access;
+
+    qDeleteAll(parameters);
+    parameters.clear();
+    foreach(auto parameter, copy->parameters)
+    {
+        QString name = parameter->getName();
+        QString type = parameter->getType();
+        this->parameters.append(new UMLParameterModel(name, type));
+    }
+}
+
+QUuid UMLMethodModel::getOid() const
+{
+    return oid;
+}
+
+
+// - - - - - public slots - - - - -
 
 void UMLMethodModel::parameterModelChanged()
 {

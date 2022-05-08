@@ -44,14 +44,13 @@ void ClassDialog::editSelectedFields(UMLClassModel *umlClassModel, QListWidget *
 
 void ClassDialog::editSelectedMethods(UMLClassModel *umlClassModel, QListWidget *methodsList)
 {
-
     QModelIndexList selectedItems = methodsList->selectionModel()->selectedIndexes();
     foreach (auto selectedItem, selectedItems)
     {
         int selectedRow = selectedItem.row();
         UMLMethodModel *umlMethodModel = umlClassModel->getMethodAt(selectedRow);
-        EditMethodDialog *editFieldDialog = new EditMethodDialog(umlClassModel->getType(), umlMethodModel);
-        editFieldDialog->exec();
+        EditMethodDialog *editMethodDialog = new EditMethodDialog(umlClassModel->getType(), umlMethodModel);
+        editMethodDialog->exec();
         methodsList->takeItem(selectedRow);
         methodsList->insertItem(selectedRow, umlMethodModel->toString());
     }

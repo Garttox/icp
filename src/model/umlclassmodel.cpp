@@ -42,25 +42,21 @@ UMLClassModel::~UMLClassModel()
     qDeleteAll(methods.begin(), methods.end());
 }
 
-void UMLClassModel::setModel(UMLClassModel &umlClassModel)
+void UMLClassModel::setModel(UMLClassModel &foreign)
 {
     qDeleteAll(fields.begin(), fields.end());
-    qDeleteAll(methods.begin(), methods.end());
     fields.clear();
-    methods.clear();
 
-    this->name = umlClassModel.name;
-    this->type = umlClassModel.type;
-    foreach(UMLFieldModel *field, umlClassModel.fields)
+    this->name = foreign.name;
+    this->type = foreign.type;
+
+    foreach(auto field, foreign.fields)
     {
         UMLFieldModel *copy = new UMLFieldModel(*field);
         this->fields.append(copy);
     }
-    foreach(UMLMethodModel *method, umlClassModel.methods)
-    {
-        UMLMethodModel *copy = new UMLMethodModel(*method);
-        this->methods.append(copy);
-    }
+
+    setMethodsFromCopy(foreign);
 
     emit modelChanged(this);
 }
@@ -190,7 +186,7 @@ int UMLClassModel::getPosY() const
     return posY;
 }
 
-// Slots
+// - - - - - public slots - - - - -
 
 void UMLClassModel::fieldModelChanged()
 {
@@ -201,3 +197,46 @@ void UMLClassModel::methodModelChanged()
 {
     emit modelChanged(this);
 }
+
+// - - - - - private  - - - - -
+
+UMLMethodModel *UMLClassModel::takeMethodByOid(QUuid oid)
+{
+    QMutableListIterator<UMLMethodModel*> iter(this->methods);
+    while (iter.hasNext())
+    {
+        UMLMethodModel *method = iter.next();
+        if (method->getOid() == oid)
+        {
+            iter.remove();
+            return method;
+        }
+    }
+    return nullptr;
+}
+
+void UMLClassModel::setMethodsFromCopy(UMLClassModel &foreign)
+{
+    QMutableListIterator<UMLMethodModel*> iter(this->methods);
+    while (iter.hasNext())
+    {
+        UMLMethodModel *method = iter.next();
+        UMLMethodModel *methodCopy = foreign.takeMethodByOid(method->getOid());
+        if (methodCopy != nullptr)
+        {
+            method->setModelData(methodCopy);
+            delete methodCopy;
+        }
+        else
+        {
+            iter.remove();
+            delete method;
+        }
+    }
+    foreach(auto method, foreign.methods)
+    {
+        UMLMethodModel *copy = new UMLMethodModel(*method);
+        this->methods.append(copy);
+    }
+}
+

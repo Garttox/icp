@@ -24,6 +24,7 @@ public:
     UMLClassModel(QString name, UMLClassType type, QList<UMLFieldModel*> fields,  QList<UMLMethodModel*> methods, int posX, int posY);
     UMLClassModel(const UMLClassModel &original);
     ~UMLClassModel();
+
     void setModel(UMLClassModel &model);
     void setName(QString name);
     void setPosition(int x, int y);
@@ -32,12 +33,14 @@ public:
     void removeFieldAt(int index);
     void removeMethodAt(int index);
     bool haveIdentifierWithSignature(QString signature) const;
+
     QString getName() const;
     UMLClassType getType() const;
     QString getDisplayName() const;
     UMLFieldModel *getFieldAt(int index) const;
     UMLMethodModel *getMethodAt(int index) const;
     UMLMethodModel *findMethodByName(QString methodName) const;
+
     QList<UMLMethodModel *> getMethods() const;
     QList<UMLFieldModel *> getFields() const;
     QSet<UMLAttribute *> getIdentifiers() const;
@@ -53,12 +56,16 @@ signals:
     void modelChanged(UMLClassModel *umlClassModel);
 
 private:
+    UMLMethodModel *takeMethodByOid(QUuid oid);
+    void setMethodsFromCopy(UMLClassModel &foreign);
+
     QString name;
     UMLClassType type;
     int posX;
     int posY;
     QList<UMLFieldModel *> fields;
     QList<UMLMethodModel *> methods;
+
 };
 
 #endif // UMLCLASSMODEL_H

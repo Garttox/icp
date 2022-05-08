@@ -19,6 +19,8 @@ public:
     QString toString() const override;
     QList<UMLParameterModel *> getParameters() const;
     void clearParameters();
+    void setModelData(UMLMethodModel *copy);
+    QUuid getOid() const;
 
 public slots:
     void parameterModelChanged();
@@ -27,6 +29,7 @@ signals:
     void modelChanged(UMLMethodModel* umlMethodModel);
 
 private:
+    QUuid oid;
     QList<UMLParameterModel *> parameters;
 };
 
