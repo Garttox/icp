@@ -30,6 +30,11 @@ public:
     QList<UMLRelationData *> getRelations() const;
     QList<UMLSequenceData *> getSequences() const;
 
+    QStringList getClassNames() const;
+    UMLClassData *getClassByName(QString name) const;
+
+    void addClass(UMLClassData *umlClassData);
+
 private:
     QList<UMLClassData *> classes;
     QList<UMLRelationData *> relations;

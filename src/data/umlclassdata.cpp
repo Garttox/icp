@@ -7,6 +7,13 @@
 
 #include "umlclassdata.h"
 
+UMLClassData::UMLClassData()
+{}
+
+UMLClassData::UMLClassData(QString name) :
+    name(name)
+{}
+
 UMLClassData::~UMLClassData()
 {
     qDeleteAll(fields);
@@ -68,6 +75,11 @@ UMLClassModel *UMLClassData::toModel(void */*context*/)
     return umlClassModel;
 }
 
+void UMLClassData::addMethod(UMLMethodData *umlMethodData)
+{
+    methods.append(umlMethodData);
+}
+
 QString UMLClassData::getName() const
 {
     return name;
@@ -96,4 +108,16 @@ QList<UMLFieldData *> UMLClassData::getFields() const
 QList<UMLMethodData *> UMLClassData::getMethods() const
 {
     return methods;
+}
+
+bool UMLClassData::hasMethodWithName(QString name)
+{
+    foreach (auto method, methods)
+    {
+        if (method->getName() == name)
+        {
+            return true;
+        }
+    }
+    return false;
 }

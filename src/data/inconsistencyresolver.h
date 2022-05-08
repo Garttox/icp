@@ -27,6 +27,15 @@ public:
     QStringList resolve(UMLData *umlData);
 
 private:
+    void resolveDuplicatedSequenceNames(UMLData *umlData);
+    void resolveNonExistingMethodsForCalls(UMLData *umlData);
+    void resolveNonExistingInstancesForCalls(UMLData *umlData);
+    void resolveNonExistingClassesForInstances(UMLData *umlData);
+
+
+
+    bool hasDuplicate(QStringList list);
+
     QStringList resolved;
 
 };

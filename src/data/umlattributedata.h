@@ -24,7 +24,6 @@ protected:
     QString type;
     QString access;
 
-
 };
 
 #endif // UMLATTRIBUTEDATA_H

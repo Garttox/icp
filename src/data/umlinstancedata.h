@@ -17,6 +17,8 @@
 class UMLInstanceData : public Data<UMLInstanceModel>
 {
 public:
+    UMLInstanceData();
+    UMLInstanceData(QString name, QString umlClass);
     virtual ~UMLInstanceData() {};
     bool load(QJsonObject object) override;
     void fromModel(UMLInstanceModel *model) override;

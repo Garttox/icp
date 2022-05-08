@@ -8,6 +8,17 @@
 #include "umlmethoddata.h"
 #include "model/umlparametermodel.h"
 
+UMLMethodData::UMLMethodData()
+{}
+
+UMLMethodData::UMLMethodData(QString name, QString type, QString access) :
+    UMLAttributeData()
+{
+    this->name = name;
+    this->type = type;
+    this->access = access;
+}
+
 UMLMethodData::~UMLMethodData()
 {
     qDeleteAll(parameters);

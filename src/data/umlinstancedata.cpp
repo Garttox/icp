@@ -8,6 +8,13 @@
 #include "umlinstancedata.h"
 #include "model/modelprovider.h"
 
+UMLInstanceData::UMLInstanceData()
+{}
+
+UMLInstanceData::UMLInstanceData(QString name, QString umlClass) :
+    name(name), umlClass(umlClass)
+{}
+
 bool UMLInstanceData::load(QJsonObject object)
 {
     auto name = object["name"];

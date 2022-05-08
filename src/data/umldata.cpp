@@ -88,3 +88,30 @@ QList<UMLSequenceData *> UMLData::getSequences() const
 {
     return sequences;
 }
+
+QStringList UMLData::getClassNames() const
+{
+    QStringList list;
+    foreach (auto cls, classes)
+    {
+        list.append(cls->getName());
+    }
+    return list;
+}
+
+UMLClassData *UMLData::getClassByName(QString name) const
+{
+    foreach (auto cls, classes)
+    {
+        if (cls->getName() == name)
+        {
+            return cls;
+        }
+    }
+    return nullptr;
+}
+
+void UMLData::addClass(UMLClassData *umlClassData)
+{
+    classes.append(umlClassData);
+}

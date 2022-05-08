@@ -64,6 +64,16 @@ UMLSequenceModel *UMLSequenceData::toModel(void */*context*/)
     return umlSequenceModel;
 }
 
+void UMLSequenceData::setName(QString name)
+{
+    this->name = name;
+}
+
+void UMLSequenceData::addInstance(UMLInstanceData *instance)
+{
+    this->instances.append(instance);
+}
+
 QString UMLSequenceData::getName() const
 {
     return name;
@@ -77,4 +87,26 @@ QList<UMLInstanceData *> UMLSequenceData::getInstances() const
 QList<UMLCallData *> UMLSequenceData::getCalls() const
 {
     return calls;
+}
+
+QStringList UMLSequenceData::getInstanceNames() const
+{
+    QStringList list;
+    foreach (auto instance, instances)
+    {
+        list.append(instance->getName());
+    }
+    return list;
+}
+
+UMLInstanceData *UMLSequenceData::getInstanceByName(QString name) const
+{
+    foreach (auto instance, instances)
+    {
+        if (instance->getName() == name)
+        {
+            return instance;
+        }
+    }
+    return nullptr;
 }

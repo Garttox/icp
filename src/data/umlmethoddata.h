@@ -19,6 +19,8 @@
 class UMLMethodData : public UMLAttributeData, public Data<UMLMethodModel>
 {
 public:
+    UMLMethodData();
+    UMLMethodData(QString name, QString type, QString access);
     virtual ~UMLMethodData();
     bool load(QJsonObject object) override;
     void fromModel(UMLMethodModel *model) override;

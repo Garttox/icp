@@ -25,9 +25,14 @@ public:
     QJsonObject toJson() const;
     UMLSequenceModel *toModel(void* context = nullptr) override;
 
+    void setName(QString name);
+    void addInstance(UMLInstanceData *instance);
+
     QString getName() const;
     QList<UMLInstanceData *> getInstances() const;
     QList<UMLCallData *> getCalls() const;
+    QStringList getInstanceNames() const;
+    UMLInstanceData *getInstanceByName(QString name) const;
 
 private:
     QString name;

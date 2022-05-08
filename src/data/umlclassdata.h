@@ -19,11 +19,15 @@
 class UMLClassData : Data<UMLClassModel>
 {
 public:
+    UMLClassData();
+    UMLClassData(QString name);
     virtual ~UMLClassData();
     bool load(QJsonObject object) override;
     void fromModel(UMLClassModel *model) override;
     QJsonObject toJson() const;
     UMLClassModel *toModel(void* context = nullptr) override;
+
+    void addMethod(UMLMethodData *umlMethodData);
 
     QString getName() const;
     QString getType() const;
@@ -31,6 +35,8 @@ public:
     int getPosY() const;
     QList<UMLFieldData *> getFields() const;
     QList<UMLMethodData *> getMethods() const;
+
+    bool hasMethodWithName(QString name);
 
 private:
     QString name;

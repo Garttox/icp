@@ -1,0 +1,89 @@
+{
+  "classes": [
+    {
+      "name": "ClassA",
+      "type": "Class",
+      "posX": 350,
+      "posY": 390,
+      "fields": [],
+      "methods": []
+    },
+    {
+      "name": "ClassB",
+      "type": "Class",
+      "posX": 650,
+      "posY": 410,
+      "fields": [],
+      "methods": []
+    }
+  ],
+  "relations": [
+    {
+      "source": "ClassA",
+      "destination": "ClassB",
+      "type": "Composition",
+      "sourceAnchorId": 6,
+      "destinationAnchorId": 3
+    }
+  ],
+  "sequences": [
+    {
+      "name": "seq1",
+      "instances": [
+        {
+          "name": "InstanceA",
+          "class": "ClassA",
+          "posX": 111
+        },
+        {
+          "name": "InstanceB",
+          "class": "ClassB",
+          "posX": 340
+        }
+      ],
+      "calls": [
+        {
+          "destination": "InstanceA",
+          "method": "method1",
+          "async": true,
+          "duration": 140,
+          "atTime": 50,
+          "type": "Message"
+        }
+      ]
+    },
+    {
+      "name": "seq1*",
+      "instances": [
+        {
+          "name": "Instance",
+          "class": "ClassB",
+          "posX": 340
+        }
+      ],
+      "calls": []
+    },
+    {
+      "name": "seq1",
+      "instances": [
+        {
+          "name": "Instance",
+          "class": "ClassB",
+          "posX": 340
+        }
+      ],
+      "calls": []
+    },
+    {
+      "name": "seq1*",
+      "instances": [
+        {
+          "name": "Instance",
+          "class": "ClassB",
+          "posX": 340
+        }
+      ],
+      "calls": []
+    }
+  ]
+}
