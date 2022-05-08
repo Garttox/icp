@@ -15,7 +15,9 @@
 #include <model/umlcallmodel.h>
 
 class UMLInstance;
-
+/**
+ * @brief Graphical object for displaying UML Call.
+ */
 class UMLCall : public QObject, public QGraphicsItem
 {
     Q_OBJECT

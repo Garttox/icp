@@ -42,5 +42,7 @@ QString UMLCallType::toString() const
             return QString("Create");
         case DESTROY:
             return QString("Destroy");
+        default:
+            return QString("Message");
     }
 }
