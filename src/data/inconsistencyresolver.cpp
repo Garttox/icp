@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 6/5/2022
+ * @file inconsistencyresolver.cpp
+ * @author Martin Bednář (xbedna77)
+ */
+
 #include "inconsistencyresolver.h"
 
 InconsistencyResolver::InconsistencyResolver()
@@ -7,13 +14,32 @@ QStringList InconsistencyResolver::resolve(UMLData *umlData)
 {
     resolved.clear();
 
+    resolveDuplicatedClassNames(umlData);
     resolveDuplicatedSequenceNames(umlData);
-    // resolveDuplicatedClassNames
     resolveNonExistingInstancesForCalls(umlData);
     resolveNonExistingMethodsForCalls(umlData);
     resolveNonExistingClassesForInstances(umlData);
 
     return resolved;
+}
+
+void InconsistencyResolver::resolveDuplicatedClassNames(UMLData *umlData)
+{
+    QStringList encountered;
+    do {
+        encountered.clear();
+        foreach (auto umlClassData, umlData->getClasses())
+        {
+            QString name = umlClassData->getName();
+            if (encountered.contains(name))
+            {
+                name.append('*');
+                umlClassData->setName(name);
+                resolved.append(QString("Class renamed to '%1', due to duplication of names.").arg(name));
+            }
+            encountered.append(name);
+        }
+    } while (hasDuplicate(encountered));
 }
 
 void InconsistencyResolver::resolveDuplicatedSequenceNames(UMLData *umlData)

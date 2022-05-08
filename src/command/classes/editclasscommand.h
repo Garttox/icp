@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 6/5/2022
+ * @file editclasscommand.h
+ * @author Martin Bednář (xbedna77)
+ */
+
 #ifndef EDITCLASSCOMMAND_H
 #define EDITCLASSCOMMAND_H
 

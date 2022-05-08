@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 6/5/2022
+ * @file moveclasscommand.h
+ * @author Martin Bednář (xbedna77)
+ */
+
 #ifndef MOVECLASSCOMMAND_H
 #define MOVECLASSCOMMAND_H
 

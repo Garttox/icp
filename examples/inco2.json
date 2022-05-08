@@ -5,8 +5,21 @@
       "type": "Class",
       "posX": 350,
       "posY": 390,
-      "fields": [],
-      "methods": []
+      "fields": [
+        {
+          "name": "field",
+          "type": "Int64",
+          "access": "Protected"
+        }
+      ],
+      "methods": [
+        {
+          "parameters": [],
+          "name": "method",
+          "type": "Int",
+          "access": "Public"
+        }
+      ]
     },
     {
       "name": "ClassB",
@@ -14,6 +27,20 @@
       "posX": 650,
       "posY": 410,
       "fields": [],
+      "methods": []
+    },
+    {
+      "name": "ClassA",
+      "type": "Class",
+      "posX": 650,
+      "posY": 280,
+      "fields": [
+        {
+          "name": "field",
+          "type": "Int32",
+          "access": "Private"
+        }
+      ],
       "methods": []
     }
   ],
@@ -46,25 +73,13 @@
       "calls": [
         {
           "destination": "InstanceA",
-          "method": "method1",
+          "method": "method",
           "async": true,
           "duration": 140,
           "atTime": 50,
           "type": "Message"
         }
       ]
-    },
-    {
-      "name": "seq1",
-      "instances": [
-        {
-          "name": "Instance",
-          "class": "ClassB",
-          "posX": 340,
-          "posY": 50
-        }
-      ],
-      "calls": []
     }
   ]
 }

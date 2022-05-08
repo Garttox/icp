@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 6/5/2022
+ * @file editrelationcommand.h
+ * @author Martin Bednář (xbedna77)
+ */
+
 #ifndef EDITRELATIONCOMMAND_H
 #define EDITRELATIONCOMMAND_H
 
