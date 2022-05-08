@@ -35,7 +35,7 @@ void UMLSequenceData::fromModel(UMLSequenceModel *model)
 {
     this->name = model->getName();
     this->instances = fromModels<UMLInstanceModel, UMLInstanceData>(model->getInstances());
-    // FIXME: this->calls = fromModels<UMLCallModel, UMLCallData>(model->getCalls());
+    this->calls = fromModels<UMLCallModel, UMLCallData>(model->getCalls());
 }
 
 QJsonObject UMLSequenceData::toJson() const

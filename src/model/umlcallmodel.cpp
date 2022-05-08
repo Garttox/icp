@@ -35,14 +35,31 @@ UMLMethodModel *UMLCallModel::getMethod() const
     return method;
 }
 
+void UMLCallModel::setMethod(UMLMethodModel *method)
+{
+    this->method = method;
+    emit modelChanged(this);
+}
+
 bool UMLCallModel::getAsync() const
 {
     return async;
 }
 
+void UMLCallModel::setAsync(bool async)
+{
+    this->async = async;
+    emit modelChanged(this);
+}
+
 int UMLCallModel::getDuration() const
 {
     return duration;
+}
+
+void UMLCallModel::setDuration(int duration)
+{
+    this->duration = duration;
 }
 
 QString UMLCallModel::getDisplayMethodName() const

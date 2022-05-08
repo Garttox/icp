@@ -1,3 +1,4 @@
+#include "editcalldialog.h"
 #include "umlcall.h"
 #include "umlinstance.h"
 
@@ -45,6 +46,16 @@ bool UMLCall::correspondsTo(UMLCallModel *umlCallModel)
 }
 
 // - - - - - protected - - - - -
+
+void UMLCall::mouseDoubleClickEvent(QGraphicsSceneMouseEvent */*event*/)
+{
+    if (umlCallModel->getType() == UMLCallType::MESSAGE)
+    {
+        EditCallDialog *editCallDialog = new EditCallDialog(umlCallModel);
+        editCallDialog->exec();
+    }
+}
+
 void UMLCall::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     int atTime;
@@ -113,6 +124,7 @@ QVariant UMLCall::itemChange(GraphicsItemChange change, const QVariant &value)
 
 void UMLCall::onCallModelChange(UMLCallModel */*umlCallModel*/)
 {
+    returnArrow->setVisible(!umlCallModel->getAsync());
     setPos(0, getAtTime());
     update();
 }

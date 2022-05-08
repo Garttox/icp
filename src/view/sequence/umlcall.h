@@ -26,6 +26,7 @@ public:
      */
     bool correspondsTo(UMLCallModel *umlCallModel);
 protected:
+    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
     QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;

@@ -1,185 +1,193 @@
 {
-  "classes": [
-    {
-      "name": "ClassA",
-      "type": "Class",
-      "posX": 350,
-      "posY": 390,
-      "fields": [
+    "classes": [
         {
-          "name": "field1",
-          "type": "String",
-          "access": "Private"
+            "fields": [
+            ],
+            "methods": [
+                {
+                    "access": "Public",
+                    "name": "method1",
+                    "parameters": [
+                    ],
+                    "type": "Int"
+                },
+                {
+                    "access": "Public",
+                    "name": "method2",
+                    "parameters": [
+                    ],
+                    "type": "String"
+                }
+            ],
+            "name": "InterfaceA",
+            "posX": 120,
+            "posY": 240,
+            "type": "Interface"
         },
         {
-          "name": "field2",
-          "type": "Int64",
-          "access": "Protected"
-        }
-      ],
-      "methods": [
-        {
-          "parameters": [],
-          "name": "method1",
-          "type": "Int",
-          "access": "Public"
+            "fields": [
+                {
+                    "access": "Public",
+                    "name": "field1",
+                    "type": "Int64"
+                }
+            ],
+            "methods": [
+                {
+                    "access": "Public",
+                    "name": "method4",
+                    "parameters": [
+                    ],
+                    "type": "Int"
+                }
+            ],
+            "name": "ClassC",
+            "posX": 310,
+            "posY": 150,
+            "type": "Class"
         },
         {
-          "parameters": [
-            {
-              "name": "param1",
-              "type": "Int"
-            },
-            {
-              "name": "param2",
-              "type": "Double"
-            }
-          ],
-          "name": "method2",
-          "type": "String",
-          "access": "Protected"
-        }
-      ]
-    },
-    {
-      "name": "ClassB",
-      "type": "Class",
-      "posX": 650,
-      "posY": 410,
-      "fields": [
-        {
-          "name": "field1Package",
-          "type": "Int",
-          "access": "Package"
-        }
-      ],
-      "methods": []
-    },
-    {
-      "name": "ClassC",
-      "type": "Class",
-      "posX": 310,
-      "posY": 150,
-      "fields": [
-        {
-          "name": "field1",
-          "type": "Int64",
-          "access": "Public"
-        }
-      ],
-      "methods": [
-        {
-          "parameters": [],
-          "name": "method4",
-          "type": "Int",
-          "access": "Public"
-        }
-      ]
-    },
-    {
-      "name": "InterfaceA",
-      "type": "Interface",
-      "posX": 120,
-      "posY": 240,
-      "fields": [],
-      "methods": [
-        {
-          "parameters": [],
-          "name": "method1",
-          "type": "Int",
-          "access": "Public"
+            "fields": [
+                {
+                    "access": "Public",
+                    "name": "field1",
+                    "type": "String"
+                },
+                {
+                    "access": "Public",
+                    "name": "field2",
+                    "type": "Int64"
+                }
+            ],
+            "methods": [
+                {
+                    "access": "Public",
+                    "name": "method1",
+                    "parameters": [
+                    ],
+                    "type": "Int"
+                },
+                {
+                    "access": "Public",
+                    "name": "method2",
+                    "parameters": [
+                        {
+                            "name": "param1",
+                            "type": "Int"
+                        },
+                        {
+                            "name": "param2",
+                            "type": "Double"
+                        }
+                    ],
+                    "type": "String"
+                }
+            ],
+            "name": "ClassA",
+            "posX": 350,
+            "posY": 390,
+            "type": "Class"
         },
         {
-          "parameters": [],
-          "name": "method2",
-          "type": "String",
-          "access": "Public"
+            "fields": [
+                {
+                    "access": "Public",
+                    "name": "field1Package",
+                    "type": "Int"
+                }
+            ],
+            "methods": [
+            ],
+            "name": "ClassB",
+            "posX": 650,
+            "posY": 410,
+            "type": "Class"
         }
-      ]
-    }
-  ],
-  "relations": [
-    {
-      "source": "ClassA",
-      "destination": "ClassB",
-      "type": "Composition",
-      "sourceAnchorId": 6,
-      "destinationAnchorId": 3
-    },
-    {
-      "source": "ClassA",
-      "destination": "InterfaceA",
-      "type": "Generalisation",
-      "sourceAnchorId": 3,
-      "destinationAnchorId": 4
-    },
-    {
-      "source": "ClassC",
-      "destination": "ClassA",
-      "type": "Agregation",
-      "sourceAnchorId": 0,
-      "destinationAnchorId": 1
-    }
-  ],
-  "sequences": [
-    {
-      "name": "seq1",
-      "instances": [
+    ],
+    "relations": [
         {
-          "name": "InstanceA",
-          "class": "ClassA",
-          "posX": 111,
-          "posY": 50
+            "destination": "InterfaceA",
+            "destinationAnchorId": 4,
+            "source": "ClassA",
+            "sourceAnchorId": 3,
+            "type": "Generalisation"
         },
         {
-          "name": "InstanceB",
-          "class": "ClassB",
-          "posX": 340,
-          "posY": 50
+            "destination": "ClassB",
+            "destinationAnchorId": 3,
+            "source": "ClassA",
+            "sourceAnchorId": 6,
+            "type": "Composition"
         },
         {
-          "name": "InstanceD",
-          "class": "ClassC",
-          "posX": 577,
-          "posY": 50
+            "destination": "ClassA",
+            "destinationAnchorId": 1,
+            "source": "ClassC",
+            "sourceAnchorId": 0,
+            "type": "Agregation"
         }
-      ],
-      "calls": [
+    ],
+    "sequences": [
         {
-          "destination": "InstanceA",
-          "method": "method1",
-          "async": true,
-          "duration": 140,
-          "atTime": 50,
-          "type": "Message"
-        },
-        {
-          "destination": "InstanceA",
-          "method": "method2",
-          "async": false,
-          "duration": 100,
-          "atTime": 240,
-          "type": "Message"
-        },
-        {
-          "source": "InstanceA",
-          "destination": "InstanceD",
-          "method": "method4",
-          "async": false,
-          "duration": 100,
-          "atTime": 416,
-          "type": "Message"
-        },
-        {
-          "source": "InstanceB",
-          "destination": "InstanceD",
-          "method": "method4",
-          "async": false,
-          "duration": 49,
-          "atTime": 88,
-          "type": "Message"   
+            "calls": [
+                {
+                    "async": false,
+                    "atTime": 165,
+                    "destination": "InstanceD",
+                    "duration": 49,
+                    "method": "method4",
+                    "source": "InstanceB",
+                    "type": "Message"
+                },
+                {
+                    "async": false,
+                    "atTime": 416,
+                    "destination": "InstanceD",
+                    "duration": 100,
+                    "method": "method4",
+                    "source": "InstanceA",
+                    "type": "Message"
+                },
+                {
+                    "async": true,
+                    "atTime": 141,
+                    "destination": "InstanceA",
+                    "duration": 140,
+                    "method": "method1",
+                    "source": "",
+                    "type": "Message"
+                },
+                {
+                    "async": false,
+                    "atTime": 331,
+                    "destination": "InstanceA",
+                    "duration": 100,
+                    "method": "method2",
+                    "source": "",
+                    "type": "Message"
+                }
+            ],
+            "instances": [
+                {
+                    "class": "ClassC",
+                    "name": "InstanceD",
+                    "posX": 577,
+                    "posY": 50
+                },
+                {
+                    "class": "ClassA",
+                    "name": "InstanceA",
+                    "posX": 196,
+                    "posY": 50
+                },
+                {
+                    "class": "ClassB",
+                    "name": "InstanceB",
+                    "posX": 340,
+                    "posY": 50
+                }
+            ],
+            "name": "seq1"
         }
-      ]
-    }
-  ]
+    ]
 }
