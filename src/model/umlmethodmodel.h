@@ -3,6 +3,7 @@
 
 #include <QVector>
 #include <QObject>
+#include <QUuid>
 
 #include "umlattribute.h"
 #include "umlparametermodel.h"
