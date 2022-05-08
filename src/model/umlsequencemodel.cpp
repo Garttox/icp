@@ -8,7 +8,7 @@ UMLSequenceModel::UMLSequenceModel(QString name) :
     name(name)
 {}
 
-UMLSequenceModel::UMLSequenceModel(QString name, QList<UMLInstanceModel *> instances, QList<UMLCallModel *> calls) :
+UMLSequenceModel::UMLSequenceModel(QString name, QSet<UMLInstanceModel *> instances, QSet<UMLCallModel *> calls) :
     name(name), instances(instances), calls(calls)
 {}
 
@@ -18,16 +18,43 @@ UMLSequenceModel::~UMLSequenceModel()
     qDeleteAll(this->calls.begin(), this->calls.end());
 }
 
-void UMLSequenceModel::addInstance(UMLInstanceModel *instance)
+void UMLSequenceModel::addInstance(UMLInstanceModel *umlInstanceModel)
 {
-    this->instances.append(instance);
-    emit instanceModelAdded(instance);
+    this->instances.insert(umlInstanceModel);
+    connect(umlInstanceModel, &UMLInstanceModel::modelChanged, this, &UMLSequenceModel::instanceModelChanged);
+    emit instanceModelAdded(umlInstanceModel);
 }
 
-void UMLSequenceModel::addCall(UMLCallModel *call)
+void UMLSequenceModel::removeInstance(UMLInstanceModel *umlInstanceModel)
 {
-    this->calls.insert(call);
-    emit callModelAdded(call);
+    if (instances.remove(umlInstanceModel))
+    {
+        foreach(auto call, calls)
+        {
+            if (call->getDestination() == umlInstanceModel || call->getSource() == umlInstanceModel)
+            {
+                removeCall(call);
+            }
+        }
+        emit instanceModelRemoved(umlInstanceModel);
+        delete umlInstanceModel;
+    }
+}
+
+void UMLSequenceModel::addCall(UMLCallModel *umlCallModel)
+{
+    this->calls.insert(umlCallModel);
+    connect(umlCallModel, &UMLCallModel::modelChanged, this, &UMLSequenceModel::callModelChanged);
+    emit callModelAdded(umlCallModel);
+}
+
+void UMLSequenceModel::removeCall(UMLCallModel *umlCallModel)
+{
+    if (calls.remove(umlCallModel))
+    {
+        emit callModelRemoved(umlCallModel);
+        delete umlCallModel;
+    }
 }
 
 UMLInstanceModel* UMLSequenceModel::findInstanceByName(QString instanceName)
@@ -71,10 +98,22 @@ UMLCallModel *UMLSequenceModel::instanceDestroyedBy(UMLInstanceModel *umlInstanc
 
 QList<UMLInstanceModel *> UMLSequenceModel::getInstances() const
 {
-    return instances;
+    return instances.values();
 }
 
 QList<UMLCallModel *> UMLSequenceModel::getCalls() const
 {
-    return calls;
+    return calls.values();
+}
+
+// - - - - - private slots  - - - - -
+
+void UMLSequenceModel::instanceModelChanged(UMLInstanceModel *umlInstanceModel)
+{
+    emit instanceModelEdited(umlInstanceModel);
+}
+
+void UMLSequenceModel::callModelChanged(UMLCallModel *umlCallModel)
+{
+    emit callModelEdited(umlCallModel);
 }

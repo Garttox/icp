@@ -16,13 +16,31 @@ SequenceDiagramView::SequenceDiagramView(QWidget* parent, UMLSequenceModel *umlS
     connect(umlSequenceModel, &UMLSequenceModel::instanceModelAdded, this, &SequenceDiagramView::onInstanceModelAdded);
     connect(umlSequenceModel, &UMLSequenceModel::callModelAdded, this, &SequenceDiagramView::onCallModelAdded);
 
-    drawBackgroundTiles();
 
+    drawBackgroundTiles();
+}
+
+bool SequenceDiagramView::correspondsTo(UMLSequenceModel *umlSequenceModel)
+{
+    return this->umlSequenceModel == umlSequenceModel;
 }
 
 UMLSequenceModel *SequenceDiagramView::getUMLSequenceModel() const
 {
     return this->umlSequenceModel;
+}
+
+void SequenceDiagramView::loadSequence()
+{
+    foreach(auto *umlInstanceModel, umlSequenceModel->getInstances())
+    {
+        addUMLInstance(umlInstanceModel);
+    }
+
+    foreach(auto *umlCallModel, umlSequenceModel->getCalls())
+    {
+        addUMLCall(umlCallModel);
+    }
 }
 
 // - - - - - private slots - - - - -
@@ -62,7 +80,6 @@ void SequenceDiagramView::addUMLCall(UMLCallModel *umlCallModel)
     UMLInstance* sourceInstance = getUMLInstance(umlCallModel->getSource());
     UMLInstance* destinationInstance = getUMLInstance(umlCallModel->getDestination());
     UMLCall *umlCall = new UMLCall(umlCallModel, sourceInstance, destinationInstance);
-    scene()->addItem(umlCall);
 }
 
 UMLInstance *SequenceDiagramView::getUMLInstance(UMLInstanceModel *umlInstanceModel)

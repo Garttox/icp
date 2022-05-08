@@ -28,7 +28,6 @@ ClassDiagramView::ClassDiagramView(QWidget* parent)
     connect(umlModel, &UMLModel::classModelRemoved, this, &ClassDiagramView::onClassModelRemoved);
     connect(umlModel, &UMLModel::relationModelAdded, this, &ClassDiagramView::onRelationModelAdded);
     connect(umlModel, &UMLModel::relationModelRemoved, this, &ClassDiagramView::onRelationModelRemoved);
-    connect(umlModel, &UMLModel::umlModelCleared, this, &ClassDiagramView::onUmlModelCleared);
 }
 
 QPixmap ClassDiagramView::getViewportPixmap()
@@ -117,11 +116,6 @@ void ClassDiagramView::onRelationModelAdded(UMLRelationModel *umlRelationModel)
 void ClassDiagramView::onRelationModelRemoved(UMLRelationModel *umlRelationModel)
 {
     removeUMLRelation(umlRelationModel);
-}
-
-void ClassDiagramView::onUmlModelCleared()
-{
-    scene()->clear();
 }
 
 // - - - - - private - - - - -

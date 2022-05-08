@@ -5,8 +5,8 @@
 #include <QPainter>
 #include <algorithm>
 
-UMLCallArrow::UMLCallArrow(UMLCall *parent)
-    : QObject(), QGraphicsLineItem(parent)
+UMLCallArrow::UMLCallArrow(UMLCall *parent, UMLCallArrowType arrowType)
+    : QObject(), QGraphicsLineItem(parent), arrowType(arrowType)
 {
     setCorrectPosition();
 }
@@ -52,14 +52,27 @@ void UMLCallArrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
 {
     setCorrectPosition();
 
-    // draw line
-    QGraphicsLineItem::paint(painter, option, widget);
+    QPen pen(Qt::black);
+    pen.setStyle(Qt::SolidLine);
+    setPen(pen);
 
     // draw arrow head
     setArrowHead();
     drawArrowHead(painter);
 
-    painter->drawText(boundingRect(), Qt::AlignTop | Qt::AlignHCenter, getMethodDisplayName());
+    if (arrowType == UMLCallArrowType::RETURN_MESSAGE)
+    {
+        pen.setStyle(Qt::DashLine);
+    }
+    else
+    {   // draw text
+        painter->drawText(boundingRect(), Qt::AlignTop | Qt::AlignHCenter, getMethodDisplayName());
+    }
+    setPen(pen);
+
+
+    // draw line
+    QGraphicsLineItem::paint(painter, option, widget);
 }
 
 // - - - - - private - - - - -
@@ -67,15 +80,24 @@ void UMLCallArrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
 void UMLCallArrow::setCorrectPosition()
 {
     UMLCall *parent = static_cast<UMLCall*>(parentItem());
-    qreal top = parent->boundingRect().top();
-    qreal distance = parent->getSourceDistance();
-    if (distance < 0)
+    qreal height;
+    if (arrowType == UMLCallArrowType::CALL_MESSAGE)
     {
-        setLine(-parent->boundingRect().width()/2, top, distance, top);
+        height = parent->boundingRect().top();
     }
     else
     {
-        setLine(parent->boundingRect().width()/2, top, distance, top);
+        height = parent->boundingRect().bottom();
+    }
+
+    qreal distance = parent->getSourceDistance();
+    if (distance < 0)
+    {
+        setLine(-parent->boundingRect().width()/2, height, distance, height);
+    }
+    else
+    {
+        setLine(parent->boundingRect().width()/2, height, distance, height);
     }
 }
 
@@ -83,13 +105,32 @@ void UMLCallArrow::setArrowHead()
 {
     arrowHead.clear();
 
+    QPointF arrowHeadLocation;
     qreal angle = line().angle();
-    qreal x = line().p1().x();
-    qreal y = line().p1().y();
+    qreal x;
+    qreal y;
 
-    arrowHead.append(QPoint(x + ARROW_SIZE, y - (ARROW_SIZE  / 2)));
-    arrowHead.append(QPoint(x, y));
-    arrowHead.append(QPoint(x + ARROW_SIZE, y + (ARROW_SIZE  / 2)));
+    if (arrowType == UMLCallArrowType::CALL_MESSAGE)
+    {
+        arrowHeadLocation = line().p1();
+        x = arrowHeadLocation.x();
+        y = arrowHeadLocation.y();
+
+        arrowHead.append(QPoint(x + ARROW_SIZE, y - (ARROW_SIZE  / 2)));
+        arrowHead.append(QPoint(x, y));
+        arrowHead.append(QPoint(x + ARROW_SIZE, y + (ARROW_SIZE  / 2)));
+    }
+    else
+    {
+        arrowHeadLocation = line().p2();
+        x = arrowHeadLocation.x();
+        y = arrowHeadLocation.y();
+
+        arrowHead.append(QPoint(x - ARROW_SIZE, y - (ARROW_SIZE  / 2)));
+        arrowHead.append(QPoint(x, y));
+        arrowHead.append(QPoint(x - ARROW_SIZE, y + (ARROW_SIZE  / 2)));
+    }
+
 
     arrowHead = QTransform()
         .translate(x, y)
@@ -101,8 +142,15 @@ void UMLCallArrow::setArrowHead()
 void UMLCallArrow::drawArrowHead(QPainter *painter)
 {
     QPainterPath path;
+    QColor color = QColor(255, 255, 255);
+
     path.addPolygon(arrowHead);
-    painter->fillPath(path, QColor(50, 50, 50));
+    if (arrowType == UMLCallArrowType::CALL_MESSAGE)
+    {
+        color = QColor(50, 50, 50);
+    }
+
+    painter->fillPath(path, color);
     painter->drawPolygon(arrowHead);
 }
 

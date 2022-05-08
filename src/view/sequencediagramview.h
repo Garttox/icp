@@ -15,10 +15,20 @@ class SequenceDiagramView : public QGraphicsView
 public:
     SequenceDiagramView(QWidget* parent, UMLSequenceModel *umlSequenceModel);
 
+    /**
+     * @brief Checks if given UMLSequenceModel are being displayed by this object.
+     * @param umlSequenceModel UMLSequenceModel to check.
+     * @return True, if SequenceDiagramView is displaying given UMLSequenceModel.
+     */
+    bool correspondsTo(UMLSequenceModel *umlSequenceModel);
+
     UMLSequenceModel *getUMLSequenceModel() const;
+    void loadSequence();
+
 private slots:
     void onInstanceModelAdded(UMLInstanceModel *umlInstanceModel);
     void onCallModelAdded(UMLCallModel *umlCallModel);
+
 private:
     /**
      * @brief Draws the background of the view.

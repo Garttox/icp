@@ -46,6 +46,11 @@ QPainterPath UMLRelation::shape() const
     return path;
 }
 
+UMLRelationModel *UMLRelation::getUMLRelationModel() const
+{
+    return umlRelationModel;
+}
+
 bool UMLRelation::isOfType(UMLRelationType umlRelationType)
 {
     return umlRelationModel->getType() == umlRelationType;

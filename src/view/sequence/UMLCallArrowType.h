@@ -1,0 +1,12 @@
+#ifndef UMLCALLARROWTYPE_H
+#define UMLCALLARROWTYPE_H
+
+enum class UMLCallArrowType
+{
+    CALL_MESSAGE,
+    RETURN_MESSAGE,
+    CREATE,
+    DESTROY,
+};
+
+#endif // UMLCALLARROWTYPE_H

@@ -62,15 +62,29 @@ void UMLModel::removeSequence(UMLSequenceModel* umlSequenceModel)
 {
     if (sequences.remove(umlSequenceModel))
     {
+        emit sequenceModelRemoved(umlSequenceModel);
         delete umlSequenceModel;
     }
 }
 
 void UMLModel::clear()
 {
-    emit umlModelCleared();
-    classes.clear();
+    //emit umlModelCleared();
+    foreach (auto relation, relations)
+    {
+        removeRelation(relation);
+    }
+    foreach (auto cls, classes)
+    {
+        removeClass(cls);
+    }
+    foreach (auto sequence, sequences)
+    {
+        removeSequence(sequence);
+    }
     relations.clear();
+    classes.clear();
+    sequences.clear();
 }
 
 UMLClassModel* UMLModel::findClassByName(QString className)

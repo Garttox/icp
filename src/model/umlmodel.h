@@ -55,6 +55,7 @@ signals:
     void relationModelEdited(UMLRelationModel *umlRelationModel);
     void relationModelRemoved(UMLRelationModel *umlRelationModel);
     void sequenceModelAdded(UMLSequenceModel *umlSequenceModel);
+    void sequenceModelRemoved(UMLSequenceModel *umlSequenceModel);
     void umlModelCleared();
 
 private:

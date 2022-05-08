@@ -12,8 +12,8 @@ UMLCall::UMLCall(UMLCallModel *umlCallModel, UMLInstance *sourceInstance, UMLIns
     setFlags(ItemIsMovable | ItemIsSelectable | ItemSendsGeometryChanges);
     setCorrectPosition();
     setPos(pos().x(), getAtTime());
-    forwardArrow = new UMLCallArrow(this);
-    //backArrow = new UMLCallArrow(this);
+
+    setupArrows();
 }
 
 QRectF UMLCall::boundingRect() const
@@ -46,7 +46,16 @@ void UMLCall::paint(QPainter *painter, const QStyleOptionGraphicsItem */* option
     painter->setPen(pen);
     painter->setBrush(BACKGROUND_COLOR);
     QRectF rect = outlineRect();
-    painter->drawRect(rect);
+
+    if (umlCallModel->getType() == UMLCallType::MESSAGE)
+    {
+        painter->drawRect(rect);
+    }
+    else if (umlCallModel->getType() == UMLCallType::DESTROY)
+    {
+        painter->drawLine(rect.topLeft(), rect.bottomRight());
+        painter->drawLine(rect.topRight(), rect.bottomLeft());
+    }
 }
 
 QVariant UMLCall::itemChange(GraphicsItemChange change, const QVariant &value)
@@ -98,4 +107,15 @@ qreal UMLCall::getDuration() const
 qreal UMLCall::getAtTime() const
 {
     return ((qreal)destinationInstance->getLifeLength() / UMLCallModel::RELATIVE_MAX_LIFE) * (qreal)umlCallModel->getAtTime();
+}
+
+void UMLCall::setupArrows()
+{
+    forwardArrow = new UMLCallArrow(this, UMLCallArrowType::CALL_MESSAGE);
+    returnArrow = new UMLCallArrow(this, UMLCallArrowType::RETURN_MESSAGE);
+
+    if (umlCallModel->getAsync())
+    {
+        returnArrow->setVisible(false);
+    }
 }

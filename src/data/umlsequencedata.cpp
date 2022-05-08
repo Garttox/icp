@@ -49,10 +49,14 @@ QJsonObject UMLSequenceData::toJson() const
 
 UMLSequenceModel *UMLSequenceData::toModel(void */*context*/)
 {
+    UMLSequenceModel *umlSequenceModel = new UMLSequenceModel(name, QSet<UMLInstanceModel*>(), QSet<UMLCallModel*>());
     QList<UMLInstanceModel*> instanceModels = toModels<UMLInstanceData, UMLInstanceModel>(instances);
-    UMLSequenceModel *umlSequenceModel = new UMLSequenceModel(name, instanceModels, QList<UMLCallModel*>());
-    QList<UMLCallModel*> callModels = toModels<UMLCallData, UMLCallModel>(calls, umlSequenceModel);
+    foreach (auto instanceModel, instanceModels)
+    {
+        umlSequenceModel->addInstance(instanceModel);
+    }
 
+    QList<UMLCallModel*> callModels = toModels<UMLCallData, UMLCallModel>(calls, umlSequenceModel);
     foreach (auto callModel, callModels)
     {
         umlSequenceModel->addCall(callModel);

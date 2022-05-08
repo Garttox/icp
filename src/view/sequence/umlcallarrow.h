@@ -1,6 +1,8 @@
 #ifndef UMLCALLARROW_H
 #define UMLCALLARROW_H
 
+#include "umlcallarrowtype.h"
+
 #include <QApplication>
 #include <QObject>
 #include <QGraphicsLineItem>
@@ -13,7 +15,7 @@ class UMLCallArrow : public QObject, public QGraphicsLineItem
 {
     Q_OBJECT
 public:
-    UMLCallArrow(UMLCall *parent);
+    UMLCallArrow(UMLCall *parent, UMLCallArrowType arrowType);
     QRectF boundingRect() const override;
     QPainterPath shape() const override;
 protected:
@@ -28,6 +30,7 @@ private:
     QFont TEXT_FONT = QFont(qApp->font().family(), 9, QFont::Normal);
     static constexpr qreal ARROW_SIZE = 10;
     QPolygonF arrowHead;
+    UMLCallArrowType arrowType;
 };
 
 #endif // UMLCALLARROW_H

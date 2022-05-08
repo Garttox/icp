@@ -1,11 +1,15 @@
 #include "umlinstance.h"
 #include "umlcall.h"
+#include "editinstancedialog.h"
+#include <command/commandstack.h>
+#include <command/sequence/moveinstancecommand.h>
 
 #include <QColor>
 #include <QFontMetricsF>
 #include <QPainter>
 #include <QPen>
 #include <QGraphicsScene>
+
 
 UMLInstance::UMLInstance(UMLInstanceModel *umlInstanceModel, UMLSequenceModel *umlSequenceModel)
     : umlInstanceModel(umlInstanceModel), umlSequenceModel(umlSequenceModel)
@@ -14,6 +18,8 @@ UMLInstance::UMLInstance(UMLInstanceModel *umlInstanceModel, UMLSequenceModel *u
     setPos(umlInstanceModel->getPosX(), 100);
 
     lifeLine = new UMLInstanceLifeLine(this);
+
+    connect(umlSequenceModel, &UMLSequenceModel::instanceModelEdited, this, &UMLInstance::onUMLInstanceModelChanged);
 }
 
 QRectF UMLInstance::boundingRect() const
@@ -41,6 +47,16 @@ qreal UMLInstance::getPosX() const
     return this->pos().x();
 }
 
+UMLSequenceModel *UMLInstance::getUMLSequenceModel() const
+{
+    return umlSequenceModel;
+}
+
+UMLInstanceModel *UMLInstance::getUMLInstanceModel() const
+{
+    return umlInstanceModel;
+}
+
 bool UMLInstance::correspondsTo(UMLInstanceModel *umlInstanceModel)
 {
     return this->umlInstanceModel == umlInstanceModel;
@@ -52,6 +68,19 @@ int UMLInstance::getLifeLength()
 }
 
 // - - - - - protected - - - - -
+
+void UMLInstance::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+    int posX = this->pos().x();
+    CommandStack::getInstance().push(new MoveInstanceCommand(umlInstanceModel, posX));
+    QGraphicsItem::mouseReleaseEvent(event);
+}
+
+void UMLInstance::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
+{
+    EditInstanceDialog *editInstanceDialog = new EditInstanceDialog(umlInstanceModel);
+    editInstanceDialog->exec();
+}
 
 void UMLInstance::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget */* widget */)
 {
@@ -75,13 +104,30 @@ QVariant UMLInstance::itemChange(GraphicsItemChange change, const QVariant &valu
             lifeLine->setZValue(-1);
             break;
         case QGraphicsItem::ItemPositionHasChanged:
-            umlInstanceModel->setPosX(this->pos().x());
-            setPos(this->pos().x(), this->posY);
+            if (this->pos().x() < -boundingRect().left())
+            {
+                setPos(-boundingRect().left(), this->posY);
+            }
+            else
+            {
+                setPos(this->pos().x(), this->posY);
+            }
             break;
         default:
             break;  // Keeps Qt Creator without warnings
     }
     return QGraphicsItem::itemChange(change, value);
+}
+
+// - - - - - private slots - - - - -
+
+void UMLInstance::onUMLInstanceModelChanged(UMLInstanceModel *umlInstanceModel)
+{
+    if (correspondsTo(umlInstanceModel))
+    {
+        setPos(umlInstanceModel->getPosX(), pos().y());
+    }
+    update();
 }
 
 // - - - - - private - - - - -

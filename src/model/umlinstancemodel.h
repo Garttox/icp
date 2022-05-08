@@ -4,8 +4,9 @@
 #include "umlclassmodel.h"
 #include <QString>
 
-class UMLInstanceModel
+class UMLInstanceModel : public QObject
 {
+    Q_OBJECT
 public:
     UMLInstanceModel(QString name, UMLClassModel *umlClassModel, int posX);
     QString getDisplayName() const;
@@ -14,6 +15,9 @@ public:
     int getPosX() const;
     void setPosX(int posX);
     UMLClassModel* getClassModel();
+
+signals:
+    void modelChanged(UMLInstanceModel *umlInstanceModel);
 
 private:
     QString name;

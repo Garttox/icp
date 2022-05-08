@@ -27,12 +27,13 @@ private:
     void setCorrectPosition();
     qreal getDuration() const;
     qreal getAtTime() const;
+    void setupArrows();
 
     UMLCallModel *umlCallModel;
     UMLInstance *sourceInstance;
     UMLInstance *destinationInstance;
     UMLCallArrow *forwardArrow;
-    UMLCallArrow *backArrow;
+    UMLCallArrow *returnArrow;
 
     static constexpr qreal MESSAGE_WIDTH = 20;
     static constexpr int DEFAULT_POSX_EXTERN = 50;

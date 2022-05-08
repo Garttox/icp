@@ -26,6 +26,11 @@ public:
     UMLRelation(UMLRelationModel* relation, UMLRelationAnchor* sourceAnchor, UMLRelationAnchor* destinationAnchor);
     QRectF boundingRect() const override;
     QPainterPath shape() const override;
+    /**
+     * @brief Get underlying UMLRelationModel.
+     * @return Underlying UMLRelationModel.
+     */
+    UMLRelationModel *getUMLRelationModel() const;
     
     /**
      * @brief Checks, if relation (resp. underlying UMLRelationModel) is of given relation type.

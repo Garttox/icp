@@ -20,6 +20,8 @@ public:
     QPointF getStartCenter() const;
     QPointF getEndCenter() const;
     qreal getPosX() const;
+    UMLSequenceModel *getUMLSequenceModel() const;
+    UMLInstanceModel *getUMLInstanceModel() const;
     /**
      * @brief Checks if given UMLInstanceModel are being displayed by this object.
      * @param umlInstanceModel UMLInstanceModel to check.
@@ -28,8 +30,13 @@ public:
     bool correspondsTo(UMLInstanceModel *umlInstanceModel);
     int getLifeLength();
 protected:
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
+    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
     QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
+
+private slots:
+    void onUMLInstanceModelChanged(UMLInstanceModel *umlInstanceModel);
 private:
     QRectF outlineRect() const;
     int calculateStartLifeLine();

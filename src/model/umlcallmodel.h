@@ -7,8 +7,9 @@
 
 #include <QString>
 
-class UMLCallModel
+class UMLCallModel : public QObject
 {
+    Q_OBJECT
 public:
     UMLCallModel(UMLInstanceModel *source, UMLInstanceModel *destination, UMLMethodModel *method, bool async, int duration, int atTime, UMLCallType type);
     UMLInstanceModel *getDestination() const;
@@ -21,7 +22,8 @@ public:
     QString getDisplayMethodName() const;
 
     static constexpr qreal RELATIVE_MAX_LIFE = 1000;
-    
+signals:
+    void modelChanged(UMLCallModel *umlCallModel);
 private:
     UMLInstanceModel *source;
     UMLInstanceModel *destination;

@@ -9,6 +9,7 @@
 #include <QAction>
 #include <QDebug>
 #include <view/sequence/newinstancedialog.h>
+#include <model/modelprovider.h>
 #include "classtoolbar.h"
 #include "classes/newclassdialog.h"
 #include "ui_newclassdialog.h"
@@ -23,7 +24,6 @@ ClassToolBar::ClassToolBar(ClassDiagramView *view, QGraphicsScene *scene) :
     addAction(addClassAction);
     addAction(addInterfaceAction);
     addAction(removeSelectedAction);
-    addAction(addInstanceAction);
 }
 
 // - - - - - private - - - - -
@@ -91,10 +91,10 @@ void ClassToolBar::removeSelected()
 {
     foreach(UMLRelation *umlRelation, getSelectedOfGivenType<UMLRelation*>())
     {
-        view->removeUMLRelation(umlRelation);
+        ModelProvider::getInstance().getModel()->removeRelation(umlRelation->getUMLRelationModel());
     }
     foreach(UMLClass *umlClass, getSelectedOfGivenType<UMLClass*>())
     {
-        view->removeUMLClass(umlClass);
+        ModelProvider::getInstance().getModel()->removeClass(umlClass->getUMLClassModel());
     }
 }

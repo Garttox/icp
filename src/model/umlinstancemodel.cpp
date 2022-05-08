@@ -17,6 +17,7 @@ QString UMLInstanceModel::getName() const
 void UMLInstanceModel::setName(QString name)
 {
     this->name = name;
+    emit modelChanged(this);
 }
 
 int UMLInstanceModel::getPosX() const
@@ -27,6 +28,7 @@ int UMLInstanceModel::getPosX() const
 void UMLInstanceModel::setPosX(int posX)
 {
     this->posX = posX;
+    emit modelChanged(this);
 }
 
 UMLClassModel *UMLInstanceModel::getClassModel()

@@ -10,6 +10,7 @@
 
 #include <QMainWindow>
 #include <QGraphicsView>
+#include <view/sequencetoolbar.h>
 #include "data/umldata.h"
 #include "view/classdiagramview.h"
 #include "view/classtoolbar.h"
@@ -28,6 +29,8 @@ private:
     QMenu *editMenu;
     QTabWidget *tabWidget;
     ClassToolBar *classToolBar;
+    SequenceToolBar *sequenceToolBar;
+    QToolBar *activeToolBar;
 
     QAction *fileLoad;
     QAction *fileSave;
@@ -51,7 +54,8 @@ private slots:
     void addSequenceDiagram(UMLSequenceModel *umlSequenceModel);
     void removeSequenceDiagram(int tabIndex);
     void addSequenceDiagramDialog();
-
+    void onSequenceModelRemoved(UMLSequenceModel *umlSequenceModel);
+    void tabChanged(int tabIndex);
 };
 
 #endif // APP_H

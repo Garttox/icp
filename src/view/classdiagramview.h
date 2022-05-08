@@ -15,8 +15,6 @@
 #include "model/umlclassmodel.h"
 #include "model/umlmodel.h"
 
-class ClassToolBar;
-
 /**
  * @brief Extends QGraphicsView to implement specific functionalities for UML class diagram.
  * @authors Martin Bednář (xbedna77), Michal Trlica (xtrlic02)
@@ -57,7 +55,6 @@ private slots:
     void onClassModelRemoved(UMLClassModel *umlClassModel);
     void onRelationModelAdded(UMLRelationModel *umlRelationModel);
     void onRelationModelRemoved(UMLRelationModel *umlRelationModel);
-    void onUmlModelCleared();
 
 private:
     /**

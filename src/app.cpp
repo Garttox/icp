@@ -51,7 +51,13 @@ App::App(QWidget *parent) :
     createMainMenu();
 
     classToolBar = new ClassToolBar(view, scene);
+    sequenceToolBar = new SequenceToolBar();
     addToolBar(classToolBar);
+    addToolBar(sequenceToolBar);
+    sequenceToolBar->setVisible(false);
+    sequenceToolBar->setMovable(false);
+    classToolBar->setMovable(false);
+    activeToolBar = classToolBar;
     tabWidget->addTab(view, QString("Class Diagram"));
     tabWidget->setTabsClosable(true);
     tabWidget->tabBar()->tabButton(0, QTabBar::RightSide)->resize(0, 0);
@@ -60,8 +66,10 @@ App::App(QWidget *parent) :
     tabWidget->setCornerWidget(addTabButton, Qt::TopRightCorner);
     setCentralWidget(tabWidget);
 
-    connect(tabWidget, &QTabWidget::tabCloseRequested,this, &App::removeSequenceDiagram);
+    connect(tabWidget, &QTabWidget::currentChanged, this, &App::tabChanged);
+    connect(tabWidget, &QTabWidget::tabCloseRequested, this, &App::removeSequenceDiagram);
     connect(umlModel, &UMLModel::sequenceModelAdded, this, &App::addSequenceDiagram);
+    connect(umlModel, &UMLModel::sequenceModelRemoved, this, &App::onSequenceModelRemoved);
 }
 
 //  - - - - - private  - - - - -
@@ -203,7 +211,8 @@ void App::exportImage()
 void App::undo()
 {
     CommandStack::getInstance().undo();
-    scene->update();
+    QGraphicsView *activeView = static_cast<QGraphicsView*>(tabWidget->currentWidget());
+    activeView->scene()->update();
 }
 
 void App::addSequenceDiagram(UMLSequenceModel *umlSequenceModel)
@@ -217,8 +226,8 @@ void App::addSequenceDiagram(UMLSequenceModel *umlSequenceModel)
     sequenceView->setRenderHints(QPainter::TextAntialiasing | QPainter::Antialiasing);
     sequenceView->setContextMenuPolicy(Qt::ActionsContextMenu);
 
+    sequenceView->loadSequence();
     tabWidget->addTab(sequenceView, umlSequenceModel->getName());
-    qDebug() << "added " << umlSequenceModel->getName();
 }
 
 void App::removeSequenceDiagram(int tabIndex)
@@ -229,7 +238,6 @@ void App::removeSequenceDiagram(int tabIndex)
     QMessageBox::StandardButton dialogReply = QMessageBox::question(this, "Remove sequence diagram", message, QMessageBox::Yes|QMessageBox::No);
     if (dialogReply == QMessageBox::Yes)
     {
-        tabWidget->removeTab(tabIndex);
         ModelProvider::getInstance().getModel()->removeSequence(umlSequenceModel);
     }
 }
@@ -238,4 +246,33 @@ void App::addSequenceDiagramDialog()
 {
     NewSequenceDialog *newClassDialog = new NewSequenceDialog();
     newClassDialog->show();
+}
+
+void App::onSequenceModelRemoved(UMLSequenceModel *umlSequenceModel)
+{
+    int sequenceTabsCount = tabWidget->count();
+    for (int i = 1; i < sequenceTabsCount; i++) { //first tab is always class diagram
+        SequenceDiagramView *sequenceView = static_cast<SequenceDiagramView*>(tabWidget->widget(i));
+        if (sequenceView->correspondsTo(umlSequenceModel))
+        {
+            tabWidget->removeTab(i);
+            delete sequenceView;
+            return;
+        }
+    }
+}
+
+void App::tabChanged(int tabIndex)
+{
+    if (SequenceDiagramView *sequenceView = dynamic_cast<SequenceDiagramView*>(tabWidget->widget(tabIndex)))
+    {
+        sequenceToolBar->changeView(sequenceView);
+        classToolBar->setVisible(false);
+        sequenceToolBar->setVisible(true);
+    }
+    else
+    {
+        classToolBar->setVisible(true);
+        sequenceToolBar->setVisible(false);
+    }
 }

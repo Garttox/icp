@@ -41,6 +41,11 @@ int UMLCallModel::getDuration() const
 
 QString UMLCallModel::getDisplayMethodName() const
 {
-    return method->toString();
-    return duration;
+    QStringList paramList;
+    foreach(UMLParameterModel *parameter, method->getParameters())
+    {
+        paramList.append(parameter->getType());
+    }
+
+    return QString("%1(%2) : %3").arg(method->getName(), paramList.join(", "), method->getType());
 }

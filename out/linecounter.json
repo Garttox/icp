@@ -1,0 +1,1978 @@
+{
+    "extension": "linecounter",
+    "version": "0.2.7",
+    "workspace": "e:\\school\\icp",
+    "linecount": [
+        {
+            "version": "0.2.7",
+            "counttime": "2022-05-07 16:26:44",
+            "filesum": 298,
+            "codesum": 36708,
+            "commentsum": 1877,
+            "blanksum": 2378,
+            "statistics": {
+                ".md": {
+                    "code": 9,
+                    "comment": 0,
+                    "blank": 3
+                },
+                "": {
+                    "code": 493,
+                    "comment": 6,
+                    "blank": 18
+                },
+                ".txt": {
+                    "code": 1,
+                    "comment": 0,
+                    "blank": 0
+                },
+                ".json": {
+                    "code": 182,
+                    "comment": 0,
+                    "blank": 0
+                },
+                ".218ec59": {
+                    "code": 270,
+                    "comment": 0,
+                    "blank": 0
+                },
+                ".h": {
+                    "code": 2871,
+                    "comment": 587,
+                    "blank": 688
+                },
+                ".Release": {
+                    "code": 11451,
+                    "comment": 0,
+                    "blank": 160
+                },
+                ".Debug": {
+                    "code": 11451,
+                    "comment": 0,
+                    "blank": 160
+                },
+                ".cpp": {
+                    "code": 7901,
+                    "comment": 1284,
+                    "blank": 1340
+                },
+                ".ui": {
+                    "code": 1494,
+                    "comment": 0,
+                    "blank": 0
+                },
+                ".user": {
+                    "code": 426,
+                    "comment": 0,
+                    "blank": 0
+                },
+                ".pro": {
+                    "code": 138,
+                    "comment": 0,
+                    "blank": 9
+                },
+                ".stash": {
+                    "code": 21,
+                    "comment": 0,
+                    "blank": 0
+                }
+            },
+            "filelist": [
+                {
+                    "blank": 1,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": ".gitignore"
+                },
+                {
+                    "blank": 0,
+                    "code": 21,
+                    "comment": 0,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\.qmake.stash"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\addclasscommand.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\addrelationcommand.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\app.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\classdiagramview.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\classdialog.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\classtoolbar.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\command.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\commandstack.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\dataprovider.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\editclasscommand.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\editclassdialog.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\editfielddialog.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\editinstancedialog.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\editmethoddialog.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\editrelationcommand.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\editrelationdialog.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\icp.exe",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\inconsistencyresolver.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\main.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 19,
+                    "code": 142,
+                    "comment": 33,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_app.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_app.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 19,
+                    "code": 141,
+                    "comment": 30,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_classdiagramview.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_classdiagramview.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 16,
+                    "code": 102,
+                    "comment": 25,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_classtoolbar.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_classtoolbar.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 25,
+                    "code": 136,
+                    "comment": 34,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_editclassdialog.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_editclassdialog.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 16,
+                    "code": 94,
+                    "comment": 23,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_editfielddialog.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_editfielddialog.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 16,
+                    "code": 94,
+                    "comment": 23,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_editinstancedialog.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_editinstancedialog.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 16,
+                    "code": 94,
+                    "comment": 23,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_editmethoddialog.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_editmethoddialog.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 16,
+                    "code": 94,
+                    "comment": 23,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_editrelationdialog.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_editrelationdialog.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 24,
+                    "code": 136,
+                    "comment": 34,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_newclassdialog.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_newclassdialog.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 16,
+                    "code": 94,
+                    "comment": 23,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_newinstancedialog.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_newinstancedialog.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 16,
+                    "code": 94,
+                    "comment": 23,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_newsequencedialog.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_newsequencedialog.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 0,
+                    "code": 419,
+                    "comment": 0,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_predefs.h"
+                },
+                {
+                    "blank": 13,
+                    "code": 74,
+                    "comment": 19,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_resolvedinconsistenciesdialog.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_resolvedinconsistenciesdialog.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 18,
+                    "code": 101,
+                    "comment": 28,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_sequencediagramview.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_sequencediagramview.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 13,
+                    "code": 74,
+                    "comment": 19,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_sequencetoolbar.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_sequencetoolbar.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 17,
+                    "code": 120,
+                    "comment": 26,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlattribute.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlattribute.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 13,
+                    "code": 76,
+                    "comment": 19,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlcall.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlcall.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 13,
+                    "code": 76,
+                    "comment": 19,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlcallarrow.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlcallarrow.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 13,
+                    "code": 76,
+                    "comment": 19,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlcalldragrect.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlcalldragrect.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 21,
+                    "code": 171,
+                    "comment": 37,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlclass.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlclass.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 20,
+                    "code": 128,
+                    "comment": 30,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlclassdata.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlclassdata.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 20,
+                    "code": 128,
+                    "comment": 30,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlclassmodel.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlclassmodel.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 23,
+                    "code": 190,
+                    "comment": 39,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlclassnotifier.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlclassnotifier.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 32,
+                    "code": 299,
+                    "comment": 48,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umldata.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umldata.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 16,
+                    "code": 107,
+                    "comment": 24,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlfielddata.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlfielddata.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 16,
+                    "code": 107,
+                    "comment": 24,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlfieldmodel.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlfieldmodel.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 13,
+                    "code": 76,
+                    "comment": 19,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlinstance.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlinstance.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 13,
+                    "code": 76,
+                    "comment": 19,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlinstancelifeline.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlinstancelifeline.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 19,
+                    "code": 124,
+                    "comment": 29,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlmethoddata.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlmethoddata.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 20,
+                    "code": 124,
+                    "comment": 29,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlmethodmodel.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlmethodmodel.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 17,
+                    "code": 107,
+                    "comment": 24,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlmethodparameterdata.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlmethodparameterdata.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 17,
+                    "code": 107,
+                    "comment": 24,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlmethodparametermodel.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlmethodparametermodel.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 34,
+                    "code": 322,
+                    "comment": 50,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlmodel.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlmodel.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 16,
+                    "code": 107,
+                    "comment": 24,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlparametermodel.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlparametermodel.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 16,
+                    "code": 97,
+                    "comment": 25,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlrelation.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlrelation.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 17,
+                    "code": 123,
+                    "comment": 27,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlrelationanchor.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlrelationanchor.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 17,
+                    "code": 120,
+                    "comment": 26,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlrelationdata.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlrelationdata.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 17,
+                    "code": 120,
+                    "comment": 26,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlrelationmodel.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlrelationmodel.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 19,
+                    "code": 127,
+                    "comment": 30,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlsequencedata.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlsequencedata.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 19,
+                    "code": 127,
+                    "comment": 30,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlsequencemodel.cpp"
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moc_umlsequencemodel.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\modelprovider.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\moveclasscommand.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\newclassdialog.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\newinstancedialog.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\newsequencedialog.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\resolvedinconsistenciesdialog.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\sequencediagramview.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\sequencetoolbar.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\umlaccesstype.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\umlattribute.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\umlattributedata.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\umlcall.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\umlcallarrow.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\umlcalldata.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\umlcalldragrect.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\umlcallmodel.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\umlcalltype.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\umlclass.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\umlclassdata.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\umlclassmodel.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\umlclassnotifier.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\umlclasstype.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\umldata.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\umlfielddata.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\umlfieldmodel.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\umlinstance.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\umlinstancedata.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\umlinstancelifeline.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\umlinstancemodel.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\umlmethoddata.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\umlmethodmodel.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\umlmethodparameterdata.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\umlmethodparametermodel.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\umlmodel.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\umlparameterdata.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\umlparametermodel.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\umlrelation.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\umlrelationanchor.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\umlrelationdata.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\umlrelationmodel.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\umlrelationtype.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\umlsequencedata.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\debug\\umlsequencemodel.o",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 13,
+                    "code": 457,
+                    "comment": 0,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\Makefile"
+                },
+                {
+                    "blank": 160,
+                    "code": 11308,
+                    "comment": 0,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\Makefile.Debug"
+                },
+                {
+                    "blank": 160,
+                    "code": 11308,
+                    "comment": 0,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\Makefile.Release"
+                },
+                {
+                    "blank": 0,
+                    "code": 89,
+                    "comment": 0,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\object_script.icp.Debug"
+                },
+                {
+                    "blank": 0,
+                    "code": 89,
+                    "comment": 0,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\object_script.icp.Release"
+                },
+                {
+                    "blank": 44,
+                    "code": 154,
+                    "comment": 11,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\ui_editclassdialog.h"
+                },
+                {
+                    "blank": 28,
+                    "code": 99,
+                    "comment": 11,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\ui_editfielddialog.h"
+                },
+                {
+                    "blank": 20,
+                    "code": 75,
+                    "comment": 11,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\ui_editinstancedialog.h"
+                },
+                {
+                    "blank": 35,
+                    "code": 164,
+                    "comment": 11,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\ui_editmethoddialog.h"
+                },
+                {
+                    "blank": 30,
+                    "code": 94,
+                    "comment": 11,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\ui_editrelationdialog.h"
+                },
+                {
+                    "blank": 44,
+                    "code": 157,
+                    "comment": 11,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\ui_newclassdialog.h"
+                },
+                {
+                    "blank": 20,
+                    "code": 75,
+                    "comment": 11,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\ui_newinstancedialog.h"
+                },
+                {
+                    "blank": 16,
+                    "code": 65,
+                    "comment": 11,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\ui_newsequencedialog.h"
+                },
+                {
+                    "blank": 18,
+                    "code": 73,
+                    "comment": 11,
+                    "filename": "build-icp-Desktop_Qt_5_15_1_MinGW_64_bit-Debug\\ui_resolvedinconsistenciesdialog.h"
+                },
+                {
+                    "blank": 1,
+                    "code": 16,
+                    "comment": 0,
+                    "filename": "Doxyfile"
+                },
+                {
+                    "blank": 0,
+                    "code": 182,
+                    "comment": 0,
+                    "filename": "examples\\test.json"
+                },
+                {
+                    "blank": 3,
+                    "code": 9,
+                    "comment": 6,
+                    "filename": "Makefile"
+                },
+                {
+                    "blank": 3,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "README.md"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "README.txt"
+                },
+                {
+                    "filename": "res\\add.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\addi.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\remove.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\undo.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 38,
+                    "code": 209,
+                    "comment": 12,
+                    "filename": "src\\app.cpp"
+                },
+                {
+                    "blank": 10,
+                    "code": 41,
+                    "comment": 7,
+                    "filename": "src\\app.h"
+                },
+                {
+                    "blank": 3,
+                    "code": 16,
+                    "comment": 0,
+                    "filename": "src\\command\\classes\\addclasscommand.cpp"
+                },
+                {
+                    "blank": 5,
+                    "code": 14,
+                    "comment": 1,
+                    "filename": "src\\command\\classes\\addclasscommand.h"
+                },
+                {
+                    "blank": 4,
+                    "code": 16,
+                    "comment": 1,
+                    "filename": "src\\command\\classes\\addrelationcommand.cpp"
+                },
+                {
+                    "blank": 5,
+                    "code": 14,
+                    "comment": 1,
+                    "filename": "src\\command\\classes\\addrelationcommand.h"
+                },
+                {
+                    "blank": 4,
+                    "code": 19,
+                    "comment": 0,
+                    "filename": "src\\command\\classes\\editclasscommand.cpp"
+                },
+                {
+                    "blank": 5,
+                    "code": 17,
+                    "comment": 1,
+                    "filename": "src\\command\\classes\\editclasscommand.h"
+                },
+                {
+                    "blank": 4,
+                    "code": 14,
+                    "comment": 0,
+                    "filename": "src\\command\\classes\\editrelationcommand.cpp"
+                },
+                {
+                    "blank": 5,
+                    "code": 17,
+                    "comment": 1,
+                    "filename": "src\\command\\classes\\editrelationcommand.h"
+                },
+                {
+                    "blank": 4,
+                    "code": 19,
+                    "comment": 1,
+                    "filename": "src\\command\\classes\\moveclasscommand.cpp"
+                },
+                {
+                    "blank": 6,
+                    "code": 17,
+                    "comment": 1,
+                    "filename": "src\\command\\classes\\moveclasscommand.h"
+                },
+                {
+                    "blank": 1,
+                    "code": 3,
+                    "comment": 0,
+                    "filename": "src\\command\\command.cpp"
+                },
+                {
+                    "blank": 4,
+                    "code": 12,
+                    "comment": 4,
+                    "filename": "src\\command\\command.h"
+                },
+                {
+                    "blank": 9,
+                    "code": 35,
+                    "comment": 1,
+                    "filename": "src\\command\\commandstack.cpp"
+                },
+                {
+                    "blank": 9,
+                    "code": 17,
+                    "comment": 11,
+                    "filename": "src\\command\\commandstack.h"
+                },
+                {
+                    "blank": 5,
+                    "code": 12,
+                    "comment": 12,
+                    "filename": "src\\data\\data.h"
+                },
+                {
+                    "blank": 4,
+                    "code": 8,
+                    "comment": 2,
+                    "filename": "src\\data\\inconsistencyresolver.cpp"
+                },
+                {
+                    "blank": 7,
+                    "code": 13,
+                    "comment": 15,
+                    "filename": "src\\data\\inconsistencyresolver.h"
+                },
+                {
+                    "blank": 4,
+                    "code": 13,
+                    "comment": 6,
+                    "filename": "src\\data\\umlattributedata.cpp"
+                },
+                {
+                    "blank": 6,
+                    "code": 15,
+                    "comment": 10,
+                    "filename": "src\\data\\umlattributedata.h"
+                },
+                {
+                    "blank": 15,
+                    "code": 85,
+                    "comment": 6,
+                    "filename": "src\\data\\umlcalldata.cpp"
+                },
+                {
+                    "blank": 8,
+                    "code": 30,
+                    "comment": 10,
+                    "filename": "src\\data\\umlcalldata.h"
+                },
+                {
+                    "blank": 15,
+                    "code": 78,
+                    "comment": 6,
+                    "filename": "src\\data\\umlclassdata.cpp"
+                },
+                {
+                    "blank": 7,
+                    "code": 29,
+                    "comment": 10,
+                    "filename": "src\\data\\umlclassdata.h"
+                },
+                {
+                    "blank": 16,
+                    "code": 68,
+                    "comment": 6,
+                    "filename": "src\\data\\umldata.cpp"
+                },
+                {
+                    "blank": 7,
+                    "code": 24,
+                    "comment": 10,
+                    "filename": "src\\data\\umldata.h"
+                },
+                {
+                    "blank": 8,
+                    "code": 35,
+                    "comment": 6,
+                    "filename": "src\\data\\umlfielddata.cpp"
+                },
+                {
+                    "blank": 5,
+                    "code": 15,
+                    "comment": 10,
+                    "filename": "src\\data\\umlfielddata.h"
+                },
+                {
+                    "blank": 11,
+                    "code": 49,
+                    "comment": 6,
+                    "filename": "src\\data\\umlinstancedata.cpp"
+                },
+                {
+                    "blank": 7,
+                    "code": 21,
+                    "comment": 10,
+                    "filename": "src\\data\\umlinstancedata.h"
+                },
+                {
+                    "blank": 10,
+                    "code": 49,
+                    "comment": 6,
+                    "filename": "src\\data\\umlmethoddata.cpp"
+                },
+                {
+                    "blank": 7,
+                    "code": 19,
+                    "comment": 10,
+                    "filename": "src\\data\\umlmethoddata.h"
+                },
+                {
+                    "blank": 10,
+                    "code": 38,
+                    "comment": 6,
+                    "filename": "src\\data\\umlparameterdata.cpp"
+                },
+                {
+                    "blank": 7,
+                    "code": 20,
+                    "comment": 10,
+                    "filename": "src\\data\\umlparameterdata.h"
+                },
+                {
+                    "blank": 13,
+                    "code": 67,
+                    "comment": 6,
+                    "filename": "src\\data\\umlrelationdata.cpp"
+                },
+                {
+                    "blank": 7,
+                    "code": 25,
+                    "comment": 10,
+                    "filename": "src\\data\\umlrelationdata.h"
+                },
+                {
+                    "blank": 13,
+                    "code": 56,
+                    "comment": 7,
+                    "filename": "src\\data\\umlsequencedata.cpp"
+                },
+                {
+                    "blank": 7,
+                    "code": 23,
+                    "comment": 10,
+                    "filename": "src\\data\\umlsequencedata.h"
+                },
+                {
+                    "blank": 10,
+                    "code": 84,
+                    "comment": 35,
+                    "filename": "src\\data\\utils.h"
+                },
+                {
+                    "filename": "src\\icp",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 9,
+                    "code": 138,
+                    "comment": 0,
+                    "filename": "src\\icp.pro"
+                },
+                {
+                    "blank": 0,
+                    "code": 426,
+                    "comment": 0,
+                    "filename": "src\\icp.pro.user"
+                },
+                {
+                    "blank": 0,
+                    "code": 270,
+                    "comment": 0,
+                    "filename": "src\\icp.pro.user.218ec59"
+                },
+                {
+                    "blank": 2,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "src\\main.cpp"
+                },
+                {
+                    "blank": 4,
+                    "code": 14,
+                    "comment": 6,
+                    "filename": "src\\model\\modelprovider.cpp"
+                },
+                {
+                    "blank": 7,
+                    "code": 16,
+                    "comment": 10,
+                    "filename": "src\\model\\modelprovider.h"
+                },
+                {
+                    "blank": 7,
+                    "code": 63,
+                    "comment": 0,
+                    "filename": "src\\model\\umlaccesstype.cpp"
+                },
+                {
+                    "blank": 6,
+                    "code": 26,
+                    "comment": 1,
+                    "filename": "src\\model\\umlaccesstype.h"
+                },
+                {
+                    "blank": 9,
+                    "code": 38,
+                    "comment": 0,
+                    "filename": "src\\model\\umlattribute.cpp"
+                },
+                {
+                    "blank": 4,
+                    "code": 26,
+                    "comment": 1,
+                    "filename": "src\\model\\umlattribute.h"
+                },
+                {
+                    "blank": 9,
+                    "code": 36,
+                    "comment": 0,
+                    "filename": "src\\model\\umlcallmodel.cpp"
+                },
+                {
+                    "blank": 6,
+                    "code": 29,
+                    "comment": 3,
+                    "filename": "src\\model\\umlcallmodel.h"
+                },
+                {
+                    "blank": 5,
+                    "code": 35,
+                    "comment": 0,
+                    "filename": "src\\model\\umlcalltype.cpp"
+                },
+                {
+                    "blank": 5,
+                    "code": 20,
+                    "comment": 1,
+                    "filename": "src\\model\\umlcalltype.h"
+                },
+                {
+                    "blank": 32,
+                    "code": 164,
+                    "comment": 7,
+                    "filename": "src\\model\\umlclassmodel.cpp"
+                },
+                {
+                    "blank": 9,
+                    "code": 49,
+                    "comment": 7,
+                    "filename": "src\\model\\umlclassmodel.h"
+                },
+                {
+                    "blank": 5,
+                    "code": 20,
+                    "comment": 0,
+                    "filename": "src\\model\\umlclasstype.cpp"
+                },
+                {
+                    "blank": 5,
+                    "code": 20,
+                    "comment": 1,
+                    "filename": "src\\model\\umlclasstype.h"
+                },
+                {
+                    "blank": 3,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "src\\model\\umlfieldmodel.cpp"
+                },
+                {
+                    "blank": 4,
+                    "code": 17,
+                    "comment": 1,
+                    "filename": "src\\model\\umlfieldmodel.h"
+                },
+                {
+                    "blank": 7,
+                    "code": 28,
+                    "comment": 0,
+                    "filename": "src\\model\\umlinstancemodel.cpp"
+                },
+                {
+                    "blank": 5,
+                    "code": 20,
+                    "comment": 1,
+                    "filename": "src\\model\\umlinstancemodel.h"
+                },
+                {
+                    "blank": 13,
+                    "code": 51,
+                    "comment": 1,
+                    "filename": "src\\model\\umlmethodmodel.cpp"
+                },
+                {
+                    "blank": 7,
+                    "code": 26,
+                    "comment": 1,
+                    "filename": "src\\model\\umlmethodmodel.h"
+                },
+                {
+                    "blank": 18,
+                    "code": 110,
+                    "comment": 9,
+                    "filename": "src\\model\\umlmodel.cpp"
+                },
+                {
+                    "blank": 14,
+                    "code": 44,
+                    "comment": 11,
+                    "filename": "src\\model\\umlmodel.h"
+                },
+                {
+                    "blank": 4,
+                    "code": 18,
+                    "comment": 0,
+                    "filename": "src\\model\\umlparametermodel.cpp"
+                },
+                {
+                    "blank": 5,
+                    "code": 20,
+                    "comment": 1,
+                    "filename": "src\\model\\umlparametermodel.h"
+                },
+                {
+                    "blank": 7,
+                    "code": 29,
+                    "comment": 0,
+                    "filename": "src\\model\\umlrelationmodel.cpp"
+                },
+                {
+                    "blank": 6,
+                    "code": 26,
+                    "comment": 1,
+                    "filename": "src\\model\\umlrelationmodel.h"
+                },
+                {
+                    "blank": 6,
+                    "code": 45,
+                    "comment": 0,
+                    "filename": "src\\model\\umlrelationtype.cpp"
+                },
+                {
+                    "blank": 5,
+                    "code": 23,
+                    "comment": 1,
+                    "filename": "src\\model\\umlrelationtype.h"
+                },
+                {
+                    "blank": 12,
+                    "code": 68,
+                    "comment": 0,
+                    "filename": "src\\model\\umlsequencemodel.cpp"
+                },
+                {
+                    "blank": 5,
+                    "code": 29,
+                    "comment": 1,
+                    "filename": "src\\model\\umlsequencemodel.h"
+                },
+                {
+                    "blank": 0,
+                    "code": 54,
+                    "comment": 0,
+                    "filename": "src\\object_script.icp.Debug"
+                },
+                {
+                    "blank": 0,
+                    "code": 54,
+                    "comment": 0,
+                    "filename": "src\\object_script.icp.Release"
+                },
+                {
+                    "blank": 26,
+                    "code": 188,
+                    "comment": 9,
+                    "filename": "src\\view\\classdiagramview.cpp"
+                },
+                {
+                    "blank": 19,
+                    "code": 39,
+                    "comment": 44,
+                    "filename": "src\\view\\classdiagramview.h"
+                },
+                {
+                    "blank": 10,
+                    "code": 69,
+                    "comment": 6,
+                    "filename": "src\\view\\classes\\classdialog.cpp"
+                },
+                {
+                    "blank": 5,
+                    "code": 24,
+                    "comment": 11,
+                    "filename": "src\\view\\classes\\classdialog.h"
+                },
+                {
+                    "blank": 24,
+                    "code": 80,
+                    "comment": 11,
+                    "filename": "src\\view\\classes\\editclassdialog.cpp"
+                },
+                {
+                    "blank": 9,
+                    "code": 33,
+                    "comment": 11,
+                    "filename": "src\\view\\classes\\editclassdialog.h"
+                },
+                {
+                    "blank": 0,
+                    "code": 240,
+                    "comment": 0,
+                    "filename": "src\\view\\classes\\editclassdialog.ui"
+                },
+                {
+                    "blank": 5,
+                    "code": 24,
+                    "comment": 6,
+                    "filename": "src\\view\\classes\\editfielddialog.cpp"
+                },
+                {
+                    "blank": 8,
+                    "code": 20,
+                    "comment": 11,
+                    "filename": "src\\view\\classes\\editfielddialog.h"
+                },
+                {
+                    "blank": 0,
+                    "code": 155,
+                    "comment": 0,
+                    "filename": "src\\view\\classes\\editfielddialog.ui"
+                },
+                {
+                    "blank": 8,
+                    "code": 58,
+                    "comment": 6,
+                    "filename": "src\\view\\classes\\editmethoddialog.cpp"
+                },
+                {
+                    "blank": 9,
+                    "code": 24,
+                    "comment": 11,
+                    "filename": "src\\view\\classes\\editmethoddialog.h"
+                },
+                {
+                    "blank": 0,
+                    "code": 247,
+                    "comment": 0,
+                    "filename": "src\\view\\classes\\editmethoddialog.ui"
+                },
+                {
+                    "blank": 6,
+                    "code": 25,
+                    "comment": 6,
+                    "filename": "src\\view\\classes\\editrelationdialog.cpp"
+                },
+                {
+                    "blank": 8,
+                    "code": 20,
+                    "comment": 11,
+                    "filename": "src\\view\\classes\\editrelationdialog.h"
+                },
+                {
+                    "blank": 0,
+                    "code": 139,
+                    "comment": 0,
+                    "filename": "src\\view\\classes\\editrelationdialog.ui"
+                },
+                {
+                    "blank": 25,
+                    "code": 73,
+                    "comment": 11,
+                    "filename": "src\\view\\classes\\newclassdialog.cpp"
+                },
+                {
+                    "blank": 9,
+                    "code": 32,
+                    "comment": 11,
+                    "filename": "src\\view\\classes\\newclassdialog.h"
+                },
+                {
+                    "blank": 0,
+                    "code": 249,
+                    "comment": 0,
+                    "filename": "src\\view\\classes\\newclassdialog.ui"
+                },
+                {
+                    "blank": 40,
+                    "code": 256,
+                    "comment": 16,
+                    "filename": "src\\view\\classes\\umlclass.cpp"
+                },
+                {
+                    "blank": 13,
+                    "code": 59,
+                    "comment": 30,
+                    "filename": "src\\view\\classes\\umlclass.h"
+                },
+                {
+                    "blank": 3,
+                    "code": 8,
+                    "comment": 6,
+                    "filename": "src\\view\\classes\\umlclassnotifier.cpp"
+                },
+                {
+                    "blank": 7,
+                    "code": 21,
+                    "comment": 11,
+                    "filename": "src\\view\\classes\\umlclassnotifier.h"
+                },
+                {
+                    "blank": 30,
+                    "code": 117,
+                    "comment": 13,
+                    "filename": "src\\view\\classes\\umlrelation.cpp"
+                },
+                {
+                    "blank": 13,
+                    "code": 36,
+                    "comment": 26,
+                    "filename": "src\\view\\classes\\umlrelation.h"
+                },
+                {
+                    "blank": 17,
+                    "code": 83,
+                    "comment": 9,
+                    "filename": "src\\view\\classes\\umlrelationanchor.cpp"
+                },
+                {
+                    "blank": 15,
+                    "code": 34,
+                    "comment": 30,
+                    "filename": "src\\view\\classes\\umlrelationanchor.h"
+                },
+                {
+                    "blank": 13,
+                    "code": 78,
+                    "comment": 8,
+                    "filename": "src\\view\\classtoolbar.cpp"
+                },
+                {
+                    "blank": 10,
+                    "code": 26,
+                    "comment": 22,
+                    "filename": "src\\view\\classtoolbar.h"
+                },
+                {
+                    "blank": 2,
+                    "code": 13,
+                    "comment": 0,
+                    "filename": "src\\view\\resolvedinconsistenciesdialog.cpp"
+                },
+                {
+                    "blank": 6,
+                    "code": 16,
+                    "comment": 1,
+                    "filename": "src\\view\\resolvedinconsistenciesdialog.h"
+                },
+                {
+                    "blank": 0,
+                    "code": 114,
+                    "comment": 0,
+                    "filename": "src\\view\\resolvedinconsistenciesdialog.ui"
+                },
+                {
+                    "blank": 5,
+                    "code": 20,
+                    "comment": 0,
+                    "filename": "src\\view\\sequence\\editinstancedialog.cpp"
+                },
+                {
+                    "blank": 8,
+                    "code": 20,
+                    "comment": 1,
+                    "filename": "src\\view\\sequence\\editinstancedialog.h"
+                },
+                {
+                    "blank": 0,
+                    "code": 120,
+                    "comment": 0,
+                    "filename": "src\\view\\sequence\\editinstancedialog.ui"
+                },
+                {
+                    "blank": 6,
+                    "code": 28,
+                    "comment": 1,
+                    "filename": "src\\view\\sequence\\newinstancedialog.cpp"
+                },
+                {
+                    "blank": 8,
+                    "code": 20,
+                    "comment": 1,
+                    "filename": "src\\view\\sequence\\newinstancedialog.h"
+                },
+                {
+                    "blank": 0,
+                    "code": 120,
+                    "comment": 0,
+                    "filename": "src\\view\\sequence\\newinstancedialog.ui"
+                },
+                {
+                    "blank": 4,
+                    "code": 20,
+                    "comment": 0,
+                    "filename": "src\\view\\sequence\\newsequencedialog.cpp"
+                },
+                {
+                    "blank": 6,
+                    "code": 18,
+                    "comment": 1,
+                    "filename": "src\\view\\sequence\\newsequencedialog.h"
+                },
+                {
+                    "blank": 0,
+                    "code": 110,
+                    "comment": 0,
+                    "filename": "src\\view\\sequence\\newsequencedialog.ui"
+                },
+                {
+                    "blank": 14,
+                    "code": 84,
+                    "comment": 4,
+                    "filename": "src\\view\\sequence\\umlcall.cpp"
+                },
+                {
+                    "blank": 9,
+                    "code": 35,
+                    "comment": 1,
+                    "filename": "src\\view\\sequence\\umlcall.h"
+                },
+                {
+                    "blank": 20,
+                    "code": 89,
+                    "comment": 4,
+                    "filename": "src\\view\\sequence\\umlcallarrow.cpp"
+                },
+                {
+                    "blank": 5,
+                    "code": 28,
+                    "comment": 1,
+                    "filename": "src\\view\\sequence\\umlcallarrow.h"
+                },
+                {
+                    "blank": 2,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\view\\sequence\\umlcalldragrect.cpp"
+                },
+                {
+                    "blank": 4,
+                    "code": 12,
+                    "comment": 1,
+                    "filename": "src\\view\\sequence\\umlcalldragrect.h"
+                },
+                {
+                    "blank": 17,
+                    "code": 110,
+                    "comment": 5,
+                    "filename": "src\\view\\sequence\\umlinstance.cpp"
+                },
+                {
+                    "blank": 6,
+                    "code": 41,
+                    "comment": 6,
+                    "filename": "src\\view\\sequence\\umlinstance.h"
+                },
+                {
+                    "blank": 10,
+                    "code": 31,
+                    "comment": 3,
+                    "filename": "src\\view\\sequence\\umlinstancelifeline.cpp"
+                },
+                {
+                    "blank": 7,
+                    "code": 19,
+                    "comment": 1,
+                    "filename": "src\\view\\sequence\\umlinstancelifeline.h"
+                },
+                {
+                    "blank": 21,
+                    "code": 117,
+                    "comment": 2,
+                    "filename": "src\\view\\sequencediagramview.cpp"
+                },
+                {
+                    "blank": 13,
+                    "code": 33,
+                    "comment": 13,
+                    "filename": "src\\view\\sequencediagramview.h"
+                },
+                {
+                    "blank": 2,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\view\\sequencetoolbar.cpp"
+                },
+                {
+                    "blank": 4,
+                    "code": 16,
+                    "comment": 1,
+                    "filename": "src\\view\\sequencetoolbar.h"
+                }
+            ]
+        }
+    ]
+}
