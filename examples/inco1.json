@@ -33,12 +33,14 @@
         {
           "name": "InstanceA",
           "class": "ClassA",
-          "posX": 111
+          "posX": 111,
+          "posY": 50
         },
         {
           "name": "InstanceB",
           "class": "ClassB",
-          "posX": 340
+          "posX": 340,
+          "posY": 50
         }
       ],
       "calls": [
@@ -58,7 +60,8 @@
         {
           "name": "Instance",
           "class": "ClassB",
-          "posX": 340
+          "posX": 340,
+          "posY": 50
         }
       ],
       "calls": []
@@ -69,7 +72,8 @@
         {
           "name": "Instance",
           "class": "ClassB",
-          "posX": 340
+          "posX": 340,
+          "posY": 50
         }
       ],
       "calls": []
@@ -80,7 +84,8 @@
         {
           "name": "Instance",
           "class": "ClassB",
-          "posX": 340
+          "posX": 340,
+          "posY": 50
         }
       ],
       "calls": []

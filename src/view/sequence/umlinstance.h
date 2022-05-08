@@ -42,11 +42,12 @@ private:
     QRectF outlineRect() const;
     int calculateStartLifeLine();
     int calculateEndLifeLine();
+    void setCorrectPosition();
     UMLInstanceModel *umlInstanceModel;
     UMLSequenceModel *umlSequenceModel;
     UMLInstanceLifeLine *lifeLine;
 
-    qreal posY = DEFAULT_POSY;
+    qreal posY = 50;
     static constexpr int MAX_LENGTH = 900;
     static constexpr qreal DEFAULT_POSY = 50;
     static constexpr int PADDING = 8;

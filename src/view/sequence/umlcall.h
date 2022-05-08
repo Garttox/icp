@@ -26,9 +26,11 @@ public:
      */
     bool correspondsTo(UMLCallModel *umlCallModel);
 protected:
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
     QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
-
+private slots:
+    void onCallModelChange(UMLCallModel *umlCallModel);
 private:
     QRectF outlineRect() const;
     void setCorrectPosition();

@@ -8,12 +8,14 @@ class UMLInstanceModel : public QObject
 {
     Q_OBJECT
 public:
-    UMLInstanceModel(QString name, UMLClassModel *umlClassModel, int posX);
+    UMLInstanceModel(QString name, UMLClassModel *umlClassModel, int posX, int posY);
     QString getDisplayName() const;
     QString getName() const;
     void setName(QString name);
     int getPosX() const;
     void setPosX(int posX);
+    int getPosY() const;
+    void setPosY(int posY);
     UMLClassModel* getClassModel();
 
 signals:
@@ -23,6 +25,7 @@ private:
     QString name;
     UMLClassModel *umlClassModel;
     int posX;
+    int posY;
 
 };
 

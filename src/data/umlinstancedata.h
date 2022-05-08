@@ -28,11 +28,13 @@ public:
     QString getName() const;
     QString getUmlClass() const;
     int getPosX() const;
+    int getPosY() const;
 
 private:
     QString name;
     QString umlClass;
     int posX;
+    int posY;
 
 };
 

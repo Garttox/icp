@@ -10,13 +10,13 @@
 class MoveInstanceCommand : public Command
 {
 public:
-    MoveInstanceCommand(UMLInstanceModel *umlInstanceModel, int newPosX);
+    MoveInstanceCommand(UMLInstanceModel *umlInstanceModel, QPoint newLocation);
 private:
     virtual void process() override;
     virtual void undo() override;
 
-    int oldPosX;
-    int newPosX;
+    QPoint newLocation;
+    QPoint oldLocation;
     UMLInstanceModel *umlInstanceModel;
 };
 

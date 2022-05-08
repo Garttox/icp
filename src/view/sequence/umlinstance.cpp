@@ -15,7 +15,7 @@ UMLInstance::UMLInstance(UMLInstanceModel *umlInstanceModel, UMLSequenceModel *u
     : umlInstanceModel(umlInstanceModel), umlSequenceModel(umlSequenceModel)
 {
     setFlags(ItemIsMovable | ItemIsSelectable | ItemSendsGeometryChanges);
-    setPos(umlInstanceModel->getPosX(), 100);
+    setPos(umlInstanceModel->getPosX(), umlInstanceModel->getPosY());
 
     lifeLine = new UMLInstanceLifeLine(this);
 
@@ -76,8 +76,7 @@ int UMLInstance::getMaxLifeLength()
 
 void UMLInstance::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-    int posX = this->pos().x();
-    CommandStack::getInstance().push(new MoveInstanceCommand(umlInstanceModel, posX));
+    CommandStack::getInstance().push(new MoveInstanceCommand(umlInstanceModel, this->pos().toPoint()));
     QGraphicsItem::mouseReleaseEvent(event);
 }
 
@@ -109,14 +108,7 @@ QVariant UMLInstance::itemChange(GraphicsItemChange change, const QVariant &valu
             lifeLine->setZValue(-1);
             break;
         case QGraphicsItem::ItemPositionHasChanged:
-            if (this->pos().x() < -boundingRect().left())
-            {
-                setPos(-boundingRect().left(), this->posY);
-            }
-            else
-            {
-                setPos(this->pos().x(), this->posY);
-            }
+            setCorrectPosition();
             break;
         default:
             break;  // Keeps Qt Creator without warnings
@@ -148,18 +140,7 @@ QRectF UMLInstance::outlineRect() const
 
 int UMLInstance::calculateStartLifeLine()
 {
-    UMLCallModel *umlCallModel = umlSequenceModel->instanceCreatedBy(umlInstanceModel);
-    if (umlCallModel)
-    {
-        foreach(QGraphicsItem *item, scene()->items())
-        {
-            if (UMLCall *umlCall = dynamic_cast<UMLCall*>(item))
-            {
-                return umlCall->sceneBoundingRect().center().y();
-            }
-        }
-    }
-     return getStartCenter().y();
+    return getStartCenter().y();
 }
 
 int UMLInstance::calculateEndLifeLine()
@@ -180,3 +161,32 @@ int UMLInstance::calculateEndLifeLine()
     }
     return getStartCenter().y() + MAX_LENGTH;
 }
+
+void UMLInstance::setCorrectPosition()
+{
+    UMLCallModel *umlCallModel = umlSequenceModel->instanceCreatedBy(umlInstanceModel);
+    if (umlCallModel)
+    {
+        if (pos().y() < DEFAULT_POSY)
+        {
+            posY = DEFAULT_POSY;
+        }
+        else
+        {
+            posY = pos().y();
+        }
+    }
+    else
+    {
+        posY = DEFAULT_POSY;
+    }
+    if (this->pos().x() < -boundingRect().left())
+    {
+        setPos(-boundingRect().left(), posY);
+    }
+    else
+    {
+        setPos(this->pos().x(), posY);
+    }
+}
+

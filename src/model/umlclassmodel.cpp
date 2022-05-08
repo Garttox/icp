@@ -8,7 +8,9 @@
 #include <QJsonObject>
 #include <QJsonArray>
 
+#include "modelprovider.h"
 #include "umlclassmodel.h"
+#include "umlsequencemodel.h"
 
 #include <QDebug>
 
@@ -229,6 +231,17 @@ void UMLClassModel::setMethodsFromCopy(UMLClassModel &foreign)
         }
         else
         {
+            QList<UMLSequenceModel*> umlSequenceModels = ModelProvider::getInstance().getModel()->getSequences();
+            foreach (auto umlSequenceModel, umlSequenceModels)
+            {
+                foreach (auto umlCallModel, umlSequenceModel->getCalls())
+                {
+                    if (umlCallModel->getMethod() == method)
+                    {
+                        umlSequenceModel->removeCall(umlCallModel);
+                    }
+                }
+            }
             iter.remove();
             delete method;
         }

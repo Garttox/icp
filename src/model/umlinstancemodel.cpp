@@ -1,7 +1,7 @@
 #include "umlinstancemodel.h"
 
-UMLInstanceModel::UMLInstanceModel(QString name, UMLClassModel *umlClassModel, int posX) :
-    name(name), umlClassModel(umlClassModel), posX(posX)
+UMLInstanceModel::UMLInstanceModel(QString name, UMLClassModel *umlClassModel, int posX, int posY) :
+    name(name), umlClassModel(umlClassModel), posX(posX), posY(posY)
 {}
 
 QString UMLInstanceModel::getDisplayName() const
@@ -28,6 +28,17 @@ int UMLInstanceModel::getPosX() const
 void UMLInstanceModel::setPosX(int posX)
 {
     this->posX = posX;
+    emit modelChanged(this);
+}
+
+int UMLInstanceModel::getPosY() const
+{
+    return posY;
+}
+
+void UMLInstanceModel::setPosY(int posY)
+{
+    this->posY = posY;
     emit modelChanged(this);
 }
 

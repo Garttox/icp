@@ -1,9 +1,13 @@
 #include "umlcall.h"
 #include "umlinstance.h"
 
+#include <QGraphicsSceneMouseEvent>
 #include <QPainter>
 #include <QPen>
 #include <QRectF>
+
+#include <command/commandstack.h>
+#include <command/sequence/movecallcommand.h>
 
 UMLCall::UMLCall(UMLCallModel *umlCallModel, UMLInstance *sourceInstance, UMLInstance *destinationInstance)
     : QObject(), QGraphicsItem(destinationInstance), umlCallModel(umlCallModel),
@@ -12,6 +16,8 @@ UMLCall::UMLCall(UMLCallModel *umlCallModel, UMLInstance *sourceInstance, UMLIns
     setFlags(ItemIsMovable | ItemIsSelectable | ItemSendsGeometryChanges);
     setPos(0, getAtTime());
     setupArrows();
+
+    connect(umlCallModel, &UMLCallModel::modelChanged, this, &UMLCall::onCallModelChange);
 }
 
 QRectF UMLCall::boundingRect() const
@@ -39,6 +45,27 @@ bool UMLCall::correspondsTo(UMLCallModel *umlCallModel)
 }
 
 // - - - - - protected - - - - -
+void UMLCall::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+    int atTime;
+    if (umlCallModel->getType() == UMLCallType::DESTROY)
+    {
+        if (sourceInstance)
+        {
+            atTime = pos().y() * (UMLCallModel::RELATIVE_MAX_LIFE / (qreal)sourceInstance->getLifeLength());
+        }
+        else
+        {
+            atTime = pos().y() * (UMLCallModel::RELATIVE_MAX_LIFE / (qreal)UMLInstance::getMaxLifeLength());
+        }
+    }
+    else
+    {
+        atTime = pos().y() * (UMLCallModel::RELATIVE_MAX_LIFE / (qreal)destinationInstance->getLifeLength());
+    }
+    CommandStack::getInstance().push(new MoveCallCommand(umlCallModel, atTime));
+    QGraphicsItem::mouseReleaseEvent(event);
+}
 
 void UMLCall::paint(QPainter *painter, const QStyleOptionGraphicsItem */* option */, QWidget */* widget */)
 {
@@ -47,11 +74,16 @@ void UMLCall::paint(QPainter *painter, const QStyleOptionGraphicsItem */* option
     QPen pen = QPen(isSelected() ? SELECTED_OUTLINE_COLOR : OUTLINE_COLOR);
     pen.setWidth(2);
     painter->setPen(pen);
-    painter->setBrush(BACKGROUND_COLOR);
     QRectF rect = outlineRect();
 
     if (umlCallModel->getType() == UMLCallType::MESSAGE)
     {
+        painter->setBrush(BACKGROUND_COLOR);
+        painter->drawRect(rect);
+    }
+    else if (umlCallModel->getType() == UMLCallType::CREATE)
+    {
+        painter->setBrush(Qt::white);
         painter->drawRect(rect);
     }
     else if (umlCallModel->getType() == UMLCallType::DESTROY)
@@ -77,12 +109,20 @@ QVariant UMLCall::itemChange(GraphicsItemChange change, const QVariant &value)
     return QGraphicsItem::itemChange(change, value);
 }
 
+// - - - - - private slots - - - - -
+
+void UMLCall::onCallModelChange(UMLCallModel */*umlCallModel*/)
+{
+    setPos(0, getAtTime());
+    update();
+}
+
 // - - - - - private - - - - -
 
 QRectF UMLCall::outlineRect() const
 {
     QRectF rect;
-    if (umlCallModel->getType() == UMLCallType::DESTROY)
+    if (umlCallModel->getType() == UMLCallType::DESTROY || umlCallModel->getType() == UMLCallType::CREATE)
     {
         rect = QRectF(0,0,MESSAGE_WIDTH, MESSAGE_WIDTH);
     }
@@ -111,6 +151,10 @@ void UMLCall::setCorrectPosition()
             setPos(0, pos().y());
         }
     }
+    else if (umlCallModel->getType() == UMLCallType::CREATE)
+    {
+        setPos(0, destinationInstance->boundingRect().bottom() + boundingRect().height());
+    }
     else
     {
         if (pos().y() > destinationInstance->getEndCenter().y() - boundingRect().bottom() - destinationInstance->getStartCenter().y())
@@ -135,9 +179,10 @@ qreal UMLCall::getDuration() const
 qreal UMLCall::getAtTime() const
 {
     UMLCallType type = umlCallModel->getType();
-    if (type == UMLCallType::DESTROY)
+    if (type == UMLCallType::DESTROY || type == UMLCallType::CREATE)
     {
-        if (sourceInstance) {
+        if (sourceInstance)
+        {
             return ((qreal)sourceInstance->getLifeLength() / UMLCallModel::RELATIVE_MAX_LIFE) * (qreal)umlCallModel->getAtTime();
         }
         return ((qreal)UMLInstance::getMaxLifeLength() / UMLCallModel::RELATIVE_MAX_LIFE) * (qreal)umlCallModel->getAtTime();
@@ -165,6 +210,6 @@ void UMLCall::setupArrows()
     }
     else
     {
-
+        forwardArrow = new UMLCallArrow(this, UMLCallArrowType::CREATE);
     }
 }

@@ -2,16 +2,18 @@
 
 #include <command/commandstack.h>
 
-MoveInstanceCommand::MoveInstanceCommand(UMLInstanceModel *umlInstanceModel, int newPosX)
-    : oldPosX(umlInstanceModel->getPosX()), newPosX(newPosX), umlInstanceModel(umlInstanceModel)
+MoveInstanceCommand::MoveInstanceCommand(UMLInstanceModel *umlInstanceModel, QPoint newLocation)
+    : newLocation(newLocation), umlInstanceModel(umlInstanceModel)
 {}
 
 void MoveInstanceCommand::process()
 {
-    umlInstanceModel->setPosX(newPosX);
+    oldLocation = QPoint(umlInstanceModel->getPosX(), umlInstanceModel->getPosY());
+    umlInstanceModel->setPosX(newLocation.x());
+    umlInstanceModel->setPosY(newLocation.y());
 
     // If item was not actually moved, then do not store this command
-    if (oldPosX == newPosX)
+    if (oldLocation == newLocation)
     {
         CommandStack::getInstance().undo();
     }
@@ -19,5 +21,6 @@ void MoveInstanceCommand::process()
 
 void MoveInstanceCommand::undo()
 {
-    umlInstanceModel->setPosX(oldPosX);
+    umlInstanceModel->setPosX(oldLocation.x());
+    umlInstanceModel->setPosY(oldLocation.y());
 }

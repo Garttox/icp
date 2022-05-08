@@ -17,6 +17,7 @@ public:
     UMLCallType getType() const;
     UMLMethodModel *getMethod() const;
     int getAtTime() const;
+    void setAtTime(int atTime);
     int getDuration() const;
     bool getAsync() const;
     QString getDisplayMethodName() const;

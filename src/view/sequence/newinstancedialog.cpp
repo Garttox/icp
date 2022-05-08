@@ -37,7 +37,7 @@ void NewInstanceDialog::on_buttonBox_accepted()
 {
     QString name = ui->nameLineEdit->text();
     UMLClassModel *umlClassModel = ui->classesComboBox->currentData().value<UMLClassModel *>();
-    UMLInstanceModel * umlInstanceModel = new UMLInstanceModel(name, umlClassModel, posX);
+    UMLInstanceModel * umlInstanceModel = new UMLInstanceModel(name, umlClassModel, posX, 50);
     CommandStack::getInstance().push(new AddInstanceCommand(umlSequenceModel, umlInstanceModel));
 }
 

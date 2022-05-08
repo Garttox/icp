@@ -24,7 +24,9 @@ SOURCES += main.cpp\
         command/sequence/addcallcommand.cpp \
         command/sequence/addinstancecommand.cpp \
         command/sequence/addsequencecommand.cpp \
+        command/sequence/editcallcommand.cpp \
         command/sequence/editinstancecommand.cpp \
+        command/sequence/movecallcommand.cpp \
         command/sequence/moveinstancecommand.cpp \
         data/inconsistencyresolver.cpp \
         data/umlattributedata.cpp \
@@ -88,7 +90,9 @@ HEADERS  += app.h \
     command/sequence/addcallcommand.h \
     command/sequence/addinstancecommand.h \
     command/sequence/addsequencecommand.h \
+    command/sequence/editcallcommand.h \
     command/sequence/editinstancecommand.h \
+    command/sequence/movecallcommand.h \
     command/sequence/moveinstancecommand.h \
     data/data.h \
     data/inconsistencyresolver.h \

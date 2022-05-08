@@ -59,13 +59,10 @@ void UMLCallArrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     {
         pen.setStyle(Qt::DashLine);
     }
-    else if (arrowType == UMLCallArrowType::CALL_MESSAGE)
-    {   // draw text
-        painter->drawText(boundingRect(), Qt::AlignTop | Qt::AlignHCenter, getMethodDisplayText());
-    }
-    else if (arrowType == UMLCallArrowType::DESTROY)
+    else
     {
-        painter->drawText(boundingRect(), Qt::AlignTop | Qt::AlignHCenter, "<<DESTROY>>");
+        // draw text
+        painter->drawText(boundingRect(), Qt::AlignTop | Qt::AlignHCenter, getMethodDisplayText());
     }
     setPen(pen);
 
@@ -113,7 +110,7 @@ void UMLCallArrow::setArrowHead()
     qreal x;
     qreal y;
 
-    if (arrowType == UMLCallArrowType::CALL_MESSAGE || arrowType == UMLCallArrowType::DESTROY)
+    if (arrowType == UMLCallArrowType::CALL_MESSAGE || arrowType == UMLCallArrowType::DESTROY || arrowType == UMLCallArrowType::CREATE)
     {
         arrowHeadLocation = line().p1();
         x = arrowHeadLocation.x();
@@ -145,12 +142,12 @@ void UMLCallArrow::setArrowHead()
 void UMLCallArrow::drawArrowHead(QPainter *painter)
 {
     QPainterPath path;
-    QColor color = QColor(255, 255, 255);
+    QColor color = QColor(50, 50, 50);
 
     path.addPolygon(arrowHead);
-    if (arrowType == UMLCallArrowType::CALL_MESSAGE)
+    if (arrowType == UMLCallArrowType::RETURN_MESSAGE)
     {
-        color = QColor(50, 50, 50);
+        color = QColor(255, 255, 255);
     }
 
     painter->fillPath(path, color);
@@ -162,6 +159,10 @@ QString UMLCallArrow::getMethodDisplayText() const
     if (arrowType == UMLCallArrowType::DESTROY)
     {
         return QString("<<DESTROY>>");
+    }
+    else if (arrowType == UMLCallArrowType::CREATE)
+    {
+        return QString("<<CREATE>>");
     }
     else
     {

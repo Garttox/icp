@@ -24,6 +24,12 @@ int UMLCallModel::getAtTime() const
     return atTime;
 }
 
+void UMLCallModel::setAtTime(int atTime)
+{
+    this->atTime = atTime;
+    emit modelChanged(this);
+}
+
 UMLMethodModel *UMLCallModel::getMethod() const
 {
     return method;

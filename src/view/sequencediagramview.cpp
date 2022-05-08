@@ -92,7 +92,7 @@ void SequenceDiagramView::addUMLCall(UMLCallModel *umlCallModel)
 {
     UMLInstance* sourceInstance = getUMLInstance(umlCallModel->getSource());
     UMLInstance* destinationInstance = getUMLInstance(umlCallModel->getDestination());
-    UMLCall *umlCall = new UMLCall(umlCallModel, sourceInstance, destinationInstance);
+    new UMLCall(umlCallModel, sourceInstance, destinationInstance);
 }
 
 void SequenceDiagramView::removeUMLInstance(UMLInstanceModel *umlInstanceModel)

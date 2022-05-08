@@ -24,8 +24,6 @@ private slots:
 
     void on_destroyButtonBox_accepted();
 
-    void on_createNameLineEdit_textEdited(const QString &arg1);
-
     void on_messageButtonBox_rejected();
 
     void on_destroyButtonBox_rejected();

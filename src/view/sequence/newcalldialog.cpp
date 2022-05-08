@@ -12,8 +12,8 @@ NewCallDialog::NewCallDialog(UMLSequenceModel *umlSequenceModel, UMLInstanceMode
     QDialog(parent),
     ui(new Ui::NewCallDialog),
     umlSequenceModel(umlSequenceModel),
-    atTime(atTime),
-    destination(destination)
+    destination(destination),
+    atTime(atTime)
 {
     ui->setupUi(this);
 
@@ -48,7 +48,9 @@ void NewCallDialog::on_messageButtonBox_rejected()
 
 void NewCallDialog::on_createButtonBox_accepted()
 {
-
+    UMLInstanceModel* source = ui->createSourceComboBox->currentData().value<UMLInstanceModel *>();
+    UMLCallModel *umlCallModel = new UMLCallModel(source, destination, nullptr, false, DEFAULT_DURATION, 0, UMLCallType::CREATE);
+    CommandStack::getInstance().push(new AddCallCommand(umlSequenceModel, umlCallModel));
     close();
 }
 
@@ -68,11 +70,6 @@ void NewCallDialog::on_destroyButtonBox_accepted()
 void NewCallDialog::on_destroyButtonBox_rejected()
 {
     close();
-}
-
-void NewCallDialog::on_createNameLineEdit_textEdited(const QString &text)
-{
-    ui->createButtonBox->button(QDialogButtonBox::Ok)->setDisabled(text.isEmpty() || (ui->createClassesComboBox->count() == 0));
 }
 
 // - - - - - private - - - - -
@@ -101,18 +98,24 @@ void NewCallDialog::setupMessageTab()
 
 void NewCallDialog::setupCreateTab()
 {
-    ui->createSourceComboBox->addItem(destination->getDisplayName());
-    ui->createSourceComboBox->setEnabled(false);
-
-    UMLModel *umlModel = ModelProvider::getInstance().getModel();
-    foreach (UMLClassModel *cls, umlModel->getClasses())
+    ui->createSourceComboBox->addItem("(external)", QVariant::fromValue(nullptr));
+    foreach (UMLInstanceModel *UMLInstanceModel, umlSequenceModel->getInstances())
     {
-        if (cls->getType() == UMLClassType::CLASS)
+        UMLCallModel *createCall = umlSequenceModel->instanceCreatedBy(UMLInstanceModel);
+        if (!(createCall && createCall->getSource() && createCall->getSource() == destination)
+                && UMLInstanceModel != destination)
         {
-            ui->createClassesComboBox->addItem(cls->getName(), QVariant::fromValue(cls));
+            ui->createSourceComboBox->addItem(UMLInstanceModel->getDisplayName(), QVariant::fromValue(UMLInstanceModel));
         }
     }
-    ui->createButtonBox->button(QDialogButtonBox::Ok)->setDisabled(true);
+
+    ui->createDestinationComboBox->addItem(destination->getDisplayName());
+    ui->createDestinationComboBox->setEnabled(false);
+
+    if (umlSequenceModel->instanceCreatedBy(destination))
+    {
+        ui->createButtonBox->button(QDialogButtonBox::Ok)->setDisabled(true);
+    }
 }
 
 void NewCallDialog::setupDestroyTab()
@@ -120,9 +123,19 @@ void NewCallDialog::setupDestroyTab()
     ui->destroySourceComboBox->addItem("(external)", QVariant::fromValue(nullptr));
     foreach (UMLInstanceModel *UMLInstanceModel, umlSequenceModel->getInstances())
     {
-        ui->destroySourceComboBox->addItem(UMLInstanceModel->getDisplayName(), QVariant::fromValue(UMLInstanceModel));
+        UMLCallModel *createCall = umlSequenceModel->instanceDestroyedBy(UMLInstanceModel);
+        if (!(createCall && createCall->getSource() && createCall->getSource() == destination)
+                && UMLInstanceModel != destination)
+        {
+            ui->destroySourceComboBox->addItem(UMLInstanceModel->getDisplayName(), QVariant::fromValue(UMLInstanceModel));
+        }
     }
 
     ui->destroyDestinationComboBox->addItem(destination->getDisplayName());
     ui->destroyDestinationComboBox->setEnabled(false);
+
+    if (umlSequenceModel->instanceDestroyedBy(destination))
+    {
+        ui->destroyButtonBox->button(QDialogButtonBox::Ok)->setDisabled(true);
+    }
 }
