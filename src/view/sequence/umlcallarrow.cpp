@@ -18,7 +18,7 @@ QRectF UMLCallArrow::boundingRect() const
     QFontMetricsF fontMetrics(TEXT_FONT);
     qreal offset = std::max(ARROW_SIZE / 2, fontMetrics.height());
     qreal xSize;
-    qreal fontWidth = fontMetrics.width(getMethodDisplayName());
+    qreal fontWidth = fontMetrics.width(getMethodDisplayText());
     if (p2.x() - p1.x() < 0)
     {
         xSize = std::min(p2.x() - p1.x(), -fontWidth);
@@ -43,11 +43,6 @@ QPainterPath UMLCallArrow::shape() const
 
 // - - - - - protected - - - - -
 
-void UMLCallArrow::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
-{
-
-}
-
 void UMLCallArrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     setCorrectPosition();
@@ -64,9 +59,13 @@ void UMLCallArrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     {
         pen.setStyle(Qt::DashLine);
     }
-    else
+    else if (arrowType == UMLCallArrowType::CALL_MESSAGE)
     {   // draw text
-        painter->drawText(boundingRect(), Qt::AlignTop | Qt::AlignHCenter, getMethodDisplayName());
+        painter->drawText(boundingRect(), Qt::AlignTop | Qt::AlignHCenter, getMethodDisplayText());
+    }
+    else if (arrowType == UMLCallArrowType::DESTROY)
+    {
+        painter->drawText(boundingRect(), Qt::AlignTop | Qt::AlignHCenter, "<<DESTROY>>");
     }
     setPen(pen);
 
@@ -85,9 +84,13 @@ void UMLCallArrow::setCorrectPosition()
     {
         height = parent->boundingRect().top();
     }
-    else
+    else if (arrowType == UMLCallArrowType::RETURN_MESSAGE)
     {
         height = parent->boundingRect().bottom();
+    }
+    else
+    {
+        height = parent->boundingRect().center().y();
     }
 
     qreal distance = parent->getSourceDistance();
@@ -110,7 +113,7 @@ void UMLCallArrow::setArrowHead()
     qreal x;
     qreal y;
 
-    if (arrowType == UMLCallArrowType::CALL_MESSAGE)
+    if (arrowType == UMLCallArrowType::CALL_MESSAGE || arrowType == UMLCallArrowType::DESTROY)
     {
         arrowHeadLocation = line().p1();
         x = arrowHeadLocation.x();
@@ -154,8 +157,15 @@ void UMLCallArrow::drawArrowHead(QPainter *painter)
     painter->drawPolygon(arrowHead);
 }
 
-QString UMLCallArrow::getMethodDisplayName() const
+QString UMLCallArrow::getMethodDisplayText() const
 {
-    UMLCallModel *umlCallModel = static_cast<UMLCall*>(parentItem())->getUMLCallModel();
-    return umlCallModel->getDisplayMethodName();
+    if (arrowType == UMLCallArrowType::DESTROY)
+    {
+        return QString("<<DESTROY>>");
+    }
+    else
+    {
+        UMLCallModel *umlCallModel = static_cast<UMLCall*>(parentItem())->getUMLCallModel();
+        return umlCallModel->getDisplayMethodName();
+    }
 }

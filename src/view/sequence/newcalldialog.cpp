@@ -48,6 +48,7 @@ void NewCallDialog::on_messageButtonBox_rejected()
 
 void NewCallDialog::on_createButtonBox_accepted()
 {
+
     close();
 }
 
@@ -58,6 +59,9 @@ void NewCallDialog::on_createButtonBox_rejected()
 
 void NewCallDialog::on_destroyButtonBox_accepted()
 {
+    UMLInstanceModel* source = ui->destroySourceComboBox->currentData().value<UMLInstanceModel *>();
+    UMLCallModel *umlCallModel = new UMLCallModel(source, destination, nullptr, false, DEFAULT_DURATION, atTime, UMLCallType::DESTROY);
+    CommandStack::getInstance().push(new AddCallCommand(umlSequenceModel, umlCallModel));
     close();
 }
 

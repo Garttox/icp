@@ -15,7 +15,11 @@ public:
 private:
     QPoint getViewportCenter();
     void createActions();
-
+    /**
+     * @brief Gets all the items of type T, that are selected in scene.
+     * @return Scene's selected items of type T.
+     */
+    template <class T> QList<T> getSelectedOfGivenType();
     SequenceDiagramView *view;
     QAction *addInstanceAction;
     QAction *removeSelectedAction;

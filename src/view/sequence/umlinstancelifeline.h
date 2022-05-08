@@ -21,7 +21,6 @@ private:
     void setPenStyle();
 
     static constexpr qreal DETECTION_RADIUS = 15;
-    static constexpr int MAX_LENGTH = 1000;
     QColor LINE_COLOR = QColor(Qt::black);
 };
 

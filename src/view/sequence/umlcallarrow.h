@@ -19,13 +19,13 @@ public:
     QRectF boundingRect() const override;
     QPainterPath shape() const override;
 protected:
-    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+
 private:
     void setCorrectPosition();
     void setArrowHead();
     void drawArrowHead(QPainter *painter);
-    QString getMethodDisplayName() const;
+    QString getMethodDisplayText() const;
 
     QFont TEXT_FONT = QFont(qApp->font().family(), 9, QFont::Normal);
     static constexpr qreal ARROW_SIZE = 10;

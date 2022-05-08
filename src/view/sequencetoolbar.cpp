@@ -1,6 +1,7 @@
 #include "sequencetoolbar.h"
 
 #include <view/sequence/newinstancedialog.h>
+#include <view/sequence/umlcall.h>
 
 SequenceToolBar::SequenceToolBar()
     :  QToolBar()
@@ -42,6 +43,20 @@ void SequenceToolBar::createActions()
     connect(removeSelectedAction, &QAction::triggered, this, &SequenceToolBar::removeSelected);
 }
 
+template<class T>
+QList<T> SequenceToolBar::getSelectedOfGivenType()
+{
+    QList<T> filtered;
+    foreach(QGraphicsItem *item, view->scene()->selectedItems())
+    {
+        if (T casted = dynamic_cast<T>(item))
+        {
+            filtered.append(casted);
+        }
+    }
+    return filtered;
+}
+
 // - - - - - private slots - - - - -
 
 void SequenceToolBar::addInstance()
@@ -53,5 +68,13 @@ void SequenceToolBar::addInstance()
 
 void SequenceToolBar::removeSelected()
 {
-
+    UMLSequenceModel *umlSequenceModel = view->getUMLSequenceModel();
+    foreach(UMLCall *umlCall, getSelectedOfGivenType<UMLCall*>())
+    {
+        umlSequenceModel->removeCall(umlCall->getUMLCallModel());
+    }
+    foreach(UMLInstance *umlInstance, getSelectedOfGivenType<UMLInstance*>())
+    {
+        umlSequenceModel->removeInstance(umlInstance->getUMLInstanceModel());
+    }
 }

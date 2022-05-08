@@ -7,6 +7,7 @@
 #include <model/umlinstancemodel.h>
 #include <model/umlsequencemodel.h>
 
+#include <view/sequence/umlcall.h>
 #include <view/sequence/umlinstance.h>
 
 class SequenceDiagramView : public QGraphicsView
@@ -27,7 +28,9 @@ public:
 
 private slots:
     void onInstanceModelAdded(UMLInstanceModel *umlInstanceModel);
+    void onInstanceModelRemoved(UMLInstanceModel *umlInstanceModel);
     void onCallModelAdded(UMLCallModel *umlCallModel);
+    void onCallModelRemoved(UMLCallModel *umlCallModel);
 
 private:
     /**
@@ -36,9 +39,10 @@ private:
     void drawBackgroundTiles();
     void addUMLInstance(UMLInstanceModel *umlInstanceModel);
     void addUMLCall(UMLCallModel *umlCallModel);
-
+    void removeUMLInstance(UMLInstanceModel *umlInstanceModel);
+    void removeUMLCall(UMLCallModel *umlCallModel);
     UMLInstance *getUMLInstance(UMLInstanceModel *umlInstanceModel);
-
+    UMLCall *getUMLCall(UMLCallModel *umlCallModel);
     /**
      * @brief Gets all the items of type T from the scene.
      * @return Scene's items of type T.

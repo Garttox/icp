@@ -63,7 +63,7 @@ void UMLInstanceLifeLine::setCorrectPosition()
     QRectF parentRect = static_cast<UMLInstance*>(parentItem())->boundingRect();
     QPointF top = parentRect.center();
     top.setY(parentRect.bottom());
-    setLine(top.x(), top.y(), top.x(), top.y() + MAX_LENGTH);
+    setLine(top.x(), top.y(), top.x(), top.y() + static_cast<UMLInstance*>(parentItem())->getLifeLength());
 }
 
 void UMLInstanceLifeLine::setPenStyle()

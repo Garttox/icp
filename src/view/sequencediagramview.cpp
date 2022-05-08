@@ -14,7 +14,9 @@ SequenceDiagramView::SequenceDiagramView(QWidget* parent, UMLSequenceModel *umlS
     setTransformationAnchor(QGraphicsView::NoAnchor);
 
     connect(umlSequenceModel, &UMLSequenceModel::instanceModelAdded, this, &SequenceDiagramView::onInstanceModelAdded);
+    connect(umlSequenceModel, &UMLSequenceModel::instanceModelRemoved, this, &SequenceDiagramView::onInstanceModelRemoved);
     connect(umlSequenceModel, &UMLSequenceModel::callModelAdded, this, &SequenceDiagramView::onCallModelAdded);
+    connect(umlSequenceModel, &UMLSequenceModel::callModelRemoved, this, &SequenceDiagramView::onCallModelRemoved);
 
 
     drawBackgroundTiles();
@@ -51,9 +53,20 @@ void SequenceDiagramView::onInstanceModelAdded(UMLInstanceModel *umlInstanceMode
     addUMLInstance(umlInstanceModel);
 }
 
+void SequenceDiagramView::onInstanceModelRemoved(UMLInstanceModel *umlInstanceModel)
+{
+    removeUMLInstance(umlInstanceModel);
+}
+
+
 void SequenceDiagramView::onCallModelAdded(UMLCallModel *umlCallModel)
 {
     addUMLCall(umlCallModel);
+}
+
+void SequenceDiagramView::onCallModelRemoved(UMLCallModel *umlCallModel)
+{
+    removeUMLCall(umlCallModel);
 }
 
 // - - - - - private - - - - -
@@ -82,6 +95,20 @@ void SequenceDiagramView::addUMLCall(UMLCallModel *umlCallModel)
     UMLCall *umlCall = new UMLCall(umlCallModel, sourceInstance, destinationInstance);
 }
 
+void SequenceDiagramView::removeUMLInstance(UMLInstanceModel *umlInstanceModel)
+{
+    UMLInstance *umlInstance = getUMLInstance(umlInstanceModel);
+    scene()->removeItem(umlInstance);
+    delete umlInstance;
+}
+
+void SequenceDiagramView::removeUMLCall(UMLCallModel *umlCallModel)
+{
+    UMLCall *umlCall = getUMLCall(umlCallModel);
+    scene()->removeItem(umlCall);
+    delete umlCall;
+}
+
 UMLInstance *SequenceDiagramView::getUMLInstance(UMLInstanceModel *umlInstanceModel)
 {
     QList<UMLInstance*> umlInstances = getItemsOfType<UMLInstance*>();
@@ -90,6 +117,19 @@ UMLInstance *SequenceDiagramView::getUMLInstance(UMLInstanceModel *umlInstanceMo
         if (umlInstance->correspondsTo(umlInstanceModel))
         {
             return umlInstance;
+        }
+    }
+    return nullptr;
+}
+
+UMLCall *SequenceDiagramView::getUMLCall(UMLCallModel *umlCallModel)
+{
+    QList<UMLCall*> umlCalls = getItemsOfType<UMLCall*>();
+    foreach (auto umlCall, umlCalls)
+    {
+        if (umlCall->correspondsTo(umlCallModel))
+        {
+            return umlCall;
         }
     }
     return nullptr;

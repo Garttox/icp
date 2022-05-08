@@ -18,6 +18,13 @@ public:
     QRectF boundingRect() const override;
     qreal getSourceDistance();
     UMLCallModel *getUMLCallModel() const;
+
+    /**
+     * @brief Checks if given UMLCallModel are being displayed by this object.
+     * @param umlCallModel UMLCallModel to check.
+     * @return True, if UMLCall is displaying given UMLCallModel.
+     */
+    bool correspondsTo(UMLCallModel *umlCallModel);
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
     QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
@@ -39,7 +46,7 @@ private:
     static constexpr int DEFAULT_POSX_EXTERN = 50;
     QColor OUTLINE_COLOR = QColor(0, 130, 180);
     QColor SELECTED_OUTLINE_COLOR = QColor(25, 195, 235);
-    QColor BACKGROUND_COLOR = QColor(140, 140, 140);
+    QColor BACKGROUND_COLOR = QColor(235, 240, 250);
 };
 
 #endif // UMLCALL_H

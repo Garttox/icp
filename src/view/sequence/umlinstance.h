@@ -18,7 +18,7 @@ public:
     UMLInstance(UMLInstanceModel *umlInstanceModel, UMLSequenceModel *umlSequenceModel);
     QRectF boundingRect() const override;
     QPointF getStartCenter() const;
-    QPointF getEndCenter() const;
+    QPointF getEndCenter();
     qreal getPosX() const;
     UMLSequenceModel *getUMLSequenceModel() const;
     UMLInstanceModel *getUMLInstanceModel() const;
@@ -29,6 +29,7 @@ public:
      */
     bool correspondsTo(UMLInstanceModel *umlInstanceModel);
     int getLifeLength();
+    static int getMaxLifeLength();
 protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;

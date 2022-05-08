@@ -10,9 +10,7 @@ UMLCall::UMLCall(UMLCallModel *umlCallModel, UMLInstance *sourceInstance, UMLIns
       sourceInstance(sourceInstance), destinationInstance(destinationInstance)
 {
     setFlags(ItemIsMovable | ItemIsSelectable | ItemSendsGeometryChanges);
-    setCorrectPosition();
-    setPos(pos().x(), getAtTime());
-
+    setPos(0, getAtTime());
     setupArrows();
 }
 
@@ -33,6 +31,11 @@ qreal UMLCall::getSourceDistance()
 UMLCallModel *UMLCall::getUMLCallModel() const
 {
     return umlCallModel;
+}
+
+bool UMLCall::correspondsTo(UMLCallModel *umlCallModel)
+{
+    return this->umlCallModel == umlCallModel;
 }
 
 // - - - - - protected - - - - -
@@ -78,24 +81,49 @@ QVariant UMLCall::itemChange(GraphicsItemChange change, const QVariant &value)
 
 QRectF UMLCall::outlineRect() const
 {
-    QRectF rect = QRectF(0,0,MESSAGE_WIDTH, getDuration());
+    QRectF rect;
+    if (umlCallModel->getType() == UMLCallType::DESTROY)
+    {
+        rect = QRectF(0,0,MESSAGE_WIDTH, MESSAGE_WIDTH);
+    }
+    else
+    {
+        rect = QRectF(0,0,MESSAGE_WIDTH, getDuration());
+    }
     rect.translate(-rect.center());
     return rect;
 }
 
 void UMLCall::setCorrectPosition()
 {
-    if (this->pos().y() + this->boundingRect().top() < destinationInstance->getStartCenter().y())
+    if (umlCallModel->getType() == UMLCallType::DESTROY)
     {
-        setPos(0, destinationInstance->getStartCenter().y() - this->boundingRect().top());
-    }
-    else if (this->pos().y() + this->boundingRect().bottom() > destinationInstance->getEndCenter().y())
-    {
-        setPos(0, destinationInstance->getEndCenter().y() - this->boundingRect().bottom());
+        if (pos().y() < destinationInstance->sceneBoundingRect().bottom() + boundingRect().top())
+        {
+            setPos(0, destinationInstance->sceneBoundingRect().bottom() + boundingRect().top());
+        }
+        else if (pos().y() > destinationInstance->sceneBoundingRect().bottom() + UMLInstance::getMaxLifeLength() + boundingRect().top())
+        {
+            setPos(0, destinationInstance->sceneBoundingRect().bottom() + UMLInstance::getMaxLifeLength() + boundingRect().top());
+        }
+        else
+        {
+            setPos(0, pos().y());
+        }
     }
     else
     {
-        setPos(0, this->pos().y());
+        if (pos().y() > destinationInstance->getEndCenter().y() - boundingRect().bottom() - destinationInstance->getStartCenter().y())
+        {
+            setPos(0, destinationInstance->getEndCenter().y() - boundingRect().bottom() - destinationInstance->getStartCenter().y());
+        }
+        else if (pos().y() < boundingRect().bottom() + destinationInstance->boundingRect().bottom())
+        {
+            setPos(0, boundingRect().bottom() + destinationInstance->boundingRect().bottom());
+        }
+        else {
+            setPos(0, this->pos().y());
+        }
     }
 }
 
@@ -106,16 +134,37 @@ qreal UMLCall::getDuration() const
 
 qreal UMLCall::getAtTime() const
 {
+    UMLCallType type = umlCallModel->getType();
+    if (type == UMLCallType::DESTROY)
+    {
+        if (sourceInstance) {
+            return ((qreal)sourceInstance->getLifeLength() / UMLCallModel::RELATIVE_MAX_LIFE) * (qreal)umlCallModel->getAtTime();
+        }
+        return ((qreal)UMLInstance::getMaxLifeLength() / UMLCallModel::RELATIVE_MAX_LIFE) * (qreal)umlCallModel->getAtTime();
+    }
+
     return ((qreal)destinationInstance->getLifeLength() / UMLCallModel::RELATIVE_MAX_LIFE) * (qreal)umlCallModel->getAtTime();
 }
 
 void UMLCall::setupArrows()
 {
-    forwardArrow = new UMLCallArrow(this, UMLCallArrowType::CALL_MESSAGE);
-    returnArrow = new UMLCallArrow(this, UMLCallArrowType::RETURN_MESSAGE);
-
-    if (umlCallModel->getAsync())
+    UMLCallType type = umlCallModel->getType();
+    if (type == UMLCallType::MESSAGE)
     {
-        returnArrow->setVisible(false);
+        forwardArrow = new UMLCallArrow(this, UMLCallArrowType::CALL_MESSAGE);
+        returnArrow = new UMLCallArrow(this, UMLCallArrowType::RETURN_MESSAGE);
+
+        if (umlCallModel->getAsync())
+        {
+            returnArrow->setVisible(false);
+        }
+    }
+    else if (type == UMLCallType::DESTROY)
+    {
+        forwardArrow = new UMLCallArrow(this, UMLCallArrowType::DESTROY);
+    }
+    else
+    {
+
     }
 }

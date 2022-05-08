@@ -29,16 +29,16 @@ QRectF UMLInstance::boundingRect() const
 
 QPointF UMLInstance::getStartCenter() const
 {
-    QRectF rect = outlineRect();
+    QRectF rect = sceneBoundingRect();
     QPointF startCenter = rect.center();
     startCenter.setY(rect.bottom());
     return startCenter;
 }
 
-QPointF UMLInstance::getEndCenter() const
+QPointF UMLInstance::getEndCenter()
 {
     QPointF endCenter = getStartCenter();
-    endCenter.setY(endCenter.y() + MAX_LENGTH);
+    endCenter.setY(endCenter.y() + getLifeLength());
     return endCenter;
 }
 
@@ -67,6 +67,11 @@ int UMLInstance::getLifeLength()
     return calculateEndLifeLine() - calculateStartLifeLine();
 }
 
+int UMLInstance::getMaxLifeLength()
+{
+    return MAX_LENGTH;
+}
+
 // - - - - - protected - - - - -
 
 void UMLInstance::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
@@ -76,13 +81,13 @@ void UMLInstance::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     QGraphicsItem::mouseReleaseEvent(event);
 }
 
-void UMLInstance::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
+void UMLInstance::mouseDoubleClickEvent(QGraphicsSceneMouseEvent */*event*/)
 {
     EditInstanceDialog *editInstanceDialog = new EditInstanceDialog(umlInstanceModel);
     editInstanceDialog->exec();
 }
 
-void UMLInstance::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget */* widget */)
+void UMLInstance::paint(QPainter *painter, const QStyleOptionGraphicsItem */*option*/, QWidget */* widget */)
 {
     QPen pen = QPen(isSelected() ? SELECTED_OUTLINE_COLOR : OUTLINE_COLOR);
     pen.setWidth(2);
@@ -134,7 +139,6 @@ void UMLInstance::onUMLInstanceModelChanged(UMLInstanceModel *umlInstanceModel)
 
 QRectF UMLInstance::outlineRect() const
 {
-
     QFontMetricsF fontMetrics(TEXT_FONT);
     QRectF rect = fontMetrics.boundingRect(umlInstanceModel->getDisplayName());
     rect.adjust(-PADDING, -PADDING, +PADDING, +PADDING);
@@ -147,12 +151,15 @@ int UMLInstance::calculateStartLifeLine()
     UMLCallModel *umlCallModel = umlSequenceModel->instanceCreatedBy(umlInstanceModel);
     if (umlCallModel)
     {
-        // TODO:
+        foreach(QGraphicsItem *item, scene()->items())
+        {
+            if (UMLCall *umlCall = dynamic_cast<UMLCall*>(item))
+            {
+                return umlCall->sceneBoundingRect().center().y();
+            }
+        }
     }
-    else
-    {
-        return getStartCenter().y();
-    }
+     return getStartCenter().y();
 }
 
 int UMLInstance::calculateEndLifeLine()
@@ -160,10 +167,16 @@ int UMLInstance::calculateEndLifeLine()
     UMLCallModel *umlCallModel = umlSequenceModel->instanceDestroyedBy(umlInstanceModel);
     if (umlCallModel)
     {
-        // TODO:
+        foreach(QGraphicsItem *item, scene()->items())
+        {
+            if (UMLCall *umlCall = dynamic_cast<UMLCall*>(item))
+            {
+                if (umlCall->getUMLCallModel() == umlCallModel)
+                {
+                    return umlCall->sceneBoundingRect().center().y();
+                }
+            }
+        }
     }
-    else
-    {
-        return getStartCenter().y() + MAX_LENGTH;
-    }
+    return getStartCenter().y() + MAX_LENGTH;
 }

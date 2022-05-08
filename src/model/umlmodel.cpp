@@ -30,6 +30,18 @@ void UMLModel::removeClass(UMLClassModel *umlClassModel)
 {
     if (classes.remove(umlClassModel))
     {
+        foreach (auto  umlSequenceModel, sequences)
+        {
+            foreach (auto umlInstanceModel, umlSequenceModel->getInstances())
+            {
+                if (umlInstanceModel->getClassModel() == umlClassModel)
+                {
+                    umlSequenceModel->removeInstance(umlInstanceModel);
+                }
+            }
+        }
+
+
         emit classModelRemoved(umlClassModel);
         delete umlClassModel;
     }
