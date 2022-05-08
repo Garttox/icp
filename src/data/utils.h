@@ -9,6 +9,7 @@
 #define UTILS_H
 
 #include <QString>
+#include <QJsonValue>
 #include <QJsonObject>
 #include <QJsonArray>
 
@@ -33,11 +34,11 @@ Optional<QList<DATA*>> fromJsonArray(QJsonValueRef value)
     QList<DATA*> list;
     if (value.isNull())
     {
-        return Optional(list, true);
+        return Optional<DATA*>(list, true);
     }
     if (!value.isArray())
     {
-        return Optional(list, false);
+        return Optional<DATA*>(list, false);
     }
     foreach (auto item, value.toArray())
     {
@@ -48,10 +49,10 @@ Optional<QList<DATA*>> fromJsonArray(QJsonValueRef value)
         }
         else
         {
-             return Optional(list, false);
+             return Optional<DATA*>(list, false);
         }
     }
-    return Optional(list, true);
+    return Optional<DATA*>(list, true);
 }
 
 /**

@@ -10,6 +10,8 @@
 
 #include "data.h"
 #include "umldata.h"
+#include <QString>
+#include <QList>
 
 /**
  * @brief Class for resolving inconsistencies in loaded data.

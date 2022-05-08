@@ -14,5 +14,5 @@ clean:
 doxygen:
 	doxygen Doxyfile
 
-pack:
+pack: clean
 	zip -r 1_xtrlic02_xbedna77.zip src examples res doc README.txt Makefile Doxyfile
