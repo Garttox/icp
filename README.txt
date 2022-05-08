@@ -11,7 +11,7 @@ displaying, creating, editing and saving UML class diagrams and sequence diagram
 
 Application uses it's own JSON file structure to store and load diagrams.
 
-### Complition:
+### Completion:
 Class diagram - fully implemented
 Sequence diagram - loading and editing is fully implemented. Interacting is partially implemented
 Undo - editing, adding is fully implemented. Remove is not implemented.
