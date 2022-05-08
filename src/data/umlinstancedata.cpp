@@ -49,7 +49,7 @@ QJsonObject UMLInstanceData::toJson() const
     object.insert("name", name);
     object.insert("class", umlClass);
     object.insert("posX", posX);
-    object.insert("posX", posY);
+    object.insert("posY", posY);
     return object;
 }
 

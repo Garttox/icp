@@ -16,10 +16,13 @@ public:
     UMLInstanceModel *getSource() const;
     UMLCallType getType() const;
     UMLMethodModel *getMethod() const;
+    void setMethod(UMLMethodModel *method);
     int getAtTime() const;
     void setAtTime(int atTime);
     int getDuration() const;
+    void setDuration(int duration);
     bool getAsync() const;
+    void setAsync(bool async);
     QString getDisplayMethodName() const;
 
     static constexpr qreal RELATIVE_MAX_LIFE = 1000;

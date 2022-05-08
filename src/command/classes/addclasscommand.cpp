@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file addclasscommand.cpp
+ * @author Michal Trlica (xtrlic02)
+ */
+
 #include "addclasscommand.h"
 #include "model/modelprovider.h"
 #include "model/umlmodel.h"

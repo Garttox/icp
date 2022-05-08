@@ -67,6 +67,7 @@ SOURCES += main.cpp\
         view/classes/umlrelationanchor.cpp \
         view/classtoolbar.cpp \
         view/resolvedinconsistenciesdialog.cpp \
+        view/sequence/editcalldialog.cpp \
         view/sequence/editinstancedialog.cpp \
         view/sequence/newcalldialog.cpp \
         view/sequence/newinstancedialog.cpp \
@@ -136,6 +137,7 @@ HEADERS  += app.h \
     view/classtoolbar.h \
     view/resolvedinconsistenciesdialog.h \
     view/sequence/UMLCallArrowType.h \
+    view/sequence/editcalldialog.h \
     view/sequence/editinstancedialog.h \
     view/sequence/newcalldialog.h \
     view/sequence/newinstancedialog.h \
@@ -155,6 +157,7 @@ FORMS    += \
     view/classes/editrelationdialog.ui \
     view/classes/newclassdialog.ui \
     view/resolvedinconsistenciesdialog.ui \
+    view/sequence/editcalldialog.ui \
     view/sequence/editinstancedialog.ui \
     view/sequence/newcalldialog.ui \
     view/sequence/newinstancedialog.ui \
