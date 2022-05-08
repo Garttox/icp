@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file sequencetoolbar.cpp
+ * @author Michal Trlica (xtrlic02)
+ */
 #include "sequencetoolbar.h"
 
 #include <view/sequence/newinstancedialog.h>

@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file umlrelationtype.cpp
+ * @author Michal Trlica (xtrlic02)
+ */
 #include "umlrelationtype.h"
 
 UMLRelationType::UMLRelationType(RelationType type)

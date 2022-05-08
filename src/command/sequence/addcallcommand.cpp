@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file addcallcommand.cpp
+ * @author Michal Trlica (xtrlic02)
+ */
 #include "addcallcommand.h"
 
 AddCallCommand::AddCallCommand(UMLSequenceModel *umlSequenceModel, UMLCallModel *umlCallModel)

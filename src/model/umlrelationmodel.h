@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file umlrelationmodel.h
+ * @author Michal Trlica (xtrlic02)
+ */
 #ifndef UMLRELATIONMODEL_H
 #define UMLRELATIONMODEL_H
 

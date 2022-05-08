@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file umlfieldmodel.h
+ * @author Michal Trlica (xtrlic02)
+ */
 #ifndef UMLFIELDMODEL_H
 #define UMLFIELDMODEL_H
 

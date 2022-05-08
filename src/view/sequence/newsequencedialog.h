@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file newsequencedialog.h
+ * @author Michal Trlica (xtrlic02)
+ */
 #ifndef NEWSEQUENCEDIALOG_H
 #define NEWSEQUENCEDIALOG_H
 

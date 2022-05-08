@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file umlinstancemodel.h
+ * @author Michal Trlica (xtrlic02)
+ */
 #ifndef UMLINSTANCEMODEL_H
 #define UMLINSTANCEMODEL_H
 

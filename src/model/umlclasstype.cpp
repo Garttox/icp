@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file umlclasstype.cpp
+ * @author Michal Trlica (xtrlic02)
+ */
 #include "umlclasstype.h"
 
 UMLClassType::UMLClassType(ClassType classType)

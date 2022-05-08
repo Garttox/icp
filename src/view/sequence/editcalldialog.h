@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file editcalldialog.h
+ * @author Michal Trlica (xtrlic02)
+ */
 #ifndef EDITCALLDIALOG_H
 #define EDITCALLDIALOG_H
 

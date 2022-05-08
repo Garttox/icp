@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file newsequencedialog.cpp
+ * @author Michal Trlica (xtrlic02)
+ */
 #include "newsequencedialog.h"
 #include "ui_newsequencedialog.h"
 

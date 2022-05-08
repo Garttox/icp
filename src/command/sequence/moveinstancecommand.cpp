@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file moveinstancecommand.cpp
+ * @author Michal Trlica (xtrlic02)
+ */
 #include "moveinstancecommand.h"
 
 #include <command/commandstack.h>

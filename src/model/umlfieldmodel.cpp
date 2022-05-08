@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file umlfieldmodel.cpp
+ * @author Michal Trlica (xtrlic02)
+ */
 #include "umlfieldmodel.h"
 
 UMLFieldModel::UMLFieldModel(QString name, QString type, UMLAccessType access) :

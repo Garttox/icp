@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file umlaccesstype.cpp
+ * @author Michal Trlica (xtrlic02)
+ */
 #include "umlaccesstype.h"
 
 UMLAccessType::UMLAccessType(AccessType type)

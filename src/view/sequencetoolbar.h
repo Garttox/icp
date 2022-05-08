@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file sequencetoolbar.h
+ * @author Michal Trlica (xtrlic02)
+ */
 #ifndef SEQUENCETOOLBAR_H
 #define SEQUENCETOOLBAR_H
 
@@ -6,11 +12,19 @@
 #include <QObject>
 #include <QToolBar>
 
+/**
+ * @brief Class extending QToolBar and adding specific actions to it.
+ * @author Michal Trlica (xtrlic02)
+ */
 class SequenceToolBar : public QToolBar
 {
     Q_OBJECT
 public:
     SequenceToolBar();
+    /**
+     * @brief Changes active view on which actions responds.
+     * @param view SequenceDiagramView that  to be active. 
+     */
     void changeView(SequenceDiagramView *view);
 private:
     QPoint getViewportCenter();

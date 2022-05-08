@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file movecallcommand.cpp
+ * @author Michal Trlica (xtrlic02)
+ */
 #include "movecallcommand.h"
 
 #include <command/commandstack.h>

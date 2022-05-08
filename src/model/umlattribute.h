@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file umlattribute.h
+ * @author Michal Trlica (xtrlic02)
+ */
 #ifndef UMLATTRIBUTEH_H
 #define UMLATTRIBUTEH_H
 

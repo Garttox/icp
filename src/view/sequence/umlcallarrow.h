@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file umlcallarrow.h
+ * @author Michal Trlica (xtrlic02)
+ */
 #ifndef UMLCALLARROW_H
 #define UMLCALLARROW_H
 

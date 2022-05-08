@@ -1,16 +1,15 @@
-#ifndef NEWCLASSDIALOG_H
-#define NEWCLASSDIALOG_H
-
-#include <QDialog>
-#include "classdialog.h"
-#include "model/umlclassmodel.h"
-
 /**
  * ICP - UML Application
  * @date 25/4/2022
  * @file newclassdialog.h
  * @author Martin Bednář (xbedna77)
  */
+#ifndef NEWCLASSDIALOG_H
+#define NEWCLASSDIALOG_H
+
+#include <QDialog>
+#include "classdialog.h"
+#include "model/umlclassmodel.h"
 
 namespace Ui {
 class NewClassDialog;

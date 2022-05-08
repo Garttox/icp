@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file umlinstance.h
+ * @author Michal Trlica (xtrlic02)
+ */
 #ifndef UMLINSTANCE_H
 #define UMLINSTANCE_H
 
@@ -11,6 +17,9 @@
 #include <model/umlsequencemodel.h>
 #include <model/umlinstancemodel.h>
 
+/**
+ * @brief Graphical object for displaying UML Instance.
+ */
 class UMLInstance : public QObject, public QGraphicsItem
 {
     Q_OBJECT
@@ -28,6 +37,10 @@ public:
      * @return True, if UMLInstance is displaying given UMLInstanceModel.
      */
     bool correspondsTo(UMLInstanceModel *umlInstanceModel);
+    /**
+     * @brief Calculates length of UML Lifeline.
+     * @return Lenght in pixel of UML Lifeline.
+     */
     int getLifeLength();
     static int getMaxLifeLength();
 protected:

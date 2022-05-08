@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file umlcalltype.h
+ * @author Michal Trlica (xtrlic02)
+ */
 #ifndef UMLCALLTYPE_H
 #define UMLCALLTYPE_H
 

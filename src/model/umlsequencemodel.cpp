@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file umlsequencemodel.cpp
+ * @author Michal Trlica (xtrlic02)
+ */
 #include "modelprovider.h"
 #include "umlsequencemodel.h"
 

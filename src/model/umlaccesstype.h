@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file umlaccesstype.h
+ * @author Michal Trlica (xtrlic02)
+ */
 #ifndef UMLACCESSTYPE_H
 #define UMLACCESSTYPE_H
 

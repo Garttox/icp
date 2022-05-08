@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file newcalldialog.cpp
+ * @author Michal Trlica (xtrlic02)
+ */
 #include "newcalldialog.h"
 #include "ui_newcalldialog.h"
 

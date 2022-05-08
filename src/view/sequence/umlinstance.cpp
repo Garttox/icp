@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file umlinstance.cpp
+ * @author Michal Trlica (xtrlic02)
+ */
 #include "umlinstance.h"
 #include "umlcall.h"
 #include "editinstancedialog.h"

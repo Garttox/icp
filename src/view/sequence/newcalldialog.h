@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file newcalldialog.h
+ * @author Michal Trlica (xtrlic02)
+ */
 #ifndef NEWCALLDIALOG_H
 #define NEWCALLDIALOG_H
 

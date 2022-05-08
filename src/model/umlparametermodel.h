@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file umlparametermodel.h
+ * @author Michal Trlica (xtrlic02)
+ */
 #ifndef UMLPARAMETERMODEL_H
 #define UMLPARAMETERMODEL_H
 

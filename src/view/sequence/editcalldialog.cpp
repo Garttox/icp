@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file editcalldialog.cpp
+ * @author Michal Trlica (xtrlic02)
+ */
 #include "editcalldialog.h"
 #include "ui_editcalldialog.h"
 

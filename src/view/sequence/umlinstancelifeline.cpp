@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file umlinstancelifeline.cpp
+ * @author Michal Trlica (xtrlic02)
+ */
 #include "newcalldialog.h"
 #include "umlinstance.h"
 #include "umlinstancelifeline.h"

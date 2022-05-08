@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file umlmethodmodel.h
+ * @author Michal Trlica (xtrlic02)
+ */
 #ifndef UMLMETHODMODEL_H
 #define UMLMETHODMODEL_H
 

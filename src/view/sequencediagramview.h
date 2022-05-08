@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file sequencediagramview.h
+ * @author Michal Trlica (xtrlic02)
+ */
 #ifndef SEQUENCEDIAGRAMVIEW_H
 #define SEQUENCEDIAGRAMVIEW_H
 
@@ -10,6 +16,10 @@
 #include <view/sequence/umlcall.h>
 #include <view/sequence/umlinstance.h>
 
+/**
+ * @brief Extends QGraphicsView to implement specific functionalities for UML sequence diagram.
+ * @authors Michal Trlica (xtrlic02)
+ */
 class SequenceDiagramView : public QGraphicsView
 {
     Q_OBJECT
@@ -24,6 +34,10 @@ public:
     bool correspondsTo(UMLSequenceModel *umlSequenceModel);
 
     UMLSequenceModel *getUMLSequenceModel() const;
+
+    /**
+     * @brief Generates all components from UMLSequenceModel
+     */
     void loadSequence();
 
 private slots:

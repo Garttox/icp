@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file umlclasstype.h
+ * @author Michal Trlica (xtrlic02)
+ */
 #ifndef UMLCLASSTYPE_H
 #define UMLCLASSTYPE_H
 

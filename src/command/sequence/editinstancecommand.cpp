@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file editinstancecommand.cpp
+ * @author Michal Trlica (xtrlic02)
+ */
 #include "editinstancecommand.h"
 
 EditInstanceCommand::EditInstanceCommand(UMLInstanceModel *umlInstanceModel, QString newName)

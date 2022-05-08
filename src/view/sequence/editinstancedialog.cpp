@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file editinstancedialog.cpp
+ * @author Michal Trlica (xtrlic02)
+ */
 #include "editinstancedialog.h"
 #include "ui_editinstancedialog.h"
 

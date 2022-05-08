@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file umlparametermodel.cpp
+ * @author Michal Trlica (xtrlic02)
+ */
 #include "umlparametermodel.h"
 
 UMLParameterModel::UMLParameterModel(QString name, QString type)

@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file umlcallarrow.cpp
+ * @author Michal Trlica (xtrlic02)
+ */
 #include "umlcall.h"
 #include "umlcallarrow.h"
 #include "umlinstance.h"

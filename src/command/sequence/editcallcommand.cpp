@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file editcallcommand.cpp
+ * @author Michal Trlica (xtrlic02)
+ */
 #include "editcallcommand.h"
 
 EditCallCommand::EditCallCommand(UMLCallModel *umlCallModel, UMLMethodModel *newMethod, bool newAsync, int newDuration)

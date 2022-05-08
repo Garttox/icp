@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file umlrelationtype.h
+ * @author Michal Trlica (xtrlic02)
+ */
 #ifndef UMLRELATIONTYPE_H
 #define UMLRELATIONTYPE_H
 

@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file addsequencecommand.h
+ * @author Michal Trlica (xtrlic02)
+ */
 #ifndef ADDSEQUENCECOMMAND_H
 #define ADDSEQUENCECOMMAND_H
 

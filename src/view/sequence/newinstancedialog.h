@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file newinstancedialog.h
+ * @author Michal Trlica (xtrlic02)
+ */
 #ifndef NEWINSTANCEDIALOG_H
 #define NEWINSTANCEDIALOG_H
 

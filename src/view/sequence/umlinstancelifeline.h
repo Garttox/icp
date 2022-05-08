@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file umlinstancelifeline.h
+ * @author Michal Trlica (xtrlic02)
+ */
 #ifndef UMLINSTANCELIFELINE_H
 #define UMLINSTANCELIFELINE_H
 
@@ -5,6 +11,9 @@
 
 class UMLInstance;
 
+/**
+ * @brief Graphical object for displaying UML Instance's life line .
+ */
 class UMLInstanceLifeLine : public QObject, public QGraphicsLineItem
 {
     Q_OBJECT

@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file umlinstancemodel.cpp
+ * @author Michal Trlica (xtrlic02)
+ */
 #include "umlinstancemodel.h"
 
 UMLInstanceModel::UMLInstanceModel(QString name, UMLClassModel *umlClassModel, int posX, int posY) :

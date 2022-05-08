@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file sequencediagramview.cpp
+ * @author Michal Trlica (xtrlic02)
+ */
 #include "sequencediagramview.h"
 
 #include <view/classes/umlclass.h>

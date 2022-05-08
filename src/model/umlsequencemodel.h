@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file umlsequencemodel.h
+ * @author Michal Trlica (xtrlic02)
+ */
 #ifndef UMLSEQUENCEMODEL_H
 #define UMLSEQUENCEMODEL_H
 

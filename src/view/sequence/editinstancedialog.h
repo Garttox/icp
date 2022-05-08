@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file editinstancedialog.h
+ * @author Michal Trlica (xtrlic02)
+ */
 #ifndef EDITINSTANCEDIALOG_H
 #define EDITINSTANCEDIALOG_H
 

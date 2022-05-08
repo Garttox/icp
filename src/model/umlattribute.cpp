@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file umlattribute.cpp
+ * @author Michal Trlica (xtrlic02)
+ */
 #include "umlattribute.h"
 
 UMLAttribute::UMLAttribute(QString name, QString type, UMLAccessType access)

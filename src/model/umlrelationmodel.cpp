@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file umlrelationmodel.cpp
+ * @author Michal Trlica (xtrlic02)
+ */
 #include "umlrelationmodel.h"
 
 UMLRelationModel::UMLRelationModel(UMLClassModel *src, UMLClassModel *dest, UMLRelationType type, int srcAnchorId, int destAnchorId)

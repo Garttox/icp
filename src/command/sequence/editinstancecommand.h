@@ -1,3 +1,9 @@
+/**
+ * ICP - UML Application
+ * @date 7/5/2022
+ * @file editinstancecommand.h
+ * @author Michal Trlica (xtrlic02)
+ */
 #ifndef EDITINSTANCECOMMAND_H
 #define EDITINSTANCECOMMAND_H
 
