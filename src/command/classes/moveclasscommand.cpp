@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 6/5/2022
+ * @file moveclasscommand.cpp
+ * @author Martin Bednář (xbedna77)
+ */
+
 #include "moveclasscommand.h"
 #include "command/commandstack.h"
 

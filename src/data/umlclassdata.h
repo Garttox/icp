@@ -28,6 +28,7 @@ public:
     UMLClassModel *toModel(void* context = nullptr) override;
 
     void addMethod(UMLMethodData *umlMethodData);
+    void setName(QString name);
 
     QString getName() const;
     QString getType() const;

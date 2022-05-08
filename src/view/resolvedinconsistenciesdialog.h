@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 6/5/2022
+ * @file resolvedinconsistenciesdialog.h
+ * @author Martin Bednář (xbedna77)
+ */
+
 #ifndef RESOLVEDINCONSISTENCIESDIALOG_H
 #define RESOLVEDINCONSISTENCIESDIALOG_H
 

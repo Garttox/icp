@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 6/5/2022
+ * @file editclasscommand.cpp
+ * @author Martin Bednář (xbedna77)
+ */
+
 #include "editclasscommand.h"
 
 EditClassCommand::EditClassCommand(UMLClassModel *umlClassModel, UMLClassModel *umlClassModelEdited) :

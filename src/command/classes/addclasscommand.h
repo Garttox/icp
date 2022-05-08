@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 6/5/2022
+ * @file addclasscommand.h
+ * @author Martin Bednář (xbedna77)
+ */
+
 #ifndef ADDCLASSCOMMAND_H
 #define ADDCLASSCOMMAND_H
 

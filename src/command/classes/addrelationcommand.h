@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 6/5/2022
+ * @file addrelationcommand.h
+ * @author Martin Bednář (xbedna77)
+ */
+
 #ifndef ADDRELATIONCOMMAND_H
 #define ADDRELATIONCOMMAND_H
 

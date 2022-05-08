@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 6/5/2022
+ * @file editrelationcommand.cpp
+ * @author Martin Bednář (xbedna77)
+ */
+
 #include "editrelationcommand.h"
 
 EditRelationCommand::EditRelationCommand(UMLRelationModel *umlRelationModel, UMLRelationType newType) :

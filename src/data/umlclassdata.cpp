@@ -80,6 +80,11 @@ void UMLClassData::addMethod(UMLMethodData *umlMethodData)
     methods.append(umlMethodData);
 }
 
+void UMLClassData::setName(QString name)
+{
+    this->name = name;
+}
+
 QString UMLClassData::getName() const
 {
     return name;

@@ -1,3 +1,10 @@
+/**
+ * ICP - UML Application
+ * @date 6/5/2022
+ * @file commandstack.h
+ * @author Martin Bednář (xbedna77)
+ */
+
 #ifndef COMMANDSTACK_H
 #define COMMANDSTACK_H
 

@@ -1,8 +1,8 @@
 /**
  * ICP - UML Application
- * @date 7/5/2022
+ * @date 6/5/2022
  * @file addclasscommand.cpp
- * @author Michal Trlica (xtrlic02)
+ * @author Martin Bednář (xbedna77)
  */
 
 #include "addclasscommand.h"

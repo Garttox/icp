@@ -27,6 +27,7 @@ public:
     QStringList resolve(UMLData *umlData);
 
 private:
+    void resolveDuplicatedClassNames(UMLData *umlData);
     void resolveDuplicatedSequenceNames(UMLData *umlData);
     void resolveNonExistingMethodsForCalls(UMLData *umlData);
     void resolveNonExistingInstancesForCalls(UMLData *umlData);
