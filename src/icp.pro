@@ -135,7 +135,7 @@ HEADERS  += app.h \
     view/classes/umlrelationanchor.h \
     view/classtoolbar.h \
     view/resolvedinconsistenciesdialog.h \
-    view/sequence/UMLCallArrowType.h \
+    view/sequence/umlcallarrowtype.h \
     view/sequence/editcalldialog.h \
     view/sequence/editinstancedialog.h \
     view/sequence/newcalldialog.h \
