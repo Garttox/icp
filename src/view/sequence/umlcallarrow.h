@@ -7,8 +7,6 @@
 #ifndef UMLCALLARROW_H
 #define UMLCALLARROW_H
 
-#include "umlcallarrowtype.h"
-
 #include <QApplication>
 #include <QObject>
 #include <QGraphicsLineItem>
@@ -16,6 +14,18 @@
 #include <QString>
 
 class UMLCall;
+
+/**
+ * @brief Indicates type of CallArrow
+ * @author Michal Trlica (xtrlic02)
+ */
+enum class UMLCallArrowType
+{
+    CALL_MESSAGE,
+    RETURN_MESSAGE,
+    CREATE,
+    DESTROY,
+};
 
 /**
  * @brief Graphical object for displaying UML Call arrow.

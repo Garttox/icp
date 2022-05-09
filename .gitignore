@@ -6,7 +6,12 @@ src/Makefile*
 src/icp.pro.user
 src/icp.pro.user*
 src/object_script.icp.*
+src/*.o
+src/.qmake.stash
+src/moc_*
+src/icp
+src/ui_*
 build*
-
+*.zip
 # ignore docs
 doc

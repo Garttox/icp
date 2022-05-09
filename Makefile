@@ -1,15 +1,15 @@
 CC=g++
 CXXFLAGS= -std=c++17 -Wall -Wextra
 
-run: compile clean
-	src/icp
-
-compile: 
+compile: clean
 	qmake src/icp.pro -o src/Makefile
 	$(MAKE) CXX=$(CC) -C src/ -o src/icp
 
+run: compile
+	cd ./src; ./icp
+
 clean:
-	rm -rf src/debug src/release src/Makefile* build*/ doc src/ui_* src/*.o src/.qmake.stash src/moc_*
+	rm -rf src/debug src/release src/Makefile* build*/ doc src/ui_* src/*.o src/.qmake.stash src/moc_* src/icp
 
 doxygen:
 	doxygen Doxyfile
