@@ -45,7 +45,8 @@ private:
 
     const QString DEFAULT_PATH = "../examples";
     static constexpr qreal SCENE_SIZE = 2400;
-    
+    static constexpr qreal SEQUENCE_SCENE_X_SIZE = 2000;
+    static constexpr qreal SEQUENCE_SCENE_Y_SIZE = 1000;
 private slots:
     void loadFile();
     void saveFile();

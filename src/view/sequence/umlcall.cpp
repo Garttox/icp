@@ -130,7 +130,10 @@ QVariant UMLCall::itemChange(GraphicsItemChange change, const QVariant &value)
 
 void UMLCall::onCallModelChange(UMLCallModel */*umlCallModel*/)
 {
-    returnArrow->setVisible(!umlCallModel->getAsync());
+    if (umlCallModel->getType() == UMLCallType::MESSAGE)
+    {
+        returnArrow->setVisible(!umlCallModel->getAsync());
+    }
     setPos(0, getAtTime());
     update();
 }

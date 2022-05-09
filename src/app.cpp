@@ -219,7 +219,7 @@ void App::addSequenceDiagram(UMLSequenceModel *umlSequenceModel)
 {
     SequenceDiagramView *sequenceView = new SequenceDiagramView(this, umlSequenceModel);
     QGraphicsScene *sequenceScene = new QGraphicsScene(sequenceView);
-    sequenceScene->setSceneRect(0, 0, SCENE_SIZE, SCENE_SIZE);
+    sequenceScene->setSceneRect(0, 0, SEQUENCE_SCENE_X_SIZE, SEQUENCE_SCENE_Y_SIZE);
     sequenceView->setMinimumSize(600, 600);
     sequenceView->setScene(sequenceScene);
     sequenceView->setDragMode(QGraphicsView::RubberBandDrag);
