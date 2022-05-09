@@ -11,6 +11,10 @@
 #include <model/umlinstancemodel.h>
 #include <model/umlsequencemodel.h>
 
+/**
+ * @brief Extends Command to implement adding new UML Instance.
+ * @author Michal Trlica (xtrlic02)
+ */
 class AddInstanceCommand : public Command
 {
 public:

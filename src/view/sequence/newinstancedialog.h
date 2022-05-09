@@ -15,6 +15,10 @@ namespace Ui {
 class NewInstanceDialog;
 }
 
+/**
+ * @brief Dialog for creating new UML Instance.
+ * @author Michal Trlica (xtrlic02)
+ */
 class NewInstanceDialog : public QDialog
 {
     Q_OBJECT

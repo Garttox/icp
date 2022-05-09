@@ -11,6 +11,10 @@
 
 #include <model/umlsequencemodel.h>
 
+/**
+ * @brief Extends Command to implement adding new UML Call.
+ * @author Michal Trlica (xtrlic02)
+ */
 class AddCallCommand : public Command
 {
 public:

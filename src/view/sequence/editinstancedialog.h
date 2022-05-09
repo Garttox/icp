@@ -15,6 +15,10 @@ namespace Ui {
 class EditInstanceDialog;
 }
 
+/**
+ * @brief Dialog for editing UML Instance.
+ * @author Michal Trlica (xtrlic02)
+ */
 class EditInstanceDialog : public QDialog
 {
     Q_OBJECT

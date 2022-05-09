@@ -13,6 +13,10 @@
 
 #include <QPoint>
 
+/**
+ * @brief Extends Command to implement position change of UML Instance.
+ * @author Michal Trlica (xtrlic02)
+ */
 class MoveInstanceCommand : public Command
 {
 public:

@@ -11,6 +11,10 @@
 
 #include <model/umlsequencemodel.h>
 
+/**
+ * @brief Extends Command to implement adding new UML Sequence.
+ * @author Michal Trlica (xtrlic02)
+ */
 class AddSequenceCommand : public Command
 {
 public:

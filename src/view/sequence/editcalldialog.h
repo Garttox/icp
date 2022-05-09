@@ -15,6 +15,10 @@ namespace Ui {
 class EditCallDialog;
 }
 
+/**
+ * @brief Dialog for editing UML Call.
+ * @author Michal Trlica (xtrlic02)
+ */
 class EditCallDialog : public QDialog
 {
     Q_OBJECT

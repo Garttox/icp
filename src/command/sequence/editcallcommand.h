@@ -11,6 +11,10 @@
 
 #include <model/umlcallmodel.h>
 
+/**
+ * @brief Extends Command to implement Async and Duration change of UML Call.
+ * @author Michal Trlica (xtrlic02)
+ */
 class EditCallCommand : public Command
 {
 public:

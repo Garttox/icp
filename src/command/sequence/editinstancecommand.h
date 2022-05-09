@@ -11,6 +11,10 @@
 
 #include <model/umlsequencemodel.h>
 
+/**
+ * @brief Extends Command to implement name change of UML Instance.
+ * @author Michal Trlica (xtrlic02)
+ */
 class EditInstanceCommand : public Command
 {
 public:

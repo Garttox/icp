@@ -10,6 +10,10 @@
 #include <command/command.h>
 #include <model/umlcallmodel.h>
 
+/**
+ * @brief Extends Command to implement position change of UML Call.
+ * @author Michal Trlica (xtrlic02)
+ */
 class MoveCallCommand : public Command
 {
 public:

@@ -19,6 +19,7 @@
 
 /**
  * @brief Graphical object for displaying UML Instance.
+ * @author Michal Trlica (xtrlic02)
  */
 class UMLInstance : public QObject, public QGraphicsItem
 {

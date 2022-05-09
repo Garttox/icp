@@ -15,6 +15,10 @@ namespace Ui {
 class NewCallDialog;
 }
 
+/**
+ * @brief Dialog for creating new UML Call.
+ * @author Michal Trlica (xtrlic02)
+ */
 class NewCallDialog : public QDialog
 {
     Q_OBJECT

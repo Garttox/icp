@@ -17,6 +17,7 @@
 class UMLInstance;
 /**
  * @brief Graphical object for displaying UML Call.
+ * @author Michal Trlica (xtrlic02)
  */
 class UMLCall : public QObject, public QGraphicsItem
 {
@@ -43,7 +44,15 @@ private slots:
 private:
     QRectF outlineRect() const;
     void setCorrectPosition();
+    /**
+     * @brief Calculates height of UML Call from UMLCallModel duration attribute
+     * @return qreal Height of UML Call
+     */
     qreal getDuration() const;
+    /**
+     * @brief Calculates Y position from UMLCallModel atTime attribute
+     * @return qreal Y position relative to UML instance
+     */
     qreal getAtTime() const;
     void setupArrows();
 

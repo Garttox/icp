@@ -13,6 +13,10 @@ namespace Ui {
 class NewSequenceDialog;
 }
 
+/**
+ * @brief Dialog for creating new UML Sequence.
+ * @author Michal Trlica (xtrlic02)
+ */
 class NewSequenceDialog : public QDialog
 {
     Q_OBJECT

@@ -1,6 +1,6 @@
 /**
  * ICP - UML Application
- * @date 7/5/2022
+ * @date 22/4/2022
  * @file main.cpp
  * @author Michal Trlica (xtrlic02), Martin Bednář (xbedna77)
  */

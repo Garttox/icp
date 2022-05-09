@@ -7,6 +7,10 @@
 #ifndef UMLCALLARROWTYPE_H
 #define UMLCALLARROWTYPE_H
 
+/**
+ * @brief Indicates type of CallArrow
+ * @author Michal Trlica (xtrlic02)
+ */
 enum class UMLCallArrowType
 {
     CALL_MESSAGE,

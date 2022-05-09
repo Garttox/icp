@@ -17,6 +17,10 @@
 
 class UMLCall;
 
+/**
+ * @brief Graphical object for displaying UML Call arrow.
+ * @author Michal Trlica (xtrlic02)
+ */
 class UMLCallArrow : public QObject, public QGraphicsLineItem
 {
     Q_OBJECT
