@@ -36,6 +36,10 @@ signals:
     void modelChanged(UMLMethodModel* umlMethodModel);
 
 private:
+
+    /**
+     * @brief oid UUID of original object - is assigned from original on copy.
+     */
     QUuid oid;
     QList<UMLParameterModel *> parameters;
 };

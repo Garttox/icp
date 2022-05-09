@@ -56,7 +56,17 @@ signals:
     void modelChanged(UMLClassModel *umlClassModel);
 
 private:
+    /**
+     * @brief Get and remove method with specific oid from methods list.
+     * @param oid Original id to look for.
+     * @return UMLMethodModel if found, nullptr otherwise.
+     */
     UMLMethodModel *takeMethodByOid(QUuid oid);
+
+    /**
+     * @brief Does method merging based on oids, from foreign UMLClassModel to this UMLClassModel.
+     * @param foreign UMLClassModel to be merged.
+     */
     void setMethodsFromCopy(UMLClassModel &foreign);
 
     QString name;

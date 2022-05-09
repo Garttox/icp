@@ -130,7 +130,9 @@ UMLClassType UMLClassModel::getType() const
 QString UMLClassModel::getDisplayName() const
 {
     if (type == UMLClassType::INTERFACE)
+    {
         return QString("%1 <<%2>>").arg(name, "interface");
+    }
     return name;
 }
 
@@ -219,6 +221,12 @@ UMLMethodModel *UMLClassModel::takeMethodByOid(QUuid oid)
 
 void UMLClassModel::setMethodsFromCopy(UMLClassModel &foreign)
 {
+    /*
+    Methods merging is done based on oids:
+    If method from foreign has oid similar with one of own methods,
+    then data are set from foreign to own method, without creating copy.
+    */
+
     QMutableListIterator<UMLMethodModel*> iter(this->methods);
     while (iter.hasNext())
     {
