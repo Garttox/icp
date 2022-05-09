@@ -10,6 +10,14 @@
 CommandStack::CommandStack()
 {}
 
+CommandStack::~CommandStack()
+{
+    for (auto iter = rbegin(); iter != rend(); iter++)
+    {
+        delete (*iter);
+    }
+}
+
 void CommandStack::push(Command *command)
 {
     if (size() == MAX_SIZE)

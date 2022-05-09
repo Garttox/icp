@@ -14,10 +14,11 @@
 /**
  * @brief Class storing commands of the app with ability to process and undo them.
  */
-class CommandStack : private QList<Command*>
+class CommandStack : protected QList<Command*>
 {
 public:
     CommandStack();
+    ~CommandStack();
 
     /**
      * @brief Pushes command onto a stack and processes it.
@@ -30,12 +31,19 @@ public:
      */
     void undo();
 
+    /**
+     * @brief Get the singleton instance of CommandStack
+     * @return CommandStack& 
+     */
     static CommandStack& getInstance();
 
 private:
     void undoTopCommand();
     void removeBottomCommand();
 
+    /**
+     * @brief If size of stack exceed MAX_SIZE, then Commands on the bottom of the stack are removed.
+     */
     static constexpr int MAX_SIZE = 8;
 
 };
